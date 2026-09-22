@@ -4,6 +4,8 @@ Direct retrieval of Sanskrit shlokas and translations from foundational texts
 (BPHS, Phaladeepika, Saravali) to prevent hallucinated interpretations.
 """
 
+from __future__ import annotations
+
 from typing import Any
 
 SHASTRA_DATABASE: dict[str, dict[str, Any]] = {

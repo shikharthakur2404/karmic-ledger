@@ -100,10 +100,22 @@ def generate_dasha_progress_bar_svg(
             else "var(--zen-card, #ffffff)"
         )
 
+        # Adaptive typography based on segment width
+        m_name = maha["mahadasha"]
+        if seg_width >= 85:
+            label = f"{m_name} ({dur:.0f}y)"
+        elif seg_width >= 42:
+            label = m_name
+        else:
+            label = m_name[:3]
+
+        tooltip = f"{m_name} Mahadasha ({dur:.1f} Years: {maha.get('start_date', '')} to {maha.get('end_date', '')})"
+
         segments_svg.append(
-            f'<g class="dasha-group" data-dasha="{maha["mahadasha"]}">'
+            f'<g class="dasha-group" data-dasha="{m_name}">'
+            f"<title>{tooltip}</title>"
             f'<rect class="dasha-rect" x="{current_x:.1f}" y="0" width="{seg_width:.1f}" height="{height}" fill="{fill_color}" stroke="var(--ink-hairline, rgba(20,20,20,0.15))" stroke-width="1"/>'
-            f'<text x="{current_x + seg_width / 2.0:.1f}" y="20" font-family="\'Shippori Mincho\', \'JetBrains Mono\', monospace" font-size="10.5" font-weight="600" fill="var(--ink-charcoal, #2a2a2a)" text-anchor="middle">{maha["mahadasha"][:3].upper()}</text>'
+            f'<text x="{current_x + seg_width / 2.0:.1f}" y="20" font-family="\'Shippori Mincho\', \'JetBrains Mono\', monospace" font-size="10.5" font-weight="600" fill="var(--ink-charcoal, #2a2a2a)" text-anchor="middle">{label}</text>'
             f"</g>"
         )
         current_x += seg_width

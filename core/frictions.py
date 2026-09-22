@@ -346,6 +346,36 @@ def audit_live_frictions(
             f"Jupiter moves into an uplifting area (House {t_jupiter_house}): brings optimism and helpful connections."
         )
 
+    # Dynamic Upcoming Vimshottari Timeline Transitions
+    target_dec = current_dt.year + (current_dt.timetuple().tm_yday - 1) / (
+        366.0 if current_dt.year % 4 == 0 else 365.0
+    )
+    upcoming_shifts = []
+    for maha in timeline:
+        if maha.get("end_decimal", 0) > target_dec:
+            for antar in maha.get("antardashas", []):
+                if antar.get("start_decimal", 0) > target_dec:
+                    upcoming_shifts.append(
+                        (
+                            antar["start_date"],
+                            f"Transition into {maha['mahadasha']} - {antar['antardasha']} sub-period ({antar['start_date']} to {antar['end_date']})",
+                        )
+                    )
+                elif (
+                    antar.get("start_decimal", 0)
+                    <= target_dec
+                    <= antar.get("end_decimal", 0)
+                ):
+                    upcoming_shifts.append(
+                        (
+                            antar["end_date"],
+                            f"Current cycle concluding ({maha['mahadasha']} - {antar['antardasha']}); shift arrives {antar['end_date']}.",
+                        )
+                    )
+
+    for _, shift_desc in sorted(upcoming_shifts, key=lambda x: x[0])[:3]:
+        cycle_horizons.append(shift_desc)
+
     # Format output for backwards compatibility while establishing clean symbolic schema
     return {
         "status": "TRANSIT_TENSION_DETECTED" if strain_indices else "TRANSIT_HARMONY",

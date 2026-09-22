@@ -363,10 +363,23 @@ def run_chart_pipeline(data: ChartRequest) -> dict[str, Any]:
     kundli_svg = generate_diamond_kundli_svg(lagna_idx, planets_by_house)
     dasha_bar_svg = generate_dasha_progress_bar_svg(timeline, age_years)
 
-    # 8. Soul Age & Archetype Telemetry
+    # 8. Planets Table for Sector 05
+    planets_table = []
+    for p_name, p_data in natal["planets"].items():
+        planets_table.append(
+            {
+                "planet": p_name,
+                "sign": p_data["sign"],
+                "degree": f"{p_data['degree_in_sign']:.2f}°",
+                "house": p_data["house"],
+                "dignity": p_data.get("dignity", "Neutral"),
+            }
+        )
+
+    # 9. Soul Age & Archetype Telemetry
     soul_telemetry = evaluate_soul_telemetry(natal)
 
-    # 9. Live Karmic Friction & Crisis Diagnostic
+    # 10. Live Karmic Friction & Crisis Diagnostic
     frictions = audit_live_frictions(natal, timeline, current_dt)
 
     if birth_time_unknown:
@@ -374,6 +387,10 @@ def run_chart_pipeline(data: ChartRequest) -> dict[str, Any]:
         frictions["active_crises"] = []
         frictions["active_strain_indices"] = []
         frictions["threat_vectors"] = []
+
+    remedies_list = (
+        remedies.get("items", remedies) if isinstance(remedies, dict) else remedies
+    )
 
     return {
         "subject": data.name,
@@ -394,10 +411,12 @@ def run_chart_pipeline(data: ChartRequest) -> dict[str, Any]:
         "vcs_score": vcs_score_val,
         "vcs_status": vcs_status,
         "kundli_svg": kundli_svg,
+        "planets_table": planets_table,
         "dasha_bar_svg": dasha_bar_svg,
         "primer_cards": primer_cards,
         "milestones": verified_milestones,
-        "remedies": remedies,
+        "remedies": remedies_list,
+        "raw_remedies": remedies,
         "domain_mantras": DOMAIN_MANTRAS,
         "soul_telemetry": soul_telemetry,
         "frictions": frictions,

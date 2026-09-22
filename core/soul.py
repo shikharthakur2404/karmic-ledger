@@ -6,6 +6,18 @@ using classical Jaimini Atmakaraka (AK) telemetry, nodal axes (Rahu-Ketu), and N
 
 from typing import Any
 
+PLANET_SANSKRIT = {
+    "Sun": "सूर्य",
+    "Moon": "चन्द्र",
+    "Mars": "मंगल",
+    "Mercury": "बुध",
+    "Jupiter": "बृहस्पति",
+    "Venus": "शुक्र",
+    "Saturn": "शनि",
+    "Rahu": "राहु",
+    "Ketu": "केतु",
+}
+
 ARCHETYPE_MAP = {
     "Saturn": {
         "title": "The Structural Architect",
@@ -161,14 +173,18 @@ def evaluate_soul_telemetry(natal: dict[str, Any]) -> dict[str, Any]:
         "maturity_level": maturity_level,
         "stage_description": description,
         "antiquity_score": round(score, 1),
+        "antiquity_index": round(score, 1),
         "atmakaraka_planet": ak_planet,
+        "atmakaraka_sanskrit": PLANET_SANSKRIT.get(ak_planet, ak_planet),
         "atmakaraka_degree": f"{ak_deg:.2f}°",
         "atmakaraka_formatted": ak_data["formatted"],
         "atmakaraka_dignity": ak_data["dignity"],
         "odometer_percentage": f"{odometer_pct}%",
+        "odometer_pct": odometer_pct,
         "archetype_title": archetype_title,
         "archetype_sanskrit": archetype_sanskrit,
         "archetype_summary": archetype_summary,
+        "archetype_description": archetype_summary,
         "core_lesson": archetype_lesson,
         "past_life_mastery": f"House {ketu_house} ({ketu_sign}) • Instinctual mastery, detachment, and pre-learned wisdom.",
         "unmastered_frontier": f"House {rahu_house} ({rahu_sign}) • Active growth edge and unspent earthly appetite.",

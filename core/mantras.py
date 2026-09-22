@@ -149,6 +149,32 @@ def recommend_remedies_for_chart(
             DOMAIN_MANTRAS["studies_and_exams"],
             DOMAIN_MANTRAS["crisis_and_protection"],
         ],
+        "items": [
+            {
+                "title": f"Active Cycle Shield ({active_mahadasha} - {active_antardasha})",
+                "planet": active_antardasha,
+                "type": "Vedic Mantra & Mindfulness",
+                "prescription": f"{antar_remedy.get('transliteration') or maha_remedy.get('transliteration', '')} • Recite {antar_remedy.get('ideal_count', '108 times daily')} for {antar_remedy.get('primary_benefit', 'clarity and equilibrium.')}",
+            },
+            {
+                "title": DOMAIN_MANTRAS["career_breakthrough"]["title"],
+                "planet": "Ganesha / Mars",
+                "type": "Karya Siddhi Directive",
+                "prescription": f"{DOMAIN_MANTRAS['career_breakthrough']['transliteration']} • {DOMAIN_MANTRAS['career_breakthrough']['protocol']}",
+            },
+            {
+                "title": DOMAIN_MANTRAS["studies_and_exams"]["title"],
+                "planet": "Saraswati / Mercury",
+                "type": "Cognitive Focus & Memory",
+                "prescription": f"{DOMAIN_MANTRAS['studies_and_exams']['transliteration']} • {DOMAIN_MANTRAS['studies_and_exams']['protocol']}",
+            },
+            {
+                "title": DOMAIN_MANTRAS["crisis_and_protection"]["title"],
+                "planet": "Hanuman / Saturn",
+                "type": "Resilience & Boundary Setting",
+                "prescription": f"{DOMAIN_MANTRAS['crisis_and_protection']['transliteration']} • {DOMAIN_MANTRAS['crisis_and_protection']['protocol']}",
+            },
+        ],
     }
 
     return recommendations

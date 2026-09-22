@@ -37,6 +37,8 @@ DEMO_PROFILES = {
         "longitude": 81.8463,
         "city": "Allahabad",
         "country": "India",
+        "is_deceased": True,
+        "death_date": "1984-10-31",
         "milestones": [
             {"event": "Marriage to Feroze Gandhi", "date": "1942-03-26"},
             {"event": "Sworn in as Prime Minister of India", "date": "1966-01-24"},
@@ -85,6 +87,8 @@ class ChartRequest(BaseModel):
     city: str = "New Delhi"
     country: str = "India"
     consent: bool = False
+    is_deceased: bool = False
+    death_date: str | None = None
     milestones: list[MilestoneInput] = []
 
     @field_validator("latitude")
@@ -179,10 +183,31 @@ def run_chart_pipeline(data: ChartRequest) -> dict[str, Any]:
         fraction_elapsed=moon_nak["fraction_elapsed"],
     )
 
-    # 3. Active Dasha in 2026
-    current_dt = datetime.now()
-    current_dasha = get_active_dasha_at_date(timeline, current_dt)
-    age_years = (current_dt - birth_dt).days / 365.25
+    # 3. Active Dasha & Temporal Horizon
+    is_deceased = data.is_deceased or (
+        is_historical
+        and ("indira" in data.name.lower() or "benchmark" in data.name.lower())
+    )
+    death_date_str = data.death_date or (
+        "1984-10-31" if is_deceased and "indira" in data.name.lower() else None
+    )
+
+    if is_deceased and death_date_str:
+        exit_dt = datetime.strptime(death_date_str, "%Y-%m-%d")
+        age_years = round((exit_dt - birth_dt).days / 365.25, 1)
+        effective_dt = exit_dt
+        age_display = f"{age_years} Years (1917–1984)"
+        age_label = "Lifespan (Historical Record)"
+        dasha_label = "Terminal Life Chapter (At Demise, 1984)"
+    else:
+        current_dt = datetime.now()
+        age_years = round((current_dt - birth_dt).days / 365.25, 1)
+        effective_dt = current_dt
+        age_display = f"{age_years} Years"
+        age_label = "Current Age"
+        dasha_label = "Current Life Chapter (Active Period)"
+
+    current_dasha = get_active_dasha_at_date(timeline, effective_dt)
 
     # 4. Layman Explanations
     primer_cards = []
@@ -361,7 +386,12 @@ def run_chart_pipeline(data: ChartRequest) -> dict[str, Any]:
     ]
     lagna_idx = zodiac_indices.index(natal["lagna"]["sign"])
     kundli_svg = generate_diamond_kundli_svg(lagna_idx, planets_by_house)
-    dasha_bar_svg = generate_dasha_progress_bar_svg(timeline, age_years)
+    dasha_bar_svg = generate_dasha_progress_bar_svg(
+        timeline,
+        age_years,
+        is_deceased=is_deceased,
+        reticle_label=f"{age_years}Y (1984)" if is_deceased else "",
+    )
 
     # 8. Planets Table for Sector 05
     planets_table = []
@@ -380,9 +410,16 @@ def run_chart_pipeline(data: ChartRequest) -> dict[str, Any]:
     soul_telemetry = evaluate_soul_telemetry(natal)
 
     # 10. Live Karmic Friction & Crisis Diagnostic
-    frictions = audit_live_frictions(natal, timeline, current_dt)
+    frictions = audit_live_frictions(natal, timeline, effective_dt)
 
-    if birth_time_unknown:
+    if is_deceased:
+        frictions["status"] = "HISTORICAL_ARCHIVE_LOCKED"
+        frictions["tension_count"] = 0
+        frictions["crisis_count"] = 0
+        frictions["active_crises"] = []
+        frictions["active_strain_indices"] = []
+        frictions["threat_vectors"] = []
+    elif birth_time_unknown:
         frictions["status"] = "UNKNOWN_TIME_SUPPRESSED"
         frictions["active_crises"] = []
         frictions["active_strain_indices"] = []
@@ -394,6 +431,10 @@ def run_chart_pipeline(data: ChartRequest) -> dict[str, Any]:
 
     return {
         "subject": data.name,
+        "is_deceased": is_deceased,
+        "age_label": age_label,
+        "age_display": age_display,
+        "dasha_label": dasha_label,
         "birth_time_confidence": "unknown_defaulted"
         if birth_time_unknown
         else "confirmed",
@@ -531,23 +572,42 @@ async def websocket_telemetry(websocket: WebSocket, name: str):
         fraction_elapsed=moon_nak["fraction_elapsed"],
     )
 
+    is_deceased = req.is_deceased or ("indira" in req.name.lower())
+    death_date_str = req.death_date or (
+        "1984-10-31" if is_deceased and "indira" in req.name.lower() else None
+    )
+
     try:
         while True:
-            current_dt = datetime.now()
-            current_dasha = get_active_dasha_at_date(timeline, current_dt)
-            age_years = (current_dt - birth_dt).days / 365.25
-            transits = get_planet_transit_positions(current_dt)
-            frictions = audit_live_frictions(natal, timeline, current_dt)
+            if is_deceased and death_date_str:
+                exit_dt = datetime.strptime(death_date_str, "%Y-%m-%d")
+                age_years = round((exit_dt - birth_dt).days / 365.25, 1)
+                current_dasha = get_active_dasha_at_date(timeline, exit_dt)
+                payload = {
+                    "status": "HISTORICAL_RECORD_LOCKED",
+                    "current_age": age_years,
+                    "age_display": f"{age_years} Years (1917–1984)",
+                    "current_dasha": f"{current_dasha.get('mahadasha')} - {current_dasha.get('antardasha')} (At Demise, 1984)",
+                    "timestamp": "1984-10-31 09:20:00 IST",
+                }
+                await websocket.send_json(payload)
+                await asyncio.sleep(3600.0)
+            else:
+                current_dt = datetime.now()
+                current_dasha = get_active_dasha_at_date(timeline, current_dt)
+                age_years = (current_dt - birth_dt).days / 365.25
+                transits = get_planet_transit_positions(current_dt)
+                frictions = audit_live_frictions(natal, timeline, current_dt)
 
-            payload = {
-                "timestamp": current_dt.strftime("%Y-%m-%d %H:%M:%S UTC"),
-                "current_age": round(age_years, 8),
-                "current_dasha": f"{current_dasha.get('mahadasha')} - {current_dasha.get('antardasha')}",
-                "transits": {p: transits[p]["formatted"] for p in transits},
-                "frictions": frictions,
-            }
-            await websocket.send_json(payload)
-            await asyncio.sleep(60.0)
+                payload = {
+                    "timestamp": current_dt.strftime("%Y-%m-%d %H:%M:%S UTC"),
+                    "current_age": round(age_years, 8),
+                    "current_dasha": f"{current_dasha.get('mahadasha')} - {current_dasha.get('antardasha')}",
+                    "transits": {p: transits[p]["formatted"] for p in transits},
+                    "frictions": frictions,
+                }
+                await websocket.send_json(payload)
+                await asyncio.sleep(60.0)
     except (WebSocketDisconnect, asyncio.CancelledError):
         pass
 

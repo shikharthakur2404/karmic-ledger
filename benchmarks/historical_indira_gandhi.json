@@ -2,6 +2,9 @@
   "subject_id": "historical_indira_gandhi",
   "name": "Indira Gandhi (Historical Benchmark)",
   "benchmark_type": "historical_public_record",
+  "is_deceased": true,
+  "death_date": "1984-10-31",
+  "lifespan_years": 66.9,
   "birth_data": {
     "date": "1917-11-19",
     "time": "23:11:00",

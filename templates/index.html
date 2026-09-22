@@ -1443,12 +1443,12 @@
           <div class="zen-metric-value" id="dispMoonNak">Uttara Ashadha</div>
         </div>
         <div class="zen-metric-cell">
-          <div class="zen-metric-label">Current Age</div>
-          <div class="zen-metric-value" id="dispAge">Historical Record</div>
+          <div class="zen-metric-label" id="dispAgeLabel">Lifespan (Historical Record)</div>
+          <div class="zen-metric-value" id="dispAge">66.9 Years (1917–1984)</div>
         </div>
         <div class="zen-metric-cell">
-          <div class="zen-metric-label">Current Life Chapter (Active Period)</div>
-          <div class="zen-metric-value" id="dispActiveDasha">Jupiter - Sun / Saturn - Rahu</div>
+          <div class="zen-metric-label" id="dispDashaLabel">Terminal Life Chapter (At Demise, 1984)</div>
+          <div class="zen-metric-value" id="dispActiveDasha">Saturn - Rahu</div>
         </div>
       </div>
     </section>
@@ -1916,7 +1916,13 @@
         tickCounter = 0;
 
         const dispAge = document.getElementById("dispAge");
-        if (dispAge) dispAge.textContent = `${payload.current_age} Yrs`;
+        if (dispAge) {
+          if (payload.status === "HISTORICAL_RECORD_LOCKED") {
+            dispAge.textContent = payload.age_display || `${payload.current_age} Years (1917–1984)`;
+          } else {
+            dispAge.textContent = `${payload.current_age} Yrs`;
+          }
+        }
 
         const dispActiveDasha = document.getElementById("dispActiveDasha");
         if (dispActiveDasha) dispActiveDasha.textContent = payload.current_dasha;
@@ -1950,7 +1956,17 @@
       }
       document.getElementById("dispLagna").textContent = data.lagna;
       document.getElementById("dispMoonNak").textContent = `${data.moon_sign} · ${data.moon_nakshatra}`;
-      document.getElementById("dispAge").textContent = `${data.current_age} Years`;
+
+      const dispAgeLabel = document.getElementById("dispAgeLabel");
+      if (dispAgeLabel) {
+        dispAgeLabel.textContent = data.age_label || "Current Age";
+      }
+      const dispDashaLabel = document.getElementById("dispDashaLabel");
+      if (dispDashaLabel) {
+        dispDashaLabel.textContent = data.dasha_label || "Current Life Chapter (Active Period)";
+      }
+
+      document.getElementById("dispAge").textContent = data.age_display || `${data.current_age} Years`;
       document.getElementById("dispActiveDasha").textContent = data.current_dasha;
 
       // 02 Soul Telemetry

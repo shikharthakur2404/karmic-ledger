@@ -80,6 +80,8 @@ def generate_dasha_progress_bar_svg(
     dasha_timeline: list[dict[str, Any]],
     current_age_years: float,
     max_lifespan: float = 95.0,
+    is_deceased: bool = False,
+    reticle_label: str = "",
 ) -> str:
     """
     Renders a 120-Year Vimshottari Mahadasha timeline in Zen Paper Minimal style:
@@ -122,12 +124,21 @@ def generate_dasha_progress_bar_svg(
 
     # Current Age Reticle: Vermilion Needle & Triangular Seal Indicator
     marker_x = min((current_age_years / max_lifespan) * total_width, total_width)
+    label_text = (
+        reticle_label
+        if reticle_label
+        else (
+            f"{current_age_years:.1f}Y (Demise)"
+            if is_deceased
+            else f"{current_age_years:.1f}Y"
+        )
+    )
     marker_svg = f"""
     <g class="age-reticle" transform="translate(0, 0)">
       <line x1="{marker_x:.1f}" y1="-4" x2="{marker_x:.1f}" y2="{height + 4}" stroke="var(--seal-red, #b92b27)" stroke-width="1.8" />
       <polygon points="{marker_x - 4:.1f},-5 {marker_x + 4:.1f},-5 {marker_x:.1f},0" fill="var(--seal-red, #b92b27)" />
       <circle cx="{marker_x:.1f}" cy="{height / 2}" r="2.5" fill="var(--seal-red, #b92b27)" />
-      <text x="{marker_x:.1f}" y="{height + 17}" font-family="\'Shippori Mincho\', monospace" font-size="10" font-weight="600" fill="var(--seal-red, #b92b27)" text-anchor="middle">{current_age_years:.1f}Y</text>
+      <text x="{marker_x:.1f}" y="{height + 17}" font-family="\'Shippori Mincho\', monospace" font-size="10" font-weight="600" fill="var(--seal-red, #b92b27)" text-anchor="middle">{label_text}</text>
     </g>
     """
 

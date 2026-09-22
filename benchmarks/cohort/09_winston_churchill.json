@@ -1,0 +1,46 @@
+{
+  "subject_id": "09_winston_churchill",
+  "name": "Winston Churchill (Historical Benchmark)",
+  "benchmark_type": "historical_public_record",
+  "birth_data": {
+    "date": "1874-11-30",
+    "time": "01:30:00",
+    "city": "Woodstock",
+    "state": "Oxfordshire",
+    "country": "United Kingdom",
+    "latitude": 51.8413,
+    "longitude": -1.3616,
+    "timezone_offset": 0.0
+  },
+  "verified_coordinates": {
+    "lagna": "Virgo 07\u00b015'",
+    "moon_sign": "Leo 08\u00b030'",
+    "sun_sign": "Scorpio 15\u00b022'"
+  },
+  "biographical_milestones": [
+    {
+      "event": "Dramatic Escape from Boer POW Camp",
+      "date": "1899-12-12",
+      "category": "career",
+      "historical_context": "Escaped prison camp in Pretoria, becoming national war hero."
+    },
+    {
+      "event": "Appointed Wartime Prime Minister of the United Kingdom",
+      "date": "1940-05-10",
+      "category": "career",
+      "historical_context": "Assumed leadership of coalition government facing Battle of Britain."
+    },
+    {
+      "event": "Shock Post-War General Election Defeat",
+      "date": "1945-07-26",
+      "category": "career",
+      "historical_context": "Conservative Party defeated in landslide by Labour."
+    },
+    {
+      "event": "Demise and State Funeral at Blenheim",
+      "date": "1965-01-24",
+      "category": "mortality",
+      "historical_context": "Passed away following severe stroke at age 90."
+    }
+  ]
+}

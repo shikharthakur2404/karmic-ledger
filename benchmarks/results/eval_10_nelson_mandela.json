@@ -1,0 +1,432 @@
+{
+  "subject_id": "10_nelson_mandela",
+  "subject_name": "Nelson Mandela (Historical Benchmark)",
+  "baseline_vcs": 51.8,
+  "average_corrupted_vcs": 50.3,
+  "mean_discrimination_margin": 1.5,
+  "falsification_pass_rate": "0/11",
+  "pass_count": 0,
+  "total_mutations": 11,
+  "collusion_count": 1,
+  "is_resilient": false,
+  "evaluations": [
+    {
+      "mutation_id": "JITTER_PLUS_15M",
+      "name": "Micro Cusp Jitter (+15 Min)",
+      "category": "temporal_jitter",
+      "description": "Artificially shifts birth time by +15 minutes. Tests Navamsha (D-9) and border-cusp sensitivity.",
+      "corrupted_birth_dt": "1918-07-18 15:09:00",
+      "corrupted_lagna": "Sagittarius 04\u00b029'",
+      "corrupted_vcs": 55.5,
+      "delta_vcs": -3.7,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Sentenced to Life Imprisonment at Rivonia Trial",
+          "tested_date": "1964-06-12",
+          "active_dasha": "Ketu-Rahu",
+          "confluence_score": 77.9
+        },
+        {
+          "event": "Release from Victor Verster Prison after 27 Years",
+          "tested_date": "1990-02-11",
+          "active_dasha": "Sun-Rahu",
+          "confluence_score": 46.0
+        },
+        {
+          "event": "Inauguration as First Black President of South Africa",
+          "tested_date": "1994-05-10",
+          "active_dasha": "Moon-Moon",
+          "confluence_score": 48.0
+        },
+        {
+          "event": "Demise from Respiratory Infection at Houghton",
+          "tested_date": "2013-12-05",
+          "active_dasha": "Rahu-Rahu",
+          "confluence_score": 49.9
+        }
+      ]
+    },
+    {
+      "mutation_id": "JITTER_MINUS_15M",
+      "name": "Micro Cusp Jitter (-15 Min)",
+      "category": "temporal_jitter",
+      "description": "Artificially shifts birth time by -15 minutes. Tests retrograde cusp boundary tolerance.",
+      "corrupted_birth_dt": "1918-07-18 14:39:00",
+      "corrupted_lagna": "Scorpio 27\u00b020'",
+      "corrupted_vcs": 43.6,
+      "delta_vcs": 8.2,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Sentenced to Life Imprisonment at Rivonia Trial",
+          "tested_date": "1964-06-12",
+          "active_dasha": "Ketu-Mars",
+          "confluence_score": 51.0
+        },
+        {
+          "event": "Release from Victor Verster Prison after 27 Years",
+          "tested_date": "1990-02-11",
+          "active_dasha": "Sun-Rahu",
+          "confluence_score": 15.0
+        },
+        {
+          "event": "Inauguration as First Black President of South Africa",
+          "tested_date": "1994-05-10",
+          "active_dasha": "Sun-Venus",
+          "confluence_score": 52.9
+        },
+        {
+          "event": "Demise from Respiratory Infection at Houghton",
+          "tested_date": "2013-12-05",
+          "active_dasha": "Rahu-Rahu",
+          "confluence_score": 55.4
+        }
+      ]
+    },
+    {
+      "mutation_id": "SHIFT_PLUS_2H",
+      "name": "Lagna Advance (+2 Hours)",
+      "category": "bhava_rotation",
+      "description": "Advances birth time by 2 hours (~1 full 30\u00b0 zodiac sign shift). Inverts basic house lordships.",
+      "corrupted_birth_dt": "1918-07-18 16:54:00",
+      "corrupted_lagna": "Sagittarius 27\u00b044'",
+      "corrupted_vcs": 44.7,
+      "delta_vcs": 7.1,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Sentenced to Life Imprisonment at Rivonia Trial",
+          "tested_date": "1964-06-12",
+          "active_dasha": "Ketu-Jupiter",
+          "confluence_score": 45.8
+        },
+        {
+          "event": "Release from Victor Verster Prison after 27 Years",
+          "tested_date": "1990-02-11",
+          "active_dasha": "Sun-Jupiter",
+          "confluence_score": 19.0
+        },
+        {
+          "event": "Inauguration as First Black President of South Africa",
+          "tested_date": "1994-05-10",
+          "active_dasha": "Moon-Mars",
+          "confluence_score": 52.2
+        },
+        {
+          "event": "Demise from Respiratory Infection at Houghton",
+          "tested_date": "2013-12-05",
+          "active_dasha": "Rahu-Jupiter",
+          "confluence_score": 61.8
+        }
+      ]
+    },
+    {
+      "mutation_id": "SHIFT_MINUS_2H",
+      "name": "Lagna Regression (-2 Hours)",
+      "category": "bhava_rotation",
+      "description": "Regresses birth time by 2 hours. Inverts house lords to preceding zodiac sign.",
+      "corrupted_birth_dt": "1918-07-18 12:54:00",
+      "corrupted_lagna": "Libra 28\u00b059'",
+      "corrupted_vcs": 46.2,
+      "delta_vcs": 5.6,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Sentenced to Life Imprisonment at Rivonia Trial",
+          "tested_date": "1964-06-12",
+          "active_dasha": "Ketu-Sun",
+          "confluence_score": 20.0
+        },
+        {
+          "event": "Release from Victor Verster Prison after 27 Years",
+          "tested_date": "1990-02-11",
+          "active_dasha": "Sun-Moon",
+          "confluence_score": 15.0
+        },
+        {
+          "event": "Inauguration as First Black President of South Africa",
+          "tested_date": "1994-05-10",
+          "active_dasha": "Sun-Mercury",
+          "confluence_score": 86.5
+        },
+        {
+          "event": "Demise from Respiratory Infection at Houghton",
+          "tested_date": "2013-12-05",
+          "active_dasha": "Rahu-Rahu",
+          "confluence_score": 63.5
+        }
+      ]
+    },
+    {
+      "mutation_id": "LAGNA_ROTATION_6H",
+      "name": "Bhavachakra Scramble (+6 Hours)",
+      "category": "bhava_rotation",
+      "description": "Advances birth time by 6 hours (90\u00b0 quadrant rotation). Forces Kendras into Dusthanas.",
+      "corrupted_birth_dt": "1918-07-18 20:54:00",
+      "corrupted_lagna": "Aquarius 18\u00b015'",
+      "corrupted_vcs": 56.7,
+      "delta_vcs": -4.9,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Sentenced to Life Imprisonment at Rivonia Trial",
+          "tested_date": "1964-06-12",
+          "active_dasha": "Ketu-Mercury",
+          "confluence_score": 70.0
+        },
+        {
+          "event": "Release from Victor Verster Prison after 27 Years",
+          "tested_date": "1990-02-11",
+          "active_dasha": "Sun-Venus",
+          "confluence_score": 19.8
+        },
+        {
+          "event": "Inauguration as First Black President of South Africa",
+          "tested_date": "1994-05-10",
+          "active_dasha": "Moon-Jupiter",
+          "confluence_score": 81.1
+        },
+        {
+          "event": "Demise from Respiratory Infection at Houghton",
+          "tested_date": "2013-12-05",
+          "active_dasha": "Rahu-Saturn",
+          "confluence_score": 56.0
+        }
+      ]
+    },
+    {
+      "mutation_id": "INVERSION_12H",
+      "name": "Polarity Inversion (12-Hour AM/PM Flip)",
+      "category": "diurnal_inversion",
+      "description": "180\u00b0 Bhavachakra reversal. Inverts daytime nocturnal hemispheres and Ascendant/Descendant axes.",
+      "corrupted_birth_dt": "1918-07-19 02:54:00",
+      "corrupted_lagna": "Taurus 04\u00b044'",
+      "corrupted_vcs": 46.6,
+      "delta_vcs": 5.2,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Sentenced to Life Imprisonment at Rivonia Trial",
+          "tested_date": "1964-06-12",
+          "active_dasha": "Venus-Sun",
+          "confluence_score": 39.0
+        },
+        {
+          "event": "Release from Victor Verster Prison after 27 Years",
+          "tested_date": "1990-02-11",
+          "active_dasha": "Moon-Jupiter",
+          "confluence_score": 41.0
+        },
+        {
+          "event": "Inauguration as First Black President of South Africa",
+          "tested_date": "1994-05-10",
+          "active_dasha": "Moon-Ketu",
+          "confluence_score": 42.3
+        },
+        {
+          "event": "Demise from Respiratory Infection at Houghton",
+          "tested_date": "2013-12-05",
+          "active_dasha": "Rahu-Mercury",
+          "confluence_score": 64.2
+        }
+      ]
+    },
+    {
+      "mutation_id": "DESYNC_PLUS_1Y",
+      "name": "Dasha Desynchronization (+1 Year)",
+      "category": "dasha_desync",
+      "description": "Shifts birth year by +1 year. Misaligns Vimshottari Mahadasha balance by 365 days.",
+      "corrupted_birth_dt": "1919-07-18 14:54:00",
+      "corrupted_lagna": "Sagittarius 00\u00b042'",
+      "corrupted_vcs": 42.2,
+      "delta_vcs": 9.6,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Sentenced to Life Imprisonment at Rivonia Trial",
+          "tested_date": "1964-06-12",
+          "active_dasha": "Venus-Rahu",
+          "confluence_score": 63.6
+        },
+        {
+          "event": "Release from Victor Verster Prison after 27 Years",
+          "tested_date": "1990-02-11",
+          "active_dasha": "Moon-Mercury",
+          "confluence_score": 55.0
+        },
+        {
+          "event": "Inauguration as First Black President of South Africa",
+          "tested_date": "1994-05-10",
+          "active_dasha": "Mars-Rahu",
+          "confluence_score": 21.0
+        },
+        {
+          "event": "Demise from Respiratory Infection at Houghton",
+          "tested_date": "2013-12-05",
+          "active_dasha": "Rahu-Venus",
+          "confluence_score": 29.1
+        }
+      ]
+    },
+    {
+      "mutation_id": "DESYNC_PLUS_3Y",
+      "name": "Severe Dasha Desynchronization (+3 Years)",
+      "category": "dasha_desync",
+      "description": "Shifts birth year by +3 years. Desynchronizes Dasha balance by 1,095 days into alien planetary cycles.",
+      "corrupted_birth_dt": "1921-07-18 14:54:00",
+      "corrupted_lagna": "Sagittarius 01\u00b010'",
+      "corrupted_vcs": 51.0,
+      "delta_vcs": 0.8,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Sentenced to Life Imprisonment at Rivonia Trial",
+          "tested_date": "1964-06-12",
+          "active_dasha": "Rahu-Jupiter",
+          "confluence_score": 26.8
+        },
+        {
+          "event": "Release from Victor Verster Prison after 27 Years",
+          "tested_date": "1990-02-11",
+          "active_dasha": "Jupiter-Moon",
+          "confluence_score": 33.0
+        },
+        {
+          "event": "Inauguration as First Black President of South Africa",
+          "tested_date": "1994-05-10",
+          "active_dasha": "Saturn-Saturn",
+          "confluence_score": 46.4
+        },
+        {
+          "event": "Demise from Respiratory Infection at Houghton",
+          "tested_date": "2013-12-05",
+          "active_dasha": "Mercury-Mercury",
+          "confluence_score": 98.0
+        }
+      ]
+    },
+    {
+      "mutation_id": "DESYNC_MINUS_3Y",
+      "name": "Severe Dasha Desynchronization (-3 Years)",
+      "category": "dasha_desync",
+      "description": "Shifts birth year by -3 years. Tests backward dasha cycle desynchronization.",
+      "corrupted_birth_dt": "1915-07-18 14:54:00",
+      "corrupted_lagna": "Sagittarius 00\u00b044'",
+      "corrupted_vcs": 50.7,
+      "delta_vcs": 1.1,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Sentenced to Life Imprisonment at Rivonia Trial",
+          "tested_date": "1964-06-12",
+          "active_dasha": "Saturn-Saturn",
+          "confluence_score": 15.0
+        },
+        {
+          "event": "Release from Victor Verster Prison after 27 Years",
+          "tested_date": "1990-02-11",
+          "active_dasha": "Mercury-Moon",
+          "confluence_score": 29.0
+        },
+        {
+          "event": "Inauguration as First Black President of South Africa",
+          "tested_date": "1994-05-10",
+          "active_dasha": "Mercury-Jupiter",
+          "confluence_score": 91.4
+        },
+        {
+          "event": "Demise from Respiratory Infection at Houghton",
+          "tested_date": "2013-12-05",
+          "active_dasha": "Venus-Rahu",
+          "confluence_score": 67.2
+        }
+      ]
+    },
+    {
+      "mutation_id": "GEO_DRIFT_ARBITRARY",
+      "name": "Hemispheric Geo-Drift (+35\u00b0 Lat, -75\u00b0 Lon)",
+      "category": "geographic_distortion",
+      "description": "Alters birth geography across continents while retaining local clock time. Distorts Ascendant degree.",
+      "corrupted_birth_dt": "1918-07-18 14:54:00",
+      "corrupted_lagna": "Leo 29\u00b019'",
+      "corrupted_vcs": 68.6,
+      "delta_vcs": -16.8,
+      "falsified_successfully": false,
+      "collusion_detected": true,
+      "event_breakdown": [
+        {
+          "event": "Sentenced to Life Imprisonment at Rivonia Trial",
+          "tested_date": "1964-06-12",
+          "active_dasha": "Ketu-Rahu",
+          "confluence_score": 46.0
+        },
+        {
+          "event": "Release from Victor Verster Prison after 27 Years",
+          "tested_date": "1990-02-11",
+          "active_dasha": "Sun-Rahu",
+          "confluence_score": 46.0
+        },
+        {
+          "event": "Inauguration as First Black President of South Africa",
+          "tested_date": "1994-05-10",
+          "active_dasha": "Sun-Venus",
+          "confluence_score": 85.4
+        },
+        {
+          "event": "Demise from Respiratory Infection at Houghton",
+          "tested_date": "2013-12-05",
+          "active_dasha": "Rahu-Rahu",
+          "confluence_score": 97.0
+        }
+      ]
+    },
+    {
+      "mutation_id": "SCRAMBLED_EVENT_DATES",
+      "name": "Milestone Chronology Inversion (Fake Events)",
+      "category": "event_scramble",
+      "description": "Tests the real birth chart against chronologically scrambled or inverted milestone dates.",
+      "corrupted_birth_dt": "1918-07-18 14:54:00",
+      "corrupted_lagna": "Sagittarius 00\u00b057'",
+      "corrupted_vcs": 47.5,
+      "delta_vcs": 4.3,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Sentenced to Life Imprisonment at Rivonia Trial",
+          "tested_date": "2013-12-05",
+          "active_dasha": "Rahu-Rahu",
+          "confluence_score": 59.2
+        },
+        {
+          "event": "Release from Victor Verster Prison after 27 Years",
+          "tested_date": "1994-05-10",
+          "active_dasha": "Sun-Venus",
+          "confluence_score": 64.8
+        },
+        {
+          "event": "Inauguration as First Black President of South Africa",
+          "tested_date": "1990-02-11",
+          "active_dasha": "Sun-Rahu",
+          "confluence_score": 15.0
+        },
+        {
+          "event": "Demise from Respiratory Infection at Houghton",
+          "tested_date": "1964-06-12",
+          "active_dasha": "Ketu-Rahu",
+          "confluence_score": 51.0
+        }
+      ]
+    }
+  ]
+}

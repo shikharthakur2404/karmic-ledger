@@ -1,0 +1,46 @@
+{
+  "subject_id": "07_john_f_kennedy",
+  "name": "John F. Kennedy (Historical Benchmark)",
+  "benchmark_type": "historical_public_record",
+  "birth_data": {
+    "date": "1917-05-29",
+    "time": "15:00:00",
+    "city": "Brookline",
+    "state": "Massachusetts",
+    "country": "USA",
+    "latitude": 42.3318,
+    "longitude": -71.1212,
+    "timezone_offset": -5.0
+  },
+  "verified_coordinates": {
+    "lagna": "Virgo 27\u00b018'",
+    "moon_sign": "Leo 24\u00b045'",
+    "sun_sign": "Taurus 15\u00b008'"
+  },
+  "biographical_milestones": [
+    {
+      "event": "PT-109 Wartime Rescue Heroism in Pacific",
+      "date": "1943-08-02",
+      "category": "career",
+      "historical_context": "Led survival of patrol boat crew in Solomon Islands."
+    },
+    {
+      "event": "Wedding to Jacqueline Bouvier",
+      "date": "1953-09-12",
+      "category": "relationship",
+      "historical_context": "Married in Newport, Rhode Island."
+    },
+    {
+      "event": "Elected 35th President of the United States",
+      "date": "1960-11-08",
+      "category": "career",
+      "historical_context": "Defeated Richard Nixon in historic television election."
+    },
+    {
+      "event": "Assassination in Dealey Plaza, Dallas",
+      "date": "1963-11-22",
+      "category": "mortality",
+      "historical_context": "Fatally shot by sniper rifle in open-top motorcade."
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "subject_id": "11_marie_curie",
+  "name": "Marie Curie (Historical Benchmark)",
+  "benchmark_type": "historical_public_record",
+  "birth_data": {
+    "date": "1867-11-07",
+    "time": "12:00:00",
+    "city": "Warsaw",
+    "state": "Masovian",
+    "country": "Poland",
+    "latitude": 52.2297,
+    "longitude": 21.0122,
+    "timezone_offset": 1.4008
+  },
+  "verified_coordinates": {
+    "lagna": "Sagittarius 14\u00b020'",
+    "moon_sign": "Aquarius 12\u00b010'",
+    "sun_sign": "Libra 23\u00b004'"
+  },
+  "biographical_milestones": [
+    {
+      "event": "Awarded Nobel Prize in Physics for Radiation Discovery",
+      "date": "1903-12-10",
+      "category": "career",
+      "historical_context": "First woman to win a Nobel Prize alongside Pierre Curie."
+    },
+    {
+      "event": "Sudden Tragic Demise of Husband Pierre Curie",
+      "date": "1906-04-19",
+      "category": "mortality",
+      "historical_context": "Husband killed in street accident in Paris."
+    },
+    {
+      "event": "Awarded Second Nobel Prize in Chemistry (Radium & Polonium)",
+      "date": "1911-12-10",
+      "category": "career",
+      "historical_context": "Became first person to win two Nobel Prizes in different sciences."
+    },
+    {
+      "event": "Demise from Aplastic Anemia due to Radiation Exposure",
+      "date": "1934-07-04",
+      "category": "mortality",
+      "historical_context": "Passed away in Passy sanatorium from career radiation poisoning."
+    }
+  ]
+}

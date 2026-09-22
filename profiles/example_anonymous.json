@@ -1,0 +1,30 @@
+{
+  "subject_id": "synthetic_archetype_01",
+  "name": "Subject Anonymous",
+  "subject_consent": {
+    "status": "EXPLICIT_CONSENT_GRANTED",
+    "scope": "DE_IDENTIFIED_SYNTHETIC_RESEARCH",
+    "verified_at": "2026-09-21T00:00:00Z"
+  },
+  "birth_data": {
+    "date": "2000-01-01",
+    "time": "12:00:00",
+    "timezone": "UTC",
+    "latitude": 51.1657,
+    "longitude": 10.4515,
+    "city": "Berlin",
+    "country": "Germany"
+  },
+  "biographical_milestones": [
+    {
+      "milestone": "Higher Education Milestone",
+      "date": "2022-09-01",
+      "dasha": "Mercury-Jupiter"
+    },
+    {
+      "milestone": "Major Career Pivot",
+      "date": "2025-03-15",
+      "dasha": "Mercury-Saturn"
+    }
+  ]
+}

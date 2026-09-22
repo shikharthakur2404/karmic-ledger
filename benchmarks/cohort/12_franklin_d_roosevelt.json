@@ -1,0 +1,46 @@
+{
+  "subject_id": "12_franklin_d_roosevelt",
+  "name": "Franklin D. Roosevelt (Historical Benchmark)",
+  "benchmark_type": "historical_public_record",
+  "birth_data": {
+    "date": "1882-01-30",
+    "time": "20:07:00",
+    "city": "Hyde Park",
+    "state": "New York",
+    "country": "USA",
+    "latitude": 41.7845,
+    "longitude": -73.9332,
+    "timezone_offset": -5.0
+  },
+  "verified_coordinates": {
+    "lagna": "Leo 03\u00b022'",
+    "moon_sign": "Gemini 13\u00b010'",
+    "sun_sign": "Capricorn 18\u00b045'"
+  },
+  "biographical_milestones": [
+    {
+      "event": "Paralytic Illness Attack (Polio Crisis at Campobello)",
+      "date": "1921-08-10",
+      "category": "health",
+      "historical_context": "Diagnosed with polio resulting in permanent lower-body paralysis."
+    },
+    {
+      "event": "Elected 32nd President of the United States (New Deal)",
+      "date": "1932-11-08",
+      "category": "career",
+      "historical_context": "Elected in Great Depression landslide."
+    },
+    {
+      "event": "Pearl Harbor Attack & Entry into World War II",
+      "date": "1941-12-07",
+      "category": "career",
+      "historical_context": "Infamy speech following imperial Japanese surprise attack."
+    },
+    {
+      "event": "Fatal Cerebral Hemorrhage at Warm Springs",
+      "date": "1945-04-12",
+      "category": "mortality",
+      "historical_context": "Passed away on eve of Allied victory in Europe."
+    }
+  ]
+}

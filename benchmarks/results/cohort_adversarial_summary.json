@@ -1,0 +1,264 @@
+{
+  "timestamp": "2026-09-21T12:40:18.311529",
+  "total_subjects": 15,
+  "total_simulations_executed": 165,
+  "mean_baseline_vcs": 62.9,
+  "mean_corrupted_vcs": 56.6,
+  "overall_discrimination_margin": 6.3,
+  "overall_falsification_pass_rate": "26.1% (43/165)",
+  "resilient_subject_rate": "0/15",
+  "total_collusion_instances": 42,
+  "mutation_vector_performance": [
+    {
+      "mutation_id": "JITTER_PLUS_15M",
+      "name": "Micro Cusp Jitter (+15 Min)",
+      "category": "temporal_jitter",
+      "mean_corrupted_vcs": 60.5,
+      "mean_delta_vcs": 2.4,
+      "pass_rate": "1/15 (6.7%)",
+      "collusion_rate": "6/15 (40.0%)"
+    },
+    {
+      "mutation_id": "JITTER_MINUS_15M",
+      "name": "Micro Cusp Jitter (-15 Min)",
+      "category": "temporal_jitter",
+      "mean_corrupted_vcs": 62.9,
+      "mean_delta_vcs": -0.0,
+      "pass_rate": "0/15 (0.0%)",
+      "collusion_rate": "8/15 (53.3%)"
+    },
+    {
+      "mutation_id": "SHIFT_PLUS_2H",
+      "name": "Lagna Advance (+2 Hours)",
+      "category": "bhava_rotation",
+      "mean_corrupted_vcs": 53.7,
+      "mean_delta_vcs": 9.2,
+      "pass_rate": "5/15 (33.3%)",
+      "collusion_rate": "3/15 (20.0%)"
+    },
+    {
+      "mutation_id": "SHIFT_MINUS_2H",
+      "name": "Lagna Regression (-2 Hours)",
+      "category": "bhava_rotation",
+      "mean_corrupted_vcs": 56.1,
+      "mean_delta_vcs": 6.8,
+      "pass_rate": "4/15 (26.7%)",
+      "collusion_rate": "2/15 (13.3%)"
+    },
+    {
+      "mutation_id": "LAGNA_ROTATION_6H",
+      "name": "Bhavachakra Scramble (+6 Hours)",
+      "category": "bhava_rotation",
+      "mean_corrupted_vcs": 53.4,
+      "mean_delta_vcs": 9.5,
+      "pass_rate": "6/15 (40.0%)",
+      "collusion_rate": "3/15 (20.0%)"
+    },
+    {
+      "mutation_id": "INVERSION_12H",
+      "name": "Polarity Inversion (12-Hour AM/PM Flip)",
+      "category": "diurnal_inversion",
+      "mean_corrupted_vcs": 56.3,
+      "mean_delta_vcs": 6.6,
+      "pass_rate": "6/15 (40.0%)",
+      "collusion_rate": "2/15 (13.3%)"
+    },
+    {
+      "mutation_id": "DESYNC_PLUS_1Y",
+      "name": "Dasha Desynchronization (+1 Year)",
+      "category": "dasha_desync",
+      "mean_corrupted_vcs": 52.7,
+      "mean_delta_vcs": 10.2,
+      "pass_rate": "4/15 (26.7%)",
+      "collusion_rate": "4/15 (26.7%)"
+    },
+    {
+      "mutation_id": "DESYNC_PLUS_3Y",
+      "name": "Severe Dasha Desynchronization (+3 Years)",
+      "category": "dasha_desync",
+      "mean_corrupted_vcs": 56.0,
+      "mean_delta_vcs": 6.9,
+      "pass_rate": "5/15 (33.3%)",
+      "collusion_rate": "2/15 (13.3%)"
+    },
+    {
+      "mutation_id": "DESYNC_MINUS_3Y",
+      "name": "Severe Dasha Desynchronization (-3 Years)",
+      "category": "dasha_desync",
+      "mean_corrupted_vcs": 56.3,
+      "mean_delta_vcs": 6.6,
+      "pass_rate": "5/15 (33.3%)",
+      "collusion_rate": "4/15 (26.7%)"
+    },
+    {
+      "mutation_id": "GEO_DRIFT_ARBITRARY",
+      "name": "Hemispheric Geo-Drift (+35\u00b0 Lat, -75\u00b0 Lon)",
+      "category": "geographic_distortion",
+      "mean_corrupted_vcs": 53.5,
+      "mean_delta_vcs": 9.4,
+      "pass_rate": "6/15 (40.0%)",
+      "collusion_rate": "3/15 (20.0%)"
+    },
+    {
+      "mutation_id": "SCRAMBLED_EVENT_DATES",
+      "name": "Milestone Chronology Inversion (Fake Events)",
+      "category": "event_scramble",
+      "mean_corrupted_vcs": 60.7,
+      "mean_delta_vcs": 2.2,
+      "pass_rate": "1/15 (6.7%)",
+      "collusion_rate": "5/15 (33.3%)"
+    }
+  ],
+  "subjects": [
+    {
+      "subject_id": "01_indira_gandhi",
+      "name": "Indira Gandhi (Historical Benchmark)",
+      "baseline_vcs": 74.0,
+      "average_corrupted_vcs": 59.0,
+      "discrimination_margin": 15.0,
+      "pass_rate": "6/11",
+      "collusion_count": 3,
+      "verdict": "VULNERABLE"
+    },
+    {
+      "subject_id": "02_abraham_lincoln",
+      "name": "Abraham Lincoln (Historical Benchmark)",
+      "baseline_vcs": 80.6,
+      "average_corrupted_vcs": 60.8,
+      "discrimination_margin": 19.8,
+      "pass_rate": "6/11",
+      "collusion_count": 5,
+      "verdict": "VULNERABLE"
+    },
+    {
+      "subject_id": "03_queen_elizabeth_ii",
+      "name": "Queen Elizabeth II (Historical Benchmark)",
+      "baseline_vcs": 72.5,
+      "average_corrupted_vcs": 56.0,
+      "discrimination_margin": 16.5,
+      "pass_rate": "7/11",
+      "collusion_count": 3,
+      "verdict": "VULNERABLE"
+    },
+    {
+      "subject_id": "04_albert_einstein",
+      "name": "Albert Einstein (Historical Benchmark)",
+      "baseline_vcs": 47.6,
+      "average_corrupted_vcs": 54.1,
+      "discrimination_margin": -6.5,
+      "pass_rate": "0/11",
+      "collusion_count": 1,
+      "verdict": "VULNERABLE"
+    },
+    {
+      "subject_id": "05_mahatma_gandhi",
+      "name": "Mahatma Gandhi (Historical Benchmark)",
+      "baseline_vcs": 51.1,
+      "average_corrupted_vcs": 50.8,
+      "discrimination_margin": 0.3,
+      "pass_rate": "0/11",
+      "collusion_count": 0,
+      "verdict": "VULNERABLE"
+    },
+    {
+      "subject_id": "06_steve_jobs",
+      "name": "Steve Jobs (Historical Benchmark)",
+      "baseline_vcs": 70.3,
+      "average_corrupted_vcs": 57.6,
+      "discrimination_margin": 12.7,
+      "pass_rate": "5/11",
+      "collusion_count": 4,
+      "verdict": "VULNERABLE"
+    },
+    {
+      "subject_id": "07_john_f_kennedy",
+      "name": "John F. Kennedy (Historical Benchmark)",
+      "baseline_vcs": 50.9,
+      "average_corrupted_vcs": 51.8,
+      "discrimination_margin": -0.9,
+      "pass_rate": "0/11",
+      "collusion_count": 0,
+      "verdict": "VULNERABLE"
+    },
+    {
+      "subject_id": "08_martin_luther_king",
+      "name": "Martin Luther King Jr. (Historical Benchmark)",
+      "baseline_vcs": 61.3,
+      "average_corrupted_vcs": 59.3,
+      "discrimination_margin": 2.0,
+      "pass_rate": "1/11",
+      "collusion_count": 4,
+      "verdict": "VULNERABLE"
+    },
+    {
+      "subject_id": "09_winston_churchill",
+      "name": "Winston Churchill (Historical Benchmark)",
+      "baseline_vcs": 40.1,
+      "average_corrupted_vcs": 42.5,
+      "discrimination_margin": -2.4,
+      "pass_rate": "0/11",
+      "collusion_count": 0,
+      "verdict": "VULNERABLE"
+    },
+    {
+      "subject_id": "10_nelson_mandela",
+      "name": "Nelson Mandela (Historical Benchmark)",
+      "baseline_vcs": 51.8,
+      "average_corrupted_vcs": 50.3,
+      "discrimination_margin": 1.5,
+      "pass_rate": "0/11",
+      "collusion_count": 1,
+      "verdict": "VULNERABLE"
+    },
+    {
+      "subject_id": "11_marie_curie",
+      "name": "Marie Curie (Historical Benchmark)",
+      "baseline_vcs": 60.6,
+      "average_corrupted_vcs": 62.3,
+      "discrimination_margin": -1.7,
+      "pass_rate": "1/11",
+      "collusion_count": 5,
+      "verdict": "VULNERABLE"
+    },
+    {
+      "subject_id": "12_franklin_d_roosevelt",
+      "name": "Franklin D. Roosevelt (Historical Benchmark)",
+      "baseline_vcs": 62.4,
+      "average_corrupted_vcs": 59.6,
+      "discrimination_margin": 2.8,
+      "pass_rate": "1/11",
+      "collusion_count": 3,
+      "verdict": "VULNERABLE"
+    },
+    {
+      "subject_id": "13_swami_vivekananda",
+      "name": "Swami Vivekananda (Historical Benchmark)",
+      "baseline_vcs": 84.3,
+      "average_corrupted_vcs": 68.4,
+      "discrimination_margin": 15.9,
+      "pass_rate": "7/11",
+      "collusion_count": 7,
+      "verdict": "VULNERABLE"
+    },
+    {
+      "subject_id": "14_synthetic_alpha",
+      "name": "Synthetic Subject Alpha (De-Identified Archetype)",
+      "baseline_vcs": 73.3,
+      "average_corrupted_vcs": 55.3,
+      "discrimination_margin": 18.0,
+      "pass_rate": "7/11",
+      "collusion_count": 3,
+      "verdict": "VULNERABLE"
+    },
+    {
+      "subject_id": "15_synthetic_beta",
+      "name": "Synthetic Subject Beta (De-Identified Archetype)",
+      "baseline_vcs": 62.6,
+      "average_corrupted_vcs": 60.5,
+      "discrimination_margin": 2.1,
+      "pass_rate": "2/11",
+      "collusion_count": 3,
+      "verdict": "VULNERABLE"
+    }
+  ]
+}

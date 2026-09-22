@@ -1,0 +1,40 @@
+{
+  "subject_id": "14_synthetic_alpha",
+  "name": "Synthetic Subject Alpha (De-Identified Archetype)",
+  "benchmark_type": "synthetic_vector",
+  "birth_data": {
+    "date": "1988-04-14",
+    "time": "06:15:00",
+    "city": "San Jose",
+    "state": "California",
+    "country": "USA",
+    "latitude": 37.3382,
+    "longitude": -121.8863,
+    "timezone_offset": -7.0
+  },
+  "verified_coordinates": {
+    "lagna": "Aries 12\u00b015'",
+    "moon_sign": "Pisces 08\u00b030'",
+    "sun_sign": "Aries 01\u00b010'"
+  },
+  "biographical_milestones": [
+    {
+      "event": "University Computer Science Degree Graduation",
+      "date": "2010-06-15",
+      "category": "education",
+      "historical_context": "Completed undergraduate degree in computer engineering."
+    },
+    {
+      "event": "Enterprise SaaS Startup Acquisition & Exit",
+      "date": "2018-03-20",
+      "category": "wealth",
+      "historical_context": "Acquired by major cloud tech conglomerate."
+    },
+    {
+      "event": "Severe Corporate Burnout & Sabbatical Departure",
+      "date": "2022-11-05",
+      "category": "health",
+      "historical_context": "Stepped down from leadership due to acute medical exhaustion."
+    }
+  ]
+}

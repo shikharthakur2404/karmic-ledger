@@ -1,0 +1,31 @@
+# Virtual Environment
+.venv/
+env/
+venv/
+ENV/
+
+# Python bytecode & cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+
+# PRIVATE PERSONAL DATA (CRITICAL)
+# Real people's birth dates, coordinates, and life events must NEVER be tracked or committed.
+profiles/*.json
+!profiles/example_anonymous.json
+profiles/.unconsented_quarantine/
+.unconsented_quarantine/
+reports/
+*.dossier.md
+
+# Environment variables & secrets
+.env
+.env.*
+*.secret
+
+# Logs & temp files
+*.log
+scratch/
+tmp/

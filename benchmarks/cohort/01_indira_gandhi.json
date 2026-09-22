@@ -1,0 +1,58 @@
+{
+  "subject_id": "01_indira_gandhi",
+  "name": "Indira Gandhi (Historical Benchmark)",
+  "benchmark_type": "historical_public_record",
+  "birth_data": {
+    "date": "1917-11-19",
+    "time": "23:11:00",
+    "city": "Allahabad",
+    "state": "Uttar Pradesh",
+    "country": "India",
+    "latitude": 25.4358,
+    "longitude": 81.8463,
+    "timezone_offset": 5.5
+  },
+  "verified_coordinates": {
+    "lagna": "Cancer 27°21'",
+    "moon_sign": "Capricorn 05°35'",
+    "sun_sign": "Scorpio 04°08'"
+  },
+  "biographical_milestones": [
+    {
+      "event": "Marriage to Feroze Gandhi",
+      "date": "1942-03-26",
+      "category": "relationship",
+      "historical_context": "Marriage under active Rahu-Saturn (Saturn ruling 7th House Capricorn)."
+    },
+    {
+      "event": "Sworn in as Prime Minister of India",
+      "date": "1966-01-24",
+      "category": "career",
+      "historical_context": "Ascended to Prime Ministership during Jupiter-Sun (Jupiter 9th Lord of Fortune, Sun 2nd Lord in 5th of Authority)."
+    },
+    {
+      "event": "Proclamation of National Emergency",
+      "date": "1975-06-25",
+      "category": "career",
+      "historical_context": "Declared Emergency during Saturn-Mercury (Saturn 8th Lord of crisis/transformation)."
+    },
+    {
+      "event": "Electoral Defeat & Loss of Office",
+      "date": "1977-03-22",
+      "category": "career",
+      "historical_context": "Electoral defeat during Saturn-Ketu (Ketu in 12th House of fall and isolation)."
+    },
+    {
+      "event": "Historic Re-election & Return to Power",
+      "date": "1980-01-14",
+      "category": "career",
+      "historical_context": "Landslide election victory under Saturn-Venus (Venus in 6th house of overcoming adversaries)."
+    },
+    {
+      "event": "Assassination / Violent Physical Exit",
+      "date": "1984-10-31",
+      "category": "mortality",
+      "historical_context": "Assassinated by bodyguards under Saturn-Rahu (Saturn 7th Maraka Lord, Rahu in 6th of violence aspected by Mars)."
+    }
+  ]
+}

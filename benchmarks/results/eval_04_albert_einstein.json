@@ -1,0 +1,432 @@
+{
+  "subject_id": "04_albert_einstein",
+  "subject_name": "Albert Einstein (Historical Benchmark)",
+  "baseline_vcs": 47.6,
+  "average_corrupted_vcs": 54.1,
+  "mean_discrimination_margin": -6.5,
+  "falsification_pass_rate": "0/11",
+  "pass_count": 0,
+  "total_mutations": 11,
+  "collusion_count": 1,
+  "is_resilient": false,
+  "evaluations": [
+    {
+      "mutation_id": "JITTER_PLUS_15M",
+      "name": "Micro Cusp Jitter (+15 Min)",
+      "category": "temporal_jitter",
+      "description": "Artificially shifts birth time by +15 minutes. Tests Navamsha (D-9) and border-cusp sensitivity.",
+      "corrupted_birth_dt": "1879-03-14 11:45:00",
+      "corrupted_lagna": "Gemini 22\u00b031'",
+      "corrupted_vcs": 47.1,
+      "delta_vcs": 0.5,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Annus Mirabilis Papers Published (Photoelectric Effect & Relativity)",
+          "tested_date": "1905-09-26",
+          "active_dasha": "Venus-Rahu",
+          "confluence_score": 24.6
+        },
+        {
+          "event": "Awarded Nobel Prize in Physics",
+          "tested_date": "1922-11-09",
+          "active_dasha": "Moon-Mars",
+          "confluence_score": 53.7
+        },
+        {
+          "event": "Permanent Emigration to Princeton, United States",
+          "tested_date": "1933-10-17",
+          "active_dasha": "Mars-Jupiter",
+          "confluence_score": 42.0
+        },
+        {
+          "event": "Demise from Abdominal Aortic Aneurysm",
+          "tested_date": "1955-04-18",
+          "active_dasha": "Rahu-Moon",
+          "confluence_score": 67.9
+        }
+      ]
+    },
+    {
+      "mutation_id": "JITTER_MINUS_15M",
+      "name": "Micro Cusp Jitter (-15 Min)",
+      "category": "temporal_jitter",
+      "description": "Artificially shifts birth time by -15 minutes. Tests retrograde cusp boundary tolerance.",
+      "corrupted_birth_dt": "1879-03-14 11:15:00",
+      "corrupted_lagna": "Gemini 16\u00b019'",
+      "corrupted_vcs": 37.5,
+      "delta_vcs": 10.1,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Annus Mirabilis Papers Published (Photoelectric Effect & Relativity)",
+          "tested_date": "1905-09-26",
+          "active_dasha": "Venus-Rahu",
+          "confluence_score": 24.6
+        },
+        {
+          "event": "Awarded Nobel Prize in Physics",
+          "tested_date": "1922-11-09",
+          "active_dasha": "Moon-Moon",
+          "confluence_score": 15.5
+        },
+        {
+          "event": "Permanent Emigration to Princeton, United States",
+          "tested_date": "1933-10-17",
+          "active_dasha": "Mars-Jupiter",
+          "confluence_score": 48.0
+        },
+        {
+          "event": "Demise from Abdominal Aortic Aneurysm",
+          "tested_date": "1955-04-18",
+          "active_dasha": "Rahu-Moon",
+          "confluence_score": 61.8
+        }
+      ]
+    },
+    {
+      "mutation_id": "SHIFT_PLUS_2H",
+      "name": "Lagna Advance (+2 Hours)",
+      "category": "bhava_rotation",
+      "description": "Advances birth time by 2 hours (~1 full 30\u00b0 zodiac sign shift). Inverts basic house lordships.",
+      "corrupted_birth_dt": "1879-03-14 13:30:00",
+      "corrupted_lagna": "Cancer 12\u00b039'",
+      "corrupted_vcs": 57.8,
+      "delta_vcs": -10.2,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Annus Mirabilis Papers Published (Photoelectric Effect & Relativity)",
+          "tested_date": "1905-09-26",
+          "active_dasha": "Venus-Jupiter",
+          "confluence_score": 42.5
+        },
+        {
+          "event": "Awarded Nobel Prize in Physics",
+          "tested_date": "1922-11-09",
+          "active_dasha": "Moon-Rahu",
+          "confluence_score": 62.0
+        },
+        {
+          "event": "Permanent Emigration to Princeton, United States",
+          "tested_date": "1933-10-17",
+          "active_dasha": "Mars-Saturn",
+          "confluence_score": 46.6
+        },
+        {
+          "event": "Demise from Abdominal Aortic Aneurysm",
+          "tested_date": "1955-04-18",
+          "active_dasha": "Rahu-Mars",
+          "confluence_score": 79.9
+        }
+      ]
+    },
+    {
+      "mutation_id": "SHIFT_MINUS_2H",
+      "name": "Lagna Regression (-2 Hours)",
+      "category": "bhava_rotation",
+      "description": "Regresses birth time by 2 hours. Inverts house lords to preceding zodiac sign.",
+      "corrupted_birth_dt": "1879-03-14 09:30:00",
+      "corrupted_lagna": "Taurus 20\u00b059'",
+      "corrupted_vcs": 73.2,
+      "delta_vcs": -25.6,
+      "falsified_successfully": false,
+      "collusion_detected": true,
+      "event_breakdown": [
+        {
+          "event": "Annus Mirabilis Papers Published (Photoelectric Effect & Relativity)",
+          "tested_date": "1905-09-26",
+          "active_dasha": "Venus-Rahu",
+          "confluence_score": 94.0
+        },
+        {
+          "event": "Awarded Nobel Prize in Physics",
+          "tested_date": "1922-11-09",
+          "active_dasha": "Sun-Venus",
+          "confluence_score": 85.9
+        },
+        {
+          "event": "Permanent Emigration to Princeton, United States",
+          "tested_date": "1933-10-17",
+          "active_dasha": "Mars-Mars",
+          "confluence_score": 98.0
+        },
+        {
+          "event": "Demise from Abdominal Aortic Aneurysm",
+          "tested_date": "1955-04-18",
+          "active_dasha": "Rahu-Sun",
+          "confluence_score": 15.0
+        }
+      ]
+    },
+    {
+      "mutation_id": "LAGNA_ROTATION_6H",
+      "name": "Bhavachakra Scramble (+6 Hours)",
+      "category": "bhava_rotation",
+      "description": "Advances birth time by 6 hours (90\u00b0 quadrant rotation). Forces Kendras into Dusthanas.",
+      "corrupted_birth_dt": "1879-03-14 17:30:00",
+      "corrupted_lagna": "Leo 26\u00b025'",
+      "corrupted_vcs": 56.2,
+      "delta_vcs": -8.6,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Annus Mirabilis Papers Published (Photoelectric Effect & Relativity)",
+          "tested_date": "1905-09-26",
+          "active_dasha": "Venus-Saturn",
+          "confluence_score": 51.8
+        },
+        {
+          "event": "Awarded Nobel Prize in Physics",
+          "tested_date": "1922-11-09",
+          "active_dasha": "Moon-Saturn",
+          "confluence_score": 31.7
+        },
+        {
+          "event": "Permanent Emigration to Princeton, United States",
+          "tested_date": "1933-10-17",
+          "active_dasha": "Mars-Sun",
+          "confluence_score": 44.5
+        },
+        {
+          "event": "Demise from Abdominal Aortic Aneurysm",
+          "tested_date": "1955-04-18",
+          "active_dasha": "Jupiter-Saturn",
+          "confluence_score": 96.8
+        }
+      ]
+    },
+    {
+      "mutation_id": "INVERSION_12H",
+      "name": "Polarity Inversion (12-Hour AM/PM Flip)",
+      "category": "diurnal_inversion",
+      "description": "180\u00b0 Bhavachakra reversal. Inverts daytime nocturnal hemispheres and Ascendant/Descendant axes.",
+      "corrupted_birth_dt": "1879-03-14 23:30:00",
+      "corrupted_lagna": "Scorpio 02\u00b012'",
+      "corrupted_vcs": 62.3,
+      "delta_vcs": -14.7,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Annus Mirabilis Papers Published (Photoelectric Effect & Relativity)",
+          "tested_date": "1905-09-26",
+          "active_dasha": "Venus-Mercury",
+          "confluence_score": 68.2
+        },
+        {
+          "event": "Awarded Nobel Prize in Physics",
+          "tested_date": "1922-11-09",
+          "active_dasha": "Moon-Sun",
+          "confluence_score": 73.9
+        },
+        {
+          "event": "Permanent Emigration to Princeton, United States",
+          "tested_date": "1933-10-17",
+          "active_dasha": "Rahu-Jupiter",
+          "confluence_score": 58.4
+        },
+        {
+          "event": "Demise from Abdominal Aortic Aneurysm",
+          "tested_date": "1955-04-18",
+          "active_dasha": "Jupiter-Ketu",
+          "confluence_score": 48.8
+        }
+      ]
+    },
+    {
+      "mutation_id": "DESYNC_PLUS_1Y",
+      "name": "Dasha Desynchronization (+1 Year)",
+      "category": "dasha_desync",
+      "description": "Shifts birth year by +1 year. Misaligns Vimshottari Mahadasha balance by 365 days.",
+      "corrupted_birth_dt": "1880-03-14 11:30:00",
+      "corrupted_lagna": "Gemini 20\u00b004'",
+      "corrupted_vcs": 54.3,
+      "delta_vcs": -6.7,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Annus Mirabilis Papers Published (Photoelectric Effect & Relativity)",
+          "tested_date": "1905-09-26",
+          "active_dasha": "Sun-Ketu",
+          "confluence_score": 46.8
+        },
+        {
+          "event": "Awarded Nobel Prize in Physics",
+          "tested_date": "1922-11-09",
+          "active_dasha": "Mars-Venus",
+          "confluence_score": 49.5
+        },
+        {
+          "event": "Permanent Emigration to Princeton, United States",
+          "tested_date": "1933-10-17",
+          "active_dasha": "Rahu-Mercury",
+          "confluence_score": 49.3
+        },
+        {
+          "event": "Demise from Abdominal Aortic Aneurysm",
+          "tested_date": "1955-04-18",
+          "active_dasha": "Jupiter-Mars",
+          "confluence_score": 71.8
+        }
+      ]
+    },
+    {
+      "mutation_id": "DESYNC_PLUS_3Y",
+      "name": "Severe Dasha Desynchronization (+3 Years)",
+      "category": "dasha_desync",
+      "description": "Shifts birth year by +3 years. Desynchronizes Dasha balance by 1,095 days into alien planetary cycles.",
+      "corrupted_birth_dt": "1882-03-14 11:30:00",
+      "corrupted_lagna": "Gemini 19\u00b038'",
+      "corrupted_vcs": 60.2,
+      "delta_vcs": -12.6,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Annus Mirabilis Papers Published (Photoelectric Effect & Relativity)",
+          "tested_date": "1905-09-26",
+          "active_dasha": "Moon-Sun",
+          "confluence_score": 46.9
+        },
+        {
+          "event": "Awarded Nobel Prize in Physics",
+          "tested_date": "1922-11-09",
+          "active_dasha": "Rahu-Mercury",
+          "confluence_score": 73.2
+        },
+        {
+          "event": "Permanent Emigration to Princeton, United States",
+          "tested_date": "1933-10-17",
+          "active_dasha": "Jupiter-Saturn",
+          "confluence_score": 66.7
+        },
+        {
+          "event": "Demise from Abdominal Aortic Aneurysm",
+          "tested_date": "1955-04-18",
+          "active_dasha": "Saturn-Venus",
+          "confluence_score": 54.2
+        }
+      ]
+    },
+    {
+      "mutation_id": "DESYNC_MINUS_3Y",
+      "name": "Severe Dasha Desynchronization (-3 Years)",
+      "category": "dasha_desync",
+      "description": "Shifts birth year by -3 years. Tests backward dasha cycle desynchronization.",
+      "corrupted_birth_dt": "1876-03-14 11:30:00",
+      "corrupted_lagna": "Gemini 20\u00b006'",
+      "corrupted_vcs": 58.9,
+      "delta_vcs": -11.3,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Annus Mirabilis Papers Published (Photoelectric Effect & Relativity)",
+          "tested_date": "1905-09-26",
+          "active_dasha": "Saturn-Rahu",
+          "confluence_score": 45.8
+        },
+        {
+          "event": "Awarded Nobel Prize in Physics",
+          "tested_date": "1922-11-09",
+          "active_dasha": "Mercury-Saturn",
+          "confluence_score": 78.0
+        },
+        {
+          "event": "Permanent Emigration to Princeton, United States",
+          "tested_date": "1933-10-17",
+          "active_dasha": "Venus-Venus",
+          "confluence_score": 71.2
+        },
+        {
+          "event": "Demise from Abdominal Aortic Aneurysm",
+          "tested_date": "1955-04-18",
+          "active_dasha": "Sun-Jupiter",
+          "confluence_score": 40.7
+        }
+      ]
+    },
+    {
+      "mutation_id": "GEO_DRIFT_ARBITRARY",
+      "name": "Hemispheric Geo-Drift (+35\u00b0 Lat, -75\u00b0 Lon)",
+      "category": "geographic_distortion",
+      "description": "Alters birth geography across continents while retaining local clock time. Distorts Ascendant degree.",
+      "corrupted_birth_dt": "1879-03-14 11:30:00",
+      "corrupted_lagna": "Pisces 08\u00b009'",
+      "corrupted_vcs": 41.4,
+      "delta_vcs": 6.2,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Annus Mirabilis Papers Published (Photoelectric Effect & Relativity)",
+          "tested_date": "1905-09-26",
+          "active_dasha": "Venus-Rahu",
+          "confluence_score": 46.7
+        },
+        {
+          "event": "Awarded Nobel Prize in Physics",
+          "tested_date": "1922-11-09",
+          "active_dasha": "Moon-Mars",
+          "confluence_score": 37.6
+        },
+        {
+          "event": "Permanent Emigration to Princeton, United States",
+          "tested_date": "1933-10-17",
+          "active_dasha": "Mars-Jupiter",
+          "confluence_score": 58.5
+        },
+        {
+          "event": "Demise from Abdominal Aortic Aneurysm",
+          "tested_date": "1955-04-18",
+          "active_dasha": "Rahu-Moon",
+          "confluence_score": 22.8
+        }
+      ]
+    },
+    {
+      "mutation_id": "SCRAMBLED_EVENT_DATES",
+      "name": "Milestone Chronology Inversion (Fake Events)",
+      "category": "event_scramble",
+      "description": "Tests the real birth chart against chronologically scrambled or inverted milestone dates.",
+      "corrupted_birth_dt": "1879-03-14 11:30:00",
+      "corrupted_lagna": "Gemini 19\u00b028'",
+      "corrupted_vcs": 46.1,
+      "delta_vcs": 1.5,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Annus Mirabilis Papers Published (Photoelectric Effect & Relativity)",
+          "tested_date": "1955-04-18",
+          "active_dasha": "Rahu-Moon",
+          "confluence_score": 15.0
+        },
+        {
+          "event": "Awarded Nobel Prize in Physics",
+          "tested_date": "1933-10-17",
+          "active_dasha": "Mars-Jupiter",
+          "confluence_score": 98.0
+        },
+        {
+          "event": "Permanent Emigration to Princeton, United States",
+          "tested_date": "1922-11-09",
+          "active_dasha": "Moon-Mars",
+          "confluence_score": 41.4
+        },
+        {
+          "event": "Demise from Abdominal Aortic Aneurysm",
+          "tested_date": "1905-09-26",
+          "active_dasha": "Venus-Rahu",
+          "confluence_score": 30.1
+        }
+      ]
+    }
+  ]
+}

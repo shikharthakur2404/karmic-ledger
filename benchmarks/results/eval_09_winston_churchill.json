@@ -1,0 +1,432 @@
+{
+  "subject_id": "09_winston_churchill",
+  "subject_name": "Winston Churchill (Historical Benchmark)",
+  "baseline_vcs": 40.1,
+  "average_corrupted_vcs": 42.5,
+  "mean_discrimination_margin": -2.4,
+  "falsification_pass_rate": "0/11",
+  "pass_count": 0,
+  "total_mutations": 11,
+  "collusion_count": 0,
+  "is_resilient": false,
+  "evaluations": [
+    {
+      "mutation_id": "JITTER_PLUS_15M",
+      "name": "Micro Cusp Jitter (+15 Min)",
+      "category": "temporal_jitter",
+      "description": "Artificially shifts birth time by +15 minutes. Tests Navamsha (D-9) and border-cusp sensitivity.",
+      "corrupted_birth_dt": "1874-11-30 01:45:00",
+      "corrupted_lagna": "Virgo 10\u00b027'",
+      "corrupted_vcs": 40.5,
+      "delta_vcs": -0.4,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Dramatic Escape from Boer POW Camp",
+          "tested_date": "1899-12-12",
+          "active_dasha": "Sun-Rahu",
+          "confluence_score": 15.0
+        },
+        {
+          "event": "Appointed Wartime Prime Minister of the United Kingdom",
+          "tested_date": "1940-05-10",
+          "active_dasha": "Jupiter-Jupiter",
+          "confluence_score": 52.9
+        },
+        {
+          "event": "Shock Post-War General Election Defeat",
+          "tested_date": "1945-07-26",
+          "active_dasha": "Jupiter-Mercury",
+          "confluence_score": 60.6
+        },
+        {
+          "event": "Demise and State Funeral at Blenheim",
+          "tested_date": "1965-01-24",
+          "active_dasha": "Saturn-Sun",
+          "confluence_score": 33.7
+        }
+      ]
+    },
+    {
+      "mutation_id": "JITTER_MINUS_15M",
+      "name": "Micro Cusp Jitter (-15 Min)",
+      "category": "temporal_jitter",
+      "description": "Artificially shifts birth time by -15 minutes. Tests retrograde cusp boundary tolerance.",
+      "corrupted_birth_dt": "1874-11-30 01:15:00",
+      "corrupted_lagna": "Virgo 05\u00b010'",
+      "corrupted_vcs": 39.5,
+      "delta_vcs": 0.6,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Dramatic Escape from Boer POW Camp",
+          "tested_date": "1899-12-12",
+          "active_dasha": "Sun-Rahu",
+          "confluence_score": 15.0
+        },
+        {
+          "event": "Appointed Wartime Prime Minister of the United Kingdom",
+          "tested_date": "1940-05-10",
+          "active_dasha": "Jupiter-Jupiter",
+          "confluence_score": 48.5
+        },
+        {
+          "event": "Shock Post-War General Election Defeat",
+          "tested_date": "1945-07-26",
+          "active_dasha": "Jupiter-Mercury",
+          "confluence_score": 60.6
+        },
+        {
+          "event": "Demise and State Funeral at Blenheim",
+          "tested_date": "1965-01-24",
+          "active_dasha": "Saturn-Sun",
+          "confluence_score": 33.7
+        }
+      ]
+    },
+    {
+      "mutation_id": "SHIFT_PLUS_2H",
+      "name": "Lagna Advance (+2 Hours)",
+      "category": "bhava_rotation",
+      "description": "Advances birth time by 2 hours (~1 full 30\u00b0 zodiac sign shift). Inverts basic house lordships.",
+      "corrupted_birth_dt": "1874-11-30 03:30:00",
+      "corrupted_lagna": "Virgo 28\u00b053'",
+      "corrupted_vcs": 39.8,
+      "delta_vcs": 0.3,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Dramatic Escape from Boer POW Camp",
+          "tested_date": "1899-12-12",
+          "active_dasha": "Sun-Jupiter",
+          "confluence_score": 23.7
+        },
+        {
+          "event": "Appointed Wartime Prime Minister of the United Kingdom",
+          "tested_date": "1940-05-10",
+          "active_dasha": "Jupiter-Jupiter",
+          "confluence_score": 47.6
+        },
+        {
+          "event": "Shock Post-War General Election Defeat",
+          "tested_date": "1945-07-26",
+          "active_dasha": "Jupiter-Ketu",
+          "confluence_score": 52.9
+        },
+        {
+          "event": "Demise and State Funeral at Blenheim",
+          "tested_date": "1965-01-24",
+          "active_dasha": "Saturn-Sun",
+          "confluence_score": 35.0
+        }
+      ]
+    },
+    {
+      "mutation_id": "SHIFT_MINUS_2H",
+      "name": "Lagna Regression (-2 Hours)",
+      "category": "bhava_rotation",
+      "description": "Regresses birth time by 2 hours. Inverts house lords to preceding zodiac sign.",
+      "corrupted_birth_dt": "1874-11-29 23:30:00",
+      "corrupted_lagna": "Leo 16\u00b044'",
+      "corrupted_vcs": 49.7,
+      "delta_vcs": -9.6,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Dramatic Escape from Boer POW Camp",
+          "tested_date": "1899-12-12",
+          "active_dasha": "Sun-Rahu",
+          "confluence_score": 61.1
+        },
+        {
+          "event": "Appointed Wartime Prime Minister of the United Kingdom",
+          "tested_date": "1940-05-10",
+          "active_dasha": "Jupiter-Jupiter",
+          "confluence_score": 62.8
+        },
+        {
+          "event": "Shock Post-War General Election Defeat",
+          "tested_date": "1945-07-26",
+          "active_dasha": "Jupiter-Mercury",
+          "confluence_score": 31.0
+        },
+        {
+          "event": "Demise and State Funeral at Blenheim",
+          "tested_date": "1965-01-24",
+          "active_dasha": "Saturn-Venus",
+          "confluence_score": 43.9
+        }
+      ]
+    },
+    {
+      "mutation_id": "LAGNA_ROTATION_6H",
+      "name": "Bhavachakra Scramble (+6 Hours)",
+      "category": "bhava_rotation",
+      "description": "Advances birth time by 6 hours (90\u00b0 quadrant rotation). Forces Kendras into Dusthanas.",
+      "corrupted_birth_dt": "1874-11-30 07:30:00",
+      "corrupted_lagna": "Scorpio 11\u00b007'",
+      "corrupted_vcs": 33.5,
+      "delta_vcs": 6.6,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Dramatic Escape from Boer POW Camp",
+          "tested_date": "1899-12-12",
+          "active_dasha": "Sun-Saturn",
+          "confluence_score": 50.3
+        },
+        {
+          "event": "Appointed Wartime Prime Minister of the United Kingdom",
+          "tested_date": "1940-05-10",
+          "active_dasha": "Jupiter-Saturn",
+          "confluence_score": 15.0
+        },
+        {
+          "event": "Shock Post-War General Election Defeat",
+          "tested_date": "1945-07-26",
+          "active_dasha": "Jupiter-Venus",
+          "confluence_score": 53.9
+        },
+        {
+          "event": "Demise and State Funeral at Blenheim",
+          "tested_date": "1965-01-24",
+          "active_dasha": "Saturn-Moon",
+          "confluence_score": 15.0
+        }
+      ]
+    },
+    {
+      "mutation_id": "INVERSION_12H",
+      "name": "Polarity Inversion (12-Hour AM/PM Flip)",
+      "category": "diurnal_inversion",
+      "description": "180\u00b0 Bhavachakra reversal. Inverts daytime nocturnal hemispheres and Ascendant/Descendant axes.",
+      "corrupted_birth_dt": "1874-11-30 13:30:00",
+      "corrupted_lagna": "Pisces 08\u00b050'",
+      "corrupted_vcs": 49.5,
+      "delta_vcs": -9.4,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Dramatic Escape from Boer POW Camp",
+          "tested_date": "1899-12-12",
+          "active_dasha": "Sun-Venus",
+          "confluence_score": 15.0
+        },
+        {
+          "event": "Appointed Wartime Prime Minister of the United Kingdom",
+          "tested_date": "1940-05-10",
+          "active_dasha": "Jupiter-Mercury",
+          "confluence_score": 40.8
+        },
+        {
+          "event": "Shock Post-War General Election Defeat",
+          "tested_date": "1945-07-26",
+          "active_dasha": "Jupiter-Venus",
+          "confluence_score": 76.7
+        },
+        {
+          "event": "Demise and State Funeral at Blenheim",
+          "tested_date": "1965-01-24",
+          "active_dasha": "Saturn-Rahu",
+          "confluence_score": 65.4
+        }
+      ]
+    },
+    {
+      "mutation_id": "DESYNC_PLUS_1Y",
+      "name": "Dasha Desynchronization (+1 Year)",
+      "category": "dasha_desync",
+      "description": "Shifts birth year by +1 year. Misaligns Vimshottari Mahadasha balance by 365 days.",
+      "corrupted_birth_dt": "1875-11-30 01:30:00",
+      "corrupted_lagna": "Virgo 07\u00b038'",
+      "corrupted_vcs": 48.3,
+      "delta_vcs": -8.2,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Dramatic Escape from Boer POW Camp",
+          "tested_date": "1899-12-12",
+          "active_dasha": "Sun-Mars",
+          "confluence_score": 27.8
+        },
+        {
+          "event": "Appointed Wartime Prime Minister of the United Kingdom",
+          "tested_date": "1940-05-10",
+          "active_dasha": "Jupiter-Jupiter",
+          "confluence_score": 52.2
+        },
+        {
+          "event": "Shock Post-War General Election Defeat",
+          "tested_date": "1945-07-26",
+          "active_dasha": "Jupiter-Mercury",
+          "confluence_score": 46.1
+        },
+        {
+          "event": "Demise and State Funeral at Blenheim",
+          "tested_date": "1965-01-24",
+          "active_dasha": "Saturn-Venus",
+          "confluence_score": 67.1
+        }
+      ]
+    },
+    {
+      "mutation_id": "DESYNC_PLUS_3Y",
+      "name": "Severe Dasha Desynchronization (+3 Years)",
+      "category": "dasha_desync",
+      "description": "Shifts birth year by +3 years. Desynchronizes Dasha balance by 1,095 days into alien planetary cycles.",
+      "corrupted_birth_dt": "1877-11-30 01:30:00",
+      "corrupted_lagna": "Virgo 07\u00b057'",
+      "corrupted_vcs": 45.1,
+      "delta_vcs": -5.0,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Dramatic Escape from Boer POW Camp",
+          "tested_date": "1899-12-12",
+          "active_dasha": "Rahu-Saturn",
+          "confluence_score": 35.5
+        },
+        {
+          "event": "Appointed Wartime Prime Minister of the United Kingdom",
+          "tested_date": "1940-05-10",
+          "active_dasha": "Saturn-Rahu",
+          "confluence_score": 25.5
+        },
+        {
+          "event": "Shock Post-War General Election Defeat",
+          "tested_date": "1945-07-26",
+          "active_dasha": "Mercury-Mercury",
+          "confluence_score": 66.3
+        },
+        {
+          "event": "Demise and State Funeral at Blenheim",
+          "tested_date": "1965-01-24",
+          "active_dasha": "Ketu-Rahu",
+          "confluence_score": 53.0
+        }
+      ]
+    },
+    {
+      "mutation_id": "DESYNC_MINUS_3Y",
+      "name": "Severe Dasha Desynchronization (-3 Years)",
+      "category": "dasha_desync",
+      "description": "Shifts birth year by -3 years. Tests backward dasha cycle desynchronization.",
+      "corrupted_birth_dt": "1871-11-30 01:30:00",
+      "corrupted_lagna": "Virgo 07\u00b040'",
+      "corrupted_vcs": 36.5,
+      "delta_vcs": 3.6,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Dramatic Escape from Boer POW Camp",
+          "tested_date": "1899-12-12",
+          "active_dasha": "Saturn-Venus",
+          "confluence_score": 62.5
+        },
+        {
+          "event": "Appointed Wartime Prime Minister of the United Kingdom",
+          "tested_date": "1940-05-10",
+          "active_dasha": "Venus-Mars",
+          "confluence_score": 53.3
+        },
+        {
+          "event": "Shock Post-War General Election Defeat",
+          "tested_date": "1945-07-26",
+          "active_dasha": "Venus-Jupiter",
+          "confluence_score": 15.0
+        },
+        {
+          "event": "Demise and State Funeral at Blenheim",
+          "tested_date": "1965-01-24",
+          "active_dasha": "Moon-Saturn",
+          "confluence_score": 15.0
+        }
+      ]
+    },
+    {
+      "mutation_id": "GEO_DRIFT_ARBITRARY",
+      "name": "Hemispheric Geo-Drift (+35\u00b0 Lat, -75\u00b0 Lon)",
+      "category": "geographic_distortion",
+      "description": "Alters birth geography across continents while retaining local clock time. Distorts Ascendant degree.",
+      "corrupted_birth_dt": "1874-11-30 01:30:00",
+      "corrupted_lagna": "Virgo 00\u00b030'",
+      "corrupted_vcs": 39.2,
+      "delta_vcs": 0.9,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Dramatic Escape from Boer POW Camp",
+          "tested_date": "1899-12-12",
+          "active_dasha": "Sun-Rahu",
+          "confluence_score": 15.0
+        },
+        {
+          "event": "Appointed Wartime Prime Minister of the United Kingdom",
+          "tested_date": "1940-05-10",
+          "active_dasha": "Jupiter-Jupiter",
+          "confluence_score": 47.6
+        },
+        {
+          "event": "Shock Post-War General Election Defeat",
+          "tested_date": "1945-07-26",
+          "active_dasha": "Jupiter-Mercury",
+          "confluence_score": 60.6
+        },
+        {
+          "event": "Demise and State Funeral at Blenheim",
+          "tested_date": "1965-01-24",
+          "active_dasha": "Saturn-Sun",
+          "confluence_score": 33.7
+        }
+      ]
+    },
+    {
+      "mutation_id": "SCRAMBLED_EVENT_DATES",
+      "name": "Milestone Chronology Inversion (Fake Events)",
+      "category": "event_scramble",
+      "description": "Tests the real birth chart against chronologically scrambled or inverted milestone dates.",
+      "corrupted_birth_dt": "1874-11-30 01:30:00",
+      "corrupted_lagna": "Virgo 07\u00b049'",
+      "corrupted_vcs": 46.2,
+      "delta_vcs": -6.1,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Dramatic Escape from Boer POW Camp",
+          "tested_date": "1965-01-24",
+          "active_dasha": "Saturn-Sun",
+          "confluence_score": 15.0
+        },
+        {
+          "event": "Appointed Wartime Prime Minister of the United Kingdom",
+          "tested_date": "1945-07-26",
+          "active_dasha": "Jupiter-Mercury",
+          "confluence_score": 85.8
+        },
+        {
+          "event": "Shock Post-War General Election Defeat",
+          "tested_date": "1940-05-10",
+          "active_dasha": "Jupiter-Jupiter",
+          "confluence_score": 48.7
+        },
+        {
+          "event": "Demise and State Funeral at Blenheim",
+          "tested_date": "1899-12-12",
+          "active_dasha": "Sun-Rahu",
+          "confluence_score": 35.2
+        }
+      ]
+    }
+  ]
+}

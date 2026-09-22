@@ -1,0 +1,432 @@
+{
+  "subject_id": "11_marie_curie",
+  "subject_name": "Marie Curie (Historical Benchmark)",
+  "baseline_vcs": 60.6,
+  "average_corrupted_vcs": 62.3,
+  "mean_discrimination_margin": -1.7,
+  "falsification_pass_rate": "1/11",
+  "pass_count": 1,
+  "total_mutations": 11,
+  "collusion_count": 5,
+  "is_resilient": false,
+  "evaluations": [
+    {
+      "mutation_id": "JITTER_PLUS_15M",
+      "name": "Micro Cusp Jitter (+15 Min)",
+      "category": "temporal_jitter",
+      "description": "Artificially shifts birth time by +15 minutes. Tests Navamsha (D-9) and border-cusp sensitivity.",
+      "corrupted_birth_dt": "1867-11-07 12:15:00",
+      "corrupted_lagna": "Sagittarius 24\u00b017'",
+      "corrupted_vcs": 59.8,
+      "delta_vcs": 0.8,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Awarded Nobel Prize in Physics for Radiation Discovery",
+          "tested_date": "1903-12-10",
+          "active_dasha": "Mercury-Sun",
+          "confluence_score": 73.0
+        },
+        {
+          "event": "Sudden Tragic Demise of Husband Pierre Curie",
+          "tested_date": "1906-04-19",
+          "active_dasha": "Mercury-Mars",
+          "confluence_score": 62.7
+        },
+        {
+          "event": "Awarded Second Nobel Prize in Chemistry (Radium & Polonium)",
+          "tested_date": "1911-12-10",
+          "active_dasha": "Mercury-Saturn",
+          "confluence_score": 49.0
+        },
+        {
+          "event": "Demise from Aplastic Anemia due to Radiation Exposure",
+          "tested_date": "1934-07-04",
+          "active_dasha": "Venus-Saturn",
+          "confluence_score": 54.6
+        }
+      ]
+    },
+    {
+      "mutation_id": "JITTER_MINUS_15M",
+      "name": "Micro Cusp Jitter (-15 Min)",
+      "category": "temporal_jitter",
+      "description": "Artificially shifts birth time by -15 minutes. Tests retrograde cusp boundary tolerance.",
+      "corrupted_birth_dt": "1867-11-07 11:45:00",
+      "corrupted_lagna": "Sagittarius 16\u00b004'",
+      "corrupted_vcs": 70.8,
+      "delta_vcs": -10.2,
+      "falsified_successfully": false,
+      "collusion_detected": true,
+      "event_breakdown": [
+        {
+          "event": "Awarded Nobel Prize in Physics for Radiation Discovery",
+          "tested_date": "1903-12-10",
+          "active_dasha": "Mercury-Sun",
+          "confluence_score": 73.0
+        },
+        {
+          "event": "Sudden Tragic Demise of Husband Pierre Curie",
+          "tested_date": "1906-04-19",
+          "active_dasha": "Mercury-Mars",
+          "confluence_score": 67.8
+        },
+        {
+          "event": "Awarded Second Nobel Prize in Chemistry (Radium & Polonium)",
+          "tested_date": "1911-12-10",
+          "active_dasha": "Mercury-Jupiter",
+          "confluence_score": 90.0
+        },
+        {
+          "event": "Demise from Aplastic Anemia due to Radiation Exposure",
+          "tested_date": "1934-07-04",
+          "active_dasha": "Venus-Saturn",
+          "confluence_score": 52.3
+        }
+      ]
+    },
+    {
+      "mutation_id": "SHIFT_PLUS_2H",
+      "name": "Lagna Advance (+2 Hours)",
+      "category": "bhava_rotation",
+      "description": "Advances birth time by 2 hours (~1 full 30\u00b0 zodiac sign shift). Inverts basic house lordships.",
+      "corrupted_birth_dt": "1867-11-07 14:00:00",
+      "corrupted_lagna": "Aquarius 05\u00b046'",
+      "corrupted_vcs": 62.1,
+      "delta_vcs": -1.5,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Awarded Nobel Prize in Physics for Radiation Discovery",
+          "tested_date": "1903-12-10",
+          "active_dasha": "Mercury-Moon",
+          "confluence_score": 58.8
+        },
+        {
+          "event": "Sudden Tragic Demise of Husband Pierre Curie",
+          "tested_date": "1906-04-19",
+          "active_dasha": "Mercury-Rahu",
+          "confluence_score": 68.2
+        },
+        {
+          "event": "Awarded Second Nobel Prize in Chemistry (Radium & Polonium)",
+          "tested_date": "1911-12-10",
+          "active_dasha": "Mercury-Saturn",
+          "confluence_score": 89.0
+        },
+        {
+          "event": "Demise from Aplastic Anemia due to Radiation Exposure",
+          "tested_date": "1934-07-04",
+          "active_dasha": "Venus-Saturn",
+          "confluence_score": 32.3
+        }
+      ]
+    },
+    {
+      "mutation_id": "SHIFT_MINUS_2H",
+      "name": "Lagna Regression (-2 Hours)",
+      "category": "bhava_rotation",
+      "description": "Regresses birth time by 2 hours. Inverts house lords to preceding zodiac sign.",
+      "corrupted_birth_dt": "1867-11-07 10:00:00",
+      "corrupted_lagna": "Scorpio 22\u00b052'",
+      "corrupted_vcs": 70.2,
+      "delta_vcs": -9.6,
+      "falsified_successfully": false,
+      "collusion_detected": true,
+      "event_breakdown": [
+        {
+          "event": "Awarded Nobel Prize in Physics for Radiation Discovery",
+          "tested_date": "1903-12-10",
+          "active_dasha": "Mercury-Venus",
+          "confluence_score": 76.2
+        },
+        {
+          "event": "Sudden Tragic Demise of Husband Pierre Curie",
+          "tested_date": "1906-04-19",
+          "active_dasha": "Mercury-Moon",
+          "confluence_score": 35.0
+        },
+        {
+          "event": "Awarded Second Nobel Prize in Chemistry (Radium & Polonium)",
+          "tested_date": "1911-12-10",
+          "active_dasha": "Mercury-Jupiter",
+          "confluence_score": 82.2
+        },
+        {
+          "event": "Demise from Aplastic Anemia due to Radiation Exposure",
+          "tested_date": "1934-07-04",
+          "active_dasha": "Venus-Jupiter",
+          "confluence_score": 87.6
+        }
+      ]
+    },
+    {
+      "mutation_id": "LAGNA_ROTATION_6H",
+      "name": "Bhavachakra Scramble (+6 Hours)",
+      "category": "bhava_rotation",
+      "description": "Advances birth time by 6 hours (90\u00b0 quadrant rotation). Forces Kendras into Dusthanas.",
+      "corrupted_birth_dt": "1867-11-07 18:00:00",
+      "corrupted_lagna": "Taurus 28\u00b040'",
+      "corrupted_vcs": 75.5,
+      "delta_vcs": -14.9,
+      "falsified_successfully": false,
+      "collusion_detected": true,
+      "event_breakdown": [
+        {
+          "event": "Awarded Nobel Prize in Physics for Radiation Discovery",
+          "tested_date": "1903-12-10",
+          "active_dasha": "Mercury-Rahu",
+          "confluence_score": 76.0
+        },
+        {
+          "event": "Sudden Tragic Demise of Husband Pierre Curie",
+          "tested_date": "1906-04-19",
+          "active_dasha": "Mercury-Jupiter",
+          "confluence_score": 90.1
+        },
+        {
+          "event": "Awarded Second Nobel Prize in Chemistry (Radium & Polonium)",
+          "tested_date": "1911-12-10",
+          "active_dasha": "Ketu-Venus",
+          "confluence_score": 60.3
+        },
+        {
+          "event": "Demise from Aplastic Anemia due to Radiation Exposure",
+          "tested_date": "1934-07-04",
+          "active_dasha": "Venus-Mercury",
+          "confluence_score": 75.8
+        }
+      ]
+    },
+    {
+      "mutation_id": "INVERSION_12H",
+      "name": "Polarity Inversion (12-Hour AM/PM Flip)",
+      "category": "diurnal_inversion",
+      "description": "180\u00b0 Bhavachakra reversal. Inverts daytime nocturnal hemispheres and Ascendant/Descendant axes.",
+      "corrupted_birth_dt": "1867-11-08 00:00:00",
+      "corrupted_lagna": "Leo 07\u00b049'",
+      "corrupted_vcs": 57.9,
+      "delta_vcs": 2.7,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Awarded Nobel Prize in Physics for Radiation Discovery",
+          "tested_date": "1903-12-10",
+          "active_dasha": "Mercury-Jupiter",
+          "confluence_score": 76.2
+        },
+        {
+          "event": "Sudden Tragic Demise of Husband Pierre Curie",
+          "tested_date": "1906-04-19",
+          "active_dasha": "Mercury-Saturn",
+          "confluence_score": 83.7
+        },
+        {
+          "event": "Awarded Second Nobel Prize in Chemistry (Radium & Polonium)",
+          "tested_date": "1911-12-10",
+          "active_dasha": "Ketu-Saturn",
+          "confluence_score": 37.6
+        },
+        {
+          "event": "Demise from Aplastic Anemia due to Radiation Exposure",
+          "tested_date": "1934-07-04",
+          "active_dasha": "Sun-Moon",
+          "confluence_score": 33.9
+        }
+      ]
+    },
+    {
+      "mutation_id": "DESYNC_PLUS_1Y",
+      "name": "Dasha Desynchronization (+1 Year)",
+      "category": "dasha_desync",
+      "description": "Shifts birth year by +1 year. Misaligns Vimshottari Mahadasha balance by 365 days.",
+      "corrupted_birth_dt": "1868-11-07 12:00:00",
+      "corrupted_lagna": "Sagittarius 20\u00b051'",
+      "corrupted_vcs": 68.2,
+      "delta_vcs": -7.6,
+      "falsified_successfully": false,
+      "collusion_detected": true,
+      "event_breakdown": [
+        {
+          "event": "Awarded Nobel Prize in Physics for Radiation Discovery",
+          "tested_date": "1903-12-10",
+          "active_dasha": "Venus-Mercury",
+          "confluence_score": 98.0
+        },
+        {
+          "event": "Sudden Tragic Demise of Husband Pierre Curie",
+          "tested_date": "1906-04-19",
+          "active_dasha": "Venus-Ketu",
+          "confluence_score": 35.8
+        },
+        {
+          "event": "Awarded Second Nobel Prize in Chemistry (Radium & Polonium)",
+          "tested_date": "1911-12-10",
+          "active_dasha": "Sun-Venus",
+          "confluence_score": 80.8
+        },
+        {
+          "event": "Demise from Aplastic Anemia due to Radiation Exposure",
+          "tested_date": "1934-07-04",
+          "active_dasha": "Rahu-Jupiter",
+          "confluence_score": 58.0
+        }
+      ]
+    },
+    {
+      "mutation_id": "DESYNC_PLUS_3Y",
+      "name": "Severe Dasha Desynchronization (+3 Years)",
+      "category": "dasha_desync",
+      "description": "Shifts birth year by +3 years. Desynchronizes Dasha balance by 1,095 days into alien planetary cycles.",
+      "corrupted_birth_dt": "1870-11-07 12:00:00",
+      "corrupted_lagna": "Sagittarius 20\u00b018'",
+      "corrupted_vcs": 60.1,
+      "delta_vcs": 0.5,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Awarded Nobel Prize in Physics for Radiation Discovery",
+          "tested_date": "1903-12-10",
+          "active_dasha": "Moon-Mercury",
+          "confluence_score": 71.2
+        },
+        {
+          "event": "Sudden Tragic Demise of Husband Pierre Curie",
+          "tested_date": "1906-04-19",
+          "active_dasha": "Moon-Venus",
+          "confluence_score": 39.5
+        },
+        {
+          "event": "Awarded Second Nobel Prize in Chemistry (Radium & Polonium)",
+          "tested_date": "1911-12-10",
+          "active_dasha": "Mars-Venus",
+          "confluence_score": 50.6
+        },
+        {
+          "event": "Demise from Aplastic Anemia due to Radiation Exposure",
+          "tested_date": "1934-07-04",
+          "active_dasha": "Jupiter-Saturn",
+          "confluence_score": 79.0
+        }
+      ]
+    },
+    {
+      "mutation_id": "DESYNC_MINUS_3Y",
+      "name": "Severe Dasha Desynchronization (-3 Years)",
+      "category": "dasha_desync",
+      "description": "Shifts birth year by -3 years. Tests backward dasha cycle desynchronization.",
+      "corrupted_birth_dt": "1864-11-07 12:00:00",
+      "corrupted_lagna": "Sagittarius 20\u00b052'",
+      "corrupted_vcs": 66.7,
+      "delta_vcs": -6.1,
+      "falsified_successfully": false,
+      "collusion_detected": true,
+      "event_breakdown": [
+        {
+          "event": "Awarded Nobel Prize in Physics for Radiation Discovery",
+          "tested_date": "1903-12-10",
+          "active_dasha": "Saturn-Saturn",
+          "confluence_score": 63.6
+        },
+        {
+          "event": "Sudden Tragic Demise of Husband Pierre Curie",
+          "tested_date": "1906-04-19",
+          "active_dasha": "Saturn-Mercury",
+          "confluence_score": 84.1
+        },
+        {
+          "event": "Awarded Second Nobel Prize in Chemistry (Radium & Polonium)",
+          "tested_date": "1911-12-10",
+          "active_dasha": "Saturn-Venus",
+          "confluence_score": 60.9
+        },
+        {
+          "event": "Demise from Aplastic Anemia due to Radiation Exposure",
+          "tested_date": "1934-07-04",
+          "active_dasha": "Mercury-Jupiter",
+          "confluence_score": 58.0
+        }
+      ]
+    },
+    {
+      "mutation_id": "GEO_DRIFT_ARBITRARY",
+      "name": "Hemispheric Geo-Drift (+35\u00b0 Lat, -75\u00b0 Lon)",
+      "category": "geographic_distortion",
+      "description": "Alters birth geography across continents while retaining local clock time. Distorts Ascendant degree.",
+      "corrupted_birth_dt": "1867-11-07 12:00:00",
+      "corrupted_lagna": "Virgo 13\u00b045'",
+      "corrupted_vcs": 40.9,
+      "delta_vcs": 19.7,
+      "falsified_successfully": true,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Awarded Nobel Prize in Physics for Radiation Discovery",
+          "tested_date": "1903-12-10",
+          "active_dasha": "Mercury-Sun",
+          "confluence_score": 39.4
+        },
+        {
+          "event": "Sudden Tragic Demise of Husband Pierre Curie",
+          "tested_date": "1906-04-19",
+          "active_dasha": "Mercury-Mars",
+          "confluence_score": 40.8
+        },
+        {
+          "event": "Awarded Second Nobel Prize in Chemistry (Radium & Polonium)",
+          "tested_date": "1911-12-10",
+          "active_dasha": "Mercury-Saturn",
+          "confluence_score": 46.2
+        },
+        {
+          "event": "Demise from Aplastic Anemia due to Radiation Exposure",
+          "tested_date": "1934-07-04",
+          "active_dasha": "Venus-Saturn",
+          "confluence_score": 37.2
+        }
+      ]
+    },
+    {
+      "mutation_id": "SCRAMBLED_EVENT_DATES",
+      "name": "Milestone Chronology Inversion (Fake Events)",
+      "category": "event_scramble",
+      "description": "Tests the real birth chart against chronologically scrambled or inverted milestone dates.",
+      "corrupted_birth_dt": "1867-11-07 12:00:00",
+      "corrupted_lagna": "Sagittarius 20\u00b003'",
+      "corrupted_vcs": 53.5,
+      "delta_vcs": 7.1,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Awarded Nobel Prize in Physics for Radiation Discovery",
+          "tested_date": "1934-07-04",
+          "active_dasha": "Venus-Saturn",
+          "confluence_score": 48.4
+        },
+        {
+          "event": "Sudden Tragic Demise of Husband Pierre Curie",
+          "tested_date": "1911-12-10",
+          "active_dasha": "Mercury-Saturn",
+          "confluence_score": 85.5
+        },
+        {
+          "event": "Awarded Second Nobel Prize in Chemistry (Radium & Polonium)",
+          "tested_date": "1906-04-19",
+          "active_dasha": "Mercury-Mars",
+          "confluence_score": 44.9
+        },
+        {
+          "event": "Demise from Aplastic Anemia due to Radiation Exposure",
+          "tested_date": "1903-12-10",
+          "active_dasha": "Mercury-Sun",
+          "confluence_score": 35.1
+        }
+      ]
+    }
+  ]
+}

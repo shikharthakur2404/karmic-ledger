@@ -1,0 +1,40 @@
+{
+  "subject_id": "15_synthetic_beta",
+  "name": "Synthetic Subject Beta (De-Identified Archetype)",
+  "benchmark_type": "synthetic_vector",
+  "birth_data": {
+    "date": "1992-11-20",
+    "time": "07:30:00",
+    "city": "Boston",
+    "state": "Massachusetts",
+    "country": "USA",
+    "latitude": 42.3601,
+    "longitude": -71.0589,
+    "timezone_offset": -5.0
+  },
+  "verified_coordinates": {
+    "lagna": "Scorpio 18\u00b040'",
+    "moon_sign": "Virgo 11\u00b020'",
+    "sun_sign": "Scorpio 04\u00b050'"
+  },
+  "biographical_milestones": [
+    {
+      "event": "Medical School Graduation & M.D. Conferral",
+      "date": "2018-05-24",
+      "category": "education",
+      "historical_context": "Completed medical doctorate with honors."
+    },
+    {
+      "event": "Competitive Surgical Fellowship Match",
+      "date": "2021-07-01",
+      "category": "career",
+      "historical_context": "Appointed chief fellow at academic teaching hospital."
+    },
+    {
+      "event": "Appointed Department Division Chief",
+      "date": "2024-09-01",
+      "category": "career",
+      "historical_context": "Promoted to lead clinical oncology unit."
+    }
+  ]
+}

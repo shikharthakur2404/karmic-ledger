@@ -1,0 +1,498 @@
+{
+  "subject_id": "02_abraham_lincoln",
+  "subject_name": "Abraham Lincoln (Historical Benchmark)",
+  "baseline_vcs": 80.6,
+  "average_corrupted_vcs": 60.8,
+  "mean_discrimination_margin": 19.8,
+  "falsification_pass_rate": "6/11",
+  "pass_count": 6,
+  "total_mutations": 11,
+  "collusion_count": 5,
+  "is_resilient": false,
+  "evaluations": [
+    {
+      "mutation_id": "JITTER_PLUS_15M",
+      "name": "Micro Cusp Jitter (+15 Min)",
+      "category": "temporal_jitter",
+      "description": "Artificially shifts birth time by +15 minutes. Tests Navamsha (D-9) and border-cusp sensitivity.",
+      "corrupted_birth_dt": "1809-02-12 07:09:00",
+      "corrupted_lagna": "Aquarius 06\u00b019'",
+      "corrupted_vcs": 80.5,
+      "delta_vcs": 0.1,
+      "falsified_successfully": false,
+      "collusion_detected": true,
+      "event_breakdown": [
+        {
+          "event": "Marriage to Mary Todd",
+          "tested_date": "1842-11-04",
+          "active_dasha": "Rahu-Sun",
+          "confluence_score": 38.0
+        },
+        {
+          "event": "Elected 16th President of the United States",
+          "tested_date": "1860-11-06",
+          "active_dasha": "Jupiter-Rahu",
+          "confluence_score": 98.0
+        },
+        {
+          "event": "Outbreak of American Civil War (Fort Sumter)",
+          "tested_date": "1861-04-12",
+          "active_dasha": "Jupiter-Rahu",
+          "confluence_score": 94.0
+        },
+        {
+          "event": "Re-elected President in Wartime Landslide",
+          "tested_date": "1864-11-08",
+          "active_dasha": "Saturn-Saturn",
+          "confluence_score": 98.0
+        },
+        {
+          "event": "Assassination by John Wilkes Booth at Ford's Theatre",
+          "tested_date": "1865-04-14",
+          "active_dasha": "Saturn-Mercury",
+          "confluence_score": 74.6
+        }
+      ]
+    },
+    {
+      "mutation_id": "JITTER_MINUS_15M",
+      "name": "Micro Cusp Jitter (-15 Min)",
+      "category": "temporal_jitter",
+      "description": "Artificially shifts birth time by -15 minutes. Tests retrograde cusp boundary tolerance.",
+      "corrupted_birth_dt": "1809-02-12 06:39:00",
+      "corrupted_lagna": "Capricorn 25\u00b039'",
+      "corrupted_vcs": 70.7,
+      "delta_vcs": 9.9,
+      "falsified_successfully": false,
+      "collusion_detected": true,
+      "event_breakdown": [
+        {
+          "event": "Marriage to Mary Todd",
+          "tested_date": "1842-11-04",
+          "active_dasha": "Rahu-Sun",
+          "confluence_score": 63.9
+        },
+        {
+          "event": "Elected 16th President of the United States",
+          "tested_date": "1860-11-06",
+          "active_dasha": "Jupiter-Rahu",
+          "confluence_score": 54.2
+        },
+        {
+          "event": "Outbreak of American Civil War (Fort Sumter)",
+          "tested_date": "1861-04-12",
+          "active_dasha": "Jupiter-Rahu",
+          "confluence_score": 63.0
+        },
+        {
+          "event": "Re-elected President in Wartime Landslide",
+          "tested_date": "1864-11-08",
+          "active_dasha": "Saturn-Saturn",
+          "confluence_score": 98.0
+        },
+        {
+          "event": "Assassination by John Wilkes Booth at Ford's Theatre",
+          "tested_date": "1865-04-14",
+          "active_dasha": "Saturn-Mercury",
+          "confluence_score": 74.2
+        }
+      ]
+    },
+    {
+      "mutation_id": "SHIFT_PLUS_2H",
+      "name": "Lagna Advance (+2 Hours)",
+      "category": "bhava_rotation",
+      "description": "Advances birth time by 2 hours (~1 full 30\u00b0 zodiac sign shift). Inverts basic house lordships.",
+      "corrupted_birth_dt": "1809-02-12 08:54:00",
+      "corrupted_lagna": "Pisces 18\u00b009'",
+      "corrupted_vcs": 40.1,
+      "delta_vcs": 40.5,
+      "falsified_successfully": true,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Marriage to Mary Todd",
+          "tested_date": "1842-11-04",
+          "active_dasha": "Rahu-Sun",
+          "confluence_score": 26.2
+        },
+        {
+          "event": "Elected 16th President of the United States",
+          "tested_date": "1860-11-06",
+          "active_dasha": "Jupiter-Rahu",
+          "confluence_score": 41.0
+        },
+        {
+          "event": "Outbreak of American Civil War (Fort Sumter)",
+          "tested_date": "1861-04-12",
+          "active_dasha": "Jupiter-Rahu",
+          "confluence_score": 44.1
+        },
+        {
+          "event": "Re-elected President in Wartime Landslide",
+          "tested_date": "1864-11-08",
+          "active_dasha": "Saturn-Mercury",
+          "confluence_score": 46.8
+        },
+        {
+          "event": "Assassination by John Wilkes Booth at Ford's Theatre",
+          "tested_date": "1865-04-14",
+          "active_dasha": "Saturn-Mercury",
+          "confluence_score": 42.5
+        }
+      ]
+    },
+    {
+      "mutation_id": "SHIFT_MINUS_2H",
+      "name": "Lagna Regression (-2 Hours)",
+      "category": "bhava_rotation",
+      "description": "Regresses birth time by 2 hours. Inverts house lords to preceding zodiac sign.",
+      "corrupted_birth_dt": "1809-02-12 04:54:00",
+      "corrupted_lagna": "Sagittarius 24\u00b024'",
+      "corrupted_vcs": 55.3,
+      "delta_vcs": 25.3,
+      "falsified_successfully": true,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Marriage to Mary Todd",
+          "tested_date": "1842-11-04",
+          "active_dasha": "Rahu-Venus",
+          "confluence_score": 30.4
+        },
+        {
+          "event": "Elected 16th President of the United States",
+          "tested_date": "1860-11-06",
+          "active_dasha": "Jupiter-Rahu",
+          "confluence_score": 66.7
+        },
+        {
+          "event": "Outbreak of American Civil War (Fort Sumter)",
+          "tested_date": "1861-04-12",
+          "active_dasha": "Jupiter-Rahu",
+          "confluence_score": 65.9
+        },
+        {
+          "event": "Re-elected President in Wartime Landslide",
+          "tested_date": "1864-11-08",
+          "active_dasha": "Saturn-Saturn",
+          "confluence_score": 15.4
+        },
+        {
+          "event": "Assassination by John Wilkes Booth at Ford's Theatre",
+          "tested_date": "1865-04-14",
+          "active_dasha": "Saturn-Saturn",
+          "confluence_score": 98.0
+        }
+      ]
+    },
+    {
+      "mutation_id": "LAGNA_ROTATION_6H",
+      "name": "Bhavachakra Scramble (+6 Hours)",
+      "category": "bhava_rotation",
+      "description": "Advances birth time by 6 hours (90\u00b0 quadrant rotation). Forces Kendras into Dusthanas.",
+      "corrupted_birth_dt": "1809-02-12 12:54:00",
+      "corrupted_lagna": "Gemini 04\u00b031'",
+      "corrupted_vcs": 36.2,
+      "delta_vcs": 44.4,
+      "falsified_successfully": true,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Marriage to Mary Todd",
+          "tested_date": "1842-11-04",
+          "active_dasha": "Rahu-Moon",
+          "confluence_score": 37.3
+        },
+        {
+          "event": "Elected 16th President of the United States",
+          "tested_date": "1860-11-06",
+          "active_dasha": "Saturn-Saturn",
+          "confluence_score": 15.0
+        },
+        {
+          "event": "Outbreak of American Civil War (Fort Sumter)",
+          "tested_date": "1861-04-12",
+          "active_dasha": "Saturn-Saturn",
+          "confluence_score": 15.0
+        },
+        {
+          "event": "Re-elected President in Wartime Landslide",
+          "tested_date": "1864-11-08",
+          "active_dasha": "Saturn-Mercury",
+          "confluence_score": 50.1
+        },
+        {
+          "event": "Assassination by John Wilkes Booth at Ford's Theatre",
+          "tested_date": "1865-04-14",
+          "active_dasha": "Saturn-Mercury",
+          "confluence_score": 63.6
+        }
+      ]
+    },
+    {
+      "mutation_id": "INVERSION_12H",
+      "name": "Polarity Inversion (12-Hour AM/PM Flip)",
+      "category": "diurnal_inversion",
+      "description": "180\u00b0 Bhavachakra reversal. Inverts daytime nocturnal hemispheres and Ascendant/Descendant axes.",
+      "corrupted_birth_dt": "1809-02-12 18:54:00",
+      "corrupted_lagna": "Leo 19\u00b021'",
+      "corrupted_vcs": 54.7,
+      "delta_vcs": 25.9,
+      "falsified_successfully": true,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Marriage to Mary Todd",
+          "tested_date": "1842-11-04",
+          "active_dasha": "Jupiter-Jupiter",
+          "confluence_score": 57.9
+        },
+        {
+          "event": "Elected 16th President of the United States",
+          "tested_date": "1860-11-06",
+          "active_dasha": "Saturn-Saturn",
+          "confluence_score": 49.1
+        },
+        {
+          "event": "Outbreak of American Civil War (Fort Sumter)",
+          "tested_date": "1861-04-12",
+          "active_dasha": "Saturn-Mercury",
+          "confluence_score": 63.2
+        },
+        {
+          "event": "Re-elected President in Wartime Landslide",
+          "tested_date": "1864-11-08",
+          "active_dasha": "Saturn-Venus",
+          "confluence_score": 47.4
+        },
+        {
+          "event": "Assassination by John Wilkes Booth at Ford's Theatre",
+          "tested_date": "1865-04-14",
+          "active_dasha": "Saturn-Venus",
+          "confluence_score": 56.0
+        }
+      ]
+    },
+    {
+      "mutation_id": "DESYNC_PLUS_1Y",
+      "name": "Dasha Desynchronization (+1 Year)",
+      "category": "dasha_desync",
+      "description": "Shifts birth year by +1 year. Misaligns Vimshottari Mahadasha balance by 365 days.",
+      "corrupted_birth_dt": "1810-02-12 06:54:00",
+      "corrupted_lagna": "Aquarius 00\u00b032'",
+      "corrupted_vcs": 69.1,
+      "delta_vcs": 11.5,
+      "falsified_successfully": false,
+      "collusion_detected": true,
+      "event_breakdown": [
+        {
+          "event": "Marriage to Mary Todd",
+          "tested_date": "1842-11-04",
+          "active_dasha": "Jupiter-Jupiter",
+          "confluence_score": 92.0
+        },
+        {
+          "event": "Elected 16th President of the United States",
+          "tested_date": "1860-11-06",
+          "active_dasha": "Saturn-Mercury",
+          "confluence_score": 83.9
+        },
+        {
+          "event": "Outbreak of American Civil War (Fort Sumter)",
+          "tested_date": "1861-04-12",
+          "active_dasha": "Saturn-Mercury",
+          "confluence_score": 88.8
+        },
+        {
+          "event": "Re-elected President in Wartime Landslide",
+          "tested_date": "1864-11-08",
+          "active_dasha": "Saturn-Venus",
+          "confluence_score": 51.4
+        },
+        {
+          "event": "Assassination by John Wilkes Booth at Ford's Theatre",
+          "tested_date": "1865-04-14",
+          "active_dasha": "Saturn-Venus",
+          "confluence_score": 29.5
+        }
+      ]
+    },
+    {
+      "mutation_id": "DESYNC_PLUS_3Y",
+      "name": "Severe Dasha Desynchronization (+3 Years)",
+      "category": "dasha_desync",
+      "description": "Shifts birth year by +3 years. Desynchronizes Dasha balance by 1,095 days into alien planetary cycles.",
+      "corrupted_birth_dt": "1812-02-12 06:54:00",
+      "corrupted_lagna": "Capricorn 29\u00b050'",
+      "corrupted_vcs": 58.2,
+      "delta_vcs": 22.4,
+      "falsified_successfully": true,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Marriage to Mary Todd",
+          "tested_date": "1842-11-04",
+          "active_dasha": "Jupiter-Ketu",
+          "confluence_score": 50.8
+        },
+        {
+          "event": "Elected 16th President of the United States",
+          "tested_date": "1860-11-06",
+          "active_dasha": "Saturn-Venus",
+          "confluence_score": 60.6
+        },
+        {
+          "event": "Outbreak of American Civil War (Fort Sumter)",
+          "tested_date": "1861-04-12",
+          "active_dasha": "Saturn-Sun",
+          "confluence_score": 34.7
+        },
+        {
+          "event": "Re-elected President in Wartime Landslide",
+          "tested_date": "1864-11-08",
+          "active_dasha": "Saturn-Rahu",
+          "confluence_score": 46.8
+        },
+        {
+          "event": "Assassination by John Wilkes Booth at Ford's Theatre",
+          "tested_date": "1865-04-14",
+          "active_dasha": "Saturn-Rahu",
+          "confluence_score": 98.0
+        }
+      ]
+    },
+    {
+      "mutation_id": "DESYNC_MINUS_3Y",
+      "name": "Severe Dasha Desynchronization (-3 Years)",
+      "category": "dasha_desync",
+      "description": "Shifts birth year by -3 years. Tests backward dasha cycle desynchronization.",
+      "corrupted_birth_dt": "1806-02-12 06:54:00",
+      "corrupted_lagna": "Aquarius 00\u00b032'",
+      "corrupted_vcs": 73.9,
+      "delta_vcs": 6.7,
+      "falsified_successfully": false,
+      "collusion_detected": true,
+      "event_breakdown": [
+        {
+          "event": "Marriage to Mary Todd",
+          "tested_date": "1842-11-04",
+          "active_dasha": "Sun-Mercury",
+          "confluence_score": 39.0
+        },
+        {
+          "event": "Elected 16th President of the United States",
+          "tested_date": "1860-11-06",
+          "active_dasha": "Mars-Sun",
+          "confluence_score": 85.7
+        },
+        {
+          "event": "Outbreak of American Civil War (Fort Sumter)",
+          "tested_date": "1861-04-12",
+          "active_dasha": "Mars-Moon",
+          "confluence_score": 74.7
+        },
+        {
+          "event": "Re-elected President in Wartime Landslide",
+          "tested_date": "1864-11-08",
+          "active_dasha": "Rahu-Jupiter",
+          "confluence_score": 94.5
+        },
+        {
+          "event": "Assassination by John Wilkes Booth at Ford's Theatre",
+          "tested_date": "1865-04-14",
+          "active_dasha": "Rahu-Jupiter",
+          "confluence_score": 75.5
+        }
+      ]
+    },
+    {
+      "mutation_id": "GEO_DRIFT_ARBITRARY",
+      "name": "Hemispheric Geo-Drift (+35\u00b0 Lat, -75\u00b0 Lon)",
+      "category": "geographic_distortion",
+      "description": "Alters birth geography across continents while retaining local clock time. Distorts Ascendant degree.",
+      "corrupted_birth_dt": "1809-02-12 06:54:00",
+      "corrupted_lagna": "Libra 13\u00b038'",
+      "corrupted_vcs": 51.2,
+      "delta_vcs": 29.4,
+      "falsified_successfully": true,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Marriage to Mary Todd",
+          "tested_date": "1842-11-04",
+          "active_dasha": "Rahu-Sun",
+          "confluence_score": 25.4
+        },
+        {
+          "event": "Elected 16th President of the United States",
+          "tested_date": "1860-11-06",
+          "active_dasha": "Jupiter-Rahu",
+          "confluence_score": 65.2
+        },
+        {
+          "event": "Outbreak of American Civil War (Fort Sumter)",
+          "tested_date": "1861-04-12",
+          "active_dasha": "Jupiter-Rahu",
+          "confluence_score": 65.2
+        },
+        {
+          "event": "Re-elected President in Wartime Landslide",
+          "tested_date": "1864-11-08",
+          "active_dasha": "Saturn-Saturn",
+          "confluence_score": 67.6
+        },
+        {
+          "event": "Assassination by John Wilkes Booth at Ford's Theatre",
+          "tested_date": "1865-04-14",
+          "active_dasha": "Saturn-Mercury",
+          "confluence_score": 32.6
+        }
+      ]
+    },
+    {
+      "mutation_id": "SCRAMBLED_EVENT_DATES",
+      "name": "Milestone Chronology Inversion (Fake Events)",
+      "category": "event_scramble",
+      "description": "Tests the real birth chart against chronologically scrambled or inverted milestone dates.",
+      "corrupted_birth_dt": "1809-02-12 06:54:00",
+      "corrupted_lagna": "Aquarius 00\u00b053'",
+      "corrupted_vcs": 79.0,
+      "delta_vcs": 1.6,
+      "falsified_successfully": false,
+      "collusion_detected": true,
+      "event_breakdown": [
+        {
+          "event": "Marriage to Mary Todd",
+          "tested_date": "1865-04-14",
+          "active_dasha": "Saturn-Mercury",
+          "confluence_score": 40.9
+        },
+        {
+          "event": "Elected 16th President of the United States",
+          "tested_date": "1864-11-08",
+          "active_dasha": "Saturn-Saturn",
+          "confluence_score": 98.0
+        },
+        {
+          "event": "Outbreak of American Civil War (Fort Sumter)",
+          "tested_date": "1861-04-12",
+          "active_dasha": "Jupiter-Rahu",
+          "confluence_score": 98.0
+        },
+        {
+          "event": "Re-elected President in Wartime Landslide",
+          "tested_date": "1860-11-06",
+          "active_dasha": "Jupiter-Rahu",
+          "confluence_score": 98.0
+        },
+        {
+          "event": "Assassination by John Wilkes Booth at Ford's Theatre",
+          "tested_date": "1842-11-04",
+          "active_dasha": "Rahu-Sun",
+          "confluence_score": 60.2
+        }
+      ]
+    }
+  ]
+}

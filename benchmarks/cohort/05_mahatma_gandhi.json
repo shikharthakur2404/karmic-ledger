@@ -1,0 +1,46 @@
+{
+  "subject_id": "05_mahatma_gandhi",
+  "name": "Mahatma Gandhi (Historical Benchmark)",
+  "benchmark_type": "historical_public_record",
+  "birth_data": {
+    "date": "1869-10-02",
+    "time": "07:11:00",
+    "city": "Porbandar",
+    "state": "Gujarat",
+    "country": "India",
+    "latitude": 21.6417,
+    "longitude": 69.6293,
+    "timezone_offset": 4.6419
+  },
+  "verified_coordinates": {
+    "lagna": "Libra 26\u00b055'",
+    "moon_sign": "Cancer 27\u00b050'",
+    "sun_sign": "Virgo 16\u00b055'"
+  },
+  "biographical_milestones": [
+    {
+      "event": "Departure for London to Study Law at Inner Temple",
+      "date": "1888-09-04",
+      "category": "foreign",
+      "historical_context": "Traveled abroad to England for legal education."
+    },
+    {
+      "event": "Historic Salt March to Dandi (Satyagraha)",
+      "date": "1930-03-12",
+      "category": "career",
+      "historical_context": "Led 240-mile civil disobedience march against colonial salt tax."
+    },
+    {
+      "event": "Declaration of Indian Independence",
+      "date": "1947-08-15",
+      "category": "career",
+      "historical_context": "India attains sovereign independence."
+    },
+    {
+      "event": "Assassination by Gunfire at Birla House",
+      "date": "1948-01-30",
+      "category": "mortality",
+      "historical_context": "Fatally shot during evening prayer in New Delhi."
+    }
+  ]
+}

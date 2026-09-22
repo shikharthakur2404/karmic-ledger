@@ -1,0 +1,46 @@
+{
+  "subject_id": "08_martin_luther_king",
+  "name": "Martin Luther King Jr. (Historical Benchmark)",
+  "benchmark_type": "historical_public_record",
+  "birth_data": {
+    "date": "1929-01-15",
+    "time": "12:00:00",
+    "city": "Atlanta",
+    "state": "Georgia",
+    "country": "USA",
+    "latitude": 33.749,
+    "longitude": -84.388,
+    "timezone_offset": -5.0
+  },
+  "verified_coordinates": {
+    "lagna": "Taurus 18\u00b050'",
+    "moon_sign": "Pisces 04\u00b012'",
+    "sun_sign": "Capricorn 01\u00b055'"
+  },
+  "biographical_milestones": [
+    {
+      "event": "Montgomery Bus Boycott Launch",
+      "date": "1955-12-05",
+      "category": "career",
+      "historical_context": "Elected leader of Montgomery Improvement Association."
+    },
+    {
+      "event": "Historic 'I Have a Dream' Speech at Lincoln Memorial",
+      "date": "1963-08-28",
+      "category": "career",
+      "historical_context": "Delivered era-defining civil rights address to 250,000 citizens."
+    },
+    {
+      "event": "Awarded Nobel Peace Prize",
+      "date": "1964-10-14",
+      "category": "career",
+      "historical_context": "Became youngest Nobel Peace laureate for nonviolent resistance."
+    },
+    {
+      "event": "Assassination by Gunfire at Lorraine Motel",
+      "date": "1968-04-04",
+      "category": "mortality",
+      "historical_context": "Fatally shot on balcony in Memphis, Tennessee."
+    }
+  ]
+}

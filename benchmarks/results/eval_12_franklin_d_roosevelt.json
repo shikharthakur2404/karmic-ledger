@@ -1,0 +1,432 @@
+{
+  "subject_id": "12_franklin_d_roosevelt",
+  "subject_name": "Franklin D. Roosevelt (Historical Benchmark)",
+  "baseline_vcs": 62.4,
+  "average_corrupted_vcs": 59.6,
+  "mean_discrimination_margin": 2.8,
+  "falsification_pass_rate": "1/11",
+  "pass_count": 1,
+  "total_mutations": 11,
+  "collusion_count": 3,
+  "is_resilient": false,
+  "evaluations": [
+    {
+      "mutation_id": "JITTER_PLUS_15M",
+      "name": "Micro Cusp Jitter (+15 Min)",
+      "category": "temporal_jitter",
+      "description": "Artificially shifts birth time by +15 minutes. Tests Navamsha (D-9) and border-cusp sensitivity.",
+      "corrupted_birth_dt": "1882-01-30 20:22:00",
+      "corrupted_lagna": "Leo 27\u00b022'",
+      "corrupted_vcs": 68.5,
+      "delta_vcs": -6.1,
+      "falsified_successfully": false,
+      "collusion_detected": true,
+      "event_breakdown": [
+        {
+          "event": "Paralytic Illness Attack (Polio Crisis at Campobello)",
+          "tested_date": "1921-08-10",
+          "active_dasha": "Saturn-Rahu",
+          "confluence_score": 53.0
+        },
+        {
+          "event": "Elected 32nd President of the United States (New Deal)",
+          "tested_date": "1932-11-08",
+          "active_dasha": "Mercury-Moon",
+          "confluence_score": 77.0
+        },
+        {
+          "event": "Pearl Harbor Attack & Entry into World War II",
+          "tested_date": "1941-12-07",
+          "active_dasha": "Mercury-Saturn",
+          "confluence_score": 68.1
+        },
+        {
+          "event": "Fatal Cerebral Hemorrhage at Warm Springs",
+          "tested_date": "1945-04-12",
+          "active_dasha": "Ketu-Rahu",
+          "confluence_score": 75.9
+        }
+      ]
+    },
+    {
+      "mutation_id": "JITTER_MINUS_15M",
+      "name": "Micro Cusp Jitter (-15 Min)",
+      "category": "temporal_jitter",
+      "description": "Artificially shifts birth time by -15 minutes. Tests retrograde cusp boundary tolerance.",
+      "corrupted_birth_dt": "1882-01-30 19:52:00",
+      "corrupted_lagna": "Leo 21\u00b028'",
+      "corrupted_vcs": 62.3,
+      "delta_vcs": 0.1,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Paralytic Illness Attack (Polio Crisis at Campobello)",
+          "tested_date": "1921-08-10",
+          "active_dasha": "Saturn-Rahu",
+          "confluence_score": 53.0
+        },
+        {
+          "event": "Elected 32nd President of the United States (New Deal)",
+          "tested_date": "1932-11-08",
+          "active_dasha": "Mercury-Moon",
+          "confluence_score": 76.6
+        },
+        {
+          "event": "Pearl Harbor Attack & Entry into World War II",
+          "tested_date": "1941-12-07",
+          "active_dasha": "Mercury-Saturn",
+          "confluence_score": 68.6
+        },
+        {
+          "event": "Fatal Cerebral Hemorrhage at Warm Springs",
+          "tested_date": "1945-04-12",
+          "active_dasha": "Ketu-Mars",
+          "confluence_score": 51.0
+        }
+      ]
+    },
+    {
+      "mutation_id": "SHIFT_PLUS_2H",
+      "name": "Lagna Advance (+2 Hours)",
+      "category": "bhava_rotation",
+      "description": "Advances birth time by 2 hours (~1 full 30\u00b0 zodiac sign shift). Inverts basic house lordships.",
+      "corrupted_birth_dt": "1882-01-30 22:07:00",
+      "corrupted_lagna": "Virgo 18\u00b002'",
+      "corrupted_vcs": 50.7,
+      "delta_vcs": 11.7,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Paralytic Illness Attack (Polio Crisis at Campobello)",
+          "tested_date": "1921-08-10",
+          "active_dasha": "Saturn-Rahu",
+          "confluence_score": 42.1
+        },
+        {
+          "event": "Elected 32nd President of the United States (New Deal)",
+          "tested_date": "1932-11-08",
+          "active_dasha": "Mercury-Mars",
+          "confluence_score": 63.5
+        },
+        {
+          "event": "Pearl Harbor Attack & Entry into World War II",
+          "tested_date": "1941-12-07",
+          "active_dasha": "Ketu-Venus",
+          "confluence_score": 43.3
+        },
+        {
+          "event": "Fatal Cerebral Hemorrhage at Warm Springs",
+          "tested_date": "1945-04-12",
+          "active_dasha": "Ketu-Jupiter",
+          "confluence_score": 53.8
+        }
+      ]
+    },
+    {
+      "mutation_id": "SHIFT_MINUS_2H",
+      "name": "Lagna Regression (-2 Hours)",
+      "category": "bhava_rotation",
+      "description": "Regresses birth time by 2 hours. Inverts house lords to preceding zodiac sign.",
+      "corrupted_birth_dt": "1882-01-30 18:07:00",
+      "corrupted_lagna": "Leo 01\u00b000'",
+      "corrupted_vcs": 58.4,
+      "delta_vcs": 4.0,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Paralytic Illness Attack (Polio Crisis at Campobello)",
+          "tested_date": "1921-08-10",
+          "active_dasha": "Saturn-Rahu",
+          "confluence_score": 53.0
+        },
+        {
+          "event": "Elected 32nd President of the United States (New Deal)",
+          "tested_date": "1932-11-08",
+          "active_dasha": "Mercury-Venus",
+          "confluence_score": 82.8
+        },
+        {
+          "event": "Pearl Harbor Attack & Entry into World War II",
+          "tested_date": "1941-12-07",
+          "active_dasha": "Mercury-Saturn",
+          "confluence_score": 70.4
+        },
+        {
+          "event": "Fatal Cerebral Hemorrhage at Warm Springs",
+          "tested_date": "1945-04-12",
+          "active_dasha": "Ketu-Venus",
+          "confluence_score": 27.4
+        }
+      ]
+    },
+    {
+      "mutation_id": "LAGNA_ROTATION_6H",
+      "name": "Bhavachakra Scramble (+6 Hours)",
+      "category": "bhava_rotation",
+      "description": "Advances birth time by 6 hours (90\u00b0 quadrant rotation). Forces Kendras into Dusthanas.",
+      "corrupted_birth_dt": "1882-01-31 02:07:00",
+      "corrupted_lagna": "Scorpio 04\u00b050'",
+      "corrupted_vcs": 65.7,
+      "delta_vcs": -3.3,
+      "falsified_successfully": false,
+      "collusion_detected": true,
+      "event_breakdown": [
+        {
+          "event": "Paralytic Illness Attack (Polio Crisis at Campobello)",
+          "tested_date": "1921-08-10",
+          "active_dasha": "Mercury-Mercury",
+          "confluence_score": 53.6
+        },
+        {
+          "event": "Elected 32nd President of the United States (New Deal)",
+          "tested_date": "1932-11-08",
+          "active_dasha": "Mercury-Rahu",
+          "confluence_score": 68.0
+        },
+        {
+          "event": "Pearl Harbor Attack & Entry into World War II",
+          "tested_date": "1941-12-07",
+          "active_dasha": "Ketu-Rahu",
+          "confluence_score": 69.3
+        },
+        {
+          "event": "Fatal Cerebral Hemorrhage at Warm Springs",
+          "tested_date": "1945-04-12",
+          "active_dasha": "Ketu-Mercury",
+          "confluence_score": 71.9
+        }
+      ]
+    },
+    {
+      "mutation_id": "INVERSION_12H",
+      "name": "Polarity Inversion (12-Hour AM/PM Flip)",
+      "category": "diurnal_inversion",
+      "description": "180\u00b0 Bhavachakra reversal. Inverts daytime nocturnal hemispheres and Ascendant/Descendant axes.",
+      "corrupted_birth_dt": "1882-01-31 08:07:00",
+      "corrupted_lagna": "Aquarius 09\u00b016'",
+      "corrupted_vcs": 42.7,
+      "delta_vcs": 19.7,
+      "falsified_successfully": true,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Paralytic Illness Attack (Polio Crisis at Campobello)",
+          "tested_date": "1921-08-10",
+          "active_dasha": "Mercury-Venus",
+          "confluence_score": 56.3
+        },
+        {
+          "event": "Elected 32nd President of the United States (New Deal)",
+          "tested_date": "1932-11-08",
+          "active_dasha": "Mercury-Saturn",
+          "confluence_score": 61.7
+        },
+        {
+          "event": "Pearl Harbor Attack & Entry into World War II",
+          "tested_date": "1941-12-07",
+          "active_dasha": "Venus-Venus",
+          "confluence_score": 15.0
+        },
+        {
+          "event": "Fatal Cerebral Hemorrhage at Warm Springs",
+          "tested_date": "1945-04-12",
+          "active_dasha": "Venus-Sun",
+          "confluence_score": 37.7
+        }
+      ]
+    },
+    {
+      "mutation_id": "DESYNC_PLUS_1Y",
+      "name": "Dasha Desynchronization (+1 Year)",
+      "category": "dasha_desync",
+      "description": "Shifts birth year by +1 year. Misaligns Vimshottari Mahadasha balance by 365 days.",
+      "corrupted_birth_dt": "1883-01-30 20:07:00",
+      "corrupted_lagna": "Leo 24\u00b013'",
+      "corrupted_vcs": 49.1,
+      "delta_vcs": 13.3,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Paralytic Illness Attack (Polio Crisis at Campobello)",
+          "tested_date": "1921-08-10",
+          "active_dasha": "Saturn-Rahu",
+          "confluence_score": 59.4
+        },
+        {
+          "event": "Elected 32nd President of the United States (New Deal)",
+          "tested_date": "1932-11-08",
+          "active_dasha": "Mercury-Moon",
+          "confluence_score": 53.4
+        },
+        {
+          "event": "Pearl Harbor Attack & Entry into World War II",
+          "tested_date": "1941-12-07",
+          "active_dasha": "Mercury-Saturn",
+          "confluence_score": 68.6
+        },
+        {
+          "event": "Fatal Cerebral Hemorrhage at Warm Springs",
+          "tested_date": "1945-04-12",
+          "active_dasha": "Ketu-Mars",
+          "confluence_score": 15.0
+        }
+      ]
+    },
+    {
+      "mutation_id": "DESYNC_PLUS_3Y",
+      "name": "Severe Dasha Desynchronization (+3 Years)",
+      "category": "dasha_desync",
+      "description": "Shifts birth year by +3 years. Desynchronizes Dasha balance by 1,095 days into alien planetary cycles.",
+      "corrupted_birth_dt": "1885-01-30 20:07:00",
+      "corrupted_lagna": "Leo 24\u00b035'",
+      "corrupted_vcs": 57.7,
+      "delta_vcs": 4.7,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Paralytic Illness Attack (Polio Crisis at Campobello)",
+          "tested_date": "1921-08-10",
+          "active_dasha": "Sun-Jupiter",
+          "confluence_score": 75.4
+        },
+        {
+          "event": "Elected 32nd President of the United States (New Deal)",
+          "tested_date": "1932-11-08",
+          "active_dasha": "Moon-Ketu",
+          "confluence_score": 15.0
+        },
+        {
+          "event": "Pearl Harbor Attack & Entry into World War II",
+          "tested_date": "1941-12-07",
+          "active_dasha": "Mars-Moon",
+          "confluence_score": 42.3
+        },
+        {
+          "event": "Fatal Cerebral Hemorrhage at Warm Springs",
+          "tested_date": "1945-04-12",
+          "active_dasha": "Rahu-Jupiter",
+          "confluence_score": 98.0
+        }
+      ]
+    },
+    {
+      "mutation_id": "DESYNC_MINUS_3Y",
+      "name": "Severe Dasha Desynchronization (-3 Years)",
+      "category": "dasha_desync",
+      "description": "Shifts birth year by -3 years. Tests backward dasha cycle desynchronization.",
+      "corrupted_birth_dt": "1879-01-30 20:07:00",
+      "corrupted_lagna": "Leo 24\u00b015'",
+      "corrupted_vcs": 62.1,
+      "delta_vcs": 0.3,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Paralytic Illness Attack (Polio Crisis at Campobello)",
+          "tested_date": "1921-08-10",
+          "active_dasha": "Rahu-Moon",
+          "confluence_score": 47.0
+        },
+        {
+          "event": "Elected 32nd President of the United States (New Deal)",
+          "tested_date": "1932-11-08",
+          "active_dasha": "Jupiter-Venus",
+          "confluence_score": 77.0
+        },
+        {
+          "event": "Pearl Harbor Attack & Entry into World War II",
+          "tested_date": "1941-12-07",
+          "active_dasha": "Saturn-Saturn",
+          "confluence_score": 48.3
+        },
+        {
+          "event": "Fatal Cerebral Hemorrhage at Warm Springs",
+          "tested_date": "1945-04-12",
+          "active_dasha": "Saturn-Ketu",
+          "confluence_score": 76.1
+        }
+      ]
+    },
+    {
+      "mutation_id": "GEO_DRIFT_ARBITRARY",
+      "name": "Hemispheric Geo-Drift (+35\u00b0 Lat, -75\u00b0 Lon)",
+      "category": "geographic_distortion",
+      "description": "Alters birth geography across continents while retaining local clock time. Distorts Ascendant degree.",
+      "corrupted_birth_dt": "1882-01-30 20:07:00",
+      "corrupted_lagna": "Leo 06\u00b046'",
+      "corrupted_vcs": 59.7,
+      "delta_vcs": 2.7,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Paralytic Illness Attack (Polio Crisis at Campobello)",
+          "tested_date": "1921-08-10",
+          "active_dasha": "Saturn-Rahu",
+          "confluence_score": 53.0
+        },
+        {
+          "event": "Elected 32nd President of the United States (New Deal)",
+          "tested_date": "1932-11-08",
+          "active_dasha": "Mercury-Moon",
+          "confluence_score": 68.0
+        },
+        {
+          "event": "Pearl Harbor Attack & Entry into World War II",
+          "tested_date": "1941-12-07",
+          "active_dasha": "Mercury-Saturn",
+          "confluence_score": 67.0
+        },
+        {
+          "event": "Fatal Cerebral Hemorrhage at Warm Springs",
+          "tested_date": "1945-04-12",
+          "active_dasha": "Ketu-Mars",
+          "confluence_score": 50.7
+        }
+      ]
+    },
+    {
+      "mutation_id": "SCRAMBLED_EVENT_DATES",
+      "name": "Milestone Chronology Inversion (Fake Events)",
+      "category": "event_scramble",
+      "description": "Tests the real birth chart against chronologically scrambled or inverted milestone dates.",
+      "corrupted_birth_dt": "1882-01-30 20:07:00",
+      "corrupted_lagna": "Leo 24\u00b025'",
+      "corrupted_vcs": 78.2,
+      "delta_vcs": -15.8,
+      "falsified_successfully": false,
+      "collusion_detected": true,
+      "event_breakdown": [
+        {
+          "event": "Paralytic Illness Attack (Polio Crisis at Campobello)",
+          "tested_date": "1945-04-12",
+          "active_dasha": "Ketu-Mars",
+          "confluence_score": 71.0
+        },
+        {
+          "event": "Elected 32nd President of the United States (New Deal)",
+          "tested_date": "1941-12-07",
+          "active_dasha": "Mercury-Saturn",
+          "confluence_score": 68.6
+        },
+        {
+          "event": "Pearl Harbor Attack & Entry into World War II",
+          "tested_date": "1932-11-08",
+          "active_dasha": "Mercury-Moon",
+          "confluence_score": 77.0
+        },
+        {
+          "event": "Fatal Cerebral Hemorrhage at Warm Springs",
+          "tested_date": "1921-08-10",
+          "active_dasha": "Saturn-Rahu",
+          "confluence_score": 96.3
+        }
+      ]
+    }
+  ]
+}

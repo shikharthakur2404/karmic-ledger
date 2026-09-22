@@ -1,0 +1,432 @@
+{
+  "subject_id": "08_martin_luther_king",
+  "subject_name": "Martin Luther King Jr. (Historical Benchmark)",
+  "baseline_vcs": 61.3,
+  "average_corrupted_vcs": 59.3,
+  "mean_discrimination_margin": 2.0,
+  "falsification_pass_rate": "1/11",
+  "pass_count": 1,
+  "total_mutations": 11,
+  "collusion_count": 4,
+  "is_resilient": false,
+  "evaluations": [
+    {
+      "mutation_id": "JITTER_PLUS_15M",
+      "name": "Micro Cusp Jitter (+15 Min)",
+      "category": "temporal_jitter",
+      "description": "Artificially shifts birth time by +15 minutes. Tests Navamsha (D-9) and border-cusp sensitivity.",
+      "corrupted_birth_dt": "1929-01-15 12:15:00",
+      "corrupted_lagna": "Aries 05\u00b035'",
+      "corrupted_vcs": 57.3,
+      "delta_vcs": 4.0,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Montgomery Bus Boycott Launch",
+          "tested_date": "1955-12-05",
+          "active_dasha": "Saturn-Jupiter",
+          "confluence_score": 84.2
+        },
+        {
+          "event": "Historic 'I Have a Dream' Speech at Lincoln Memorial",
+          "tested_date": "1963-08-28",
+          "active_dasha": "Mercury-Moon",
+          "confluence_score": 52.4
+        },
+        {
+          "event": "Awarded Nobel Peace Prize",
+          "tested_date": "1964-10-14",
+          "active_dasha": "Mercury-Moon",
+          "confluence_score": 66.8
+        },
+        {
+          "event": "Assassination by Gunfire at Lorraine Motel",
+          "tested_date": "1968-04-04",
+          "active_dasha": "Mercury-Rahu",
+          "confluence_score": 25.9
+        }
+      ]
+    },
+    {
+      "mutation_id": "JITTER_MINUS_15M",
+      "name": "Micro Cusp Jitter (-15 Min)",
+      "category": "temporal_jitter",
+      "description": "Artificially shifts birth time by -15 minutes. Tests retrograde cusp boundary tolerance.",
+      "corrupted_birth_dt": "1929-01-15 11:45:00",
+      "corrupted_lagna": "Pisces 24\u00b037'",
+      "corrupted_vcs": 70.8,
+      "delta_vcs": -9.5,
+      "falsified_successfully": false,
+      "collusion_detected": true,
+      "event_breakdown": [
+        {
+          "event": "Montgomery Bus Boycott Launch",
+          "tested_date": "1955-12-05",
+          "active_dasha": "Saturn-Jupiter",
+          "confluence_score": 96.9
+        },
+        {
+          "event": "Historic 'I Have a Dream' Speech at Lincoln Memorial",
+          "tested_date": "1963-08-28",
+          "active_dasha": "Mercury-Sun",
+          "confluence_score": 82.0
+        },
+        {
+          "event": "Awarded Nobel Peace Prize",
+          "tested_date": "1964-10-14",
+          "active_dasha": "Mercury-Moon",
+          "confluence_score": 31.8
+        },
+        {
+          "event": "Assassination by Gunfire at Lorraine Motel",
+          "tested_date": "1968-04-04",
+          "active_dasha": "Mercury-Rahu",
+          "confluence_score": 72.5
+        }
+      ]
+    },
+    {
+      "mutation_id": "SHIFT_PLUS_2H",
+      "name": "Lagna Advance (+2 Hours)",
+      "category": "bhava_rotation",
+      "description": "Advances birth time by 2 hours (~1 full 30\u00b0 zodiac sign shift). Inverts basic house lordships.",
+      "corrupted_birth_dt": "1929-01-15 14:00:00",
+      "corrupted_lagna": "Taurus 09\u00b005'",
+      "corrupted_vcs": 40.6,
+      "delta_vcs": 20.7,
+      "falsified_successfully": true,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Montgomery Bus Boycott Launch",
+          "tested_date": "1955-12-05",
+          "active_dasha": "Mercury-Mercury",
+          "confluence_score": 16.9
+        },
+        {
+          "event": "Historic 'I Have a Dream' Speech at Lincoln Memorial",
+          "tested_date": "1963-08-28",
+          "active_dasha": "Mercury-Moon",
+          "confluence_score": 21.9
+        },
+        {
+          "event": "Awarded Nobel Peace Prize",
+          "tested_date": "1964-10-14",
+          "active_dasha": "Mercury-Mars",
+          "confluence_score": 46.7
+        },
+        {
+          "event": "Assassination by Gunfire at Lorraine Motel",
+          "tested_date": "1968-04-04",
+          "active_dasha": "Mercury-Jupiter",
+          "confluence_score": 76.9
+        }
+      ]
+    },
+    {
+      "mutation_id": "SHIFT_MINUS_2H",
+      "name": "Lagna Regression (-2 Hours)",
+      "category": "bhava_rotation",
+      "description": "Regresses birth time by 2 hours. Inverts house lords to preceding zodiac sign.",
+      "corrupted_birth_dt": "1929-01-15 10:00:00",
+      "corrupted_lagna": "Aquarius 14\u00b045'",
+      "corrupted_vcs": 51.2,
+      "delta_vcs": 10.1,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Montgomery Bus Boycott Launch",
+          "tested_date": "1955-12-05",
+          "active_dasha": "Saturn-Jupiter",
+          "confluence_score": 98.0
+        },
+        {
+          "event": "Historic 'I Have a Dream' Speech at Lincoln Memorial",
+          "tested_date": "1963-08-28",
+          "active_dasha": "Mercury-Venus",
+          "confluence_score": 28.9
+        },
+        {
+          "event": "Awarded Nobel Peace Prize",
+          "tested_date": "1964-10-14",
+          "active_dasha": "Mercury-Sun",
+          "confluence_score": 15.8
+        },
+        {
+          "event": "Assassination by Gunfire at Lorraine Motel",
+          "tested_date": "1968-04-04",
+          "active_dasha": "Mercury-Rahu",
+          "confluence_score": 61.9
+        }
+      ]
+    },
+    {
+      "mutation_id": "LAGNA_ROTATION_6H",
+      "name": "Bhavachakra Scramble (+6 Hours)",
+      "category": "bhava_rotation",
+      "description": "Advances birth time by 6 hours (90\u00b0 quadrant rotation). Forces Kendras into Dusthanas.",
+      "corrupted_birth_dt": "1929-01-15 18:00:00",
+      "corrupted_lagna": "Cancer 05\u00b005'",
+      "corrupted_vcs": 63.1,
+      "delta_vcs": -1.8,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Montgomery Bus Boycott Launch",
+          "tested_date": "1955-12-05",
+          "active_dasha": "Mercury-Ketu",
+          "confluence_score": 56.8
+        },
+        {
+          "event": "Historic 'I Have a Dream' Speech at Lincoln Memorial",
+          "tested_date": "1963-08-28",
+          "active_dasha": "Mercury-Rahu",
+          "confluence_score": 44.5
+        },
+        {
+          "event": "Awarded Nobel Peace Prize",
+          "tested_date": "1964-10-14",
+          "active_dasha": "Mercury-Jupiter",
+          "confluence_score": 71.0
+        },
+        {
+          "event": "Assassination by Gunfire at Lorraine Motel",
+          "tested_date": "1968-04-04",
+          "active_dasha": "Mercury-Saturn",
+          "confluence_score": 80.2
+        }
+      ]
+    },
+    {
+      "mutation_id": "INVERSION_12H",
+      "name": "Polarity Inversion (12-Hour AM/PM Flip)",
+      "category": "diurnal_inversion",
+      "description": "180\u00b0 Bhavachakra reversal. Inverts daytime nocturnal hemispheres and Ascendant/Descendant axes.",
+      "corrupted_birth_dt": "1929-01-16 00:00:00",
+      "corrupted_lagna": "Virgo 20\u00b026'",
+      "corrupted_vcs": 72.7,
+      "delta_vcs": -11.4,
+      "falsified_successfully": false,
+      "collusion_detected": true,
+      "event_breakdown": [
+        {
+          "event": "Montgomery Bus Boycott Launch",
+          "tested_date": "1955-12-05",
+          "active_dasha": "Mercury-Moon",
+          "confluence_score": 84.0
+        },
+        {
+          "event": "Historic 'I Have a Dream' Speech at Lincoln Memorial",
+          "tested_date": "1963-08-28",
+          "active_dasha": "Mercury-Saturn",
+          "confluence_score": 78.2
+        },
+        {
+          "event": "Awarded Nobel Peace Prize",
+          "tested_date": "1964-10-14",
+          "active_dasha": "Mercury-Saturn",
+          "confluence_score": 65.7
+        },
+        {
+          "event": "Assassination by Gunfire at Lorraine Motel",
+          "tested_date": "1968-04-04",
+          "active_dasha": "Ketu-Moon",
+          "confluence_score": 62.8
+        }
+      ]
+    },
+    {
+      "mutation_id": "DESYNC_PLUS_1Y",
+      "name": "Dasha Desynchronization (+1 Year)",
+      "category": "dasha_desync",
+      "description": "Shifts birth year by +1 year. Misaligns Vimshottari Mahadasha balance by 365 days.",
+      "corrupted_birth_dt": "1930-01-15 12:00:00",
+      "corrupted_lagna": "Pisces 29\u00b048'",
+      "corrupted_vcs": 53.8,
+      "delta_vcs": 7.5,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Montgomery Bus Boycott Launch",
+          "tested_date": "1955-12-05",
+          "active_dasha": "Ketu-Rahu",
+          "confluence_score": 32.3
+        },
+        {
+          "event": "Historic 'I Have a Dream' Speech at Lincoln Memorial",
+          "tested_date": "1963-08-28",
+          "active_dasha": "Venus-Moon",
+          "confluence_score": 61.8
+        },
+        {
+          "event": "Awarded Nobel Peace Prize",
+          "tested_date": "1964-10-14",
+          "active_dasha": "Venus-Moon",
+          "confluence_score": 49.6
+        },
+        {
+          "event": "Assassination by Gunfire at Lorraine Motel",
+          "tested_date": "1968-04-04",
+          "active_dasha": "Venus-Rahu",
+          "confluence_score": 71.7
+        }
+      ]
+    },
+    {
+      "mutation_id": "DESYNC_PLUS_3Y",
+      "name": "Severe Dasha Desynchronization (+3 Years)",
+      "category": "dasha_desync",
+      "description": "Shifts birth year by +3 years. Desynchronizes Dasha balance by 1,095 days into alien planetary cycles.",
+      "corrupted_birth_dt": "1932-01-15 12:00:00",
+      "corrupted_lagna": "Pisces 29\u00b005'",
+      "corrupted_vcs": 49.4,
+      "delta_vcs": 11.9,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Montgomery Bus Boycott Launch",
+          "tested_date": "1955-12-05",
+          "active_dasha": "Venus-Mercury",
+          "confluence_score": 39.9
+        },
+        {
+          "event": "Historic 'I Have a Dream' Speech at Lincoln Memorial",
+          "tested_date": "1963-08-28",
+          "active_dasha": "Sun-Mercury",
+          "confluence_score": 71.8
+        },
+        {
+          "event": "Awarded Nobel Peace Prize",
+          "tested_date": "1964-10-14",
+          "active_dasha": "Sun-Venus",
+          "confluence_score": 29.6
+        },
+        {
+          "event": "Assassination by Gunfire at Lorraine Motel",
+          "tested_date": "1968-04-04",
+          "active_dasha": "Moon-Rahu",
+          "confluence_score": 56.5
+        }
+      ]
+    },
+    {
+      "mutation_id": "DESYNC_MINUS_3Y",
+      "name": "Severe Dasha Desynchronization (-3 Years)",
+      "category": "dasha_desync",
+      "description": "Shifts birth year by -3 years. Tests backward dasha cycle desynchronization.",
+      "corrupted_birth_dt": "1926-01-15 12:00:00",
+      "corrupted_lagna": "Pisces 29\u00b049'",
+      "corrupted_vcs": 65.5,
+      "delta_vcs": -4.2,
+      "falsified_successfully": false,
+      "collusion_detected": true,
+      "event_breakdown": [
+        {
+          "event": "Montgomery Bus Boycott Launch",
+          "tested_date": "1955-12-05",
+          "active_dasha": "Jupiter-Saturn",
+          "confluence_score": 98.0
+        },
+        {
+          "event": "Historic 'I Have a Dream' Speech at Lincoln Memorial",
+          "tested_date": "1963-08-28",
+          "active_dasha": "Jupiter-Moon",
+          "confluence_score": 95.9
+        },
+        {
+          "event": "Awarded Nobel Peace Prize",
+          "tested_date": "1964-10-14",
+          "active_dasha": "Jupiter-Mars",
+          "confluence_score": 53.0
+        },
+        {
+          "event": "Assassination by Gunfire at Lorraine Motel",
+          "tested_date": "1968-04-04",
+          "active_dasha": "Saturn-Saturn",
+          "confluence_score": 15.0
+        }
+      ]
+    },
+    {
+      "mutation_id": "GEO_DRIFT_ARBITRARY",
+      "name": "Hemispheric Geo-Drift (+35\u00b0 Lat, -75\u00b0 Lon)",
+      "category": "geographic_distortion",
+      "description": "Alters birth geography across continents while retaining local clock time. Distorts Ascendant degree.",
+      "corrupted_birth_dt": "1929-01-15 12:00:00",
+      "corrupted_lagna": "Scorpio 04\u00b008'",
+      "corrupted_vcs": 70.0,
+      "delta_vcs": -8.7,
+      "falsified_successfully": false,
+      "collusion_detected": true,
+      "event_breakdown": [
+        {
+          "event": "Montgomery Bus Boycott Launch",
+          "tested_date": "1955-12-05",
+          "active_dasha": "Saturn-Jupiter",
+          "confluence_score": 66.0
+        },
+        {
+          "event": "Historic 'I Have a Dream' Speech at Lincoln Memorial",
+          "tested_date": "1963-08-28",
+          "active_dasha": "Mercury-Sun",
+          "confluence_score": 79.0
+        },
+        {
+          "event": "Awarded Nobel Peace Prize",
+          "tested_date": "1964-10-14",
+          "active_dasha": "Mercury-Moon",
+          "confluence_score": 70.2
+        },
+        {
+          "event": "Assassination by Gunfire at Lorraine Motel",
+          "tested_date": "1968-04-04",
+          "active_dasha": "Mercury-Rahu",
+          "confluence_score": 64.9
+        }
+      ]
+    },
+    {
+      "mutation_id": "SCRAMBLED_EVENT_DATES",
+      "name": "Milestone Chronology Inversion (Fake Events)",
+      "category": "event_scramble",
+      "description": "Tests the real birth chart against chronologically scrambled or inverted milestone dates.",
+      "corrupted_birth_dt": "1929-01-15 12:00:00",
+      "corrupted_lagna": "Aries 00\u00b010'",
+      "corrupted_vcs": 57.8,
+      "delta_vcs": 3.5,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Montgomery Bus Boycott Launch",
+          "tested_date": "1968-04-04",
+          "active_dasha": "Mercury-Rahu",
+          "confluence_score": 70.2
+        },
+        {
+          "event": "Historic 'I Have a Dream' Speech at Lincoln Memorial",
+          "tested_date": "1964-10-14",
+          "active_dasha": "Mercury-Moon",
+          "confluence_score": 63.1
+        },
+        {
+          "event": "Awarded Nobel Peace Prize",
+          "tested_date": "1963-08-28",
+          "active_dasha": "Mercury-Sun",
+          "confluence_score": 70.7
+        },
+        {
+          "event": "Assassination by Gunfire at Lorraine Motel",
+          "tested_date": "1955-12-05",
+          "active_dasha": "Saturn-Jupiter",
+          "confluence_score": 27.0
+        }
+      ]
+    }
+  ]
+}

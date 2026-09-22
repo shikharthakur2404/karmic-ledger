@@ -1,0 +1,46 @@
+{
+  "subject_id": "13_swami_vivekananda",
+  "name": "Swami Vivekananda (Historical Benchmark)",
+  "benchmark_type": "historical_public_record",
+  "birth_data": {
+    "date": "1863-01-12",
+    "time": "06:33:00",
+    "city": "Kolkata",
+    "state": "West Bengal",
+    "country": "India",
+    "latitude": 22.5726,
+    "longitude": 88.3639,
+    "timezone_offset": 5.8906
+  },
+  "verified_coordinates": {
+    "lagna": "Sagittarius 25\u00b033'",
+    "moon_sign": "Virgo 23\u00b050'",
+    "sun_sign": "Sagittarius 29\u00b010'"
+  },
+  "biographical_milestones": [
+    {
+      "event": "Historic Chicago Parliament of Religions Address",
+      "date": "1893-09-11",
+      "category": "career",
+      "historical_context": "'Sisters and Brothers of America' speech bringing Vedanta to the West."
+    },
+    {
+      "event": "Founding of the Ramakrishna Mission",
+      "date": "1897-05-01",
+      "category": "career",
+      "historical_context": "Established worldwide spiritual and monastic social service order."
+    },
+    {
+      "event": "Consecration of Belur Math Headquarters",
+      "date": "1898-12-09",
+      "category": "career",
+      "historical_context": "Dedicated central sanctuary on banks of Hooghly River."
+    },
+    {
+      "event": "Mahasamadhi (Physical Exit) at Belur Math",
+      "date": "1902-07-04",
+      "category": "mortality",
+      "historical_context": "Entered Mahasamadhi in meditation at age 39."
+    }
+  ]
+}

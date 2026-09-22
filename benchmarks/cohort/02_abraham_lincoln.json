@@ -1,0 +1,52 @@
+{
+  "subject_id": "02_abraham_lincoln",
+  "name": "Abraham Lincoln (Historical Benchmark)",
+  "benchmark_type": "historical_public_record",
+  "birth_data": {
+    "date": "1809-02-12",
+    "time": "06:54:00",
+    "city": "Hodgenville",
+    "state": "Kentucky",
+    "country": "USA",
+    "latitude": 37.5739,
+    "longitude": -85.7405,
+    "timezone_offset": -5.7166
+  },
+  "verified_coordinates": {
+    "lagna": "Aquarius 04°12'",
+    "moon_sign": "Capricorn 00°22'",
+    "sun_sign": "Aquarius 02°35'"
+  },
+  "biographical_milestones": [
+    {
+      "event": "Marriage to Mary Todd",
+      "date": "1842-11-04",
+      "category": "relationship",
+      "historical_context": "Married Mary Todd in Springfield, Illinois."
+    },
+    {
+      "event": "Elected 16th President of the United States",
+      "date": "1860-11-06",
+      "category": "career",
+      "historical_context": "Won landmark 1860 presidential election triggering southern secession."
+    },
+    {
+      "event": "Outbreak of American Civil War (Fort Sumter)",
+      "date": "1861-04-12",
+      "category": "career",
+      "historical_context": "Confederate forces bombard Fort Sumter, launching full Civil War crisis."
+    },
+    {
+      "event": "Re-elected President in Wartime Landslide",
+      "date": "1864-11-08",
+      "category": "career",
+      "historical_context": "Decisive re-election amidst ongoing wartime mobilization."
+    },
+    {
+      "event": "Assassination by John Wilkes Booth at Ford's Theatre",
+      "date": "1865-04-14",
+      "category": "mortality",
+      "historical_context": "Fatally shot by assassin at Ford's Theatre, dying the following morning."
+    }
+  ]
+}

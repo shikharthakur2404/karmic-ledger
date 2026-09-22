@@ -1,0 +1,52 @@
+{
+  "subject_id": "06_steve_jobs",
+  "name": "Steve Jobs (Historical Benchmark)",
+  "benchmark_type": "historical_public_record",
+  "birth_data": {
+    "date": "1955-02-24",
+    "time": "19:15:00",
+    "city": "San Francisco",
+    "state": "California",
+    "country": "USA",
+    "latitude": 37.7749,
+    "longitude": -122.4194,
+    "timezone_offset": -8.0
+  },
+  "verified_coordinates": {
+    "lagna": "Virgo 29\u00b002'",
+    "moon_sign": "Pisces 14\u00b020'",
+    "sun_sign": "Aquarius 12\u00b015'"
+  },
+  "biographical_milestones": [
+    {
+      "event": "Founding of Apple Computer Inc.",
+      "date": "1976-04-01",
+      "category": "career",
+      "historical_context": "Co-founded Apple in Cupertino garage with Steve Wozniak."
+    },
+    {
+      "event": "Ousted from Apple by Board of Directors",
+      "date": "1985-09-17",
+      "category": "career",
+      "historical_context": "Stripped of operational duties and resigned to found NeXT."
+    },
+    {
+      "event": "Triumphant Return to Apple as Interim CEO",
+      "date": "1997-09-16",
+      "category": "career",
+      "historical_context": "Reappointed CEO following Apple's acquisition of NeXT."
+    },
+    {
+      "event": "Launch of the Original iPhone",
+      "date": "2007-01-09",
+      "category": "career",
+      "historical_context": "Unveiled revolutionary multi-touch smartphone platform."
+    },
+    {
+      "event": "Demise from Neuroendocrine Tumor",
+      "date": "2011-10-05",
+      "category": "mortality",
+      "historical_context": "Passed away at Palo Alto home following prolonged health battle."
+    }
+  ]
+}

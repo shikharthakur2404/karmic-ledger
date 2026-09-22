@@ -1,0 +1,498 @@
+{
+  "subject_id": "06_steve_jobs",
+  "subject_name": "Steve Jobs (Historical Benchmark)",
+  "baseline_vcs": 70.3,
+  "average_corrupted_vcs": 57.6,
+  "mean_discrimination_margin": 12.7,
+  "falsification_pass_rate": "5/11",
+  "pass_count": 5,
+  "total_mutations": 11,
+  "collusion_count": 4,
+  "is_resilient": false,
+  "evaluations": [
+    {
+      "mutation_id": "JITTER_PLUS_15M",
+      "name": "Micro Cusp Jitter (+15 Min)",
+      "category": "temporal_jitter",
+      "description": "Artificially shifts birth time by +15 minutes. Tests Navamsha (D-9) and border-cusp sensitivity.",
+      "corrupted_birth_dt": "1955-02-24 19:30:00",
+      "corrupted_lagna": "Virgo 02\u00b007'",
+      "corrupted_vcs": 39.7,
+      "delta_vcs": 30.6,
+      "falsified_successfully": true,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Founding of Apple Computer Inc.",
+          "tested_date": "1976-04-01",
+          "active_dasha": "Ketu-Venus",
+          "confluence_score": 55.0
+        },
+        {
+          "event": "Ousted from Apple by Board of Directors",
+          "tested_date": "1985-09-17",
+          "active_dasha": "Venus-Sun",
+          "confluence_score": 16.0
+        },
+        {
+          "event": "Triumphant Return to Apple as Interim CEO",
+          "tested_date": "1997-09-16",
+          "active_dasha": "Venus-Saturn",
+          "confluence_score": 46.6
+        },
+        {
+          "event": "Launch of the Original iPhone",
+          "tested_date": "2007-01-09",
+          "active_dasha": "Sun-Venus",
+          "confluence_score": 15.0
+        },
+        {
+          "event": "Demise from Neuroendocrine Tumor",
+          "tested_date": "2011-10-05",
+          "active_dasha": "Moon-Jupiter",
+          "confluence_score": 65.8
+        }
+      ]
+    },
+    {
+      "mutation_id": "JITTER_MINUS_15M",
+      "name": "Micro Cusp Jitter (-15 Min)",
+      "category": "temporal_jitter",
+      "description": "Artificially shifts birth time by -15 minutes. Tests retrograde cusp boundary tolerance.",
+      "corrupted_birth_dt": "1955-02-24 19:00:00",
+      "corrupted_lagna": "Leo 25\u00b059'",
+      "corrupted_vcs": 73.8,
+      "delta_vcs": -3.5,
+      "falsified_successfully": false,
+      "collusion_detected": true,
+      "event_breakdown": [
+        {
+          "event": "Founding of Apple Computer Inc.",
+          "tested_date": "1976-04-01",
+          "active_dasha": "Ketu-Venus",
+          "confluence_score": 63.8
+        },
+        {
+          "event": "Ousted from Apple by Board of Directors",
+          "tested_date": "1985-09-17",
+          "active_dasha": "Venus-Venus",
+          "confluence_score": 93.7
+        },
+        {
+          "event": "Triumphant Return to Apple as Interim CEO",
+          "tested_date": "1997-09-16",
+          "active_dasha": "Venus-Saturn",
+          "confluence_score": 43.7
+        },
+        {
+          "event": "Launch of the Original iPhone",
+          "tested_date": "2007-01-09",
+          "active_dasha": "Sun-Mercury",
+          "confluence_score": 95.1
+        },
+        {
+          "event": "Demise from Neuroendocrine Tumor",
+          "tested_date": "2011-10-05",
+          "active_dasha": "Moon-Jupiter",
+          "confluence_score": 72.5
+        }
+      ]
+    },
+    {
+      "mutation_id": "SHIFT_PLUS_2H",
+      "name": "Lagna Advance (+2 Hours)",
+      "category": "bhava_rotation",
+      "description": "Advances birth time by 2 hours (~1 full 30\u00b0 zodiac sign shift). Inverts basic house lordships.",
+      "corrupted_birth_dt": "1955-02-24 21:15:00",
+      "corrupted_lagna": "Virgo 23\u00b033'",
+      "corrupted_vcs": 66.9,
+      "delta_vcs": 3.4,
+      "falsified_successfully": false,
+      "collusion_detected": true,
+      "event_breakdown": [
+        {
+          "event": "Founding of Apple Computer Inc.",
+          "tested_date": "1976-04-01",
+          "active_dasha": "Ketu-Mars",
+          "confluence_score": 49.2
+        },
+        {
+          "event": "Ousted from Apple by Board of Directors",
+          "tested_date": "1985-09-17",
+          "active_dasha": "Venus-Moon",
+          "confluence_score": 61.0
+        },
+        {
+          "event": "Triumphant Return to Apple as Interim CEO",
+          "tested_date": "1997-09-16",
+          "active_dasha": "Venus-Mercury",
+          "confluence_score": 77.5
+        },
+        {
+          "event": "Launch of the Original iPhone",
+          "tested_date": "2007-01-09",
+          "active_dasha": "Moon-Moon",
+          "confluence_score": 85.4
+        },
+        {
+          "event": "Demise from Neuroendocrine Tumor",
+          "tested_date": "2011-10-05",
+          "active_dasha": "Moon-Saturn",
+          "confluence_score": 61.6
+        }
+      ]
+    },
+    {
+      "mutation_id": "SHIFT_MINUS_2H",
+      "name": "Lagna Regression (-2 Hours)",
+      "category": "bhava_rotation",
+      "description": "Regresses birth time by 2 hours. Inverts house lords to preceding zodiac sign.",
+      "corrupted_birth_dt": "1955-02-24 17:15:00",
+      "corrupted_lagna": "Leo 04\u00b041'",
+      "corrupted_vcs": 57.5,
+      "delta_vcs": 12.8,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Founding of Apple Computer Inc.",
+          "tested_date": "1976-04-01",
+          "active_dasha": "Mercury-Saturn",
+          "confluence_score": 38.0
+        },
+        {
+          "event": "Ousted from Apple by Board of Directors",
+          "tested_date": "1985-09-17",
+          "active_dasha": "Venus-Venus",
+          "confluence_score": 94.3
+        },
+        {
+          "event": "Triumphant Return to Apple as Interim CEO",
+          "tested_date": "1997-09-16",
+          "active_dasha": "Venus-Saturn",
+          "confluence_score": 39.8
+        },
+        {
+          "event": "Launch of the Original iPhone",
+          "tested_date": "2007-01-09",
+          "active_dasha": "Sun-Saturn",
+          "confluence_score": 52.1
+        },
+        {
+          "event": "Demise from Neuroendocrine Tumor",
+          "tested_date": "2011-10-05",
+          "active_dasha": "Moon-Rahu",
+          "confluence_score": 63.1
+        }
+      ]
+    },
+    {
+      "mutation_id": "LAGNA_ROTATION_6H",
+      "name": "Bhavachakra Scramble (+6 Hours)",
+      "category": "bhava_rotation",
+      "description": "Advances birth time by 6 hours (90\u00b0 quadrant rotation). Forces Kendras into Dusthanas.",
+      "corrupted_birth_dt": "1955-02-25 01:15:00",
+      "corrupted_lagna": "Scorpio 12\u00b000'",
+      "corrupted_vcs": 44.9,
+      "delta_vcs": 25.4,
+      "falsified_successfully": true,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Founding of Apple Computer Inc.",
+          "tested_date": "1976-04-01",
+          "active_dasha": "Ketu-Saturn",
+          "confluence_score": 37.1
+        },
+        {
+          "event": "Ousted from Apple by Board of Directors",
+          "tested_date": "1985-09-17",
+          "active_dasha": "Venus-Rahu",
+          "confluence_score": 27.5
+        },
+        {
+          "event": "Triumphant Return to Apple as Interim CEO",
+          "tested_date": "1997-09-16",
+          "active_dasha": "Sun-Moon",
+          "confluence_score": 68.0
+        },
+        {
+          "event": "Launch of the Original iPhone",
+          "tested_date": "2007-01-09",
+          "active_dasha": "Moon-Jupiter",
+          "confluence_score": 35.5
+        },
+        {
+          "event": "Demise from Neuroendocrine Tumor",
+          "tested_date": "2011-10-05",
+          "active_dasha": "Moon-Venus",
+          "confluence_score": 56.6
+        }
+      ]
+    },
+    {
+      "mutation_id": "INVERSION_12H",
+      "name": "Polarity Inversion (12-Hour AM/PM Flip)",
+      "category": "diurnal_inversion",
+      "description": "180\u00b0 Bhavachakra reversal. Inverts daytime nocturnal hemispheres and Ascendant/Descendant axes.",
+      "corrupted_birth_dt": "1955-02-25 07:15:00",
+      "corrupted_lagna": "Aquarius 22\u00b009'",
+      "corrupted_vcs": 46.8,
+      "delta_vcs": 23.5,
+      "falsified_successfully": true,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Founding of Apple Computer Inc.",
+          "tested_date": "1976-04-01",
+          "active_dasha": "Venus-Sun",
+          "confluence_score": 59.0
+        },
+        {
+          "event": "Ousted from Apple by Board of Directors",
+          "tested_date": "1985-09-17",
+          "active_dasha": "Venus-Saturn",
+          "confluence_score": 65.6
+        },
+        {
+          "event": "Triumphant Return to Apple as Interim CEO",
+          "tested_date": "1997-09-16",
+          "active_dasha": "Sun-Ketu",
+          "confluence_score": 65.8
+        },
+        {
+          "event": "Launch of the Original iPhone",
+          "tested_date": "2007-01-09",
+          "active_dasha": "Moon-Venus",
+          "confluence_score": 28.5
+        },
+        {
+          "event": "Demise from Neuroendocrine Tumor",
+          "tested_date": "2011-10-05",
+          "active_dasha": "Mars-Saturn",
+          "confluence_score": 15.0
+        }
+      ]
+    },
+    {
+      "mutation_id": "DESYNC_PLUS_1Y",
+      "name": "Dasha Desynchronization (+1 Year)",
+      "category": "dasha_desync",
+      "description": "Shifts birth year by +1 year. Misaligns Vimshottari Mahadasha balance by 365 days.",
+      "corrupted_birth_dt": "1956-02-24 19:15:00",
+      "corrupted_lagna": "Leo 28\u00b050'",
+      "corrupted_vcs": 66.5,
+      "delta_vcs": 3.8,
+      "falsified_successfully": false,
+      "collusion_detected": true,
+      "event_breakdown": [
+        {
+          "event": "Founding of Apple Computer Inc.",
+          "tested_date": "1976-04-01",
+          "active_dasha": "Venus-Jupiter",
+          "confluence_score": 64.5
+        },
+        {
+          "event": "Ousted from Apple by Board of Directors",
+          "tested_date": "1985-09-17",
+          "active_dasha": "Sun-Rahu",
+          "confluence_score": 74.5
+        },
+        {
+          "event": "Triumphant Return to Apple as Interim CEO",
+          "tested_date": "1997-09-16",
+          "active_dasha": "Moon-Venus",
+          "confluence_score": 40.6
+        },
+        {
+          "event": "Launch of the Original iPhone",
+          "tested_date": "2007-01-09",
+          "active_dasha": "Rahu-Rahu",
+          "confluence_score": 54.8
+        },
+        {
+          "event": "Demise from Neuroendocrine Tumor",
+          "tested_date": "2011-10-05",
+          "active_dasha": "Rahu-Jupiter",
+          "confluence_score": 98.0
+        }
+      ]
+    },
+    {
+      "mutation_id": "DESYNC_PLUS_3Y",
+      "name": "Severe Dasha Desynchronization (+3 Years)",
+      "category": "dasha_desync",
+      "description": "Shifts birth year by +3 years. Desynchronizes Dasha balance by 1,095 days into alien planetary cycles.",
+      "corrupted_birth_dt": "1958-02-24 19:15:00",
+      "corrupted_lagna": "Leo 29\u00b014'",
+      "corrupted_vcs": 53.0,
+      "delta_vcs": 17.3,
+      "falsified_successfully": true,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Founding of Apple Computer Inc.",
+          "tested_date": "1976-04-01",
+          "active_dasha": "Moon-Mercury",
+          "confluence_score": 39.5
+        },
+        {
+          "event": "Ousted from Apple by Board of Directors",
+          "tested_date": "1985-09-17",
+          "active_dasha": "Mars-Sun",
+          "confluence_score": 79.3
+        },
+        {
+          "event": "Triumphant Return to Apple as Interim CEO",
+          "tested_date": "1997-09-16",
+          "active_dasha": "Rahu-Ketu",
+          "confluence_score": 40.7
+        },
+        {
+          "event": "Launch of the Original iPhone",
+          "tested_date": "2007-01-09",
+          "active_dasha": "Jupiter-Saturn",
+          "confluence_score": 54.7
+        },
+        {
+          "event": "Demise from Neuroendocrine Tumor",
+          "tested_date": "2011-10-05",
+          "active_dasha": "Jupiter-Ketu",
+          "confluence_score": 51.0
+        }
+      ]
+    },
+    {
+      "mutation_id": "DESYNC_MINUS_3Y",
+      "name": "Severe Dasha Desynchronization (-3 Years)",
+      "category": "dasha_desync",
+      "description": "Shifts birth year by -3 years. Tests backward dasha cycle desynchronization.",
+      "corrupted_birth_dt": "1952-02-24 19:15:00",
+      "corrupted_lagna": "Leo 28\u00b052'",
+      "corrupted_vcs": 60.9,
+      "delta_vcs": 9.4,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Founding of Apple Computer Inc.",
+          "tested_date": "1976-04-01",
+          "active_dasha": "Jupiter-Venus",
+          "confluence_score": 35.8
+        },
+        {
+          "event": "Ousted from Apple by Board of Directors",
+          "tested_date": "1985-09-17",
+          "active_dasha": "Saturn-Saturn",
+          "confluence_score": 46.6
+        },
+        {
+          "event": "Triumphant Return to Apple as Interim CEO",
+          "tested_date": "1997-09-16",
+          "active_dasha": "Saturn-Rahu",
+          "confluence_score": 37.3
+        },
+        {
+          "event": "Launch of the Original iPhone",
+          "tested_date": "2007-01-09",
+          "active_dasha": "Mercury-Venus",
+          "confluence_score": 87.0
+        },
+        {
+          "event": "Demise from Neuroendocrine Tumor",
+          "tested_date": "2011-10-05",
+          "active_dasha": "Mercury-Rahu",
+          "confluence_score": 98.0
+        }
+      ]
+    },
+    {
+      "mutation_id": "GEO_DRIFT_ARBITRARY",
+      "name": "Hemispheric Geo-Drift (+35\u00b0 Lat, -75\u00b0 Lon)",
+      "category": "geographic_distortion",
+      "description": "Alters birth geography across continents while retaining local clock time. Distorts Ascendant degree.",
+      "corrupted_birth_dt": "1955-02-24 19:15:00",
+      "corrupted_lagna": "Leo 00\u00b048'",
+      "corrupted_vcs": 70.2,
+      "delta_vcs": 0.1,
+      "falsified_successfully": false,
+      "collusion_detected": true,
+      "event_breakdown": [
+        {
+          "event": "Founding of Apple Computer Inc.",
+          "tested_date": "1976-04-01",
+          "active_dasha": "Ketu-Venus",
+          "confluence_score": 65.0
+        },
+        {
+          "event": "Ousted from Apple by Board of Directors",
+          "tested_date": "1985-09-17",
+          "active_dasha": "Venus-Sun",
+          "confluence_score": 95.8
+        },
+        {
+          "event": "Triumphant Return to Apple as Interim CEO",
+          "tested_date": "1997-09-16",
+          "active_dasha": "Venus-Saturn",
+          "confluence_score": 41.2
+        },
+        {
+          "event": "Launch of the Original iPhone",
+          "tested_date": "2007-01-09",
+          "active_dasha": "Sun-Ketu",
+          "confluence_score": 79.0
+        },
+        {
+          "event": "Demise from Neuroendocrine Tumor",
+          "tested_date": "2011-10-05",
+          "active_dasha": "Moon-Jupiter",
+          "confluence_score": 69.8
+        }
+      ]
+    },
+    {
+      "mutation_id": "SCRAMBLED_EVENT_DATES",
+      "name": "Milestone Chronology Inversion (Fake Events)",
+      "category": "event_scramble",
+      "description": "Tests the real birth chart against chronologically scrambled or inverted milestone dates.",
+      "corrupted_birth_dt": "1955-02-24 19:15:00",
+      "corrupted_lagna": "Leo 29\u00b003'",
+      "corrupted_vcs": 53.4,
+      "delta_vcs": 16.9,
+      "falsified_successfully": true,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Founding of Apple Computer Inc.",
+          "tested_date": "2011-10-05",
+          "active_dasha": "Moon-Jupiter",
+          "confluence_score": 26.4
+        },
+        {
+          "event": "Ousted from Apple by Board of Directors",
+          "tested_date": "2007-01-09",
+          "active_dasha": "Sun-Ketu",
+          "confluence_score": 79.0
+        },
+        {
+          "event": "Triumphant Return to Apple as Interim CEO",
+          "tested_date": "1997-09-16",
+          "active_dasha": "Venus-Saturn",
+          "confluence_score": 41.2
+        },
+        {
+          "event": "Launch of the Original iPhone",
+          "tested_date": "1985-09-17",
+          "active_dasha": "Venus-Sun",
+          "confluence_score": 95.8
+        },
+        {
+          "event": "Demise from Neuroendocrine Tumor",
+          "tested_date": "1976-04-01",
+          "active_dasha": "Ketu-Venus",
+          "confluence_score": 24.7
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "subject_id": "historical_indira_gandhi",
+  "name": "Indira Gandhi (Historical Benchmark)",
+  "benchmark_type": "historical_public_record",
+  "birth_data": {
+    "date": "1917-11-19",
+    "time": "23:11:00",
+    "city": "Allahabad",
+    "state": "Uttar Pradesh",
+    "country": "India",
+    "latitude": 25.4358,
+    "longitude": 81.8463,
+    "timezone_offset": 5.5
+  },
+  "verified_coordinates": {
+    "lagna": "Cancer 27°21'",
+    "moon_sign": "Capricorn 05°35' (Uttara Ashadha, Sun-ruled)",
+    "sun_sign": "Scorpio 04°08' (Anuradha, 5th House)",
+    "jupiter_sign": "Taurus 15°00' (Vrishabha, 11th House)",
+    "saturn_sign": "Cancer 21°47' (Lagna with Karka)",
+    "rahu_sign": "Sagittarius 10°34' (6th House)",
+    "ketu_sign": "Gemini 10°34' (12th House)"
+  },
+  "biographical_milestones": [
+    {
+      "event": "Marriage to Feroze Gandhi",
+      "date": "1942-03-26",
+      "category": "relationship",
+      "historical_context": "Inter-community marriage to Feroze Gandhi under active Rahu-Saturn (Saturn ruling 7th House Capricorn)."
+    },
+    {
+      "event": "Sworn in as Prime Minister of India",
+      "date": "1966-01-24",
+      "category": "career",
+      "historical_context": "Ascended to Prime Ministership following Lal Bahadur Shastri's sudden demise during Jupiter-Sun (Jupiter 9th Lord of Fortune, Sun 2nd Lord in 5th of Authority)."
+    },
+    {
+      "event": "Proclamation of National Emergency",
+      "date": "1975-06-25",
+      "category": "career",
+      "historical_context": "Declared nationwide state of Emergency during Saturn-Mercury (Saturn 8th Lord of drastic transformation and crisis)."
+    },
+    {
+      "event": "Electoral Defeat & Loss of Office",
+      "date": "1977-03-22",
+      "category": "career",
+      "historical_context": "Historic electoral wipeout and arrest during Saturn-Ketu (Ketu in 12th House of fall, loss, and isolation; classical Chhidra Dasha)."
+    },
+    {
+      "event": "Historic Re-election & Return to Power",
+      "date": "1980-01-14",
+      "category": "career",
+      "historical_context": "Decisive landslide election return to Prime Ministership under Saturn-Venus (Venus in 6th house of Shatru-Jaya / overcoming adversaries)."
+    },
+    {
+      "event": "Assassination / Violent Physical Exit",
+      "date": "1984-10-31",
+      "category": "mortality",
+      "historical_context": "Assassinated by bodyguards in New Delhi under Saturn-Rahu (Saturn primary 7th Maraka Lord in Lagna, Rahu in 6th house of violence and weapons aspected by Mars)."
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "subject_id": "03_queen_elizabeth_ii",
+  "name": "Queen Elizabeth II (Historical Benchmark)",
+  "benchmark_type": "historical_public_record",
+  "birth_data": {
+    "date": "1926-04-21",
+    "time": "02:40:00",
+    "city": "London",
+    "state": "England",
+    "country": "United Kingdom",
+    "latitude": 51.5074,
+    "longitude": -0.1278,
+    "timezone_offset": 0.0
+  },
+  "verified_coordinates": {
+    "lagna": "Capricorn 29°10'",
+    "moon_sign": "Cancer 19°25'",
+    "sun_sign": "Aries 07°14'"
+  },
+  "biographical_milestones": [
+    {
+      "event": "Royal Wedding to Philip Mountbatten",
+      "date": "1947-11-20",
+      "category": "relationship",
+      "historical_context": "Married Prince Philip at Westminster Abbey."
+    },
+    {
+      "event": "Accession to the Throne upon Demise of King George VI",
+      "date": "1952-02-06",
+      "category": "career",
+      "historical_context": "Ascended the British throne following her father's passing."
+    },
+    {
+      "event": "Official Royal Coronation at Westminster Abbey",
+      "date": "1953-06-02",
+      "category": "career",
+      "historical_context": "Formal coronation broadcast globally to millions."
+    },
+    {
+      "event": "Annus Horribilis (Windsor Fire & Royal Separations)",
+      "date": "1992-11-20",
+      "category": "career",
+      "historical_context": "Devastating fire at Windsor Castle and collapse of multiple royal marriages."
+    },
+    {
+      "event": "Demise and State Funeral at Balmoral",
+      "date": "2022-09-08",
+      "category": "mortality",
+      "historical_context": "Passed peacefully at Balmoral Castle after historic 70-year reign."
+    }
+  ]
+}

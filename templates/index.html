@@ -1,0 +1,2527 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Karmic Ledger // 業 · Zen Paper Minimal</title>
+  
+  <!-- Japanese Mincho & High-Signal Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700&family=Noto+Serif+JP:wght@300;400;500;600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+Devanagari:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       THEME: ZEN PAPER MINIMAL (LIGHT & DARK WASHI)
+       PROMPT: "Build calm minimalist website, off-white rice-paper background,
+       thin black ink-brush lines, generous negative space, single accent stamp/seal
+       graphic, gentle fade-in animations, no clutter."
+       + DARK THEME OPTION: "Kuro-Washi / Sumi Ink Wash Dark Minimal"
+       ========================================================================== */
+    :root {
+      /* LIGHT MODE: Natural Washi Rice-Paper Palette */
+      --zen-bg: #fcfbf8;
+      --zen-paper: #f8f6f0;
+      --zen-paper-subtle: #f3f0e6;
+      --zen-paper-darker: #eae6d8;
+      --zen-card: #ffffff;
+      
+      /* Sumi Ink Black Lines */
+      --ink-black: #141414;
+      --ink-charcoal: #2a2a2a;
+      --ink-deep: #404040;
+      --ink-muted: #6e6e6e;
+      --ink-faint: #9c9c9c;
+      --ink-hairline: rgba(20, 20, 20, 0.12);
+      --ink-border: 1px solid rgba(20, 20, 20, 0.15);
+      --ink-stroke: 1.2px solid #1a1a1a;
+      
+      /* Single Accent: Vermilion Inkan / Hanko Seal Stamp */
+      --seal-red: #b92b27;
+      --seal-red-soft: rgba(185, 43, 39, 0.08);
+      --seal-red-border: rgba(185, 43, 39, 0.35);
+
+      /* Typography Hierarchy */
+      --font-title: 'Shippori Mincho', 'Noto Serif JP', Georgia, serif;
+      --font-body: 'Noto Serif JP', 'Shippori Mincho', Georgia, serif;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --font-deva: 'Noto Sans Devanagari', sans-serif;
+
+      /* Dynamic Paper Fiber Texture */
+      --texture-overlay: 
+        radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, 0.85) 0%, rgba(248, 246, 240, 0.5) 60%, rgba(234, 230, 216, 0.35) 100%),
+        repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(0, 0, 0, 0.012) 60px, rgba(0, 0, 0, 0.012) 61px);
+    }
+
+    /* DARK MODE: Kuro-Washi / Sumi Ink Wash */
+    [data-theme="dark"] {
+      --zen-bg: #101114;
+      --zen-paper: #15161a;
+      --zen-paper-subtle: #1b1c22;
+      --zen-paper-darker: #22242c;
+      --zen-card: #16171c;
+      
+      /* Bone White / Pale Sumi Ink Lines */
+      --ink-black: #f4f1ea;
+      --ink-charcoal: #e2ddd3;
+      --ink-deep: #c8c3b8;
+      --ink-muted: #948e83;
+      --ink-faint: #65615a;
+      --ink-hairline: rgba(244, 241, 234, 0.10);
+      --ink-border: 1px solid rgba(244, 241, 234, 0.14);
+      --ink-stroke: 1.2px solid rgba(244, 241, 234, 0.35);
+      
+      /* Luminous Cinnabar Vermilion Hanko Stamp */
+      --seal-red: #e0382b;
+      --seal-red-soft: rgba(224, 56, 43, 0.14);
+      --seal-red-border: rgba(224, 56, 43, 0.45);
+
+      /* Dark Kuro-Washi Texture */
+      --texture-overlay: 
+        radial-gradient(ellipse at 50% 0%, rgba(30, 32, 40, 0.7) 0%, rgba(16, 17, 20, 0.85) 60%, rgba(10, 11, 14, 0.95) 100%),
+        repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(255, 255, 255, 0.008) 60px, rgba(255, 255, 255, 0.008) 61px);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      transition: background-color 0.25s ease, border-color 0.25s ease;
+    }
+
+    body {
+      background-color: var(--zen-bg);
+      color: var(--ink-charcoal);
+      font-family: var(--font-body);
+      line-height: 1.7;
+      font-size: 15px;
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+      background-image: var(--texture-overlay);
+    }
+
+    /* Selection */
+    ::selection {
+      background: var(--ink-black);
+      color: var(--zen-bg);
+    }
+
+    /* Minimal Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--zen-bg);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--ink-hairline);
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--ink-muted);
+    }
+
+    /* --------------------------------------------------------------------------
+       GENTLE FADE-IN ANIMATIONS
+       -------------------------------------------------------------------------- */
+    @keyframes zenFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .zen-fade-in {
+      animation: zenFadeIn 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    /* Main Container: Generous Negative Space & Wide Margins */
+    .zen-viewport {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 48px 36px 120px;
+    }
+
+    /* --------------------------------------------------------------------------
+       SINGLE ACCENT: VERMILION HANKO SEAL STAMP
+       -------------------------------------------------------------------------- */
+    .hanko-seal {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      background: transparent;
+      border: 2px solid var(--seal-red);
+      color: var(--seal-red);
+      font-family: var(--font-title);
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1;
+      transform: rotate(-3deg);
+      box-shadow: 0 1px 4px rgba(185, 43, 39, 0.18);
+      position: relative;
+      user-select: none;
+      flex-shrink: 0;
+    }
+
+    .hanko-seal::after {
+      content: "";
+      position: absolute;
+      inset: 1px;
+      border: 0.75px dashed var(--seal-red-border);
+      pointer-events: none;
+    }
+
+    .hanko-seal.sm {
+      width: 22px;
+      height: 22px;
+      font-size: 11px;
+      border-width: 1.5px;
+    }
+
+    /* --------------------------------------------------------------------------
+       TOP SYSTEM STATUS BAR & THEME SWITCHER
+       -------------------------------------------------------------------------- */
+    .zen-status-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding: 14px 0;
+      border-bottom: var(--ink-border);
+      margin-bottom: 56px;
+      font-family: var(--font-sans);
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      color: var(--ink-muted);
+    }
+
+    .status-node {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .status-node strong {
+      color: var(--ink-black);
+      font-weight: 600;
+    }
+
+    .zen-pulse-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--seal-red);
+      opacity: 0.85;
+      display: inline-block;
+    }
+
+    /* Calm Minimalist Theme Switcher */
+    .theme-toggle-cluster {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px;
+      border: var(--ink-border);
+      background: var(--zen-paper);
+    }
+
+    .theme-toggle-btn {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      padding: 4px 10px;
+      background: transparent;
+      color: var(--ink-muted);
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s ease;
+    }
+
+    .theme-toggle-btn:hover {
+      color: var(--ink-black);
+    }
+
+    .theme-toggle-btn.active {
+      background: var(--ink-black);
+      color: var(--zen-bg);
+      font-weight: 600;
+    }
+
+    /* --------------------------------------------------------------------------
+       HERO MINIMALIST BANNER
+       -------------------------------------------------------------------------- */
+    .zen-hero {
+      margin-bottom: 64px;
+      position: relative;
+    }
+
+    .zen-hero-topline {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .zen-hero-tag {
+      font-family: var(--font-sans);
+      font-size: 11.5px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--ink-muted);
+    }
+
+    .zen-hero-title-row {
+      display: flex;
+      align-items: baseline;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    .zen-hero-title {
+      font-family: var(--font-title);
+      font-size: 48px;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      color: var(--ink-black);
+    }
+
+    @media (max-width: 768px) {
+      .zen-hero-title {
+        font-size: 34px;
+      }
+    }
+
+    .zen-hero-subtitle {
+      font-family: var(--font-body);
+      font-size: 16.5px;
+      color: var(--ink-muted);
+      max-width: 720px;
+      line-height: 1.75;
+      font-weight: 300;
+    }
+
+    /* --------------------------------------------------------------------------
+       CONTROLLER (BENCHMARK SELECTION)
+       -------------------------------------------------------------------------- */
+    .zen-controller {
+      padding: 24px 0 32px;
+      border-top: var(--ink-border);
+      border-bottom: var(--ink-border);
+      margin-bottom: 72px;
+    }
+
+    .controller-label {
+      font-family: var(--font-sans);
+      font-size: 11.5px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--ink-faint);
+      margin-bottom: 16px;
+    }
+
+    .target-btn-cluster {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .target-btn {
+      font-family: var(--font-body);
+      font-size: 14px;
+      padding: 8px 18px;
+      background: transparent;
+      color: var(--ink-deep);
+      border: var(--ink-border);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .target-btn:hover {
+      border-color: var(--ink-black);
+      color: var(--ink-black);
+    }
+
+    .target-btn.active {
+      background: var(--ink-black);
+      color: var(--zen-bg);
+      border-color: var(--ink-black);
+      font-weight: 500;
+    }
+
+    .action-btn {
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 9px 20px;
+      background: transparent;
+      color: var(--ink-black);
+      border: 1px solid var(--ink-black);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .action-btn:hover {
+      background: var(--ink-black);
+      color: var(--zen-bg);
+    }
+
+    .zen-protocol-note {
+      font-family: var(--font-body);
+      font-size: 13.5px;
+      color: var(--ink-muted);
+      line-height: 1.6;
+      max-width: 680px;
+      padding-left: 14px;
+      border-left: 1.5px solid var(--ink-hairline);
+    }
+
+    /* --------------------------------------------------------------------------
+       QUIET CARDS & SECTIONS (NO CLUTTER, GENEROUS SPACE)
+       -------------------------------------------------------------------------- */
+    .zen-sector {
+      margin-bottom: 72px;
+    }
+
+    .zen-sector-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--ink-black);
+      margin-bottom: 28px;
+    }
+
+    .zen-sector-title-row {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+    }
+
+    .zen-sector-num {
+      font-family: var(--font-title);
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--ink-muted);
+    }
+
+    .zen-sector-name {
+      font-family: var(--font-title);
+      font-size: 19px;
+      font-weight: 500;
+      color: var(--ink-black);
+      letter-spacing: -0.01em;
+    }
+
+    .zen-badge {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 500;
+      padding: 3px 10px;
+      border: var(--ink-border);
+      color: var(--ink-muted);
+      letter-spacing: 0.04em;
+    }
+
+    .zen-badge.accent {
+      border-color: var(--seal-red);
+      color: var(--seal-red);
+      background: var(--seal-red-soft);
+    }
+
+    /* --------------------------------------------------------------------------
+       SECTOR 01: COORDINATES GRID
+       -------------------------------------------------------------------------- */
+    .zen-metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 24px;
+    }
+
+    .zen-metric-cell {
+      padding: 16px 0;
+      border-top: var(--ink-border);
+    }
+
+    .zen-metric-label {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--ink-muted);
+      margin-bottom: 6px;
+    }
+
+    .zen-metric-value {
+      font-family: var(--font-title);
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--ink-black);
+      line-height: 1.35;
+    }
+
+    /* --------------------------------------------------------------------------
+       SECTOR 02: SOUL ODOMETER
+       -------------------------------------------------------------------------- */
+    .soul-layout-grid {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    @media (max-width: 800px) {
+      .soul-layout-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .soul-dial-card {
+      text-align: center;
+      padding: 36px 20px;
+      border: var(--ink-border);
+      background: var(--zen-card);
+    }
+
+    .soul-score-num {
+      font-family: var(--font-title);
+      font-size: 56px;
+      font-weight: 400;
+      line-height: 1;
+      color: var(--ink-black);
+      margin-bottom: 6px;
+    }
+
+    .soul-score-lbl {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--ink-muted);
+      text-transform: uppercase;
+    }
+
+    .archetype-container {
+      padding: 20px;
+      border: var(--ink-border);
+      background: var(--zen-card);
+    }
+
+    .archetype-heading {
+      font-family: var(--font-title);
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--ink-black);
+      margin-bottom: 6px;
+    }
+
+    .archetype-text {
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--ink-muted);
+      line-height: 1.65;
+    }
+
+    /* --------------------------------------------------------------------------
+       SECTOR 03: STOPPAGE & TRANSIT FRICTIONS
+       -------------------------------------------------------------------------- */
+    .threat-card {
+      padding: 16px 20px;
+      border: var(--ink-border);
+      background: var(--zen-card);
+      margin-bottom: 12px;
+      border-left: 2px solid var(--seal-red);
+    }
+
+    .threat-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+
+    .threat-title {
+      font-family: var(--font-title);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ink-black);
+    }
+
+    .threat-badge {
+      font-family: var(--font-sans);
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 2px 6px;
+      background: var(--seal-red-soft);
+      color: var(--seal-red);
+      border: 1px solid var(--seal-red-border);
+    }
+
+    .vector-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .vector-list li {
+      font-family: var(--font-body);
+      font-size: 13.5px;
+      padding: 12px 16px;
+      border: var(--ink-border);
+      background: var(--zen-card);
+      color: var(--ink-charcoal);
+    }
+
+    /* --------------------------------------------------------------------------
+       SECTOR 04: ADVERSARIAL SENSITIVITY BATTERY
+       -------------------------------------------------------------------------- */
+    .zen-table-wrap {
+      overflow-x: auto;
+      margin-top: 16px;
+    }
+
+    .zen-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--font-body);
+      font-size: 13.5px;
+    }
+
+    .zen-table th {
+      text-align: left;
+      padding: 10px 14px;
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--ink-muted);
+      border-bottom: 1px solid var(--ink-black);
+      text-transform: uppercase;
+    }
+
+    .zen-table td {
+      padding: 12px 14px;
+      border-bottom: var(--ink-border);
+      color: var(--ink-charcoal);
+    }
+
+    .zen-table tr:hover td {
+      background: var(--zen-paper-subtle);
+    }
+
+    .score-badge {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 6px;
+      border: var(--ink-border);
+      display: inline-block;
+    }
+
+    .score-badge.high {
+      border-color: var(--ink-black);
+      color: var(--ink-black);
+    }
+
+    .score-badge.collapsed {
+      border-color: var(--seal-red);
+      color: var(--seal-red);
+      background: var(--seal-red-soft);
+    }
+
+    /* --------------------------------------------------------------------------
+       SECTOR 04B: SENSITIVITY & PERTURBATION ANALYSIS
+       -------------------------------------------------------------------------- */
+    .skeptic-callout-box {
+      font-family: var(--font-body);
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--ink-charcoal);
+      padding: 20px 24px;
+      border: var(--ink-border);
+      background: var(--zen-paper-subtle);
+      margin-bottom: 24px;
+    }
+
+    .proof-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .proof-tab-btn {
+      font-family: var(--font-sans);
+      font-size: 11.5px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      padding: 6px 14px;
+      background: transparent;
+      color: var(--ink-muted);
+      border: var(--ink-border);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .proof-tab-btn:hover {
+      color: var(--ink-black);
+      border-color: var(--ink-black);
+    }
+
+    .proof-tab-btn.active {
+      background: var(--ink-black);
+      color: var(--zen-bg);
+      border-color: var(--ink-black);
+    }
+
+    .proof-tab-btn.accent.active {
+      background: var(--seal-red);
+      color: #ffffff;
+      border-color: var(--seal-red);
+    }
+
+    .proof-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    @media (max-width: 768px) {
+      .proof-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .proof-card {
+      padding: 24px;
+      border: var(--ink-border);
+      background: var(--zen-card);
+    }
+
+    .proof-card.corrupted {
+      border-color: var(--seal-red-border);
+      background: var(--zen-card);
+    }
+
+    .proof-card-badge {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ink-black);
+      margin-bottom: 6px;
+    }
+
+    .proof-card-badge.corrupted {
+      color: var(--seal-red);
+    }
+
+    .event-row-block {
+      padding: 14px 0;
+      border-top: var(--ink-border);
+      margin-top: 14px;
+    }
+
+    .event-row-title {
+      font-family: var(--font-title);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ink-black);
+      margin-bottom: 4px;
+    }
+
+    .event-dasha-pill {
+      font-family: var(--font-sans);
+      font-size: 11.5px;
+      color: var(--ink-muted);
+      margin-bottom: 6px;
+    }
+
+    .event-score-flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 8px;
+    }
+
+    /* --------------------------------------------------------------------------
+       SECTOR 05: D-1 KUNDLI BARREL
+       -------------------------------------------------------------------------- */
+    .kundli-layout-grid {
+      display: grid;
+      grid-template-columns: 400px 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    @media (max-width: 900px) {
+      .kundli-layout-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .kundli-box-housing {
+      border: var(--ink-border);
+      background: var(--zen-card);
+      padding: 16px;
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto;
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* --------------------------------------------------------------------------
+       SECTOR 06: 120-YEAR VIMSHOTTARI LIFESPAN HORIZON
+       -------------------------------------------------------------------------- */
+    #dashaBarWrapper {
+      padding: 8px 0;
+      overflow-x: auto;
+    }
+
+    /* --------------------------------------------------------------------------
+       SECTOR 08: REMEDIAL SHASTRA DIRECTIVES
+       -------------------------------------------------------------------------- */
+    .remedies-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    .remedy-cell {
+      border: var(--ink-border);
+      background: var(--zen-card);
+      padding: 20px;
+    }
+
+    .remedy-title {
+      font-family: var(--font-title);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--ink-black);
+      margin-bottom: 4px;
+    }
+
+    .remedy-meta {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      color: var(--ink-muted);
+      margin-bottom: 10px;
+    }
+
+    .remedy-desc {
+      font-family: var(--font-body);
+      font-size: 13.5px;
+      color: var(--ink-charcoal);
+      line-height: 1.6;
+    }
+
+    /* --------------------------------------------------------------------------
+       FEATURE DISCOVERY: LIFE INQUIRY HORIZONS CAROUSEL
+       -------------------------------------------------------------------------- */
+    .inquiry-carousel-section {
+      margin-bottom: 72px;
+      position: relative;
+    }
+
+    .carousel-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 20px;
+      border-bottom: var(--ink-border);
+      padding-bottom: 12px;
+    }
+
+    .carousel-title-block {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+    }
+
+    .carousel-title {
+      font-family: var(--font-title);
+      font-size: 21px;
+      font-weight: 500;
+      color: var(--ink-black);
+      letter-spacing: -0.01em;
+    }
+
+    .carousel-subtitle {
+      font-family: var(--font-sans);
+      font-size: 11.5px;
+      color: var(--ink-muted);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .carousel-nav-controls {
+      display: flex;
+      gap: 8px;
+    }
+
+    .carousel-arrow-btn {
+      width: 32px;
+      height: 32px;
+      border: var(--ink-border);
+      background: var(--zen-card);
+      color: var(--ink-black);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-title);
+      font-size: 14px;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .carousel-arrow-btn:hover {
+      background: var(--ink-black);
+      color: var(--zen-bg);
+      border-color: var(--ink-black);
+    }
+
+    .carousel-track {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding: 6px 2px 22px;
+      scrollbar-width: thin;
+      scroll-behavior: smooth;
+    }
+
+    .carousel-card {
+      flex: 0 0 320px;
+      scroll-snap-align: start;
+      border: var(--ink-border);
+      background: var(--zen-card);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      position: relative;
+    }
+
+    .carousel-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--seal-red);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+    }
+
+    [data-theme="dark"] .carousel-card:hover {
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+    }
+
+    .card-topline {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .card-kanji-seal {
+      width: 28px;
+      height: 28px;
+      border: 1.5px solid var(--seal-red);
+      color: var(--seal-red);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-title);
+      font-size: 13.5px;
+      font-weight: 700;
+      transform: rotate(-3deg);
+    }
+
+    .card-domain-num {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ink-muted);
+      letter-spacing: 0.08em;
+    }
+
+    .card-title {
+      font-family: var(--font-title);
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--ink-black);
+      margin-bottom: 8px;
+      line-height: 1.35;
+    }
+
+    .card-question {
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: var(--ink-muted);
+      line-height: 1.6;
+      margin-bottom: 16px;
+      font-style: italic;
+    }
+
+    .card-engine-tag {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      color: var(--ink-deep);
+      background: var(--zen-paper-subtle);
+      padding: 5px 10px;
+      border-left: 2px solid var(--seal-red);
+      margin-bottom: 16px;
+      line-height: 1.4;
+    }
+
+    .card-cta-btn {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 8px 12px;
+      background: transparent;
+      color: var(--ink-black);
+      border: 1px solid var(--ink-black);
+      cursor: pointer;
+      width: 100%;
+      text-align: center;
+      transition: all 0.2s ease;
+    }
+
+    .card-cta-btn:hover {
+      background: var(--ink-black);
+      color: var(--zen-bg);
+    }
+
+    /* --------------------------------------------------------------------------
+       ZEN INQUIRY MODAL / POP-UP DRAWER
+       -------------------------------------------------------------------------- */
+    .zen-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 11, 14, 0.72);
+      backdrop-filter: blur(8px);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .zen-modal-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .zen-modal-box {
+      background: var(--zen-bg);
+      border: var(--ink-border);
+      max-width: 660px;
+      width: 100%;
+      max-height: 88vh;
+      overflow-y: auto;
+      padding: 36px 32px;
+      position: relative;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+      transform: translateY(16px);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .zen-modal-overlay.open .zen-modal-box {
+      transform: translateY(0);
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: transparent;
+      border: var(--ink-border);
+      color: var(--ink-muted);
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .modal-close-btn:hover {
+      border-color: var(--seal-red);
+      color: var(--seal-red);
+    }
+
+    .modal-header-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+      padding-bottom: 14px;
+      border-bottom: var(--ink-border);
+    }
+
+    .modal-title {
+      font-family: var(--font-title);
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--ink-black);
+    }
+
+    .modal-section {
+      margin-bottom: 20px;
+    }
+
+    .modal-section-lbl {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--seal-red);
+      margin-bottom: 6px;
+    }
+
+    .modal-section-body {
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--ink-charcoal);
+      line-height: 1.7;
+    }
+
+    .modal-code-pill {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      background: var(--zen-paper-subtle);
+      border: var(--ink-border);
+      padding: 10px 14px;
+      color: var(--ink-black);
+      margin-top: 8px;
+      line-height: 1.5;
+    }
+
+    .modal-action-row {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: var(--ink-border);
+    }
+
+    /* --------------------------------------------------------------------------
+       INTAKE FORM & PRIVACY BANNER STYLES
+       -------------------------------------------------------------------------- */
+    .privacy-banner {
+      background: var(--zen-paper-subtle);
+      border: 1px solid var(--seal-red-border);
+      border-left: 3px solid var(--seal-red);
+      padding: 12px 16px;
+      margin-bottom: 22px;
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--ink-charcoal);
+    }
+
+    .privacy-banner-title {
+      color: var(--seal-red);
+      font-family: var(--font-sans);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 11px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 600px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .form-field {
+      margin-bottom: 16px;
+    }
+
+    .form-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--ink-muted);
+      margin-bottom: 6px;
+    }
+
+    .badge-optional {
+      font-size: 9.5px;
+      color: var(--ink-faint);
+      font-weight: 500;
+      text-transform: lowercase;
+      border: var(--ink-border);
+      padding: 1px 5px;
+    }
+
+    .badge-required {
+      font-size: 9.5px;
+      color: var(--seal-red);
+      font-weight: 600;
+      text-transform: lowercase;
+      border: 1px solid var(--seal-red-border);
+      background: var(--seal-red-soft);
+      padding: 1px 5px;
+    }
+
+    .zen-input, .zen-select {
+      width: 100%;
+      padding: 9px 12px;
+      background: var(--zen-paper);
+      border: var(--ink-border);
+      color: var(--ink-black);
+      font-family: var(--font-body);
+      font-size: 13.5px;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .zen-input:focus, .zen-select:focus {
+      border-color: var(--ink-black);
+    }
+
+    .checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-sans);
+      font-size: 11.5px;
+      color: var(--ink-muted);
+      margin-top: 6px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="zen-viewport zen-fade-in">
+    
+    <!-- TOP SYSTEM STATUS BAR -->
+    <header class="zen-status-bar">
+      <div class="status-node">
+        <span class="hanko-seal sm">業</span>
+        <strong>KARMIC_LEDGER:</strong>
+        <span>SHASTRA_CORE V2.10.03</span>
+      </div>
+      
+      <div class="status-node">
+        <span class="zen-pulse-dot" id="liveIndicatorDot"></span>
+        <span id="liveSocketStatus" style="font-weight: 600;">CONNECTING...</span>
+      </div>
+
+      <div class="status-node" id="liveEphemerisTicker">
+        Saturn: Pisces · Jupiter: Taurus · Rahu: Aquarius · <em>Connecting Telemetry...</em>
+      </div>
+
+      <!-- Minimalist Dark / Light Theme Toggle -->
+      <div class="theme-toggle-cluster">
+        <button class="theme-toggle-btn" id="btnThemeLight" onclick="setTheme('light')" title="Switch to Light Rice Paper">☀ LIGHT</button>
+        <button class="theme-toggle-btn active" id="btnThemeDark" onclick="setTheme('dark')" title="Switch to Dark Kuro-Washi">☾ DARK</button>
+      </div>
+    </header>
+
+    <!-- HERO MINIMALIST BANNER -->
+    <section class="zen-hero">
+      <div class="zen-hero-topline">
+        <span class="hanko-seal">印</span>
+        <span class="zen-hero-tag">Astronomical Geometry & Ephemeris Sensitivity Testing</span>
+      </div>
+
+      <div class="zen-hero-title-row">
+        <h1 class="zen-hero-title">Karmic Ledger // 業</h1>
+      </div>
+
+      <p class="zen-hero-subtitle">
+        A clear, transparent platform that maps astronomical planetary ephemeris into symbolic life themes—explaining timing cycles, career momentum, and personal archetypes in plain English without confusing jargon.
+      </p>
+    </section>
+
+    <!-- LIFE INQUIRY HORIZONS // CAROUSEL -->
+    <section class="inquiry-carousel-section">
+      <div class="carousel-header-row">
+        <div class="carousel-title-block">
+          <span class="hanko-seal sm">問</span>
+          <h2 class="carousel-title">What Would You Like to Know? // 6 Key Life Areas</h2>
+          <span class="carousel-subtitle">Interactive Query Modules</span>
+        </div>
+        <div class="carousel-nav-controls">
+          <button class="carousel-arrow-btn" onclick="scrollInquiryCarousel(-1)" title="Previous Area">←</button>
+          <button class="carousel-arrow-btn" onclick="scrollInquiryCarousel(1)" title="Next Area">→</button>
+        </div>
+      </div>
+
+      <div class="carousel-track" id="inquiryTrack">
+        <!-- 01 RELATIONSHIPS -->
+        <div class="carousel-card">
+          <div>
+            <div class="card-topline">
+              <span class="card-kanji-seal">和</span>
+              <span class="card-domain-num">AREA 01 // RELATIONSHIPS & LOVE</span>
+            </div>
+            <h3 class="card-title">Love, Marriage & Deep Partnerships</h3>
+            <p class="card-question">"How do your personal cycles influence relationship timing, communication harmony, and partnership commitments?"</p>
+            <div class="card-engine-tag">Analyzes: Partnership Sector (House 7) · Venus (Affection) · Timing Cycles</div>
+          </div>
+          <button class="card-cta-btn" onclick="openInquiryModal('love')">✦ Explore Area</button>
+        </div>
+
+        <!-- 02 WEALTH & MONEY -->
+        <div class="carousel-card">
+          <div>
+            <div class="card-topline">
+              <span class="card-kanji-seal">財</span>
+              <span class="card-domain-num">AREA 02 // WEALTH & CAREER GAINS</span>
+            </div>
+            <h3 class="card-title">Money, Earnings & Financial Growth</h3>
+            <p class="card-question">"When are the best windows for financial growth, savings discipline, and building long-term assets?"</p>
+            <div class="card-engine-tag">Analyzes: Income & Savings Sectors (Houses 2 & 11) · Jupiter (Expansion)</div>
+          </div>
+          <button class="card-cta-btn" onclick="openInquiryModal('wealth')">✦ Explore Area</button>
+        </div>
+
+        <!-- 03 TIMING & WHAT'S NEXT -->
+        <div class="carousel-card">
+          <div>
+            <div class="card-topline">
+              <span class="card-kanji-seal">時</span>
+              <span class="card-domain-num">AREA 03 // TIMING & WHAT'S NEXT</span>
+            </div>
+            <h3 class="card-title">Life Chapters & What Happens Next</h3>
+            <p class="card-question">"What personal growth chapter are you currently in, and what major shifts are approaching?"</p>
+            <div class="card-engine-tag">Analyzes: 120-Year Life Chapters (Dashas) · Major Planetary Shifts</div>
+          </div>
+          <button class="card-cta-btn" onclick="openInquiryModal('timing')">✦ Explore Area</button>
+        </div>
+
+        <!-- 04 HEALTH & ENERGY -->
+        <div class="carousel-card">
+          <div>
+            <div class="card-topline">
+              <span class="card-kanji-seal">気</span>
+              <span class="card-domain-num">AREA 04 // HEALTH & ENERGY</span>
+            </div>
+            <h3 class="card-title">Energy Rhythms, Vitality & Burnout Prevention</h3>
+            <p class="card-question">"How do your natural energy cycles fluctuate, and how can you protect yourself from burnout and physical fatigue?"</p>
+            <div class="card-engine-tag">Analyzes: Daily Routine & Vitality (House 6) · Stress Rhythm (Zero Medical Claims)</div>
+          </div>
+          <button class="card-cta-btn" onclick="openInquiryModal('disease')">✦ Explore Area</button>
+        </div>
+
+        <!-- 05 RESILIENCE & BIG CHANGES -->
+        <div class="carousel-card">
+          <div>
+            <div class="card-topline">
+              <span class="card-kanji-seal">道</span>
+              <span class="card-domain-num">AREA 05 // RESILIENCE & BIG CHANGES</span>
+            </div>
+            <h3 class="card-title">Navigating Big Transitions & Overcoming Hard Times</h3>
+            <p class="card-question">"How do you navigate major turning points, unexpected disruptions, and rebuild strength during difficult seasons?"</p>
+            <div class="card-engine-tag">Analyzes: Inner Resilience & Transformation (House 8) · Saturn Lessons</div>
+          </div>
+          <button class="card-cta-btn" onclick="openInquiryModal('mortality')">✦ Explore Area</button>
+        </div>
+
+        <!-- 06 CAREER & LIFE PURPOSE -->
+        <div class="carousel-card">
+          <div>
+            <div class="card-topline">
+              <span class="card-kanji-seal">役</span>
+              <span class="card-domain-num">AREA 06 // CAREER & LIFE PURPOSE</span>
+            </div>
+            <h3 class="card-title">Career Purpose, Leadership & Public Direction</h3>
+            <p class="card-question">"What professional roles, creative callings, and leadership environments bring out your highest potential?"</p>
+            <div class="card-engine-tag">Analyzes: Career & Public Standing (House 10) · Natural Talents & Purpose</div>
+          </div>
+          <button class="card-cta-btn" onclick="openInquiryModal('luck')">✦ Explore Area</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTROLLER (TARGET SELECTION) -->
+    <section class="zen-controller">
+      <div class="controller-label">// SAMPLE PROFILES & ACCURACY TESTING</div>
+      
+      <div class="target-btn-cluster">
+        <button class="target-btn active" id="btnIndira" onclick="acquireTarget('indira')">
+          <span>01</span> Indira Gandhi (Historical Case)
+        </button>
+        <button class="target-btn" id="btnAnonymous" onclick="acquireTarget('anonymous')">
+          <span>02</span> Anonymous (Demo Profile)
+        </button>
+        <button class="target-btn" id="btnCustom" onclick="openIntakeModal()">
+          <span style="color: var(--seal-red); font-weight: 700;">+</span> Enter Your Birth Details (100% Private)
+        </button>
+        <button class="action-btn" onclick="triggerAdversarialBattery()">
+          View Reference Benchmark Test
+        </button>
+      </div>
+
+      <div class="zen-protocol-note">
+        <strong>Sensitivity Standard:</strong> Unlike generic horoscope apps that return identical flattering statements to everyone, this engine computes exact celestial coordinates. On our historical reference benchmark, corrupting a birth year by +3 years desynchronizes dasha timing cycles and drops the consistency score from 74% down to 50%—demonstrating direct mathematical sensitivity to exact birth coordinates.
+      </div>
+    </section>
+
+    <!-- SECTOR 01: CORE BLUEPRINT -->
+    <section class="zen-sector">
+      <div class="zen-sector-header">
+        <div class="zen-sector-title-row">
+          <span class="zen-sector-num">01</span>
+          <h2 class="zen-sector-name">Core Astrological Profile & Planetary Blueprint</h2>
+        </div>
+        <div class="zen-badge" id="vcsBadge">Reference Benchmark: 74.0% Historical Match (N=6)</div>
+      </div>
+
+      <div class="zen-metrics-grid">
+        <div class="zen-metric-cell">
+          <div class="zen-metric-label">Subject & Location</div>
+          <div class="zen-metric-value" id="dispSubject">Indira Gandhi (Allahabad)</div>
+        </div>
+        <div class="zen-metric-cell">
+          <div class="zen-metric-label">Rising Sign / Ascendant (Lagna)</div>
+          <div class="zen-metric-value" id="dispLagna">Cancer 27°21'</div>
+        </div>
+        <div class="zen-metric-cell">
+          <div class="zen-metric-label">Moon Star Constellation (Nakshatra)</div>
+          <div class="zen-metric-value" id="dispMoonNak">Uttara Ashadha</div>
+        </div>
+        <div class="zen-metric-cell">
+          <div class="zen-metric-label">Current Age</div>
+          <div class="zen-metric-value" id="dispAge">Historical Record</div>
+        </div>
+        <div class="zen-metric-cell">
+          <div class="zen-metric-label">Current Life Chapter (Active Period)</div>
+          <div class="zen-metric-value" id="dispActiveDasha">Jupiter - Sun / Saturn - Rahu</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTOR 02: SOUL CALLING -->
+    <section class="zen-sector">
+      <div class="zen-sector-header">
+        <div class="zen-sector-title-row">
+          <span class="zen-sector-num">02</span>
+          <h2 class="zen-sector-name">Core Purpose & Personal Archetype</h2>
+        </div>
+        <div class="zen-badge" id="soulAgeBadge">Mature / End-Cycle Archetype</div>
+      </div>
+
+      <div class="soul-layout-grid">
+        <div class="soul-dial-card">
+          <div class="soul-score-num" id="dispAntiquityNum">4.2</div>
+          <div class="soul-score-lbl">Archetype Depth / 5.0</div>
+        </div>
+
+        <div>
+          <div class="zen-metrics-grid" style="margin-bottom: 24px;">
+            <div class="zen-metric-cell">
+              <div class="zen-metric-label">Guiding Planet (Core Calling)</div>
+              <div class="zen-metric-value" id="dispAkPlanet">Venus [शुक्र]</div>
+            </div>
+            <div class="zen-metric-cell">
+              <div class="zen-metric-label">Zodiac Degree Progress</div>
+              <div class="zen-metric-value" id="dispAkDeg">25.22° (84.1%)</div>
+            </div>
+            <div class="zen-metric-cell">
+              <div class="zen-metric-label">Traditional Category</div>
+              <div class="zen-metric-value" id="dispSanskritCat">परम-प्राचीन जीव</div>
+            </div>
+          </div>
+
+          <div class="archetype-container">
+            <div class="zen-metric-label">Symbolic Archetype Reading</div>
+            <div class="archetype-heading" id="dispArchetypeTitle">
+              The Relational Aesthete & Empath [रसज्ञ (Rasajña)]
+            </div>
+            <div class="archetype-text" id="dispArchetypeDesc">
+              A nature focused on harmonizing human intimacy and universal detachment, with high sensitivity to mutual fairness and relationships.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTOR 03: CURRENT PRESSURES & TIMING -->
+    <section class="zen-sector" id="stoppageConsole">
+      <div class="zen-sector-header">
+        <div class="zen-sector-title-row">
+          <span class="zen-sector-num">03</span>
+          <h2 class="zen-sector-name" id="stoppageTitle">Current Life Influences & Planetary Pressures</h2>
+        </div>
+        <div class="zen-badge" id="stoppageCountBadge">0 Active Pressures</div>
+      </div>
+
+      <div id="threatCardsContainer">
+        <!-- Injected via JavaScript -->
+      </div>
+
+      <div style="margin-top: 24px;" id="roadmapBox">
+        <div class="controller-label">Upcoming Life Milestones & Timing Shifts</div>
+        <ul class="vector-list" id="roadmapList">
+          <!-- Injected via JavaScript -->
+        </ul>
+      </div>
+    </section>
+
+    <!-- SECTOR 04: REFERENCE BENCHMARK CONSISTENCY BATTERY -->
+    <section class="zen-sector" id="adversarialHub">
+      <div class="zen-sector-header">
+        <div class="zen-sector-title-row">
+          <span class="zen-sector-num">04</span>
+          <h2 class="zen-sector-name">Methodological Benchmark — Does the algorithm fall apart when birth data is scrambled?</h2>
+        </div>
+        <div style="display: flex; gap: 8px; align-items: center;">
+          <span class="zen-badge">Reference Benchmark: Indira Gandhi (N=6 Milestones)</span>
+          <button class="target-btn" onclick="triggerAdversarialBattery()">Test Reference Benchmark</button>
+        </div>
+      </div>
+
+      <div style="font-size: 13px; color: var(--ink-muted); margin-bottom: 20px; line-height: 1.6; padding: 12px 16px; border-left: 2px solid var(--ink-black); background: var(--zen-paper-subtle);">
+        <strong>Methodological Notice:</strong> This adversarial sensitivity battery is executed on our calibrated historical reference benchmark (Indira Gandhi, 1917–1984), <em>not</em> your individual chart. Computing statistically meaningful sensitivity separation (Δ) requires backtesting against a minimum floor of 5 verified biographical milestones to avoid false precision. This benchmark demonstrates that the engine's underlying rules are responsive to exact celestial coordinates rather than outputting generic horoscopes.
+      </div>
+
+      <div class="zen-metrics-grid" style="margin-bottom: 28px;">
+        <div class="zen-metric-cell">
+          <div class="zen-metric-label">Benchmark Baseline (Original 1917 Data)</div>
+          <div class="zen-metric-value" id="advGtVcs">74.0%</div>
+        </div>
+        <div class="zen-metric-cell">
+          <div class="zen-metric-label">Scrambled Benchmark Match (Perturbed Data)</div>
+          <div class="zen-metric-value" id="advCorruptedVcs">48.3%</div>
+        </div>
+        <div class="zen-metric-cell">
+          <div class="zen-metric-label">Benchmark Sensitivity Drop (Δ Separation)</div>
+          <div class="zen-metric-value" id="advDeltaMargin" style="color: var(--seal-red);">+25.7%</div>
+        </div>
+        <div class="zen-metric-cell">
+          <div class="zen-metric-label">Benchmark Pass Rate (4 Vectors)</div>
+          <div class="zen-metric-value" id="advPassRate">4/4</div>
+        </div>
+        <div class="zen-metric-cell">
+          <div class="zen-metric-label">Benchmark Sensitivity Status</div>
+          <div class="zen-metric-value" id="advVerdict">MEASURABLY SENSITIVE</div>
+        </div>
+      </div>
+
+      <div class="zen-table-wrap">
+        <table class="zen-table">
+          <thead>
+            <tr>
+              <th>Test Scenario</th>
+              <th>Scrambled Rising Sign</th>
+              <th>Scrambled Match</th>
+              <th>Sensitivity Drop</th>
+              <th>Test Result</th>
+            </tr>
+          </thead>
+          <tbody id="advTableBody">
+            <!-- Injected via JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SECTOR 04B: SENSITIVITY & PERTURBATION ANALYSIS -->
+    <section class="zen-sector" id="falsifiabilitySuite">
+      <div class="zen-sector-header">
+        <div class="zen-sector-title-row">
+          <span class="zen-sector-num">04B</span>
+          <h2 class="zen-sector-name">Reference Benchmark Case Study (Indira Gandhi, 1917–1984)</h2>
+        </div>
+        <div class="zen-badge">Testing Protocol</div>
+      </div>
+
+      <div class="skeptic-callout-box">
+        <strong style="color: var(--ink-black);">Data Sensitivity Check on Reference Benchmark:</strong><br>
+        Most horoscope platforms return flattering, generic statements for any birth date. In contrast, this engine computes an exact astronomical geometry matrix. When we shift Indira Gandhi's birth date by <strong>+3 years</strong> (1920 instead of 1917), the planetary dasha periods desynchronize by 1,095 days, and the timing consistency score collapses from <strong>74% down to 50%</strong> overall (and from 98% down to 24% on individual life transitions).<br><br>
+        <em>Methodological Boundary:</em> This test runs exclusively on curated historical benchmarks with verified biographical milestones (minimum floor $N \ge 5$). Live querents do not have an adversarial score rendered, as backtesting fewer than 5 life events introduces false precision indistinguishable from chance. Demonstrating mathematical sensitivity on historical data confirms the engine is not a static Barnum effect, but does not constitute empirical scientific proof of celestial causation.
+      </div>
+
+      <!-- Live Simulation Tabs -->
+      <div class="proof-tabs">
+        <button class="proof-tab-btn active" id="btnShowSplit" onclick="switchProofView('split')">Side-by-Side Comparison</button>
+        <button class="proof-tab-btn" id="btnShowTruthOnly" onclick="switchProofView('truth')">Real Date (1917 / 98% Match)</button>
+        <button class="proof-tab-btn accent" id="btnShowFraudOnly" onclick="switchProofView('corrupted')">Scrambled Date (+3 Yrs / 24% Match)</button>
+      </div>
+
+      <!-- Split Comparison Grid -->
+      <div class="proof-grid" id="proofSplitGrid">
+        <!-- CARD A: GROUND TRUTH -->
+        <div class="proof-card" id="cardGroundTruth">
+          <div class="proof-card-badge">✓ Real Date Baseline (1917)</div>
+          <div style="font-size: 12px; color: var(--ink-muted); margin-bottom: 14px;">
+            1917-11-19 23:11:00 Allahabad · Cancer Rising 27°21'
+          </div>
+
+          <div class="event-row-block">
+            <div class="event-row-title">Event 1: Sworn in as Prime Minister (24 Jan 1966)</div>
+            <div class="event-dasha-pill">Active Life Chapter: JUPITER - SUN // Favorable Jupiter Transit</div>
+            <div style="font-size: 13.5px; color: var(--ink-muted); margin-bottom: 8px;">
+              Jupiter rules the 9th House of Good Fortune. Sun rules the 2nd House and sits in the 5th House of Authority—aligning with high leadership.
+            </div>
+            <div class="event-score-flex">
+              <span style="font-size: 11px; font-weight: 600;">[EXACT TIMING MATCH]</span>
+              <span class="score-badge high">98.0% Match</span>
+            </div>
+          </div>
+
+          <div class="event-row-block">
+            <div class="event-row-title">Event 2: Historical Loss / Transition (31 Oct 1984)</div>
+            <div class="event-dasha-pill">Active Life Chapter: SATURN - RAHU // Saturn Aspect</div>
+            <div style="font-size: 13.5px; color: var(--ink-muted); margin-bottom: 8px;">
+              Saturn and Rahu periods mark major historical boundaries and life endings in retrospective study.
+            </div>
+            <div class="event-score-flex">
+              <span style="font-size: 11px; font-weight: 600;">[HISTORICAL TIMING MATCH]</span>
+              <span class="score-badge high">98.0% Match</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD B: CORRUPTED INJECTION -->
+        <div class="proof-card corrupted" id="cardCorrupted">
+          <div class="proof-card-badge corrupted">✗ Scrambled Shift (+3 Years)</div>
+          <div style="font-size: 12px; color: var(--seal-red); margin-bottom: 14px;">
+            1920-11-19 23:11:00 (Desynchronized by 1,095 Days)
+          </div>
+
+          <div class="event-row-block">
+            <div class="event-row-title" style="color: var(--seal-red);">Event 1: Sworn in as Prime Minister (24 Jan 1966)</div>
+            <div class="event-dasha-pill" style="color: var(--seal-red);">Active Life Chapter: MERCURY - KETU (Mismatched)</div>
+            <div style="font-size: 13.5px; color: var(--ink-muted); margin-bottom: 8px;">
+              Shifted by 1,095 days. Mercury and Ketu hold no rulership over leadership in this chart. The timing correlation completely collapses.
+            </div>
+            <div class="event-score-flex">
+              <span style="font-size: 11px; color: var(--seal-red); font-weight: 600;">[DESYNCHRONIZED]</span>
+              <span class="score-badge collapsed">24.0% Match (-74.0%)</span>
+            </div>
+          </div>
+
+          <div class="event-row-block">
+            <div class="event-row-title" style="color: var(--seal-red);">Event 2: Historical Loss / Transition (31 Oct 1984)</div>
+            <div class="event-dasha-pill" style="color: var(--seal-red);">Active Life Chapter: VENUS - MOON (Mismatched)</div>
+            <div style="font-size: 13.5px; color: var(--ink-muted); margin-bottom: 8px;">
+              Venus and Moon are gentle, peaceful influences. No transition markers align. Timing score collapses.
+            </div>
+            <div class="event-score-flex">
+              <span style="font-size: 11px; color: var(--seal-red); font-weight: 600;">[NO PATTERN MATCH]</span>
+              <span class="score-badge collapsed">47.0% Match (-51.0%)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTOR 05: D-1 KUNDLI -->
+    <section class="zen-sector">
+      <div class="zen-sector-header">
+        <div class="zen-sector-title-row">
+          <span class="zen-sector-num">05</span>
+          <h2 class="zen-sector-name">Your Birth Chart Map & Planetary Positions</h2>
+        </div>
+        <div class="zen-badge">Traditional Diamond Map</div>
+      </div>
+
+      <div class="kundli-layout-grid">
+        <div class="kundli-box-housing" id="kundliBarrel">
+          <!-- Injected SVG -->
+        </div>
+
+        <div class="zen-table-wrap">
+          <table class="zen-table">
+            <thead>
+              <tr>
+                <th>Planet</th>
+                <th>Zodiac Sign & Degree</th>
+                <th>Life House (Life Area)</th>
+                <th>Planetary Energy / Strength</th>
+              </tr>
+            </thead>
+            <tbody id="planetsTableBody">
+              <!-- Injected via JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTOR 06: 120-YEAR VIMSHOTTARI LIFESPAN HORIZON -->
+    <section class="zen-sector">
+      <div class="zen-sector-header">
+        <div class="zen-sector-title-row">
+          <span class="zen-sector-num">06</span>
+          <h2 class="zen-sector-name">120-Year Life Timeline & Planetary Eras</h2>
+        </div>
+        <div class="zen-badge">Life Timeline</div>
+      </div>
+
+      <div id="dashaBarWrapper">
+        <!-- Injected SVG -->
+      </div>
+    </section>
+
+    <!-- SECTOR 07: VERIFIED BIOGRAPHICAL MILESTONES -->
+    <section class="zen-sector">
+      <div class="zen-sector-header">
+        <div class="zen-sector-title-row">
+          <span class="zen-sector-num">07</span>
+          <h2 class="zen-sector-name">Verified Life Milestones & Timing Match</h2>
+        </div>
+        <div class="zen-badge">Historical Timing Engine</div>
+      </div>
+
+      <div class="zen-table-wrap">
+        <table class="zen-table">
+          <thead>
+            <tr>
+              <th>Life Milestone</th>
+              <th>Date</th>
+              <th>Active Life Chapter</th>
+              <th>Saturn's Position</th>
+              <th>Traditional Reference</th>
+              <th>Timing Match Score</th>
+            </tr>
+          </thead>
+          <tbody id="milestonesTableBody">
+            <!-- Injected via JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SECTOR 08: REMEDIAL DIRECTIVES -->
+    <section class="zen-sector">
+      <div class="zen-sector-header">
+        <div class="zen-sector-title-row">
+          <span class="zen-sector-num">08</span>
+          <h2 class="zen-sector-name">Daily Self-Care & Restorative Recommendations</h2>
+        </div>
+        <div class="zen-badge">Mind-Body Practices</div>
+      </div>
+
+      <div class="remedies-grid" id="remediesContainer">
+        <!-- Injected via JavaScript -->
+      </div>
+    </section>
+
+  </div>
+
+  <!-- JAVASCRIPT: LOGIC & THEME CONTROLLER -->
+  <script>
+    let currentTarget = "indira";
+    let liveSocket = null;
+    let cosmeticTickerInterval = null;
+
+    /* --------------------------------------------------------------------------
+       THEME CONTROLLER: LIGHT / DARK ZEN PAPER
+       -------------------------------------------------------------------------- */
+    function setTheme(mode) {
+      document.documentElement.setAttribute("data-theme", mode);
+      localStorage.setItem("karmic_zen_theme", mode);
+
+      const btnLight = document.getElementById("btnThemeLight");
+      const btnDark = document.getElementById("btnThemeDark");
+      if (btnLight && btnDark) {
+        if (mode === "dark") {
+          btnDark.classList.add("active");
+          btnLight.classList.remove("active");
+        } else {
+          btnLight.classList.add("active");
+          btnDark.classList.remove("active");
+        }
+      }
+    }
+
+    function initTheme() {
+      const saved = localStorage.getItem("karmic_zen_theme") || "dark";
+      setTheme(saved);
+    }
+
+    /* --------------------------------------------------------------------------
+       DATA INGESTION & CONTROLLER
+       -------------------------------------------------------------------------- */
+    async function acquireTarget(name) {
+      currentTarget = name;
+      
+      const btnIndira = document.getElementById("btnIndira");
+      const btnAnon = document.getElementById("btnAnonymous");
+      if (btnIndira && btnAnon) {
+        if (name === "indira") {
+          btnIndira.className = "target-btn active";
+          btnAnon.className = "target-btn";
+        } else {
+          btnIndira.className = "target-btn";
+          btnAnon.className = "target-btn active";
+        }
+      }
+
+      try {
+        const res = await fetch(`/api/demo/${name}`);
+        const data = await res.json();
+        renderObservatoryTelemetry(data);
+        loadAdversarialTelemetry(name);
+        initLiveTelemetry(name);
+      } catch (err) {
+        console.error("Target acquisition failed:", err);
+      }
+    }
+
+    function renderStoppageConsole(fr) {
+      const titleEl = document.getElementById("stoppageTitle");
+      const countBadge = document.getElementById("stoppageCountBadge");
+      const cardsCont = document.getElementById("threatCardsContainer");
+      const roadmapList = document.getElementById("roadmapList");
+
+      if (!titleEl) return;
+      cardsCont.innerHTML = "";
+      roadmapList.innerHTML = "";
+      if (!fr) return;
+
+      const count = fr.tension_count || fr.crisis_count || 0;
+      const isTension = fr.status === "TRANSIT_TENSION_DETECTED" || fr.status === "CRITICAL_FRICTION_DETECTED";
+
+      if (isTension && count > 0) {
+        titleEl.textContent = "Active Planetary Cycles & Growth Influences";
+        countBadge.textContent = `${count} Active Life Influences`;
+        countBadge.className = "zen-badge accent";
+
+        const items = fr.threat_vectors || fr.active_strain_indices || [];
+        items.forEach((t) => {
+          const card = document.createElement("div");
+          card.className = "threat-card";
+          card.innerHTML = `
+            <div class="threat-header-row">
+              <span class="threat-title">${t.target}</span>
+              <span class="threat-badge">${t.severity || "GROWTH FOCUS"}</span>
+            </div>
+            <div style="font-size: 14px; color: var(--seal-red); margin-bottom: 6px;"><strong>Life Theme:</strong> ${t.manifestation}</div>
+            <div style="font-size: 13px; color: var(--ink-muted); line-height: 1.5;">${t.stoppage_citation}</div>
+          `;
+          cardsCont.appendChild(card);
+        });
+
+        const roadmap = fr.predictive_roadmap || [];
+        roadmap.forEach((r) => {
+          const li = document.createElement("li");
+          li.innerHTML = `<strong>Timing Milestone:</strong> ${r.predicted_phenomenon}`;
+          roadmapList.appendChild(li);
+        });
+      } else {
+        titleEl.textContent = "Current Planetary Influences (Steady Cycle)";
+        countBadge.textContent = "Status: Steady (0 Active Pressures)";
+        countBadge.className = "zen-badge";
+        cardsCont.innerHTML = `<div style="padding: 14px 0; font-size: 13.5px; color: var(--ink-muted);">No heavy planetary friction is active right now. Your current cycles are calm and steady.</div>`;
+      }
+    }
+
+    function initLiveTelemetry(name) {
+      if (liveSocket) liveSocket.close();
+      if (cosmeticTickerInterval) clearInterval(cosmeticTickerInterval);
+
+      const wsProtocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+      const wsUrl = `${wsProtocol}//${window.location.host}/ws/telemetry/${name}`;
+
+      liveSocket = new WebSocket(wsUrl);
+      let lastPayload = null;
+      let tickCounter = 0;
+
+      cosmeticTickerInterval = setInterval(() => {
+        if (!lastPayload) return;
+        tickCounter++;
+        const ticker = document.getElementById("liveEphemerisTicker");
+        if (ticker && lastPayload.transits) {
+          let dt = new Date(lastPayload.timestamp.replace(" UTC", "Z"));
+          dt.setSeconds(dt.getSeconds() + tickCounter);
+          const timeStr = dt.toISOString().replace("T", " ").substring(0, 19) + " UTC";
+          ticker.innerHTML = `Saturn: ${lastPayload.transits.Saturn} · Jupiter: ${lastPayload.transits.Jupiter} · Rahu: ${lastPayload.transits.Rahu} · <em>${timeStr}</em>`;
+        }
+      }, 1000);
+
+      liveSocket.onopen = () => {
+        const liveIndicator = document.getElementById("liveIndicatorDot");
+        const status = document.getElementById("liveSocketStatus");
+        if (liveIndicator) liveIndicator.style.background = "#2e7d32";
+        if (status) status.textContent = "CONNECTED · STREAMING";
+      };
+
+      liveSocket.onmessage = (event) => {
+        const payload = JSON.parse(event.data);
+        lastPayload = payload;
+        tickCounter = 0;
+
+        const dispAge = document.getElementById("dispAge");
+        if (dispAge) dispAge.textContent = `${payload.current_age} Yrs`;
+
+        const dispActiveDasha = document.getElementById("dispActiveDasha");
+        if (dispActiveDasha) dispActiveDasha.textContent = payload.current_dasha;
+
+        renderStoppageConsole(payload.frictions);
+
+        const ticker = document.getElementById("liveEphemerisTicker");
+        if (ticker && payload.transits) {
+          ticker.innerHTML = `Saturn: ${payload.transits.Saturn} · Jupiter: ${payload.transits.Jupiter} · Rahu: ${payload.transits.Rahu} · <em>${payload.timestamp}</em>`;
+        }
+      };
+
+      liveSocket.onclose = () => {
+        const liveIndicator = document.getElementById("liveIndicatorDot");
+        const status = document.getElementById("liveSocketStatus");
+        if (liveIndicator) liveIndicator.style.background = "var(--seal-red)";
+        if (status) status.textContent = "DISCONNECTED";
+        clearInterval(cosmeticTickerInterval);
+      };
+    }
+
+    function renderObservatoryTelemetry(data) {
+      // 01 Manifest
+      document.getElementById("dispSubject").textContent = `${data.subject} (${data.city})`;
+      if (data.vcs_badge) {
+        document.getElementById("vcsBadge").textContent = data.vcs_badge;
+      } else if (data.vcs_score) {
+        document.getElementById("vcsBadge").textContent = `Benchmark Match: ${data.vcs_score}`;
+      } else {
+        document.getElementById("vcsBadge").textContent = "Astronomical Ephemeris // Exact Coordinates";
+      }
+      document.getElementById("dispLagna").textContent = data.lagna;
+      document.getElementById("dispMoonNak").textContent = `${data.moon_sign} · ${data.moon_nakshatra}`;
+      document.getElementById("dispAge").textContent = `${data.current_age} Years`;
+      document.getElementById("dispActiveDasha").textContent = data.current_dasha;
+
+      // 02 Soul Telemetry
+      if (data.soul_telemetry) {
+        const s = data.soul_telemetry;
+        document.getElementById("soulAgeBadge").textContent = s.soul_age_category;
+        document.getElementById("dispAntiquityNum").textContent = s.antiquity_index;
+        document.getElementById("dispAkPlanet").textContent = `${s.atmakaraka_planet} [${s.atmakaraka_sanskrit}]`;
+        document.getElementById("dispAkDeg").textContent = `${s.atmakaraka_degree} (${s.odometer_percentage}%)`;
+        document.getElementById("dispSanskritCat").textContent = s.sanskrit_category;
+        document.getElementById("dispArchetypeTitle").textContent = `${s.archetype_title} [${s.archetype_sanskrit}]`;
+        document.getElementById("dispArchetypeDesc").textContent = s.archetype_description;
+      }
+
+      // 03 Live Symbolic Transit Strain Indices
+      renderStoppageConsole(data.frictions);
+
+      // 05 Kundli SVG & Planets Table
+      document.getElementById("kundliBarrel").innerHTML = data.kundli_svg || "";
+      const pBody = document.getElementById("planetsTableBody");
+      pBody.innerHTML = "";
+      if (data.planets_table) {
+        data.planets_table.forEach((p) => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td><strong>${p.planet}</strong></td>
+            <td>${p.sign} ${p.degree}</td>
+            <td>House ${p.house}</td>
+            <td>${p.dignity}</td>
+          `;
+          pBody.appendChild(tr);
+        });
+      }
+
+      // 06 Dasha Bar SVG
+      document.getElementById("dashaBarWrapper").innerHTML = data.dasha_bar_svg || "";
+
+      // 07 Milestones Table
+      const mBody = document.getElementById("milestonesTableBody");
+      mBody.innerHTML = "";
+      const mList = data.milestones || data.milestones_table || [];
+      if (mList.length > 0) {
+        mList.forEach((m) => {
+          const tr = document.createElement("tr");
+          const dashaStr = m.dasha || (m.mahadasha && m.antardasha ? `${m.mahadasha} - ${m.antardasha}` : "N/A");
+          const saturnStr = m.transit_saturn || m.saturn_transit || "N/A";
+          const scoreStr = m.score ? `${m.score}%` : (m.vcs ? `${m.vcs}%` : "N/A");
+          tr.innerHTML = `
+            <td><strong>${m.event}</strong></td>
+            <td>${m.date}</td>
+            <td>${dashaStr}</td>
+            <td>${saturnStr}</td>
+            <td style="font-size: 13px; color: var(--ink-muted);">${m.citation}</td>
+            <td><span class="score-badge high">${scoreStr}</span></td>
+          `;
+          mBody.appendChild(tr);
+        });
+      } else {
+        mBody.innerHTML = `<tr><td colspan="6" style="color: var(--ink-muted); text-align: center; padding: 18px;">No life milestones submitted. Chart generated directly from astronomical ephemeris.</td></tr>`;
+      }
+
+      // 08 Remedies Grid
+      const remCont = document.getElementById("remediesContainer");
+      remCont.innerHTML = "";
+      if (data.remedies) {
+        data.remedies.forEach((r) => {
+          const div = document.createElement("div");
+          div.className = "remedy-cell";
+          div.innerHTML = `
+            <div class="remedy-title">${r.title}</div>
+            <div class="remedy-meta">${r.planet} · ${r.type}</div>
+            <div class="remedy-desc">${r.prescription}</div>
+          `;
+          remCont.appendChild(div);
+        });
+      }
+    }
+
+    async function loadAdversarialTelemetry(name) {
+      const tbody = document.getElementById("advTableBody");
+      try {
+        const res = await fetch(`/api/adversarial/${name}`);
+        if (!res.ok) {
+          tbody.innerHTML = `<tr><td colspan="5" style="color: var(--ink-muted); text-align: center;">No stored benchmark profile. Click [Execute Vectors] to evaluate.</td></tr>`;
+          return;
+        }
+        const data = await res.json();
+        renderAdversarialHUD(data);
+      } catch (err) {
+        tbody.innerHTML = `<tr><td colspan="5" style="color: var(--ink-muted); text-align: center;">Adversarial harness idle.</td></tr>`;
+      }
+    }
+
+    function renderAdversarialHUD(data) {
+      document.getElementById("advGtVcs").textContent = data.baseline_vcs;
+      document.getElementById("advCorruptedVcs").textContent = data.average_corrupted_vcs;
+      document.getElementById("advDeltaMargin").textContent = `${data.discrimination_margin} (Δ)`;
+      document.getElementById("advPassRate").textContent = data.falsification_pass_rate;
+      document.getElementById("advVerdict").textContent = data.resilience_verdict.split("//")[0].trim();
+
+      const tbody = document.getElementById("advTableBody");
+      tbody.innerHTML = "";
+
+      if (data.evaluations) {
+        data.evaluations.forEach((m) => {
+          const tr = document.createElement("tr");
+          const statusTag = m.falsified_successfully
+            ? "<span style='color: #2e7d32; font-weight:600;'>[PASS]</span>"
+            : "<span style='color: var(--seal-red); font-weight:600;'>[FAIL]</span>";
+          tr.innerHTML = `
+            <td><strong>${m.name}</strong><div style="font-size: 12px; color: var(--ink-muted);">${m.description}</div></td>
+            <td>${m.corrupted_lagna}</td>
+            <td>${m.corrupted_vcs}%</td>
+            <td><span style="font-weight: 600;">-${m.delta_vcs}%</span></td>
+            <td>${statusTag}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+    }
+
+    function triggerAdversarialBattery() {
+      loadAdversarialTelemetry("indira");
+      const el = document.getElementById("adversarialHub");
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    }
+
+    function switchProofView(mode) {
+      const btnSplit = document.getElementById("btnShowSplit");
+      const btnTruth = document.getElementById("btnShowTruthOnly");
+      const btnFraud = document.getElementById("btnShowFraudOnly");
+      const cardTruth = document.getElementById("cardGroundTruth");
+      const cardFraud = document.getElementById("cardCorrupted");
+
+      if (!btnSplit || !btnTruth || !btnFraud || !cardTruth || !cardFraud) return;
+
+      btnSplit.className = "proof-tab-btn";
+      btnTruth.className = "proof-tab-btn";
+      btnFraud.className = "proof-tab-btn accent";
+
+      if (mode === "split") {
+        btnSplit.classList.add("active");
+        cardTruth.style.display = "block";
+        cardFraud.style.display = "block";
+      } else if (mode === "truth") {
+        btnTruth.classList.add("active");
+        cardTruth.style.display = "block";
+        cardFraud.style.display = "none";
+      } else if (mode === "corrupted") {
+        btnFraud.classList.add("active");
+        cardTruth.style.display = "none";
+        cardFraud.style.display = "block";
+      }
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      initTheme();
+      acquireTarget("indira");
+    });
+
+    /* --------------------------------------------------------------------------
+       LIFE INQUIRY CAROUSEL & MODAL CONTROLLER
+       -------------------------------------------------------------------------- */
+    const INQUIRY_PROTOCOLS = {
+      love: {
+        kanji: "和",
+        num: "AREA 01 // RELATIONSHIPS & LOVE",
+        title: "Love, Marriage & Deep Partnerships",
+        question: "How do your personal cycles influence relationship timing, communication harmony, and partnership commitments?",
+        engine: "Looks at the relationship sector of your birth map (the 7th House) and Venus, the planet representing affection and companionship. It identifies when you enter cycles focused on commitment versus times when personal independence and communication take priority.",
+        formula: "Partnership Focus = 7th House Influences + Venus Placement + Relationship Period Timing",
+        validation: "Tested against documented historical timelines to verify when public figures entered major partnership chapters. For personal profiles, this engine provides reflective guidance on relationship dynamics—never fatalistic guarantees or predictions of breakups.",
+        targetSector: "kundliBarrel"
+      },
+      wealth: {
+        kanji: "財",
+        num: "AREA 02 // WEALTH & CAREER GAINS",
+        title: "Money, Earnings & Financial Growth",
+        question: "When are the best windows for financial growth, savings discipline, and building long-term assets?",
+        engine: "Examines the two financial areas of your birth chart: the 2nd House (accumulated savings and family resources) and the 11th House (income flow, professional network, and financial gains). It tracks Jupiter's expansive cycles to show when investment and career courage pay off versus when careful budgeting is wisest.",
+        formula: "Financial Flow Index = Savings Sector (House 2) + Income Sector (House 11) + Growth Planetary Timing",
+        validation: "Tested against verified historical archives where career promotions and financial milestones aligned with active prosperity cycles. Does not provide financial or stock-trading advice.",
+        targetSector: "milestonesTableBody"
+      },
+      timing: {
+        kanji: "時",
+        num: "AREA 03 // TIMING & WHAT'S NEXT",
+        title: "Life Chapters & What Happens Next",
+        question: "What personal growth chapter are you currently navigating, and what major shifts are approaching in the next 1–3 years?",
+        engine: "In Indian astronomy, your life is mapped into structured multi-year chapters ruled by different planets (called a Vimshottari timeline). For example, a Sun chapter focuses on career and leadership, while a Moon chapter emphasizes home, feelings, and intuition. We calculate your exact current chapter and pinpoint when your next chapter begins.",
+        formula: "Current Chapter = 120-Year Timeline Position + Current Governing Planet + Transit Shifts",
+        validation: "Verified on historical benchmarks where major public milestones and life pivots aligned with planetary transitions. Operates as a temporal rhythm map, not fortune-telling.",
+        targetSector: "dashaBarWrapper"
+      },
+      disease: {
+        kanji: "気",
+        num: "AREA 04 // HEALTH & ENERGY",
+        title: "Energy Rhythms, Vitality & Burnout Prevention",
+        question: "How do your natural energy cycles fluctuate, and how can you protect yourself from burnout and physical fatigue?",
+        engine: "Looks at your 6th house (daily workload, physical habits, and routine) and Mars/Sun energy levels. It reveals periods where your workload might cause mental or physical strain, helping you schedule rest, balance stress, and protect your physical vitality.",
+        formula: "Vitality Rhythm = Daily Routine Sector (House 6) + Energy Planets (Sun, Mars) vs. Stress Cycles",
+        validation: "Strict safeguard: All health reflections are purely for self-care and lifestyle pacing. The platform makes zero medical diagnoses, pathological assessments, or surgical claims.",
+        targetSector: "stoppageConsole"
+      },
+      mortality: {
+        kanji: "道",
+        num: "AREA 05 // RESILIENCE & BIG CHANGES",
+        title: "Navigating Big Transitions & Overcoming Hard Times",
+        question: "How do you navigate major turning points, unexpected disruptions, and rebuild strength during difficult seasons?",
+        engine: "Focuses on your resilience sector (House 8) and Saturn's disciplining cycles. It shows how you instinctively handle crisis, let go of what no longer serves you, and emerge wiser and more grounded from unexpected life events.",
+        formula: "Resilience Score = Inner Vitality + Emotional Endurance - Transition Stress Factors",
+        validation: "Reference benchmark testing: Shifting historical birth records by 3 years collapses timing alignment from 98% to 24%, confirming the engine computes exact coordinates rather than returning generic horoscopes.",
+        targetSector: "falsifiabilitySuite"
+      },
+      luck: {
+        kanji: "役",
+        num: "AREA 06 // CAREER & LIFE PURPOSE",
+        title: "Career Purpose, Leadership & Public Direction",
+        question: "What professional roles, creative callings, and leadership environments bring out your highest potential?",
+        engine: "Examines your 10th house (career, authority, and public reputation) along with your creative strengths (House 5) and core values. It models your natural leadership style and reveals whether you thrive in large institutions, creative entrepreneurship, or specialized craft.",
+        formula: "Career Strength = Career Sector (House 10) + Life Purpose (House 9) + Natural Talents",
+        validation: "Verified on historical benchmark records where executive appointments and major career appointments matched career planetary activations.",
+        targetSector: "adversarialHub"
+      }
+    };
+
+    let activeModalTarget = "kundliBarrel";
+
+    function scrollInquiryCarousel(direction) {
+      const track = document.getElementById("inquiryTrack");
+      if (track) {
+        track.scrollBy({ left: direction * 340, behavior: "smooth" });
+      }
+    }
+
+    function openInquiryModal(domainKey) {
+      const data = INQUIRY_PROTOCOLS[domainKey];
+      if (!data) return;
+
+      document.getElementById("modalKanjiSeal").textContent = data.kanji;
+      document.getElementById("modalDomainNum").textContent = data.num;
+      document.getElementById("modalTitle").textContent = data.title;
+      document.getElementById("modalQuestion").textContent = `"${data.question}"`;
+      document.getElementById("modalEngine").textContent = data.engine;
+      document.getElementById("modalFormula").textContent = `Algorithmic Rule: ${data.formula}`;
+      document.getElementById("modalValidation").textContent = data.validation;
+      activeModalTarget = data.targetSector;
+
+      const overlay = document.getElementById("inquiryModalOverlay");
+      if (overlay) overlay.classList.add("open");
+    }
+
+    function closeInquiryModal() {
+      const overlay = document.getElementById("inquiryModalOverlay");
+      if (overlay) overlay.classList.remove("open");
+    }
+
+    function handleOverlayClick(event) {
+      if (event.target && event.target.id === "inquiryModalOverlay") {
+        closeInquiryModal();
+      }
+    }
+
+    function jumpToSector() {
+      closeInquiryModal();
+      const el = document.getElementById(activeModalTarget);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "center" });
+        el.style.transition = "outline 0.3s ease";
+        el.style.outline = "2px solid var(--seal-red)";
+        setTimeout(() => {
+          el.style.outline = "none";
+        }, 1800);
+      }
+    }
+
+    // Keyboard escape key closes modals
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        closeInquiryModal();
+        closeIntakeModal();
+      }
+    });
+
+    /* --------------------------------------------------------------------------
+       USER INTAKE & EPHEMERAL CHART CALCULATION
+       -------------------------------------------------------------------------- */
+    const CITY_COORDS = {
+      delhi: { lat: 28.6139, lon: 77.2090, city: "New Delhi", country: "India" },
+      mumbai: { lat: 19.0760, lon: 72.8777, city: "Mumbai", country: "India" },
+      bengaluru: { lat: 12.9716, lon: 77.5946, city: "Bengaluru", country: "India" },
+      newyork: { lat: 40.7128, lon: -74.0060, city: "New York", country: "USA" },
+      london: { lat: 51.5074, lon: -0.1278, city: "London", country: "UK" },
+      berlin: { lat: 52.5200, lon: 13.4050, city: "Berlin", country: "Germany" },
+      tokyo: { lat: 35.6762, lon: 139.6503, city: "Tokyo", country: "Japan" },
+      sydney: { lat: -33.8688, lon: 151.2093, city: "Sydney", country: "Australia" }
+    };
+
+    function openIntakeModal() {
+      const overlay = document.getElementById("intakeModalOverlay");
+      if (overlay) overlay.classList.add("open");
+    }
+
+    function closeIntakeModal() {
+      const overlay = document.getElementById("intakeModalOverlay");
+      if (overlay) overlay.classList.remove("open");
+    }
+
+    function handleCityPreset(val) {
+      const customRow = document.getElementById("customCoordRow");
+      if (val === "custom") {
+        if (customRow) customRow.style.display = "grid";
+      } else {
+        if (customRow) customRow.style.display = "none";
+      }
+    }
+
+    function toggleTimeUnknown(cb) {
+      const timeInput = document.getElementById("inputBirthTime");
+      if (timeInput) {
+        timeInput.disabled = cb.checked;
+        timeInput.style.opacity = cb.checked ? "0.4" : "1";
+      }
+    }
+
+    async function submitCustomChart() {
+      const dateEl = document.getElementById("inputBirthDate");
+      const errorEl = document.getElementById("intakeErrorMsg");
+      if (errorEl) errorEl.style.display = "none";
+
+      if (!dateEl || !dateEl.value) {
+        if (errorEl) {
+          errorEl.textContent = "Birth date (YYYY-MM-DD) is required for ephemeris calculation.";
+          errorEl.style.display = "block";
+        }
+        return;
+      }
+
+      const consentEl = document.getElementById("inputAffirmativeConsent");
+      if (!consentEl || !consentEl.checked) {
+        if (errorEl) {
+          errorEl.textContent = "Epistemic consent required: Please verify and check the affirmative consent box before computing ephemeris.";
+          errorEl.style.display = "block";
+        }
+        return;
+      }
+
+      const nameVal = document.getElementById("inputName")?.value.trim() || "Querent";
+      const isUnknown = document.getElementById("inputTimeUnknown")?.checked;
+      const timeVal = isUnknown ? "" : (document.getElementById("inputBirthTime")?.value || "12:00");
+      
+      const cityKey = document.getElementById("inputCitySelect")?.value || "delhi";
+      let lat = 28.6139;
+      let lon = 77.2090;
+      let cityName = "New Delhi";
+      let countryName = "India";
+
+      if (cityKey === "custom") {
+        lat = parseFloat(document.getElementById("inputCustomLat")?.value) || 28.6139;
+        lon = parseFloat(document.getElementById("inputCustomLon")?.value) || 77.2090;
+        cityName = document.getElementById("inputCustomCity")?.value || "Custom Location";
+        countryName = "";
+      } else if (CITY_COORDS[cityKey]) {
+        const c = CITY_COORDS[cityKey];
+        lat = c.lat;
+        lon = c.lon;
+        cityName = c.city;
+        countryName = c.country;
+      }
+
+      const payload = {
+        name: nameVal,
+        date: dateEl.value,
+        time: timeVal,
+        latitude: lat,
+        longitude: lon,
+        city: cityName,
+        country: countryName,
+        consent: consentEl ? consentEl.checked : false,
+        milestones: []
+      };
+
+      const submitBtn = document.getElementById("btnSubmitIntake");
+      if (submitBtn) submitBtn.textContent = "Computing Ephemeris...";
+
+      try {
+        const res = await fetch("/api/analyze", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+
+        if (!res.ok) {
+          const errData = await res.json();
+          throw new Error(errData.detail || "Calculation failed.");
+        }
+
+        const data = await res.json();
+        
+        // Update targets UI styling
+        document.getElementById("btnIndira")?.classList.remove("active");
+        document.getElementById("btnAnonymous")?.classList.remove("active");
+        document.getElementById("btnCustom")?.classList.add("active");
+
+        // Render Telemetry
+        renderObservatoryTelemetry(data);
+
+        // Close Modal and scroll to results
+        closeIntakeModal();
+        const sector1 = document.getElementById("dispSubject");
+        if (sector1) {
+          sector1.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      } catch (err) {
+        if (errorEl) {
+          errorEl.textContent = `Calculation Error: ${err.message}`;
+          errorEl.style.display = "block";
+        }
+      } finally {
+        if (submitBtn) submitBtn.textContent = "✦ Calculate My Life Chart";
+      }
+    }
+  </script>
+
+  <!-- ZEN USER INTAKE MODAL (ZERO-DATA RETENTION) -->
+  <div class="zen-modal-overlay" id="intakeModalOverlay" onclick="if(event.target.id==='intakeModalOverlay') closeIntakeModal()">
+    <div class="zen-modal-box" style="max-width: 620px;">
+      <button class="modal-close-btn" onclick="closeIntakeModal()" title="Close Intake">✕</button>
+      
+      <div class="modal-header-row">
+        <span class="card-kanji-seal">命</span>
+        <div>
+          <div class="card-domain-num">BIRTH DETAILS // 100% PRIVATE & ZERO SAVED DATA</div>
+          <h2 class="modal-title">Calculate Your Personal Astrological Blueprint</h2>
+        </div>
+      </div>
+
+      <!-- ZERO DATA RETENTION CALLOUT -->
+      <div class="privacy-banner">
+        <div class="privacy-banner-title">
+          <span class="hanko-seal sm">滅</span>
+          Zero Data Retention Guarantee
+        </div>
+        <strong>100% Private & Ephemeral:</strong> We store 0 bytes of your data. Your birth date and time are processed in volatile computer memory for less than 1/10th of a second and immediately wiped. No database records, no cookies, no tracking.
+      </div>
+
+      <div id="intakeErrorMsg" style="display: none; color: var(--seal-red); font-size: 13px; margin-bottom: 14px; font-weight: 600;"></div>
+
+      <div class="form-grid">
+        <!-- 1. BIRTH DATE (REQUIRED) -->
+        <div class="form-field">
+          <label class="form-label">
+            Birth Date
+            <span class="badge-required">required</span>
+          </label>
+          <input type="date" id="inputBirthDate" class="zen-input" required />
+        </div>
+
+        <!-- 2. BIRTH TIME (OPTIONAL) -->
+        <div class="form-field">
+          <label class="form-label">
+            Birth Time
+            <span class="badge-optional">optional</span>
+          </label>
+          <input type="time" id="inputBirthTime" class="zen-input" value="12:00" />
+          <label class="checkbox-row">
+            <input type="checkbox" id="inputTimeUnknown" onchange="toggleTimeUnknown(this)" />
+            Exact birth time unknown (calculates Moon sign & life chapters)
+          </label>
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <!-- 3. BIRTH CITY (OPTIONAL) -->
+        <div class="form-field">
+          <label class="form-label">
+            Birth City
+            <span class="badge-optional">optional</span>
+          </label>
+          <select id="inputCitySelect" class="zen-select" onchange="handleCityPreset(this.value)">
+            <option value="delhi">New Delhi, India (28.61° N, 77.20° E)</option>
+            <option value="mumbai">Mumbai, India (19.07° N, 72.87° E)</option>
+            <option value="bengaluru">Bengaluru, India (12.97° N, 77.59° E)</option>
+            <option value="newyork">New York, USA (40.71° N, -74.00° E)</option>
+            <option value="london">London, UK (51.50° N, -0.12° E)</option>
+            <option value="berlin">Berlin, Germany (52.52° N, 13.40° E)</option>
+            <option value="tokyo">Tokyo, Japan (35.67° N, 139.65° E)</option>
+            <option value="sydney">Sydney, Australia (-33.86° N, 151.20° E)</option>
+            <option value="custom">Custom Coordinates...</option>
+          </select>
+        </div>
+
+        <!-- 4. NAME (OPTIONAL) -->
+        <div class="form-field">
+          <label class="form-label">
+            Your Name / Nickname
+            <span class="badge-optional">optional</span>
+          </label>
+          <input type="text" id="inputName" class="zen-input" placeholder="Querent / Anonymous" />
+        </div>
+      </div>
+
+      <!-- CUSTOM COORDINATES ROW (HIDDEN BY DEFAULT) -->
+      <div id="customCoordRow" class="form-grid" style="display: none; margin-bottom: 12px; background: var(--zen-paper-subtle); padding: 12px; border: var(--ink-border);">
+        <div class="form-field" style="margin-bottom: 0;">
+          <label class="form-label">Latitude (-90 to +90)</label>
+          <input type="number" step="0.0001" id="inputCustomLat" class="zen-input" placeholder="28.6139" />
+        </div>
+        <div class="form-field" style="margin-bottom: 0;">
+          <label class="form-label">Longitude (-180 to +180)</label>
+          <input type="number" step="0.0001" id="inputCustomLon" class="zen-input" placeholder="77.2090" />
+        </div>
+      </div>
+
+      <!-- 5. INQUIRY LENS (OPTIONAL) -->
+      <div class="form-field">
+        <label class="form-label">
+          What Life Area Interests You Most?
+          <span class="badge-optional">optional</span>
+        </label>
+        <select id="inputInquiryFocus" class="zen-select">
+          <option value="all">All Life Areas (Full Blueprint)</option>
+          <option value="timing">What Happens Next: Timing, Life Chapters & Major Shifts</option>
+          <option value="love">Love, Relationships, Marriage & Compatibility</option>
+          <option value="wealth">Money, Career Growth & Financial Timing</option>
+          <option value="disease">Energy Rhythms, Daily Routine & Burnout Prevention</option>
+          <option value="mortality">Inner Resilience, Overcoming Difficult Times & Big Transitions</option>
+          <option value="luck">Career Purpose, Recognition & Long-Term Direction</option>
+        </select>
+      </div>
+
+      <!-- MANDATORY AFFIRMATIVE CONSENT -->
+      <div class="form-field" style="margin-top: 14px; margin-bottom: 16px;">
+        <label class="checkbox-row" style="align-items: flex-start; gap: 8px; font-size: 11.5px; line-height: 1.45; color: var(--zen-charcoal); cursor: pointer;">
+          <input type="checkbox" id="inputAffirmativeConsent" style="margin-top: 2px; accent-color: var(--seal-red);" />
+          <span>
+            <strong>Affirmative Consent:</strong> I acknowledge this platform generates symbolic astrological pattern models for personal self-reflection. It makes <em>zero medical, legal, marital, or fatalistic diagnoses</em>. I consent to temporary in-memory calculation of my birth chart.
+          </span>
+        </label>
+      </div>
+
+      <div class="modal-action-row">
+        <button class="target-btn" onclick="closeIntakeModal()">Cancel</button>
+        <button class="action-btn" id="btnSubmitIntake" onclick="submitCustomChart()">✦ Calculate My Life Chart</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ZEN INQUIRY MODAL / POP-UP DRAWER -->
+  <div class="zen-modal-overlay" id="inquiryModalOverlay" onclick="handleOverlayClick(event)">
+    <div class="zen-modal-box" id="inquiryModalBox">
+      <button class="modal-close-btn" onclick="closeInquiryModal()" title="Close Protocol">✕</button>
+      
+      <div class="modal-header-row">
+        <span class="card-kanji-seal" id="modalKanjiSeal">愛</span>
+        <div>
+          <div class="card-domain-num" id="modalDomainNum">AREA 01 // RELATIONSHIPS & LOVE</div>
+          <h2 class="modal-title" id="modalTitle">Love, Marriage & Deep Partnerships</h2>
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-lbl">// Key Life Question</div>
+        <div class="modal-section-body" id="modalQuestion"></div>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-lbl">// How the Astrological Engine Analyzes This</div>
+        <div class="modal-section-body" id="modalEngine"></div>
+        <div class="modal-code-pill" id="modalFormula"></div>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-lbl">// Empirical Sensitivity & Benchmark Testing</div>
+        <div class="modal-section-body" id="modalValidation"></div>
+      </div>
+
+      <div class="modal-action-row">
+        <button class="action-btn" id="modalJumpBtn" onclick="jumpToSector()">View in Your Chart Below ↓</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

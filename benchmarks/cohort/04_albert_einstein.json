@@ -1,0 +1,46 @@
+{
+  "subject_id": "04_albert_einstein",
+  "name": "Albert Einstein (Historical Benchmark)",
+  "benchmark_type": "historical_public_record",
+  "birth_data": {
+    "date": "1879-03-14",
+    "time": "11:30:00",
+    "city": "Ulm",
+    "state": "Baden-Württemberg",
+    "country": "Germany",
+    "latitude": 48.4011,
+    "longitude": 9.9876,
+    "timezone_offset": 0.6659
+  },
+  "verified_coordinates": {
+    "lagna": "Gemini 19°44'",
+    "moon_sign": "Scorpio 21°18'",
+    "sun_sign": "Pisces 01°22'"
+  },
+  "biographical_milestones": [
+    {
+      "event": "Annus Mirabilis Papers Published (Photoelectric Effect & Relativity)",
+      "date": "1905-09-26",
+      "category": "career",
+      "historical_context": "Revolutionized theoretical physics from Swiss patent office."
+    },
+    {
+      "event": "Awarded Nobel Prize in Physics",
+      "date": "1922-11-09",
+      "category": "career",
+      "historical_context": "Officially awarded 1921 Nobel Prize for photoelectric law."
+    },
+    {
+      "event": "Permanent Emigration to Princeton, United States",
+      "date": "1933-10-17",
+      "category": "foreign",
+      "historical_context": "Relocated permanently to USA fleeing rising Nazi persecution in Germany."
+    },
+    {
+      "event": "Demise from Abdominal Aortic Aneurysm",
+      "date": "1955-04-18",
+      "category": "mortality",
+      "historical_context": "Passed away at Princeton Hospital after refusing surgery."
+    }
+  ]
+}

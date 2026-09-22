@@ -1,0 +1,432 @@
+{
+  "subject_id": "07_john_f_kennedy",
+  "subject_name": "John F. Kennedy (Historical Benchmark)",
+  "baseline_vcs": 50.9,
+  "average_corrupted_vcs": 51.8,
+  "mean_discrimination_margin": -0.9,
+  "falsification_pass_rate": "0/11",
+  "pass_count": 0,
+  "total_mutations": 11,
+  "collusion_count": 0,
+  "is_resilient": false,
+  "evaluations": [
+    {
+      "mutation_id": "JITTER_PLUS_15M",
+      "name": "Micro Cusp Jitter (+15 Min)",
+      "category": "temporal_jitter",
+      "description": "Artificially shifts birth time by +15 minutes. Tests Navamsha (D-9) and border-cusp sensitivity.",
+      "corrupted_birth_dt": "1917-05-29 15:15:00",
+      "corrupted_lagna": "Libra 00\u00b012'",
+      "corrupted_vcs": 50.9,
+      "delta_vcs": 0.0,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "PT-109 Wartime Rescue Heroism in Pacific",
+          "tested_date": "1943-08-02",
+          "active_dasha": "Rahu-Rahu",
+          "confluence_score": 51.4
+        },
+        {
+          "event": "Wedding to Jacqueline Bouvier",
+          "tested_date": "1953-09-12",
+          "active_dasha": "Rahu-Mercury",
+          "confluence_score": 53.0
+        },
+        {
+          "event": "Elected 35th President of the United States",
+          "tested_date": "1960-11-08",
+          "active_dasha": "Rahu-Mars",
+          "confluence_score": 52.0
+        },
+        {
+          "event": "Assassination in Dealey Plaza, Dallas",
+          "tested_date": "1963-11-22",
+          "active_dasha": "Jupiter-Saturn",
+          "confluence_score": 47.0
+        }
+      ]
+    },
+    {
+      "mutation_id": "JITTER_MINUS_15M",
+      "name": "Micro Cusp Jitter (-15 Min)",
+      "category": "temporal_jitter",
+      "description": "Artificially shifts birth time by -15 minutes. Tests retrograde cusp boundary tolerance.",
+      "corrupted_birth_dt": "1917-05-29 14:45:00",
+      "corrupted_lagna": "Virgo 24\u00b021'",
+      "corrupted_vcs": 50.1,
+      "delta_vcs": 0.8,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "PT-109 Wartime Rescue Heroism in Pacific",
+          "tested_date": "1943-08-02",
+          "active_dasha": "Mars-Moon",
+          "confluence_score": 53.5
+        },
+        {
+          "event": "Wedding to Jacqueline Bouvier",
+          "tested_date": "1953-09-12",
+          "active_dasha": "Rahu-Mercury",
+          "confluence_score": 18.2
+        },
+        {
+          "event": "Elected 35th President of the United States",
+          "tested_date": "1960-11-08",
+          "active_dasha": "Rahu-Mars",
+          "confluence_score": 51.0
+        },
+        {
+          "event": "Assassination in Dealey Plaza, Dallas",
+          "tested_date": "1963-11-22",
+          "active_dasha": "Jupiter-Jupiter",
+          "confluence_score": 77.6
+        }
+      ]
+    },
+    {
+      "mutation_id": "SHIFT_PLUS_2H",
+      "name": "Lagna Advance (+2 Hours)",
+      "category": "bhava_rotation",
+      "description": "Advances birth time by 2 hours (~1 full 30\u00b0 zodiac sign shift). Inverts basic house lordships.",
+      "corrupted_birth_dt": "1917-05-29 17:00:00",
+      "corrupted_lagna": "Libra 20\u00b031'",
+      "corrupted_vcs": 44.8,
+      "delta_vcs": 6.1,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "PT-109 Wartime Rescue Heroism in Pacific",
+          "tested_date": "1943-08-02",
+          "active_dasha": "Rahu-Rahu",
+          "confluence_score": 54.7
+        },
+        {
+          "event": "Wedding to Jacqueline Bouvier",
+          "tested_date": "1953-09-12",
+          "active_dasha": "Rahu-Ketu",
+          "confluence_score": 54.9
+        },
+        {
+          "event": "Elected 35th President of the United States",
+          "tested_date": "1960-11-08",
+          "active_dasha": "Jupiter-Jupiter",
+          "confluence_score": 15.0
+        },
+        {
+          "event": "Assassination in Dealey Plaza, Dallas",
+          "tested_date": "1963-11-22",
+          "active_dasha": "Jupiter-Saturn",
+          "confluence_score": 54.7
+        }
+      ]
+    },
+    {
+      "mutation_id": "SHIFT_MINUS_2H",
+      "name": "Lagna Regression (-2 Hours)",
+      "category": "bhava_rotation",
+      "description": "Regresses birth time by 2 hours. Inverts house lords to preceding zodiac sign.",
+      "corrupted_birth_dt": "1917-05-29 13:00:00",
+      "corrupted_lagna": "Virgo 03\u00b049'",
+      "corrupted_vcs": 50.1,
+      "delta_vcs": 0.8,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "PT-109 Wartime Rescue Heroism in Pacific",
+          "tested_date": "1943-08-02",
+          "active_dasha": "Mars-Venus",
+          "confluence_score": 27.2
+        },
+        {
+          "event": "Wedding to Jacqueline Bouvier",
+          "tested_date": "1953-09-12",
+          "active_dasha": "Rahu-Mercury",
+          "confluence_score": 34.0
+        },
+        {
+          "event": "Elected 35th President of the United States",
+          "tested_date": "1960-11-08",
+          "active_dasha": "Rahu-Moon",
+          "confluence_score": 63.9
+        },
+        {
+          "event": "Assassination in Dealey Plaza, Dallas",
+          "tested_date": "1963-11-22",
+          "active_dasha": "Jupiter-Jupiter",
+          "confluence_score": 75.4
+        }
+      ]
+    },
+    {
+      "mutation_id": "LAGNA_ROTATION_6H",
+      "name": "Bhavachakra Scramble (+6 Hours)",
+      "category": "bhava_rotation",
+      "description": "Advances birth time by 6 hours (90\u00b0 quadrant rotation). Forces Kendras into Dusthanas.",
+      "corrupted_birth_dt": "1917-05-29 21:00:00",
+      "corrupted_lagna": "Sagittarius 09\u00b043'",
+      "corrupted_vcs": 56.8,
+      "delta_vcs": -5.9,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "PT-109 Wartime Rescue Heroism in Pacific",
+          "tested_date": "1943-08-02",
+          "active_dasha": "Rahu-Jupiter",
+          "confluence_score": 65.0
+        },
+        {
+          "event": "Wedding to Jacqueline Bouvier",
+          "tested_date": "1953-09-12",
+          "active_dasha": "Rahu-Venus",
+          "confluence_score": 15.9
+        },
+        {
+          "event": "Elected 35th President of the United States",
+          "tested_date": "1960-11-08",
+          "active_dasha": "Jupiter-Saturn",
+          "confluence_score": 90.0
+        },
+        {
+          "event": "Assassination in Dealey Plaza, Dallas",
+          "tested_date": "1963-11-22",
+          "active_dasha": "Jupiter-Mercury",
+          "confluence_score": 56.4
+        }
+      ]
+    },
+    {
+      "mutation_id": "INVERSION_12H",
+      "name": "Polarity Inversion (12-Hour AM/PM Flip)",
+      "category": "diurnal_inversion",
+      "description": "180\u00b0 Bhavachakra reversal. Inverts daytime nocturnal hemispheres and Ascendant/Descendant axes.",
+      "corrupted_birth_dt": "1917-05-30 03:00:00",
+      "corrupted_lagna": "Aries 20\u00b059'",
+      "corrupted_vcs": 63.1,
+      "delta_vcs": -12.2,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "PT-109 Wartime Rescue Heroism in Pacific",
+          "tested_date": "1943-08-02",
+          "active_dasha": "Rahu-Jupiter",
+          "confluence_score": 69.7
+        },
+        {
+          "event": "Wedding to Jacqueline Bouvier",
+          "tested_date": "1953-09-12",
+          "active_dasha": "Rahu-Sun",
+          "confluence_score": 27.5
+        },
+        {
+          "event": "Elected 35th President of the United States",
+          "tested_date": "1960-11-08",
+          "active_dasha": "Jupiter-Saturn",
+          "confluence_score": 67.9
+        },
+        {
+          "event": "Assassination in Dealey Plaza, Dallas",
+          "tested_date": "1963-11-22",
+          "active_dasha": "Jupiter-Ketu",
+          "confluence_score": 87.1
+        }
+      ]
+    },
+    {
+      "mutation_id": "DESYNC_PLUS_1Y",
+      "name": "Dasha Desynchronization (+1 Year)",
+      "category": "dasha_desync",
+      "description": "Shifts birth year by +1 year. Misaligns Vimshottari Mahadasha balance by 365 days.",
+      "corrupted_birth_dt": "1918-05-29 15:00:00",
+      "corrupted_lagna": "Virgo 27\u00b005'",
+      "corrupted_vcs": 47.9,
+      "delta_vcs": 3.0,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "PT-109 Wartime Rescue Heroism in Pacific",
+          "tested_date": "1943-08-02",
+          "active_dasha": "Rahu-Jupiter",
+          "confluence_score": 48.6
+        },
+        {
+          "event": "Wedding to Jacqueline Bouvier",
+          "tested_date": "1953-09-12",
+          "active_dasha": "Rahu-Sun",
+          "confluence_score": 26.2
+        },
+        {
+          "event": "Elected 35th President of the United States",
+          "tested_date": "1960-11-08",
+          "active_dasha": "Jupiter-Saturn",
+          "confluence_score": 52.1
+        },
+        {
+          "event": "Assassination in Dealey Plaza, Dallas",
+          "tested_date": "1963-11-22",
+          "active_dasha": "Jupiter-Mercury",
+          "confluence_score": 64.5
+        }
+      ]
+    },
+    {
+      "mutation_id": "DESYNC_PLUS_3Y",
+      "name": "Severe Dasha Desynchronization (+3 Years)",
+      "category": "dasha_desync",
+      "description": "Shifts birth year by +3 years. Desynchronizes Dasha balance by 1,095 days into alien planetary cycles.",
+      "corrupted_birth_dt": "1920-05-29 15:00:00",
+      "corrupted_lagna": "Virgo 27\u00b027'",
+      "corrupted_vcs": 57.1,
+      "delta_vcs": -6.2,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "PT-109 Wartime Rescue Heroism in Pacific",
+          "tested_date": "1943-08-02",
+          "active_dasha": "Jupiter-Rahu",
+          "confluence_score": 49.9
+        },
+        {
+          "event": "Wedding to Jacqueline Bouvier",
+          "tested_date": "1953-09-12",
+          "active_dasha": "Saturn-Venus",
+          "confluence_score": 77.8
+        },
+        {
+          "event": "Elected 35th President of the United States",
+          "tested_date": "1960-11-08",
+          "active_dasha": "Saturn-Rahu",
+          "confluence_score": 26.3
+        },
+        {
+          "event": "Assassination in Dealey Plaza, Dallas",
+          "tested_date": "1963-11-22",
+          "active_dasha": "Saturn-Jupiter",
+          "confluence_score": 74.5
+        }
+      ]
+    },
+    {
+      "mutation_id": "DESYNC_MINUS_3Y",
+      "name": "Severe Dasha Desynchronization (-3 Years)",
+      "category": "dasha_desync",
+      "description": "Shifts birth year by -3 years. Tests backward dasha cycle desynchronization.",
+      "corrupted_birth_dt": "1914-05-29 15:00:00",
+      "corrupted_lagna": "Virgo 27\u00b007'",
+      "corrupted_vcs": 47.2,
+      "delta_vcs": 3.7,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "PT-109 Wartime Rescue Heroism in Pacific",
+          "tested_date": "1943-08-02",
+          "active_dasha": "Ketu-Rahu",
+          "confluence_score": 25.4
+        },
+        {
+          "event": "Wedding to Jacqueline Bouvier",
+          "tested_date": "1953-09-12",
+          "active_dasha": "Venus-Mars",
+          "confluence_score": 65.4
+        },
+        {
+          "event": "Elected 35th President of the United States",
+          "tested_date": "1960-11-08",
+          "active_dasha": "Venus-Saturn",
+          "confluence_score": 58.3
+        },
+        {
+          "event": "Assassination in Dealey Plaza, Dallas",
+          "tested_date": "1963-11-22",
+          "active_dasha": "Venus-Mercury",
+          "confluence_score": 39.6
+        }
+      ]
+    },
+    {
+      "mutation_id": "GEO_DRIFT_ARBITRARY",
+      "name": "Hemispheric Geo-Drift (+35\u00b0 Lat, -75\u00b0 Lon)",
+      "category": "geographic_distortion",
+      "description": "Alters birth geography across continents while retaining local clock time. Distorts Ascendant degree.",
+      "corrupted_birth_dt": "1917-05-29 15:00:00",
+      "corrupted_lagna": "Leo 19\u00b031'",
+      "corrupted_vcs": 55.1,
+      "delta_vcs": -4.2,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "PT-109 Wartime Rescue Heroism in Pacific",
+          "tested_date": "1943-08-02",
+          "active_dasha": "Mars-Moon",
+          "confluence_score": 28.7
+        },
+        {
+          "event": "Wedding to Jacqueline Bouvier",
+          "tested_date": "1953-09-12",
+          "active_dasha": "Rahu-Mercury",
+          "confluence_score": 64.8
+        },
+        {
+          "event": "Elected 35th President of the United States",
+          "tested_date": "1960-11-08",
+          "active_dasha": "Rahu-Mars",
+          "confluence_score": 29.0
+        },
+        {
+          "event": "Assassination in Dealey Plaza, Dallas",
+          "tested_date": "1963-11-22",
+          "active_dasha": "Jupiter-Saturn",
+          "confluence_score": 98.0
+        }
+      ]
+    },
+    {
+      "mutation_id": "SCRAMBLED_EVENT_DATES",
+      "name": "Milestone Chronology Inversion (Fake Events)",
+      "category": "event_scramble",
+      "description": "Tests the real birth chart against chronologically scrambled or inverted milestone dates.",
+      "corrupted_birth_dt": "1917-05-29 15:00:00",
+      "corrupted_lagna": "Virgo 27\u00b017'",
+      "corrupted_vcs": 46.4,
+      "delta_vcs": 4.5,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "PT-109 Wartime Rescue Heroism in Pacific",
+          "tested_date": "1963-11-22",
+          "active_dasha": "Jupiter-Saturn",
+          "confluence_score": 57.4
+        },
+        {
+          "event": "Wedding to Jacqueline Bouvier",
+          "tested_date": "1960-11-08",
+          "active_dasha": "Rahu-Mars",
+          "confluence_score": 15.0
+        },
+        {
+          "event": "Elected 35th President of the United States",
+          "tested_date": "1953-09-12",
+          "active_dasha": "Rahu-Mercury",
+          "confluence_score": 72.6
+        },
+        {
+          "event": "Assassination in Dealey Plaza, Dallas",
+          "tested_date": "1943-08-02",
+          "active_dasha": "Mars-Moon",
+          "confluence_score": 40.5
+        }
+      ]
+    }
+  ]
+}

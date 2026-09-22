@@ -1,0 +1,498 @@
+{
+  "subject_id": "03_queen_elizabeth_ii",
+  "subject_name": "Queen Elizabeth II (Historical Benchmark)",
+  "baseline_vcs": 72.5,
+  "average_corrupted_vcs": 56.0,
+  "mean_discrimination_margin": 16.5,
+  "falsification_pass_rate": "7/11",
+  "pass_count": 7,
+  "total_mutations": 11,
+  "collusion_count": 3,
+  "is_resilient": false,
+  "evaluations": [
+    {
+      "mutation_id": "JITTER_PLUS_15M",
+      "name": "Micro Cusp Jitter (+15 Min)",
+      "category": "temporal_jitter",
+      "description": "Artificially shifts birth time by +15 minutes. Tests Navamsha (D-9) and border-cusp sensitivity.",
+      "corrupted_birth_dt": "1926-04-21 02:55:00",
+      "corrupted_lagna": "Capricorn 27\u00b033'",
+      "corrupted_vcs": 66.0,
+      "delta_vcs": 6.5,
+      "falsified_successfully": false,
+      "collusion_detected": true,
+      "event_breakdown": [
+        {
+          "event": "Royal Wedding to Philip Mountbatten",
+          "tested_date": "1947-11-20",
+          "active_dasha": "Venus-Venus",
+          "confluence_score": 80.5
+        },
+        {
+          "event": "Accession to the Throne upon Demise of King George VI",
+          "tested_date": "1952-02-06",
+          "active_dasha": "Venus-Moon",
+          "confluence_score": 69.2
+        },
+        {
+          "event": "Official Royal Coronation at Westminster Abbey",
+          "tested_date": "1953-06-02",
+          "active_dasha": "Venus-Rahu",
+          "confluence_score": 52.8
+        },
+        {
+          "event": "Annus Horribilis (Windsor Fire & Royal Separations)",
+          "tested_date": "1992-11-20",
+          "active_dasha": "Rahu-Jupiter",
+          "confluence_score": 50.6
+        },
+        {
+          "event": "Demise and State Funeral at Balmoral",
+          "tested_date": "2022-09-08",
+          "active_dasha": "Jupiter-Rahu",
+          "confluence_score": 77.1
+        }
+      ]
+    },
+    {
+      "mutation_id": "JITTER_MINUS_15M",
+      "name": "Micro Cusp Jitter (-15 Min)",
+      "category": "temporal_jitter",
+      "description": "Artificially shifts birth time by -15 minutes. Tests retrograde cusp boundary tolerance.",
+      "corrupted_birth_dt": "1926-04-21 02:25:00",
+      "corrupted_lagna": "Capricorn 14\u00b029'",
+      "corrupted_vcs": 75.1,
+      "delta_vcs": -2.6,
+      "falsified_successfully": false,
+      "collusion_detected": true,
+      "event_breakdown": [
+        {
+          "event": "Royal Wedding to Philip Mountbatten",
+          "tested_date": "1947-11-20",
+          "active_dasha": "Venus-Venus",
+          "confluence_score": 79.4
+        },
+        {
+          "event": "Accession to the Throne upon Demise of King George VI",
+          "tested_date": "1952-02-06",
+          "active_dasha": "Venus-Moon",
+          "confluence_score": 69.2
+        },
+        {
+          "event": "Official Royal Coronation at Westminster Abbey",
+          "tested_date": "1953-06-02",
+          "active_dasha": "Venus-Mars",
+          "confluence_score": 84.8
+        },
+        {
+          "event": "Annus Horribilis (Windsor Fire & Royal Separations)",
+          "tested_date": "1992-11-20",
+          "active_dasha": "Rahu-Jupiter",
+          "confluence_score": 65.7
+        },
+        {
+          "event": "Demise and State Funeral at Balmoral",
+          "tested_date": "2022-09-08",
+          "active_dasha": "Jupiter-Rahu",
+          "confluence_score": 76.6
+        }
+      ]
+    },
+    {
+      "mutation_id": "SHIFT_PLUS_2H",
+      "name": "Lagna Advance (+2 Hours)",
+      "category": "bhava_rotation",
+      "description": "Advances birth time by 2 hours (~1 full 30\u00b0 zodiac sign shift). Inverts basic house lordships.",
+      "corrupted_birth_dt": "1926-04-21 04:40:00",
+      "corrupted_lagna": "Pisces 26\u00b050'",
+      "corrupted_vcs": 40.8,
+      "delta_vcs": 31.7,
+      "falsified_successfully": true,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Royal Wedding to Philip Mountbatten",
+          "tested_date": "1947-11-20",
+          "active_dasha": "Venus-Venus",
+          "confluence_score": 15.0
+        },
+        {
+          "event": "Accession to the Throne upon Demise of King George VI",
+          "tested_date": "1952-02-06",
+          "active_dasha": "Venus-Mars",
+          "confluence_score": 84.5
+        },
+        {
+          "event": "Official Royal Coronation at Westminster Abbey",
+          "tested_date": "1953-06-02",
+          "active_dasha": "Venus-Rahu",
+          "confluence_score": 17.6
+        },
+        {
+          "event": "Annus Horribilis (Windsor Fire & Royal Separations)",
+          "tested_date": "1992-11-20",
+          "active_dasha": "Rahu-Jupiter",
+          "confluence_score": 71.7
+        },
+        {
+          "event": "Demise and State Funeral at Balmoral",
+          "tested_date": "2022-09-08",
+          "active_dasha": "Saturn-Saturn",
+          "confluence_score": 15.0
+        }
+      ]
+    },
+    {
+      "mutation_id": "SHIFT_MINUS_2H",
+      "name": "Lagna Regression (-2 Hours)",
+      "category": "bhava_rotation",
+      "description": "Regresses birth time by 2 hours. Inverts house lords to preceding zodiac sign.",
+      "corrupted_birth_dt": "1926-04-21 00:40:00",
+      "corrupted_lagna": "Sagittarius 12\u00b003'",
+      "corrupted_vcs": 47.2,
+      "delta_vcs": 25.3,
+      "falsified_successfully": true,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Royal Wedding to Philip Mountbatten",
+          "tested_date": "1947-11-20",
+          "active_dasha": "Venus-Venus",
+          "confluence_score": 15.0
+        },
+        {
+          "event": "Accession to the Throne upon Demise of King George VI",
+          "tested_date": "1952-02-06",
+          "active_dasha": "Venus-Moon",
+          "confluence_score": 57.2
+        },
+        {
+          "event": "Official Royal Coronation at Westminster Abbey",
+          "tested_date": "1953-06-02",
+          "active_dasha": "Venus-Moon",
+          "confluence_score": 46.6
+        },
+        {
+          "event": "Annus Horribilis (Windsor Fire & Royal Separations)",
+          "tested_date": "1992-11-20",
+          "active_dasha": "Rahu-Rahu",
+          "confluence_score": 47.9
+        },
+        {
+          "event": "Demise and State Funeral at Balmoral",
+          "tested_date": "2022-09-08",
+          "active_dasha": "Jupiter-Rahu",
+          "confluence_score": 69.2
+        }
+      ]
+    },
+    {
+      "mutation_id": "LAGNA_ROTATION_6H",
+      "name": "Bhavachakra Scramble (+6 Hours)",
+      "category": "bhava_rotation",
+      "description": "Advances birth time by 6 hours (90\u00b0 quadrant rotation). Forces Kendras into Dusthanas.",
+      "corrupted_birth_dt": "1926-04-21 08:40:00",
+      "corrupted_lagna": "Gemini 17\u00b012'",
+      "corrupted_vcs": 44.5,
+      "delta_vcs": 28.0,
+      "falsified_successfully": true,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Royal Wedding to Philip Mountbatten",
+          "tested_date": "1947-11-20",
+          "active_dasha": "Venus-Moon",
+          "confluence_score": 58.3
+        },
+        {
+          "event": "Accession to the Throne upon Demise of King George VI",
+          "tested_date": "1952-02-06",
+          "active_dasha": "Venus-Rahu",
+          "confluence_score": 25.2
+        },
+        {
+          "event": "Official Royal Coronation at Westminster Abbey",
+          "tested_date": "1953-06-02",
+          "active_dasha": "Venus-Jupiter",
+          "confluence_score": 37.2
+        },
+        {
+          "event": "Annus Horribilis (Windsor Fire & Royal Separations)",
+          "tested_date": "1992-11-20",
+          "active_dasha": "Rahu-Saturn",
+          "confluence_score": 41.0
+        },
+        {
+          "event": "Demise and State Funeral at Balmoral",
+          "tested_date": "2022-09-08",
+          "active_dasha": "Saturn-Mercury",
+          "confluence_score": 60.8
+        }
+      ]
+    },
+    {
+      "mutation_id": "INVERSION_12H",
+      "name": "Polarity Inversion (12-Hour AM/PM Flip)",
+      "category": "diurnal_inversion",
+      "description": "180\u00b0 Bhavachakra reversal. Inverts daytime nocturnal hemispheres and Ascendant/Descendant axes.",
+      "corrupted_birth_dt": "1926-04-21 14:40:00",
+      "corrupted_lagna": "Leo 22\u00b013'",
+      "corrupted_vcs": 60.8,
+      "delta_vcs": 11.7,
+      "falsified_successfully": false,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Royal Wedding to Philip Mountbatten",
+          "tested_date": "1947-11-20",
+          "active_dasha": "Venus-Rahu",
+          "confluence_score": 65.8
+        },
+        {
+          "event": "Accession to the Throne upon Demise of King George VI",
+          "tested_date": "1952-02-06",
+          "active_dasha": "Venus-Saturn",
+          "confluence_score": 74.1
+        },
+        {
+          "event": "Official Royal Coronation at Westminster Abbey",
+          "tested_date": "1953-06-02",
+          "active_dasha": "Venus-Saturn",
+          "confluence_score": 58.4
+        },
+        {
+          "event": "Annus Horribilis (Windsor Fire & Royal Separations)",
+          "tested_date": "1992-11-20",
+          "active_dasha": "Rahu-Ketu",
+          "confluence_score": 40.7
+        },
+        {
+          "event": "Demise and State Funeral at Balmoral",
+          "tested_date": "2022-09-08",
+          "active_dasha": "Saturn-Venus",
+          "confluence_score": 64.9
+        }
+      ]
+    },
+    {
+      "mutation_id": "DESYNC_PLUS_1Y",
+      "name": "Dasha Desynchronization (+1 Year)",
+      "category": "dasha_desync",
+      "description": "Shifts birth year by +1 year. Misaligns Vimshottari Mahadasha balance by 365 days.",
+      "corrupted_birth_dt": "1927-04-21 02:40:00",
+      "corrupted_lagna": "Capricorn 20\u00b019'",
+      "corrupted_vcs": 51.7,
+      "delta_vcs": 20.8,
+      "falsified_successfully": true,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Royal Wedding to Philip Mountbatten",
+          "tested_date": "1947-11-20",
+          "active_dasha": "Venus-Venus",
+          "confluence_score": 15.0
+        },
+        {
+          "event": "Accession to the Throne upon Demise of King George VI",
+          "tested_date": "1952-02-06",
+          "active_dasha": "Venus-Mars",
+          "confluence_score": 15.0
+        },
+        {
+          "event": "Official Royal Coronation at Westminster Abbey",
+          "tested_date": "1953-06-02",
+          "active_dasha": "Venus-Rahu",
+          "confluence_score": 65.1
+        },
+        {
+          "event": "Annus Horribilis (Windsor Fire & Royal Separations)",
+          "tested_date": "1992-11-20",
+          "active_dasha": "Rahu-Jupiter",
+          "confluence_score": 65.6
+        },
+        {
+          "event": "Demise and State Funeral at Balmoral",
+          "tested_date": "2022-09-08",
+          "active_dasha": "Saturn-Saturn",
+          "confluence_score": 98.0
+        }
+      ]
+    },
+    {
+      "mutation_id": "DESYNC_PLUS_3Y",
+      "name": "Severe Dasha Desynchronization (+3 Years)",
+      "category": "dasha_desync",
+      "description": "Shifts birth year by +3 years. Desynchronizes Dasha balance by 1,095 days into alien planetary cycles.",
+      "corrupted_birth_dt": "1929-04-21 02:40:00",
+      "corrupted_lagna": "Capricorn 21\u00b010'",
+      "corrupted_vcs": 52.7,
+      "delta_vcs": 19.8,
+      "falsified_successfully": true,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Royal Wedding to Philip Mountbatten",
+          "tested_date": "1947-11-20",
+          "active_dasha": "Mars-Sun",
+          "confluence_score": 15.0
+        },
+        {
+          "event": "Accession to the Throne upon Demise of King George VI",
+          "tested_date": "1952-02-06",
+          "active_dasha": "Rahu-Jupiter",
+          "confluence_score": 78.0
+        },
+        {
+          "event": "Official Royal Coronation at Westminster Abbey",
+          "tested_date": "1953-06-02",
+          "active_dasha": "Rahu-Jupiter",
+          "confluence_score": 48.2
+        },
+        {
+          "event": "Annus Horribilis (Windsor Fire & Royal Separations)",
+          "tested_date": "1992-11-20",
+          "active_dasha": "Saturn-Sun",
+          "confluence_score": 68.1
+        },
+        {
+          "event": "Demise and State Funeral at Balmoral",
+          "tested_date": "2022-09-08",
+          "active_dasha": "Ketu-Jupiter",
+          "confluence_score": 54.2
+        }
+      ]
+    },
+    {
+      "mutation_id": "DESYNC_MINUS_3Y",
+      "name": "Severe Dasha Desynchronization (-3 Years)",
+      "category": "dasha_desync",
+      "description": "Shifts birth year by -3 years. Tests backward dasha cycle desynchronization.",
+      "corrupted_birth_dt": "1923-04-21 02:40:00",
+      "corrupted_lagna": "Capricorn 20\u00b019'",
+      "corrupted_vcs": 55.5,
+      "delta_vcs": 17.0,
+      "falsified_successfully": true,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Royal Wedding to Philip Mountbatten",
+          "tested_date": "1947-11-20",
+          "active_dasha": "Jupiter-Saturn",
+          "confluence_score": 56.2
+        },
+        {
+          "event": "Accession to the Throne upon Demise of King George VI",
+          "tested_date": "1952-02-06",
+          "active_dasha": "Jupiter-Ketu",
+          "confluence_score": 58.0
+        },
+        {
+          "event": "Official Royal Coronation at Westminster Abbey",
+          "tested_date": "1953-06-02",
+          "active_dasha": "Jupiter-Venus",
+          "confluence_score": 58.1
+        },
+        {
+          "event": "Annus Horribilis (Windsor Fire & Royal Separations)",
+          "tested_date": "1992-11-20",
+          "active_dasha": "Mercury-Jupiter",
+          "confluence_score": 75.8
+        },
+        {
+          "event": "Demise and State Funeral at Balmoral",
+          "tested_date": "2022-09-08",
+          "active_dasha": "Venus-Ketu",
+          "confluence_score": 29.4
+        }
+      ]
+    },
+    {
+      "mutation_id": "GEO_DRIFT_ARBITRARY",
+      "name": "Hemispheric Geo-Drift (+35\u00b0 Lat, -75\u00b0 Lon)",
+      "category": "geographic_distortion",
+      "description": "Alters birth geography across continents while retaining local clock time. Distorts Ascendant degree.",
+      "corrupted_birth_dt": "1926-04-21 02:40:00",
+      "corrupted_lagna": "Virgo 15\u00b042'",
+      "corrupted_vcs": 56.7,
+      "delta_vcs": 15.8,
+      "falsified_successfully": true,
+      "collusion_detected": false,
+      "event_breakdown": [
+        {
+          "event": "Royal Wedding to Philip Mountbatten",
+          "tested_date": "1947-11-20",
+          "active_dasha": "Venus-Venus",
+          "confluence_score": 86.6
+        },
+        {
+          "event": "Accession to the Throne upon Demise of King George VI",
+          "tested_date": "1952-02-06",
+          "active_dasha": "Venus-Moon",
+          "confluence_score": 37.6
+        },
+        {
+          "event": "Official Royal Coronation at Westminster Abbey",
+          "tested_date": "1953-06-02",
+          "active_dasha": "Venus-Mars",
+          "confluence_score": 31.2
+        },
+        {
+          "event": "Annus Horribilis (Windsor Fire & Royal Separations)",
+          "tested_date": "1992-11-20",
+          "active_dasha": "Rahu-Jupiter",
+          "confluence_score": 62.0
+        },
+        {
+          "event": "Demise and State Funeral at Balmoral",
+          "tested_date": "2022-09-08",
+          "active_dasha": "Jupiter-Rahu",
+          "confluence_score": 66.0
+        }
+      ]
+    },
+    {
+      "mutation_id": "SCRAMBLED_EVENT_DATES",
+      "name": "Milestone Chronology Inversion (Fake Events)",
+      "category": "event_scramble",
+      "description": "Tests the real birth chart against chronologically scrambled or inverted milestone dates.",
+      "corrupted_birth_dt": "1926-04-21 02:40:00",
+      "corrupted_lagna": "Capricorn 20\u00b045'",
+      "corrupted_vcs": 65.5,
+      "delta_vcs": 7.0,
+      "falsified_successfully": false,
+      "collusion_detected": true,
+      "event_breakdown": [
+        {
+          "event": "Royal Wedding to Philip Mountbatten",
+          "tested_date": "2022-09-08",
+          "active_dasha": "Jupiter-Rahu",
+          "confluence_score": 69.3
+        },
+        {
+          "event": "Accession to the Throne upon Demise of King George VI",
+          "tested_date": "1992-11-20",
+          "active_dasha": "Rahu-Jupiter",
+          "confluence_score": 75.8
+        },
+        {
+          "event": "Official Royal Coronation at Westminster Abbey",
+          "tested_date": "1953-06-02",
+          "active_dasha": "Venus-Mars",
+          "confluence_score": 78.8
+        },
+        {
+          "event": "Annus Horribilis (Windsor Fire & Royal Separations)",
+          "tested_date": "1952-02-06",
+          "active_dasha": "Venus-Moon",
+          "confluence_score": 51.0
+        },
+        {
+          "event": "Demise and State Funeral at Balmoral",
+          "tested_date": "1947-11-20",
+          "active_dasha": "Venus-Venus",
+          "confluence_score": 52.6
+        }
+      ]
+    }
+  ]
+}

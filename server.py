@@ -1,7 +1,9 @@
+from __future__ import annotations
+
 import asyncio
 import os
 from datetime import datetime
-from typing import Any
+from typing import Any, Optional
 
 from fastapi import FastAPI, HTTPException, Request, WebSocket, WebSocketDisconnect
 from fastapi.responses import HTMLResponse, JSONResponse
@@ -88,7 +90,7 @@ class ChartRequest(BaseModel):
     country: str = "India"
     consent: bool = False
     is_deceased: bool = False
-    death_date: str | None = None
+    death_date: Optional[str] = None
     milestones: list[MilestoneInput] = []
 
     @field_validator("latitude")

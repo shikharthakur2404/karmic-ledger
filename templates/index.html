@@ -77,10 +77,10 @@
       --seal-red-soft: rgba(224, 56, 43, 0.14);
       --seal-red-border: rgba(224, 56, 43, 0.45);
 
-      /* Dark Kuro-Washi Texture */
+      /* Dark Kuro-Washi Texture - restrained tactile grain */
       --texture-overlay: 
         radial-gradient(ellipse at 50% 0%, rgba(30, 32, 40, 0.7) 0%, rgba(16, 17, 20, 0.85) 60%, rgba(10, 11, 14, 0.95) 100%),
-        repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(255, 255, 255, 0.008) 60px, rgba(255, 255, 255, 0.008) 61px);
+        repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(255, 255, 255, 0.014) 60px, rgba(255, 255, 255, 0.014) 61px);
     }
 
     * {
@@ -142,11 +142,11 @@
       animation: zenFadeIn 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
-    /* Main Container: Generous Negative Space & Wide Margins */
+    /* Main Container: Generous Negative Space & Proportional Margins */
     .zen-viewport {
-      max-width: 1140px;
+      max-width: clamp(1140px, 82vw, 1320px);
       margin: 0 auto;
-      padding: 48px 36px 120px;
+      padding: 48px clamp(24px, 3vw, 40px) 120px;
     }
 
     /* --------------------------------------------------------------------------
@@ -188,7 +188,7 @@
     }
 
     /* --------------------------------------------------------------------------
-       TOP SYSTEM STATUS BAR & THEME SWITCHER
+       TOP SYSTEM STATUS BAR & THEME SWITCHER (FULL-BLEED CHROME)
        -------------------------------------------------------------------------- */
     .zen-status-bar {
       display: flex;
@@ -196,13 +196,16 @@
       align-items: center;
       flex-wrap: wrap;
       gap: 16px;
-      padding: 14px 0;
+      padding: 12px clamp(20px, 3.5vw, 48px);
       border-bottom: var(--ink-border);
-      margin-bottom: 56px;
       font-family: var(--font-sans);
       font-size: 12px;
       letter-spacing: 0.04em;
       color: var(--ink-muted);
+      width: 100%;
+      background: var(--zen-bg);
+      position: relative;
+      z-index: 20;
     }
 
     .status-node {
@@ -267,6 +270,16 @@
     .zen-hero {
       margin-bottom: 64px;
       position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .zen-hero-content {
+      max-width: 720px;
+      position: relative;
+      z-index: 1;
     }
 
     .zen-hero-topline {
@@ -312,9 +325,34 @@
       font-family: var(--font-body);
       font-size: 16.5px;
       color: var(--ink-muted);
-      max-width: 720px;
       line-height: 1.75;
       font-weight: 300;
+    }
+
+    /* Ensō Calligraphic Watermark */
+    .zen-hero-enso {
+      width: clamp(160px, 16vw, 220px);
+      height: clamp(160px, 16vw, 220px);
+      flex-shrink: 0;
+      color: var(--ink-black);
+      opacity: 0.045;
+      pointer-events: none;
+      user-select: none;
+      z-index: 0;
+      transition: opacity 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    [data-theme="light"] .zen-hero-enso {
+      opacity: 0.035;
+    }
+
+    @media (max-width: 860px) {
+      .zen-hero-enso {
+        display: none;
+      }
     }
 
     /* --------------------------------------------------------------------------
@@ -925,7 +963,7 @@
     }
 
     .carousel-card {
-      flex: 0 0 320px;
+      flex: 0 0 clamp(280px, 22vw, 320px);
       scroll-snap-align: start;
       border: var(--ink-border);
       background: var(--zen-card);
@@ -1252,46 +1290,55 @@
 </head>
 <body>
 
+  <!-- TOP SYSTEM STATUS BAR (FULL-BLEED EDGE-TO-EDGE CHROME) -->
+  <header class="zen-status-bar">
+    <div class="status-node">
+      <span class="hanko-seal sm">業</span>
+      <strong>KARMIC_LEDGER:</strong>
+      <span>SHASTRA_CORE V2.10.03</span>
+    </div>
+    
+    <div class="status-node">
+      <span class="zen-pulse-dot" id="liveIndicatorDot"></span>
+      <span id="liveSocketStatus" style="font-weight: 600;">CONNECTING...</span>
+    </div>
+
+    <div class="status-node" id="liveEphemerisTicker">
+      Saturn: Pisces · Jupiter: Taurus · Rahu: Aquarius · <em>Connecting Telemetry...</em>
+    </div>
+
+    <!-- Minimalist Dark / Light Theme Toggle -->
+    <div class="theme-toggle-cluster">
+      <button class="theme-toggle-btn" id="btnThemeLight" onclick="setTheme('light')" title="Switch to Light Rice Paper">☀ LIGHT</button>
+      <button class="theme-toggle-btn active" id="btnThemeDark" onclick="setTheme('dark')" title="Switch to Dark Kuro-Washi">☾ DARK</button>
+    </div>
+  </header>
+
   <div class="zen-viewport zen-fade-in">
     
-    <!-- TOP SYSTEM STATUS BAR -->
-    <header class="zen-status-bar">
-      <div class="status-node">
-        <span class="hanko-seal sm">業</span>
-        <strong>KARMIC_LEDGER:</strong>
-        <span>SHASTRA_CORE V2.10.03</span>
-      </div>
-      
-      <div class="status-node">
-        <span class="zen-pulse-dot" id="liveIndicatorDot"></span>
-        <span id="liveSocketStatus" style="font-weight: 600;">CONNECTING...</span>
-      </div>
-
-      <div class="status-node" id="liveEphemerisTicker">
-        Saturn: Pisces · Jupiter: Taurus · Rahu: Aquarius · <em>Connecting Telemetry...</em>
-      </div>
-
-      <!-- Minimalist Dark / Light Theme Toggle -->
-      <div class="theme-toggle-cluster">
-        <button class="theme-toggle-btn" id="btnThemeLight" onclick="setTheme('light')" title="Switch to Light Rice Paper">☀ LIGHT</button>
-        <button class="theme-toggle-btn active" id="btnThemeDark" onclick="setTheme('dark')" title="Switch to Dark Kuro-Washi">☾ DARK</button>
-      </div>
-    </header>
-
     <!-- HERO MINIMALIST BANNER -->
     <section class="zen-hero">
-      <div class="zen-hero-topline">
-        <span class="hanko-seal">印</span>
-        <span class="zen-hero-tag">Astronomical Geometry & Ephemeris Sensitivity Testing</span>
+      <div class="zen-hero-content">
+        <div class="zen-hero-topline">
+          <span class="hanko-seal">印</span>
+          <span class="zen-hero-tag">Astronomical Geometry & Ephemeris Sensitivity Testing</span>
+        </div>
+
+        <div class="zen-hero-title-row">
+          <h1 class="zen-hero-title">Karmic Ledger // 業</h1>
+        </div>
+
+        <p class="zen-hero-subtitle">
+          A clear, transparent platform that maps astronomical planetary ephemeris into symbolic life themes—explaining timing cycles, career momentum, and personal archetypes in plain English without confusing jargon.
+        </p>
       </div>
 
-      <div class="zen-hero-title-row">
-        <h1 class="zen-hero-title">Karmic Ledger // 業</h1>
+      <!-- Ensō Calligraphic Watermark (Zen Paper Spec L478 & L549) -->
+      <div class="zen-hero-enso" aria-hidden="true" title="Ensō Calligraphic Watermark">
+        <svg viewBox="0 0 240 240" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path d="M120,24 C140,23 162,29 182,40 C214,58 236,88 242,124 C248,160 236,198 210,224 C184,250 146,260 110,254 C74,248 42,226 24,194 C6,162 3,122 16,88 C29,54 56,26 90,14 C97,11 101,16 96,20 C66,32 42,58 32,88 C22,118 24,152 40,180 C56,208 84,228 116,232 C148,236 180,226 202,204 C224,182 234,150 228,120 C222,90 204,64 176,48 C158,38 138,34 118,34 C112,34 110,28 116,26 Z" transform="scale(0.85) translate(18, 18)" />
+        </svg>
       </div>
-
-      <p class="zen-hero-subtitle">
-        A clear, transparent platform that maps astronomical planetary ephemeris into symbolic life themes—explaining timing cycles, career momentum, and personal archetypes in plain English without confusing jargon.
-      </p>
     </section>
 
     <!-- LIFE INQUIRY HORIZONS // CAROUSEL -->

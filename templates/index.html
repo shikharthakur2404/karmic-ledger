@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Karmic Ledger // 業 · Zen Paper Minimal</title>
+  <title>Karmic Ledger // Fun Kundli // 業 - Zen Paper</title>
   
   <!-- Japanese Mincho & High-Signal Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1294,7 +1294,7 @@
   <header class="zen-status-bar">
     <div class="status-node">
       <span class="hanko-seal sm">業</span>
-      <strong>KARMIC_LEDGER:</strong>
+      <strong>KARMIC_LEDGER // FUN_KUNDLI:</strong>
       <span>SHASTRA_CORE V2.10.03</span>
     </div>
     
@@ -1321,15 +1321,15 @@
       <div class="zen-hero-content">
         <div class="zen-hero-topline">
           <span class="hanko-seal">印</span>
-          <span class="zen-hero-tag">Astronomical Geometry & Ephemeris Sensitivity Testing</span>
+          <span class="zen-hero-tag">Astronomical Geometry · Life Cycles · WG Fun Kundli Edition</span>
         </div>
 
         <div class="zen-hero-title-row">
-          <h1 class="zen-hero-title">Karmic Ledger // 業</h1>
+          <h1 class="zen-hero-title">Karmic Ledger // Fun Kundli // 業</h1>
         </div>
 
         <p class="zen-hero-subtitle">
-          A clear, transparent platform that maps astronomical planetary ephemeris into symbolic life themes—explaining timing cycles, career momentum, and personal archetypes in plain English without confusing jargon.
+          A clear, transparent platform that maps astronomical planetary ephemeris into symbolic life themes—explaining timing cycles, career momentum, life expectancy, and personal archetypes in plain English without confusing jargon.
         </p>
       </div>
 
@@ -1453,6 +1453,9 @@
         <button class="target-btn" id="btnAnonymous" onclick="acquireTarget('anonymous')">
           <span>02</span> Anonymous (Demo Profile)
         </button>
+        <button class="target-btn" id="btnSoham" onclick="acquireTarget('soham')">
+          <span style="color: var(--seal-red); font-weight: 700;">03</span> Soham Deokar (WG Fun Kundli)
+        </button>
         <button class="target-btn" id="btnCustom" onclick="openIntakeModal()">
           <span style="color: var(--seal-red); font-weight: 700;">+</span> Enter Your Birth Details (100% Private)
         </button>
@@ -1496,6 +1499,10 @@
         <div class="zen-metric-cell">
           <div class="zen-metric-label" id="dispDashaLabel">Terminal Life Chapter (At Demise, 1984)</div>
           <div class="zen-metric-value" id="dispActiveDasha">Saturn - Rahu</div>
+        </div>
+        <div class="zen-metric-cell">
+          <div class="zen-metric-label" id="dispAyurLabel">Life Expectancy Band (Fun Kundli)</div>
+          <div class="zen-metric-value" id="dispAyurValue">78 – 88+ Yrs (Pūrṇāyu)</div>
         </div>
       </div>
     </section>
@@ -1765,6 +1772,28 @@
       <div id="dashaBarWrapper">
         <!-- Injected SVG -->
       </div>
+
+      <!-- SECTOR 06B: CLASSICAL AYURDAYA HORIZON (FUN KUNDLI) -->
+      <div id="ayurdayaDetailsCard" style="margin-top: 24px; padding: 20px 24px; border: var(--ink-border); background: var(--zen-card);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+          <div>
+            <div style="font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-muted);">// CLASSICAL AYURDAYA HORIZON (WG FUN KUNDLI)</div>
+            <h4 id="ayurTierTitle" style="font-family: var(--font-title); font-size: 19px; color: var(--ink-black); margin-top: 4px;">Pūrṇāyu (दीर्घायु // Full Longevity Horizon)</h4>
+          </div>
+          <div class="zen-badge" id="ayurRangeBadge" style="font-size: 13px; font-weight: 600; background: var(--zen-paper);">Estimated Range: 78 – 88+ Years</div>
+        </div>
+        <p id="ayurSummaryText" style="font-size: 13.5px; color: var(--ink-muted); line-height: 1.6; margin-bottom: 14px;">
+          Strong structural vitality. Classical three-pair geometry supported by Jupiter in Kendra and Saturn as Ayushkaraka indicates high natural endurance and long-term lifespan horizon.
+        </p>
+        <div id="ayurModifiersList" style="display: flex; flex-direction: column; gap: 6px; font-size: 12px; font-family: var(--font-mono); color: var(--ink-deep); margin-bottom: 14px;">
+          <div>✦ <strong>Lagna Lord Mars in 11th Upachaya:</strong> Progressive constitutional strength.</div>
+          <div>✦ <strong>Jupiter Kendra (7H) + Saturn Conjunct:</strong> Classical Kakshya Vriddhi (Tier Elevation to Purnayu).</div>
+        </div>
+        <div style="padding-top: 10px; border-top: var(--ink-border); font-size: 11.5px; color: var(--ink-faint); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+          <span>✦ <em>Classical 3-Pair Mathematical Assessment (Jaimini / BPHS Model)</em></span>
+          <span style="color: var(--seal-red);">WG Fun Kundli Edition · Zero Medical Diagnostic Value</span>
+        </div>
+      </div>
     </section>
 
     <!-- SECTOR 07: VERIFIED BIOGRAPHICAL MILESTONES -->
@@ -1852,15 +1881,10 @@
       
       const btnIndira = document.getElementById("btnIndira");
       const btnAnon = document.getElementById("btnAnonymous");
-      if (btnIndira && btnAnon) {
-        if (name === "indira") {
-          btnIndira.className = "target-btn active";
-          btnAnon.className = "target-btn";
-        } else {
-          btnIndira.className = "target-btn";
-          btnAnon.className = "target-btn active";
-        }
-      }
+      const btnSoham = document.getElementById("btnSoham");
+      if (btnIndira) btnIndira.className = (name === "indira" ? "target-btn active" : "target-btn");
+      if (btnAnon) btnAnon.className = (name === "anonymous" ? "target-btn active" : "target-btn");
+      if (btnSoham) btnSoham.className = (name === "soham" ? "target-btn active" : "target-btn");
 
       try {
         const res = await fetch(`/api/demo/${name}`);
@@ -2015,6 +2039,28 @@
 
       document.getElementById("dispAge").textContent = data.age_display || `${data.current_age} Years`;
       document.getElementById("dispActiveDasha").textContent = data.current_dasha;
+
+      // Ayurdaya / Life Expectancy Band (Fun Kundli)
+      if (data.ayurdaya) {
+        const aVal = document.getElementById("dispAyurValue");
+        const aLbl = document.getElementById("dispAyurLabel");
+        if (aVal) aVal.textContent = data.is_deceased ? "Closed Historical Horizon" : `${data.ayurdaya.estimated_range} (${data.ayurdaya.tier})`;
+        if (aLbl) aLbl.textContent = data.is_deceased ? "Lifespan Record" : "Life Expectancy Band (Fun Kundli)";
+
+        const aTier = document.getElementById("ayurTierTitle");
+        if (aTier) aTier.textContent = data.is_deceased ? "Closed Retrospective Record (Demise 1984)" : data.ayurdaya.tier_title;
+
+        const aBadge = document.getElementById("ayurRangeBadge");
+        if (aBadge) aBadge.textContent = data.is_deceased ? "Lifespan: 66.9 Years (1917–1984)" : `Estimated Range: ${data.ayurdaya.estimated_range}`;
+
+        const aSummary = document.getElementById("ayurSummaryText");
+        if (aSummary) aSummary.textContent = data.is_deceased ? "Historical subject with documented exit timeline. Retrospective analysis only." : data.ayurdaya.summary;
+
+        const aModList = document.getElementById("ayurModifiersList");
+        if (aModList && data.ayurdaya.modifiers) {
+          aModList.innerHTML = data.ayurdaya.modifiers.map(m => `<div>✦ ${m}</div>`).join("");
+        }
+      }
 
       // 02 Soul Telemetry
       if (data.soul_telemetry) {
@@ -2423,6 +2469,7 @@
         // Update targets UI styling
         document.getElementById("btnIndira")?.classList.remove("active");
         document.getElementById("btnAnonymous")?.classList.remove("active");
+        document.getElementById("btnSoham")?.classList.remove("active");
         document.getElementById("btnCustom")?.classList.add("active");
 
         // Render Telemetry

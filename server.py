@@ -10,6 +10,7 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel, field_validator
 
+from core.ayurdaya import compute_ayurdaya_telemetry
 from core.confluence import evaluate_event_confluence
 from core.consent import is_historical_benchmark_subject
 from core.dasha import compute_vimshottari_timeline, get_active_dasha_at_date
@@ -61,6 +62,31 @@ DEMO_PROFILES = {
         "milestones": [
             {"event": "Higher Education Milestone", "date": "2022-09-01"},
             {"event": "Major Career Pivot & Elevation", "date": "2025-03-15"},
+        ],
+    },
+    "soham": {
+        "name": "Soham Deokar (WG Fun Kundli)",
+        "date": "2000-11-10",
+        "time": "09:10:00",
+        "latitude": 17.6370,
+        "longitude": 74.4018,
+        "city": "Khatav, Satara",
+        "country": "India",
+        "consent": True,
+        "milestones": [
+            {"event": "First Romantic Relationship", "date": "2016-07-01"},
+            {"event": "High School Completion & B.Tech Entrance", "date": "2018-07-15"},
+            {"event": "College Breakup (First Year)", "date": "2018-09-01"},
+            {"event": "Current Partner Commitment", "date": "2020-08-12"},
+            {
+                "event": "B.Tech Grad & Senior Software Engineer Role",
+                "date": "2022-06-15",
+            },
+            {"event": "Departure from Corporate Job in India", "date": "2024-07-15"},
+            {
+                "event": "International Relocation to Germany (Master's)",
+                "date": "2024-10-01",
+            },
         ],
     },
 }
@@ -463,6 +489,7 @@ def run_chart_pipeline(data: ChartRequest) -> dict[str, Any]:
         "domain_mantras": DOMAIN_MANTRAS,
         "soul_telemetry": soul_telemetry,
         "frictions": frictions,
+        "ayurdaya": compute_ayurdaya_telemetry(natal),
     }
 
 

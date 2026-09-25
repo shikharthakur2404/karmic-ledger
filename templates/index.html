@@ -1456,9 +1456,6 @@
         <button class="target-btn" id="btnSoham" onclick="acquireTarget('soham')">
           <span style="color: var(--seal-red); font-weight: 700;">03</span> Soham Deokar (WG Fun Kundli)
         </button>
-        <button class="target-btn" id="btnShikhar" onclick="acquireTarget('shikhar')">
-          <span style="color: var(--seal-red); font-weight: 700;">04</span> Shikhar Thakur (WG Fun Kundli)
-        </button>
         <button class="target-btn" id="btnCustom" onclick="openIntakeModal()">
           <span style="color: var(--seal-red); font-weight: 700;">+</span> Enter Your Birth Details (100% Private)
         </button>
@@ -1885,11 +1882,9 @@
       const btnIndira = document.getElementById("btnIndira");
       const btnAnon = document.getElementById("btnAnonymous");
       const btnSoham = document.getElementById("btnSoham");
-      const btnShikhar = document.getElementById("btnShikhar");
       if (btnIndira) btnIndira.className = (name === "indira" ? "target-btn active" : "target-btn");
       if (btnAnon) btnAnon.className = (name === "anonymous" ? "target-btn active" : "target-btn");
       if (btnSoham) btnSoham.className = (name === "soham" ? "target-btn active" : "target-btn");
-      if (btnShikhar) btnShikhar.className = (name === "shikhar" ? "target-btn active" : "target-btn");
 
       try {
         const res = await fetch(`/api/demo/${name}`);

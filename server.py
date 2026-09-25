@@ -29,7 +29,8 @@ app = FastAPI(
     description="Analytical Jyotish Telemetry & Algorithmic Sensitivity Engine",
 )
 
-templates = Jinja2Templates(directory="templates")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+templates = Jinja2Templates(directory=os.path.join(BASE_DIR, "templates"))
 
 DEMO_PROFILES = {
     "indira": {
@@ -87,6 +88,24 @@ DEMO_PROFILES = {
                 "event": "International Relocation to Germany (Master's)",
                 "date": "2024-10-01",
             },
+        ],
+    },
+    "shikhar": {
+        "name": "Shikhar Thakur (WG Fun Kundli)",
+        "date": "1999-04-24",
+        "time": "07:00:00",
+        "latitude": 26.4652,
+        "longitude": 80.3498,
+        "city": "Kanpur",
+        "country": "India",
+        "consent": True,
+        "milestones": [
+            {"event": "Foreign Relocation to Germany / DACH", "date": "2023-04-15"},
+            {
+                "event": "FytlY 99k LOC Architecture & Autonomous Systems Launch",
+                "date": "2024-06-15",
+            },
+            {"event": "Late 2026 Partner Convergence Window", "date": "2026-11-15"},
         ],
     },
 }

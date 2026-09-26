@@ -164,16 +164,40 @@ class ChartRequest(BaseModel):
 
 
 def run_chart_pipeline(data: ChartRequest) -> dict[str, Any]:
+    """
+    ==============================================================================
+    MAIN TELEMETRY PIPELINE (run_chart_pipeline)
+    ==============================================================================
+    The central coordinator of the Karmic Ledger engine.
+    Ingests raw birth data (date, time, lat/lon) and coordinates 11 sequential engines:
+      Step 0: Epistemic Consent & Privacy Validation
+      Step 1: Swiss Ephemeris C-library Astronomical Calculations (Nirayana Longitudes)
+      Step 2: 120-Year Vimshottari Dasha Mathematical Timeline
+      Step 3: Temporal Horizon & Demise/Historical Handling
+      Step 4: Ayurdaya Classical Longevity Horizon (Fun Kundli Engine)
+      Step 5: Event Backtesting & Vedic Correlation Score (VCS %)
+      Step 6: Shastric Remedial Mantras & Astrological Balance
+      Step 7: Real-Time Vector Visualizations (Diamond Kundli & Dasha Bar SVGs)
+      Step 8: Planetary Positions, Cusps, and Dignities Matrix
+      Step 9: Soul Age & Archetype Telemetry (Ātmakāraka Odometer)
+      Step 10: Live Multi-Year Karmic Frictions Diagnostic
+      Step 11: 24-Hour Real-Time Somatic & Daily Incident Radar
+    ==============================================================================
+    """
     raw_dict = data.dict() if hasattr(data, "dict") else data.model_dump()
     is_historical = is_historical_benchmark_subject(raw_dict, data.name)
 
-    # Mandatory Server-Side Affirmative Consent Gate
+    # --------------------------------------------------------------------------
+    # STEP 0: MANDATORY PRIVACY & ETHICAL CONSENT GATE
+    # Ensures no private living individual is analyzed without affirmative consent.
+    # --------------------------------------------------------------------------
     if not data.consent and not is_historical:
         raise HTTPException(
             status_code=403,
             detail="Affirmative epistemic consent required. Processing halted under zero-diagnostic research boundary.",
         )
 
+    # Normalize birth time (defaulting to 12:00 PM if querent does not know exact minute)
     birth_time_unknown = not data.time.strip()
     actual_time = "12:00:00" if birth_time_unknown else data.time
 
@@ -183,7 +207,11 @@ def run_chart_pipeline(data: ChartRequest) -> dict[str, Any]:
     minute = int(t_parts[1]) if len(t_parts) > 1 else 0
     second = int(t_parts[2]) if len(t_parts) > 2 else 0
 
-    # 1. Compute Natal Coordinates
+    # --------------------------------------------------------------------------
+    # STEP 1: COMPUTE EXACT CELESTIAL COORDINATES (SWISS EPHEMERIS)
+    # Uses high-precision C library (pyswisseph) with Lahiri Ayanamsha to determine
+    # exact positions of Lagna, Moon Nakshatra, Bhavas (Houses), and all 9 Grahas.
+    # --------------------------------------------------------------------------
     try:
         natal = compute_natal_chart(
             year=date_parts[0],
@@ -207,14 +235,22 @@ def run_chart_pipeline(data: ChartRequest) -> dict[str, Any]:
     )
     moon_nak = natal["planets"]["Moon"]["nakshatra"]
 
-    # 2. 120-Year Vimshottari Timeline
+    # --------------------------------------------------------------------------
+    # STEP 2: GENERATE 120-YEAR VIMSHOTTARI DASHA TIMELINE
+    # Computes exact chronological life chapters (Mahadashas & Antardashas)
+    # based on the exact degree elapsed in the natal Moon Nakshatra at birth.
+    # --------------------------------------------------------------------------
     timeline = compute_vimshottari_timeline(
         birth_dt=birth_dt,
         moon_nakshatra_lord=moon_nak["lord"],
         fraction_elapsed=moon_nak["fraction_elapsed"],
     )
 
-    # 3. Active Dasha & Temporal Horizon
+    # --------------------------------------------------------------------------
+    # STEP 3: TEMPORAL HORIZON & ACTIVE DASHA RESOLUTION
+    # Identifies which planetary period is currently active right now (or at death
+    # for historical benchmark subjects like Indira Gandhi).
+    # --------------------------------------------------------------------------
     is_deceased = data.is_deceased or (
         is_historical
         and ("indira" in data.name.lower() or "benchmark" in data.name.lower())

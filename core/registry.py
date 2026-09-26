@@ -90,6 +90,16 @@ ENGINE_REGISTRY: dict[str, dict[str, Any]] = {
         "before_state": "Monochrome text tables and raw unicode characters without visual hierarchy or aesthetic presence.",
         "after_state": "Kuro-Washi paper aesthetic with gold wireframe reticles, Top 3 Essential Highlights Triad, 9 Graha custom vector SVGs, and Observatory Visualizer Hero Card with lightbox modal.",
     },
+    "engine_09_hellenistic": {
+        "engine_id": "09",
+        "name": "Hellenistic Chronometry & Zodiacal Releasing",
+        "version": "1.0.0-planned",
+        "status": "PLANNED",
+        "files": ["core/hellenistic.py"],
+        "description": "Zodiacal Releasing (Aphesis from Spirit), Hermetic Lots (Fortune/Spirit), Planetary Sect physics, and Annual Profections.",
+        "before_state": "Single-tradition system reliant strictly on Vedic Nakshatra Dasha clocks without cross-civilizational validation.",
+        "after_state": "Dual-civilization chronometry engine combining Indian Vimshottari karmic execution with Alexandrian career peak & narrative pivot detectors.",
+    },
 }
 
 

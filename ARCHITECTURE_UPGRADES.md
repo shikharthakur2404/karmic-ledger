@@ -26,6 +26,7 @@ The architectural standard governing all upgrades is:
 | **06** | **Confluence & Karmic Friction Audit** | `v1.1.0` | `STABLE` | [`core/confluence.py`](file:///Users/shikharthakur/GitHub/karmic-ledger/core/confluence.py), [`core/frictions.py`](file:///Users/shikharthakur/GitHub/karmic-ledger/core/frictions.py) | VCS Score (0-100), Saturn stoppage transit, Sade Sati shocks |
 | **07** | **Adversarial Falsification Battery** | `v1.1.0` | `STABLE` | [`core/adversarial.py`](file:///Users/shikharthakur/GitHub/karmic-ledger/core/adversarial.py), [`core/battery_runner.py`](file:///Users/shikharthakur/GitHub/karmic-ledger/core/battery_runner.py) | Monte Carlo data perturbation (+3y date, 6h lagna, 12h polarity) |
 | **08** | **Kuro-Washi Zen Vector Visualizer** | `v2.0.0` | `STABLE` | [`core/visuals.py`](file:///Users/shikharthakur/GitHub/karmic-ledger/core/visuals.py), [`templates/index.html`](file:///Users/shikharthakur/GitHub/karmic-ledger/templates/index.html) | Retina vector SVGs, Ensō watermark, Top 3 Triad, Observatory Lightbox |
+| **09** | **Hellenistic Chronometry & Releasing** | `v1.0.0` | `PLANNED` | [`core/hellenistic.py`](file:///Users/shikharthakur/GitHub/karmic-ledger/core/hellenistic.py) | Zodiacal Releasing (Spirit), Lot of Fortune/Spirit, Sect physics, Profections |
 
 ---
 
@@ -182,15 +183,47 @@ The architectural standard governing all upgrades is:
 
 ---
 
-## 4. Next-Generation Roadmap (v2.1.0 – v2.3.0)
+## 4. Next-Generation Roadmap (v2.1.0 – v2.4.0)
 
 ```
-[CURRENT: v2.0.0] ────────► [v2.1.0: SPRINT 2] ────────► [v2.2.0: SPRINT 3] ────────► [v2.3.0: SPRINT 4]
-• 8 Engines Versioned      • Multi-Profession Enum      • Ashtakavarga Damping      • 7-Day Rolling Graph
-• Kuro-Washi Visualizer    • Software/Trades Vectors    • Gandanta Boundary Voids   • 1-Click Micro-Logger
-• Retina Vector SVGs       • Geocoding Cache Exp        • N=30 Held-Out Study       • SQLite Calibration
+[CURRENT: v2.0.0] ──► [v2.1.0: SPRINT 2] ──► [v2.2.0: SPRINT 3] ──► [v2.3.0: SPRINT 4] ──► [v2.4.0: SPRINT 5]
+• 8 Engines Versioned • Multi-Profession     • Ashtakavarga Damping  • 7-Day Rolling Graph   • ENGINE 09: HELLENISTIC
+• Kuro-Washi HUD      • Software/Trades     • Gandanta Voids        • 1-Click Micro-Logger  • Zodiacal Releasing
+• Retina Vector SVGs  • Geocoding Cache Exp • N=30 Held-Out Study   • SQLite Calibration    • Dual-Civilization VCS
 ```
 
-1. **Sprint 2 (`v2.1.0`):** Implement `ProfessionArchetype` enum in `core/daily.py`, adding specialized heuristics for Software Architects (Heisenbugs) and Field Techs (Mechanical strain).
-2. **Sprint 3 (`v2.2.0`):** Integrate Sarvashtakavarga (SAV) and Bhinnashtakavarga (BAV) bindu damping formula to dynamically scale transit friction.
-3. **Sprint 4 (`v2.3.0`):** Deploy the 7-Day Rolling Incident Horizon with interactive micro-logging drawer on the web HUD.
+1. **Sprint 2 (`v2.1.0`): Multi-Profession Incident Radar Expansion**
+   * Implement `ProfessionArchetype` enum in `core/daily.py`: `SOFTWARE_ARCHITECT`, `EXECUTIVE_FOUNDER`, `TRADES_CONSTRUCTION`, `CREATIVE_MEDIA`, `HEALTHCARE_CLINICAL`.
+   * Add specialized algorithmic detectors: Heisenbug / Logic Corruption (Mercury-Ketu), Deployment Outages (Mars H8), and Mechanical Impact (Mars-Saturn).
+   * Expand offline Indian geocoding cache from 5,000 to 25,000 regional tehsils and villages.
+
+2. **Sprint 3 (`v2.2.0`): Ashtakavarga Damping & Gandanta Void Matrix**
+   * Integrate Sarvashtakavarga (SAV) and Bhinnashtakavarga (BAV) bindu damping formula to dynamically scale transit friction:
+     $$R_{\text{damped}} = R_{\text{raw}} \times \left(1.0 - \left[\frac{B_{\text{SAV}} - 28}{28} \times 0.50 + \frac{B_{\text{BAV}} - 4}{8} \times 0.50\right]\right)$$
+   * Implement acute junctional vortex detection for *Tīvra Gandanta* (Cancer/Leo, Scorpio/Sagittarius, Pisces/Aries transitions).
+   * Execute N=30 pre-registered held-out empirical separation study on Astro-Databank "AA" rated archive.
+
+3. **Sprint 4 (`v2.3.0`): 7-Day Rolling Incident Horizon & Empirical Micro-Logger**
+   * Deploy the 7-day predictive incident curve on the web HUD with rolling sparklines.
+   * Provide a 1-click interactive logging drawer: *"Log Today's Micro-Incident"* (tagging bug, meeting stall, joint fatigue with 1–5 severity).
+   * Deploy SQLite empirical telemetry ledger (`incident_logs.db`) to autotune detection orbs via gradient descent against user-verified ground truth.
+
+4. **Sprint 5 (`v2.4.0`): Engine 09 — Hellenistic Chronometry & Zodiacal Releasing (`core/hellenistic.py`)**
+   * **Planetary Sect Engine (Diurnal vs. Nocturnal Physics):**
+     - Calculates solar altitude at birth ($h_{\odot} \ge 0^\circ \implies \text{Day Sect}$; $h_{\odot} < 0^\circ \implies \text{Night Sect}$).
+     - Designates Team Leaders (Day: Sun, Jupiter, Saturn; Night: Moon, Venus, Mars) and identifies the *Malefic Contrary to Sect* (Day: Mars; Night: Saturn).
+   * **Hermetic Lots Coordinate Calculator:**
+     - **Lot of Fortune (*Tychē*):** $\text{Ascendant} + \text{Moon} - \text{Sun}$ (Day) / $\text{Ascendant} + \text{Sun} - \text{Moon}$ (Night) $\implies$ Physical body, material health, circumstances beyond conscious control.
+     - **Lot of Spirit (*Daimon*):** $\text{Ascendant} + \text{Sun} - \text{Moon}$ (Day) / $\text{Ascendant} + \text{Moon} - \text{Sun}$ (Night) $\implies$ Intentional actions, career, intellect, agency, software architecture.
+   * **Zodiacal Releasing (Aphesis from Spirit):**
+     - Computes sign-by-sign temporal releasing from the Lot of Spirit through planetary periods:
+       Aries (15y), Taurus (8y), Gemini (20y), Cancer (25y), Leo (19y), Virgo (20y), Libra (8y), Scorpio (15y), Sagittarius (12y), Capricorn (27y), Aquarius (30y), Pisces (12y).
+     - Fractal time levels: $\text{Level I (Decades)} \rightarrow \text{Level II (Months)} \rightarrow \text{Level III (Weeks)} \rightarrow \text{Level IV (Days)}$.
+   * **Angular Peak & "Loosing of the Helm" Detectors:**
+     - **Angular Peak Detector:** Identifies when Level I or II releasing enters signs angular to Fortune (1st, 10th, 7th, 4th from Lot of Fortune), signaling career zenith, peak recognition, and maximum public output.
+     - **Loosing of the Helm Alert:** Flags when releasing reaches the boundary limit and jumps to the polar opposite sign, alerting to radical career reboots, sudden identity shifts, or structural life pivots.
+   * **Annual Profections & Chronocrator:**
+     - Computes active house: $\text{Active House} = (\text{Age} \pmod{12}) + 1$.
+     - Identifies the ruling **Lord of the Year**, prioritizing its transits over non-time-lord planets.
+   * **Dual-Civilization Cross-Confluence:**
+     - Evaluates temporal convergence between Vedic Vimshottari Dasha and Hellenistic Zodiacal Releasing. When both traditions flag identical calendar windows, confidence multipliers increase from $1.0\times$ to $1.65\times$.

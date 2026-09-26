@@ -21,6 +21,7 @@ from core.frictions import audit_live_frictions
 from core.geocoding import geocode_location
 from core.mantras import DOMAIN_MANTRAS, recommend_remedies_for_chart
 from core.primer import explain_planet_placement
+from core.registry import get_system_manifest
 from core.shastra import search_shastra
 from core.soul import evaluate_soul_telemetry
 from core.transits import get_planet_transit_positions
@@ -544,12 +545,19 @@ def run_chart_pipeline(data: ChartRequest) -> dict[str, Any]:
         "frictions": frictions,
         "daily_radar": daily_radar,
         "ayurdaya": compute_ayurdaya_telemetry(natal),
+        "system_manifest": get_system_manifest(),
     }
+
+
+@app.get("/api/system/engines")
+def get_engine_registry_manifest():
+    """Returns the canonical version numbers, statuses, and before/after metadata for all 8 engines."""
+    return JSONResponse(get_system_manifest())
 
 
 @app.get("/", response_class=HTMLResponse)
 def serve_home(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+    return templates.TemplateResponse("index.html", {"request": request, "manifest": get_system_manifest()})
 
 
 @app.post("/api/analyze")

@@ -2589,6 +2589,9 @@
         <button class="target-btn" id="btnSoham" onclick="acquireTarget('soham')">
           <span style="color: var(--seal-red); font-weight: 700;">03</span> Soham Deokar (WG Fun Kundli)
         </button>
+        <button class="target-btn" id="btnShikhar" onclick="acquireTarget('shikhar')">
+          <span style="color: var(--seal-red); font-weight: 700;">04</span> Shikhar Thakur (System Architect)
+        </button>
         <button class="target-btn" id="btnCustom" onclick="openIntakeModal()">
           <span style="color: var(--seal-red); font-weight: 700;">+</span> Enter Your Birth Details (100% Private)
         </button>
@@ -3279,9 +3282,13 @@
       const btnIndira = document.getElementById("btnIndira");
       const btnAnon = document.getElementById("btnAnonymous");
       const btnSoham = document.getElementById("btnSoham");
+      const btnShikhar = document.getElementById("btnShikhar");
+      const btnCustom = document.getElementById("btnCustom");
       if (btnIndira) btnIndira.className = (name === "indira" ? "target-btn active" : "target-btn");
       if (btnAnon) btnAnon.className = (name === "anonymous" ? "target-btn active" : "target-btn");
       if (btnSoham) btnSoham.className = (name === "soham" ? "target-btn active" : "target-btn");
+      if (btnShikhar) btnShikhar.className = (name === "shikhar" ? "target-btn active" : "target-btn");
+      if (btnCustom) btnCustom.classList.remove("active");
 
       try {
         const res = await fetch(`/api/demo/${name}`);
@@ -4275,6 +4282,7 @@
         document.getElementById("btnIndira")?.classList.remove("active");
         document.getElementById("btnAnonymous")?.classList.remove("active");
         document.getElementById("btnSoham")?.classList.remove("active");
+        document.getElementById("btnShikhar")?.classList.remove("active");
         document.getElementById("btnCustom")?.classList.add("active");
 
         // Render Telemetry

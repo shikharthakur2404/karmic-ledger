@@ -66,6 +66,11 @@ def generate_diamond_kundli_svg(
   <!-- Diamond Rhombus Lines -->
   <polygon points="200,25 375,200 200,375 25,200" fill="none" stroke="var(--ink-black, #141414)" stroke-width="1.2" class="zen-svg-frame" />
 
+  <!-- Ambient Ensō Calligraphic Watermark (Zen Paper Spec) -->
+  <g class="zen-svg-enso-watermark" opacity="0.04" transform="translate(200, 200)">
+    <circle cx="0" cy="0" r="105" fill="none" stroke="var(--ink-black, #141414)" stroke-width="20" stroke-dasharray="530 130" stroke-linecap="round" transform="rotate(-35)" />
+  </g>
+
   <!-- Center Vermilion Hanko Seal Mark -->
   <rect x="191" y="191" width="18" height="18" fill="none" stroke="var(--seal-red, #b92b27)" stroke-width="1.5" transform="rotate(-3 200 200)" />
   <circle cx="200" cy="200" r="2.5" fill="var(--seal-red, #b92b27)" />

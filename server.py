@@ -7,6 +7,7 @@ from typing import Any, Optional
 
 from fastapi import FastAPI, HTTPException, Request, WebSocket, WebSocketDisconnect
 from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel, field_validator
 
@@ -32,6 +33,11 @@ app = FastAPI(
 )
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+static_dir = os.path.join(BASE_DIR, "static")
+if not os.path.exists(static_dir):
+    os.makedirs(static_dir, exist_ok=True)
+app.mount("/static", StaticFiles(directory=static_dir), name="static")
+
 templates = Jinja2Templates(directory=os.path.join(BASE_DIR, "templates"))
 
 DEMO_PROFILES = {

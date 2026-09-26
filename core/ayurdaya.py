@@ -187,21 +187,39 @@ def compute_ayurdaya_telemetry(natal: dict[str, Any]) -> dict[str, Any]:
             f"Lagna Lord {lagna_lord_name} in 11th Upachaya house ensures progressive vitality"
         )
 
-    # Numerical span estimation
+    # Numerical span estimation & semantic telemetry
     if promoted_tier == "Purnayu":
         tier_title = "Pūrṇāyu (दीर्घायु // Full Longevity Horizon)"
         est_range = "78 – 88+ Years"
         vitality_score = 88
+        semantic_feel = "VERY_POSITIVE"
+        semantic_badge = "Robust Vitality · Full Horizon (Very Positive)"
+        vitality_meaning = (
+            "88/100 constitutional endurance score. Classical three-pair geometry supported by "
+            "angular Jupiter and Saturn provides high biological resistance to chronic fatigue."
+        )
         summary_text = "Strong structural vitality. Classical three-pair geometry supported by Jupiter in Kendra and Saturn as Ayushkaraka indicates high natural endurance and long-term lifespan horizon."
     elif promoted_tier == "Madhyayu":
         tier_title = "Madhyāyu (मध्यायु // Balanced Longevity Horizon)"
         est_range = "68 – 78 Years"
         vitality_score = 74
+        semantic_feel = "BALANCED"
+        semantic_badge = "Steady Baseline · Balanced Horizon (Positive/Neutral)"
+        vitality_meaning = (
+            "74/100 constitutional endurance score. Stable baseline requiring regular sleep, "
+            "rhythmic routines, and mindful avoidance of overwork."
+        )
         summary_text = "Moderate and steady vitality baseline. Planetary positions reflect balanced constitutional endurance requiring consistent lifestyle hygiene."
     else:
         tier_title = "Alpāyu (अल्पायु // Protective Threshold Model)"
         est_range = "60 – 70 Years (With Benefic Buffers)"
         vitality_score = 62
+        semantic_feel = "CONSERVATIVE"
+        semantic_badge = "Protective Threshold · Restorative Focus (Caution)"
+        vitality_meaning = (
+            "62/100 constitutional endurance score. Delicate baseline requiring conscious "
+            "restorative practices, lower cardiovascular stress, and balanced nutrition."
+        )
         summary_text = "Requires active health and cardiovascular maintenance. Benefic Jupiter buffers protect the baseline horizon."
 
     return {
@@ -209,6 +227,9 @@ def compute_ayurdaya_telemetry(natal: dict[str, Any]) -> dict[str, Any]:
         "tier_title": tier_title,
         "estimated_range": est_range,
         "vitality_score": vitality_score,
+        "semantic_feel": semantic_feel,
+        "semantic_badge": semantic_badge,
+        "vitality_meaning": vitality_meaning,
         "base_tier": base_tier,
         "pairs_evaluated": {
             "lagna_lord_and_8th_lord": f"{ll_mob.capitalize()} ({ll_sign}) & {h8l_mob.capitalize()} ({h8l_sign}) -> {pair1}",

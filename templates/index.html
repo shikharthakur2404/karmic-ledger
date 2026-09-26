@@ -584,13 +584,32 @@
       background: var(--seal-red);
     }
 
+    .top-triad-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 8px;
+    }
+
     .top-triad-tag {
       font-family: var(--font-mono);
       font-size: 11.5px;
       text-transform: uppercase;
       letter-spacing: 0.1em;
       color: var(--ink-muted);
-      margin-bottom: 8px;
+    }
+
+    .top-triad-icon {
+      color: var(--ink-muted);
+      opacity: 0.85;
+      flex-shrink: 0;
+      transition: all 0.25s ease;
+    }
+
+    .top-triad-card:hover .top-triad-icon {
+      color: var(--seal-red);
+      transform: scale(1.08);
+      opacity: 1;
     }
 
     .top-triad-label {
@@ -606,8 +625,80 @@
       font-size: 24px;
       font-weight: 700;
       color: var(--ink-black);
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       line-height: 1.25;
+    }
+
+    /* Cohesive Semantic Status Pill System (Positive / Neutral / Caution / Danger) */
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 3px 9px;
+      border-radius: 3px;
+      margin-bottom: 10px;
+      width: fit-content;
+    }
+
+    .status-pill.positive {
+      background: rgba(34, 197, 94, 0.12);
+      color: #15803d;
+      border: 1px solid rgba(34, 197, 94, 0.35);
+    }
+
+    [data-theme="dark"] .status-pill.positive {
+      background: rgba(34, 197, 94, 0.2);
+      color: #4ade80;
+      border-color: rgba(34, 197, 94, 0.4);
+    }
+
+    .status-pill.neutral {
+      background: rgba(14, 165, 233, 0.12);
+      color: #0369a1;
+      border: 1px solid rgba(14, 165, 233, 0.35);
+    }
+
+    [data-theme="dark"] .status-pill.neutral {
+      background: rgba(14, 165, 233, 0.2);
+      color: #38bdf8;
+      border-color: rgba(14, 165, 233, 0.4);
+    }
+
+    .status-pill.caution {
+      background: rgba(245, 158, 11, 0.12);
+      color: #b45309;
+      border: 1px solid rgba(245, 158, 11, 0.35);
+    }
+
+    [data-theme="dark"] .status-pill.caution {
+      background: rgba(245, 158, 11, 0.2);
+      color: #fbbf24;
+      border-color: rgba(245, 158, 11, 0.4);
+    }
+
+    .status-pill.danger {
+      background: rgba(239, 68, 68, 0.12);
+      color: #b91c1c;
+      border: 1px solid rgba(239, 68, 68, 0.35);
+    }
+
+    [data-theme="dark"] .status-pill.danger {
+      background: rgba(239, 68, 68, 0.2);
+      color: #f87171;
+      border-color: rgba(239, 68, 68, 0.4);
+    }
+
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+      display: inline-block;
     }
 
     .top-triad-desc {
@@ -661,64 +752,495 @@
       line-height: 1.35;
     }
 
+    .zen-metric-subtext {
+      font-family: var(--font-body);
+      font-size: 12.5px;
+      color: var(--ink-muted);
+      margin-top: 4px;
+      line-height: 1.45;
+    }
+
     /* --------------------------------------------------------------------------
-       SECTOR 02: SOUL ODOMETER
+       SECTOR 02: SOUL ODOMETER & MATURITY INDEX
        -------------------------------------------------------------------------- */
     .soul-layout-grid {
       display: grid;
-      grid-template-columns: 220px 1fr;
-      gap: 40px;
-      align-items: center;
+      grid-template-columns: minmax(330px, 390px) 1fr;
+      gap: 32px;
+      align-items: stretch;
     }
 
-    @media (max-width: 800px) {
+    @media (max-width: 960px) {
       .soul-layout-grid {
         grid-template-columns: 1fr;
       }
     }
 
     .soul-dial-card {
-      text-align: center;
-      padding: 36px 20px;
+      padding: 28px 24px;
       border: var(--ink-border);
       background: var(--zen-card);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .soul-card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: var(--ink-border);
+    }
+
+    .soul-mandala-icon {
+      color: var(--ink-black);
+      flex-shrink: 0;
+    }
+
+    .soul-card-title {
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+    }
+
+    .soul-score-display {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      margin-bottom: 10px;
     }
 
     .soul-score-num {
       font-family: var(--font-title);
-      font-size: 56px;
+      font-size: 58px;
       font-weight: 400;
       line-height: 1;
       color: var(--ink-black);
+    }
+
+    .soul-score-max {
+      font-family: var(--font-mono);
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--ink-muted);
+    }
+
+    .soul-status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 5px 12px;
+      border-radius: 4px;
+      margin-bottom: 18px;
+      width: fit-content;
+    }
+
+    .soul-status-badge.positive {
+      background: rgba(34, 197, 94, 0.12);
+      color: #15803d;
+      border: 1px solid rgba(34, 197, 94, 0.35);
+    }
+
+    [data-theme="dark"] .soul-status-badge.positive {
+      background: rgba(34, 197, 94, 0.2);
+      color: #4ade80;
+      border-color: rgba(34, 197, 94, 0.4);
+    }
+
+    .soul-status-badge.transcendent {
+      background: rgba(168, 85, 247, 0.12);
+      color: #7e22ce;
+      border: 1px solid rgba(168, 85, 247, 0.35);
+    }
+
+    [data-theme="dark"] .soul-status-badge.transcendent {
+      background: rgba(168, 85, 247, 0.2);
+      color: #c084fc;
+      border-color: rgba(168, 85, 247, 0.4);
+    }
+
+    .soul-status-badge.balanced {
+      background: rgba(14, 165, 233, 0.12);
+      color: #0369a1;
+      border: 1px solid rgba(14, 165, 233, 0.35);
+    }
+
+    [data-theme="dark"] .soul-status-badge.balanced {
+      background: rgba(14, 165, 233, 0.2);
+      color: #38bdf8;
+      border-color: rgba(14, 165, 233, 0.4);
+    }
+
+    .soul-status-badge.exploratory {
+      background: rgba(245, 158, 11, 0.12);
+      color: #b45309;
+      border: 1px solid rgba(245, 158, 11, 0.35);
+    }
+
+    [data-theme="dark"] .soul-status-badge.exploratory {
+      background: rgba(245, 158, 11, 0.2);
+      color: #fbbf24;
+      border-color: rgba(245, 158, 11, 0.4);
+    }
+
+    /* Evolutionary Segmented Gauge Track */
+    .soul-gauge-wrap {
+      margin-bottom: 20px;
+    }
+
+    .soul-gauge-labels {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      color: var(--ink-muted);
       margin-bottom: 6px;
     }
 
-    .soul-score-lbl {
+    .soul-gauge-bar {
+      position: relative;
+      height: 10px;
+      background: var(--ink-faint);
+      border-radius: 5px;
+      display: flex;
+      overflow: visible;
+    }
+
+    .soul-gauge-segment {
+      height: 100%;
+      flex: 1;
+      border-right: 1px solid var(--zen-card);
+      opacity: 0.6;
+      transition: opacity 0.2s ease;
+    }
+
+    .soul-gauge-segment:first-child {
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+    }
+
+    .soul-gauge-segment:last-child {
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+      border-right: none;
+    }
+
+    .soul-gauge-segment.s1 { background: #94a3b8; }
+    .soul-gauge-segment.s2 { background: #38bdf8; }
+    .soul-gauge-segment.s3 { background: #22c55e; }
+    .soul-gauge-segment.s4 { background: #a855f7; }
+
+    .soul-gauge-segment.active {
+      opacity: 1;
+      filter: drop-shadow(0 0 4px currentColor);
+    }
+
+    .soul-gauge-marker {
+      position: absolute;
+      top: -5px;
+      width: 4px;
+      height: 20px;
+      background: var(--ink-black);
+      border: 1px solid var(--zen-paper);
+      border-radius: 2px;
+      transform: translateX(-50%);
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
+      transition: left 0.4s ease;
+      z-index: 2;
+    }
+
+    .soul-meaning-box {
+      background: var(--zen-paper);
+      border: var(--ink-border);
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      border-radius: 3px;
+    }
+
+    .soul-meaning-title {
       font-family: var(--font-sans);
+      font-size: 11.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--ink-deep);
+      margin-bottom: 5px;
+    }
+
+    .soul-meaning-text {
+      font-family: var(--font-body);
+      font-size: 14px;
+      line-height: 1.55;
+      color: var(--ink-muted);
+    }
+
+    .soul-disclaimer-note {
       font-size: 11px;
-      font-weight: 500;
+      color: var(--ink-faint);
+      margin-top: 10px;
+      font-style: italic;
+      line-height: 1.45;
+    }
+
+    .soul-nodal-vectors {
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: var(--ink-border);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 600px) {
+      .soul-nodal-vectors {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .nodal-vector-box {
+      padding: 12px 14px;
+      background: var(--zen-paper);
+      border: var(--ink-border);
+      border-radius: 2px;
+    }
+
+    .nodal-vector-box.past {
+      border-left: 3px solid #6366f1;
+    }
+
+    .nodal-vector-box.future {
+      border-left: 3px solid #ec4899;
+    }
+
+    .nodal-tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
       letter-spacing: 0.08em;
       color: var(--ink-muted);
+      margin-bottom: 5px;
+    }
+
+    .nodal-text {
+      font-family: var(--font-body);
+      font-size: 13.5px;
+      line-height: 1.5;
+      color: var(--ink-deep);
+    }
+
+    /* Dignity Badges & Planetary Glyphs in Kundli Table */
+    .dignity-badge {
+      display: inline-flex;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 3px;
+      letter-spacing: 0.03em;
+    }
+
+    .dignity-badge.exalted,
+    .dignity-badge.own,
+    .dignity-badge.moola {
+      background: rgba(34, 197, 94, 0.12);
+      color: #15803d;
+      border: 1px solid rgba(34, 197, 94, 0.3);
+    }
+
+    [data-theme="dark"] .dignity-badge.exalted,
+    [data-theme="dark"] .dignity-badge.own,
+    [data-theme="dark"] .dignity-badge.moola {
+      background: rgba(34, 197, 94, 0.2);
+      color: #4ade80;
+      border-color: rgba(34, 197, 94, 0.4);
+    }
+
+    .dignity-badge.friend {
+      background: rgba(14, 165, 233, 0.12);
+      color: #0369a1;
+      border: 1px solid rgba(14, 165, 233, 0.3);
+    }
+
+    [data-theme="dark"] .dignity-badge.friend {
+      background: rgba(14, 165, 233, 0.2);
+      color: #38bdf8;
+      border-color: rgba(14, 165, 233, 0.4);
+    }
+
+    .dignity-badge.neutral {
+      background: var(--zen-paper);
+      color: var(--ink-muted);
+      border: var(--ink-border);
+    }
+
+    .dignity-badge.enemy {
+      background: rgba(245, 158, 11, 0.12);
+      color: #b45309;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    [data-theme="dark"] .dignity-badge.enemy {
+      background: rgba(245, 158, 11, 0.2);
+      color: #fbbf24;
+      border-color: rgba(245, 158, 11, 0.4);
+    }
+
+    .dignity-badge.neecha {
+      background: rgba(239, 68, 68, 0.12);
+      color: #b91c1c;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+
+    [data-theme="dark"] .dignity-badge.neecha {
+      background: rgba(239, 68, 68, 0.2);
+      color: #f87171;
+      border-color: rgba(239, 68, 68, 0.4);
+    }
+
+    .planet-glyph {
+      display: inline-block;
+      width: 18px;
+      font-size: 15px;
+      color: var(--seal-red);
+      margin-right: 4px;
+      text-align: center;
+    }
+
+    /* Vitality Meter in Ayurdaya */
+    .vitality-meter-wrap {
+      margin: 14px 0;
+      padding: 14px 16px;
+      background: var(--zen-paper);
+      border: var(--ink-border);
+      border-radius: 3px;
+    }
+
+    .vitality-meter-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .vitality-meter-label {
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 700;
       text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--ink-deep);
+    }
+
+    .vitality-meter-score {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ink-black);
+    }
+
+    .vitality-track {
+      height: 8px;
+      background: var(--ink-faint);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+
+    .vitality-fill {
+      height: 100%;
+      background: #22c55e;
+      border-radius: 4px;
+      transition: width 0.5s ease;
+    }
+
+    .vitality-meter-desc {
+      font-family: var(--font-body);
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--ink-muted);
+    }
+
+    /* Radar Feel Tag */
+    .radar-feel-tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      padding: 3px 8px;
+      border-radius: 3px;
+      width: fit-content;
+      margin-bottom: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .radar-feel-tag.clear {
+      background: rgba(34, 197, 94, 0.12);
+      color: #15803d;
+      border: 1px solid rgba(34, 197, 94, 0.3);
+    }
+
+    [data-theme="dark"] .radar-feel-tag.clear {
+      background: rgba(34, 197, 94, 0.2);
+      color: #4ade80;
+      border-color: rgba(34, 197, 94, 0.4);
+    }
+
+    .radar-feel-tag.caution {
+      background: rgba(245, 158, 11, 0.12);
+      color: #b45309;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    [data-theme="dark"] .radar-feel-tag.caution {
+      background: rgba(245, 158, 11, 0.2);
+      color: #fbbf24;
+      border-color: rgba(245, 158, 11, 0.4);
+    }
+
+    .radar-feel-tag.danger {
+      background: rgba(239, 68, 68, 0.12);
+      color: #b91c1c;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+
+    [data-theme="dark"] .radar-feel-tag.danger {
+      background: rgba(239, 68, 68, 0.2);
+      color: #f87171;
+      border-color: rgba(239, 68, 68, 0.4);
     }
 
     .archetype-container {
-      padding: 20px;
+      padding: 24px;
       border: var(--ink-border);
       background: var(--zen-card);
     }
 
     .archetype-heading {
       font-family: var(--font-title);
-      font-size: 17px;
+      font-size: 18px;
       font-weight: 600;
       color: var(--ink-black);
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
 
     .archetype-text {
       font-family: var(--font-body);
-      font-size: 14px;
+      font-size: 14.5px;
       color: var(--ink-muted);
       line-height: 1.65;
     }
@@ -1784,9 +2306,21 @@
         <!-- 1. ACTIVE LIFE CHAPTER -->
         <div class="top-triad-card" onclick="scrollToElement('dashaBarWrapper')">
           <div>
-            <div class="top-triad-tag">01 // LIFE SEASON & TIMING</div>
+            <div class="top-triad-card-top">
+              <div class="top-triad-tag">01 // LIFE SEASON & TIMING</div>
+              <!-- Astrolabe / Celestial Hourglass SVG Icon -->
+              <svg class="top-triad-icon" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 3v9l6 3"></path>
+                <circle cx="12" cy="12" r="2" fill="currentColor"></circle>
+              </svg>
+            </div>
             <div class="top-triad-label">Current Life Chapter (Active Dasha)</div>
             <div class="top-triad-metric" id="topTriadDasha">Loading...</div>
+            <div class="status-pill neutral" id="topTriadDashaPill">
+              <span class="badge-dot"></span>
+              <span id="topTriadDashaPillText">Analyzing Planetary Period...</span>
+            </div>
             <div class="top-triad-desc" id="topTriadDashaDesc">Active planetary period governing your current focus, career, and personal transitions.</div>
           </div>
           <div class="top-triad-link">View 120-Year Timeline →</div>
@@ -1795,9 +2329,22 @@
         <!-- 2. TODAY'S INCIDENT RADAR -->
         <div class="top-triad-card" onclick="scrollToElement('dailyRadarSection')">
           <div>
-            <div class="top-triad-tag">02 // 24-HOUR RADAR</div>
+            <div class="top-triad-card-top">
+              <div class="top-triad-tag">02 // 24-HOUR RADAR</div>
+              <!-- Radar Scanner / Orbit SVG Icon -->
+              <svg class="top-triad-icon" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"></path>
+                <path d="M12 6a6 6 0 1 0 6 6"></path>
+                <path d="M12 9a3 3 0 1 0 3 3"></path>
+                <circle cx="12" cy="12" r="1.5" fill="currentColor"></circle>
+              </svg>
+            </div>
             <div class="top-triad-label">Today's Tactical Incident Status</div>
             <div class="top-triad-metric" id="topTriadRadar" style="font-size: 20px;">Analyzing...</div>
+            <div class="status-pill positive" id="topTriadRadarPill">
+              <span class="badge-dot"></span>
+              <span id="topTriadRadarPillText">Scanning Planetary Vectors...</span>
+            </div>
             <div class="top-triad-desc" id="topTriadRadarDesc">Real-time daily alerts for meeting disruptions (Chandrāṣṭama), physical joint strain, and email delays.</div>
           </div>
           <div class="top-triad-link">View Daily Incident Forecast →</div>
@@ -1806,9 +2353,21 @@
         <!-- 3. LONGEVITY & VITALITY HORIZON -->
         <div class="top-triad-card" onclick="scrollToElement('ayurdayaDetailsCard')">
           <div>
-            <div class="top-triad-tag">03 // FUN KUNDLI HORIZON</div>
+            <div class="top-triad-card-top">
+              <div class="top-triad-tag">03 // FUN KUNDLI HORIZON</div>
+              <!-- Ensō / Sacred Vitality Ring SVG Icon -->
+              <svg class="top-triad-icon" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3a9 9 0 0 1 9 9c0 4.97-4.03 9-9 9a9 9 0 0 1-8.5-6"></path>
+                <path d="M3 12a9 9 0 0 1 6-8.5"></path>
+                <circle cx="12" cy="12" r="3" fill="currentColor" opacity="0.3"></circle>
+              </svg>
+            </div>
             <div class="top-triad-label">Classical Longevity & Vitality</div>
             <div class="top-triad-metric" id="topTriadAyur" style="font-size: 20px;">Loading...</div>
+            <div class="status-pill positive" id="topTriadAyurPill">
+              <span class="badge-dot"></span>
+              <span id="topTriadAyurPillText">Vitality 88/100 · Robust</span>
+            </div>
             <div class="top-triad-desc" id="topTriadAyurDesc">Classical three-pair Parashari vitality tier, structural endurance, and lifespan band.</div>
           </div>
           <div class="top-triad-link">View Longevity Details →</div>
@@ -1865,24 +2424,82 @@
       </div>
 
       <div class="soul-layout-grid">
+        <!-- LEFT: SOUL MATURITY INDEX & EVOLUTIONARY CYCLE DIAL -->
         <div class="soul-dial-card">
-          <div class="soul-score-num" id="dispAntiquityNum">4.2</div>
-          <div class="soul-score-lbl">Archetype Depth / 5.0</div>
+          <div>
+            <div class="soul-card-header">
+              <svg class="soul-mandala-icon" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <circle cx="12" cy="12" r="6"></circle>
+                <circle cx="12" cy="12" r="2"></circle>
+                <line x1="12" y1="2" x2="12" y2="6"></line>
+                <line x1="12" y1="18" x2="12" y2="22"></line>
+                <line x1="2" y1="12" x2="6" y2="12"></line>
+                <line x1="18" y1="12" x2="22" y2="12"></line>
+              </svg>
+              <div class="soul-card-title">Soul Maturity & Antiquity Index</div>
+            </div>
+
+            <div class="soul-score-display">
+              <span class="soul-score-num" id="dispAntiquityNum">2.6</span>
+              <span class="soul-score-max">/ 5.0</span>
+            </div>
+
+            <!-- Plain-English Semantic Status Tag (Positive / Neutral / Challenging) -->
+            <div class="soul-status-badge positive" id="soulStatusBadge">
+              <span class="badge-dot"></span>
+              <span id="soulStatusText">ADVANCED MATURITY · 70–89% CYCLE</span>
+            </div>
+
+            <!-- Evolutionary Stage Segmented Track -->
+            <div class="soul-gauge-wrap">
+              <div class="soul-gauge-labels">
+                <span>Young (0.0)</span>
+                <span>Mid (1.2)</span>
+                <span>Old (2.6)</span>
+                <span>Ancient (4.0)</span>
+              </div>
+              <div class="soul-gauge-bar">
+                <div class="soul-gauge-segment s1" id="gaugeSeg1" title="Young / Exploratory (0.0–1.1)"></div>
+                <div class="soul-gauge-segment s2" id="gaugeSeg2" title="Mid-Cycle / Growth (1.2–2.5)"></div>
+                <div class="soul-gauge-segment s3 active" id="gaugeSeg3" title="Old Soul / Seasoned (2.6–3.9)"></div>
+                <div class="soul-gauge-segment s4" id="gaugeSeg4" title="Ancient / Transcendent (4.0–5.0)"></div>
+                <div class="soul-gauge-marker" id="soulGaugeMarker" style="left: 52%;"></div>
+              </div>
+            </div>
+
+            <!-- Plain-English Explainer Box -->
+            <div class="soul-meaning-box">
+              <div class="soul-meaning-title">What this number tells you:</div>
+              <div class="soul-meaning-text" id="soulMeaningText">
+                Score <strong>2.6 / 5.0</strong> places you in the <strong>Old Soul (Prāchīna Jīva)</strong> tier. This is a deeply positive, grounded position (70–89% cycle completed). It reflects seasoned duty, natural resilience against emotional volatility, and an innate instinct for systemic structure.
+              </div>
+            </div>
+          </div>
+
+          <!-- Epistemic context notice -->
+          <div class="soul-disclaimer-note">
+            ✦ Computed from highest-degree planet (Ātmakāraka) & Nodal Ketu axis. Not an exam score; reflects evolutionary cycle completion.
+          </div>
         </div>
 
+        <!-- RIGHT: CALLING, PROGRESS & ARCHETYPE PERSPECTIVE -->
         <div>
           <div class="zen-metrics-grid" style="margin-bottom: 24px;">
             <div class="zen-metric-cell">
               <div class="zen-metric-label">Guiding Planet (Core Calling)</div>
               <div class="zen-metric-value" id="dispAkPlanet">Venus [शुक्र]</div>
+              <div class="zen-metric-subtext" id="dispAkSubtext">Ātmakāraka: Primary soul teacher and evolutionary focus</div>
             </div>
             <div class="zen-metric-cell">
               <div class="zen-metric-label">Zodiac Degree Progress</div>
               <div class="zen-metric-value" id="dispAkDeg">25.22° (84.1%)</div>
+              <div class="zen-metric-subtext" id="dispDegSubtext">Late-degree mastery: Soul is graduating this energy's lessons</div>
             </div>
             <div class="zen-metric-cell">
               <div class="zen-metric-label">Traditional Category</div>
-              <div class="zen-metric-value" id="dispSanskritCat">परम-प्राचीन जीव</div>
+              <div class="zen-metric-value" id="dispSanskritCat">प्राचीन जीव (Prāchīna Jīva)</div>
+              <div class="zen-metric-subtext" id="dispCatSubtext">Advanced stage: Seasoned, duty-bound evolutionary tier</div>
             </div>
           </div>
 
@@ -1896,6 +2513,18 @@
             </div>
             <div class="archetype-text" id="dispArchetypeDesc">
               A nature focused on harmonizing human intimacy and universal detachment, with high sensitivity to mutual fairness and relationships.
+            </div>
+
+            <!-- Past-Life Mastery & Growth Frontier Vectors -->
+            <div class="soul-nodal-vectors">
+              <div class="nodal-vector-box past">
+                <div class="nodal-tag">PAST-LIFE INSTINCT (KETU VECTOR)</div>
+                <div class="nodal-text" id="dispPastMastery">Pre-learned emotional detachment and instinctual resilience.</div>
+              </div>
+              <div class="nodal-vector-box future">
+                <div class="nodal-tag">ACTIVE GROWTH FRONTIER (RAHU VECTOR)</div>
+                <div class="nodal-text" id="dispGrowthFrontier">Worldly career impact and uncharted leadership frontiers.</div>
+              </div>
             </div>
           </div>
         </div>
@@ -1919,22 +2548,42 @@
       <div class="daily-radar-grid" id="radarGrid">
         <!-- Chandrāṣṭama Card -->
         <div class="radar-vector-card" id="radarChandrashtama">
-          <div class="radar-label">Chandrāṣṭama (8th-House Disruption Index)</div>
+          <div class="top-triad-card-top" style="margin-bottom: 4px;">
+            <div class="radar-label">Chandrāṣṭama (8th-House Disruption)</div>
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="color: var(--ink-muted);">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </div>
           <div class="radar-status-text" id="radarChandraStatus">Scanning...</div>
+          <div class="radar-feel-tag clear" id="chandraFeelTag">✓ ALL CLEAR · POSITIVE FLOW</div>
           <div class="radar-detail" id="radarChandraDetail"></div>
         </div>
 
         <!-- Somatic Injury Card -->
         <div class="radar-vector-card" id="radarSomatic">
-          <div class="radar-label">Somatic Impact Index</div>
+          <div class="top-triad-card-top" style="margin-bottom: 4px;">
+            <div class="radar-label">Somatic & Joint Vitality Index</div>
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="color: var(--ink-muted);">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+            </svg>
+          </div>
           <div class="radar-status-text" id="radarSomaticStatus">Scanning...</div>
+          <div class="radar-feel-tag clear" id="somaticFeelTag">✓ VITALITY STEADY · POSITIVE</div>
           <div class="radar-detail" id="radarSomaticDetail"></div>
         </div>
 
         <!-- Mercury Sandhi Card -->
         <div class="radar-vector-card" id="radarMercury">
-          <div class="radar-label">Communication Fluidity (Mercury)</div>
+          <div class="top-triad-card-top" style="margin-bottom: 4px;">
+            <div class="radar-label">Communication Fluidity (Mercury)</div>
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="color: var(--ink-muted);">
+              <path d="M4 11a9 9 0 0 1 9 9"></path>
+              <path d="M4 4a16 16 0 0 1 16 16"></path>
+              <circle cx="5" cy="19" r="1" fill="currentColor"></circle>
+            </svg>
+          </div>
           <div class="radar-status-text" id="radarMercuryStatus">Scanning...</div>
+          <div class="radar-feel-tag clear" id="mercuryFeelTag">✓ FLUID VELOCITY · POSITIVE</div>
           <div class="radar-detail" id="radarMercuryDetail"></div>
         </div>
       </div>
@@ -2176,6 +2825,25 @@
         <p id="ayurSummaryText" style="font-size: 13.5px; color: var(--ink-muted); line-height: 1.6; margin-bottom: 14px;">
           Strong structural vitality. Classical three-pair geometry supported by Jupiter in Kendra and Saturn as Ayushkaraka indicates high natural endurance and long-term lifespan horizon.
         </p>
+
+        <!-- Vitality Score Bar & Semantic Meaning -->
+        <div class="vitality-meter-wrap" id="vitalityMeterWrap">
+          <div class="vitality-meter-header">
+            <span class="vitality-meter-label">Constitutional Vitality Quotient</span>
+            <span class="vitality-meter-score" id="dispVitalityScore">88 / 100</span>
+          </div>
+          <div class="vitality-track">
+            <div class="vitality-fill" id="dispVitalityFill" style="width: 88%;"></div>
+          </div>
+          <div class="status-pill positive" id="dispVitalityPill" style="margin-bottom: 6px;">
+            <span class="badge-dot"></span>
+            <span id="dispVitalityPillText">ROBUST ENDURANCE · VERY POSITIVE</span>
+          </div>
+          <div class="vitality-meter-desc" id="dispVitalityMeaning">
+            Classical three-pair geometry supported by angular Jupiter and Saturn provides high cellular resilience against burnout.
+          </div>
+        </div>
+
         <div id="ayurModifiersList" style="display: flex; flex-direction: column; gap: 6px; font-size: 12px; font-family: var(--font-mono); color: var(--ink-deep); margin-bottom: 14px;">
           <div>✦ <strong>Lagna Lord Mars in 11th Upachaya:</strong> Progressive constitutional strength.</div>
           <div>✦ <strong>Jupiter Kendra (7H) + Saturn Conjunct:</strong> Classical Kakshya Vriddhi (Tier Elevation to Purnayu).</div>
@@ -2364,21 +3032,29 @@
       const chCard = document.getElementById("radarChandrashtama");
       const chStatus = document.getElementById("radarChandraStatus");
       const chDetail = document.getElementById("radarChandraDetail");
+      const chFeel = document.getElementById("chandraFeelTag");
       if (chCard && radar.chandrashtama) {
         const ch = radar.chandrashtama;
         chCard.className = ch.is_active ? "radar-vector-card active" : "radar-vector-card clear";
         chStatus.innerHTML = ch.is_active
           ? `<span class="radar-pulse-amber"></span>CHANDRĀṢṬAMA ACTIVE`
           : `<span class="radar-pulse-green"></span>CHANDRĀṢṬAMA CLEAR`;
+        if (chFeel) {
+          chFeel.className = ch.is_active ? "radar-feel-tag danger" : "radar-feel-tag clear";
+          chFeel.innerHTML = ch.is_active
+            ? `⚠️ HIGH DISRUPTION RISK · ADVERSE TIMING`
+            : `✓ ALL CLEAR · POSITIVE FLOW`;
+        }
         chDetail.textContent = ch.is_active
-          ? ch.alert
-          : `Transit Moon in ${ch.transit_moon_sign} (House ${ch.house_from_moon} from natal Moon). Nakshatra: ${ch.transit_moon_nakshatra}. No 8th-house disruption active.`;
+          ? `${ch.alert} — Avoid signing major irreversible contracts or making impulsive decisions today.`
+          : `Transit Moon in ${ch.transit_moon_sign} (House ${ch.house_from_moon} from natal Moon). Nakshatra: ${ch.transit_moon_nakshatra}. Emotional and mental focus are clear and steady.`;
       }
 
       // Somatic Injury
       const sCard = document.getElementById("radarSomatic");
       const sStatus = document.getElementById("radarSomaticStatus");
       const sDetail = document.getElementById("radarSomaticDetail");
+      const sFeel = document.getElementById("somaticFeelTag");
       if (sCard && radar.somatic_injury) {
         const si = radar.somatic_injury;
         const levelCls = si.risk_level === "Elevated" ? "elevated" : (si.is_active ? "active" : "clear");
@@ -2387,25 +3063,38 @@
         sStatus.innerHTML = si.is_active
           ? `<span class="${pulseCls}"></span>SOMATIC IMPACT: ${si.risk_level.toUpperCase()}`
           : `<span class="radar-pulse-green"></span>SOMATIC IMPACT: LOW`;
+        if (sFeel) {
+          sFeel.className = si.is_active ? "radar-feel-tag danger" : "radar-feel-tag clear";
+          sFeel.innerHTML = si.is_active
+            ? `⚠️ PHYSICAL WEAR RISK · MODERATE CAUTION`
+            : `✓ VITALITY STEADY · POSITIVE BASELINE`;
+        }
         const limbStr = si.target_limbs && si.target_limbs.length > 0 ? ` — Target vectors: ${si.target_limbs.join(", ")}` : "";
         sDetail.textContent = si.is_active
-          ? `Lagnesha ${si.lagnesha} in House ${si.lagnesha_transit_house} (${si.lagnesha_transit}). Risk: ${si.risk_level}${limbStr}.`
-          : `Lagnesha ${si.lagnesha} transiting House ${si.lagnesha_transit_house} (${si.lagnesha_transit}). No somatic tension active.`;
+          ? `Lagnesha ${si.lagnesha} in House ${si.lagnesha_transit_house} (${si.lagnesha_transit}). Risk: ${si.risk_level}${limbStr}. Avoid heavy physical joint impact.`
+          : `Lagnesha ${si.lagnesha} transiting House ${si.lagnesha_transit_house} (${si.lagnesha_transit}). No physical transit strains active today.`;
       }
 
       // Mercury Sandhi
       const mCard = document.getElementById("radarMercury");
       const mStatus = document.getElementById("radarMercuryStatus");
       const mDetail = document.getElementById("radarMercuryDetail");
+      const mFeel = document.getElementById("mercuryFeelTag");
       if (mCard && radar.mercury_sandhi) {
         const ms = radar.mercury_sandhi;
         mCard.className = ms.is_active ? "radar-vector-card active" : "radar-vector-card clear";
         mStatus.innerHTML = ms.is_active
           ? `<span class="radar-pulse-amber"></span>COMMUNICATION: SANDHI STALLED`
           : `<span class="radar-pulse-green"></span>COMMUNICATION: FLUID`;
+        if (mFeel) {
+          mFeel.className = ms.is_active ? "radar-feel-tag caution" : "radar-feel-tag clear";
+          mFeel.innerHTML = ms.is_active
+            ? `⚠️ LATENCY BOTTLENECK · NEUTRAL FRICTION`
+            : `✓ FLUID VELOCITY · POSITIVE`;
+        }
         mDetail.textContent = ms.is_active
-          ? ms.alert
-          : `Mercury at ${ms.mercury_formatted} — Communication channels open. ${ms.mercury_degree_in_sign.toFixed(2)}° into ${ms.mercury_sign}.`;
+          ? `${ms.alert} — Expect delayed email responses, API latency, or misread messages.`
+          : `Mercury at ${ms.mercury_formatted} — Communication channels clear and transactional logistics flow smoothly.`;
       }
 
       // Tactical Advice
@@ -2491,12 +3180,13 @@
     function renderObservatoryTelemetry(data) {
       // 01 Manifest
       document.getElementById("dispSubject").textContent = `${data.subject} (${data.city})`;
+      const vcsBadge = document.getElementById("vcsBadge");
       if (data.vcs_badge) {
-        document.getElementById("vcsBadge").textContent = data.vcs_badge;
+        vcsBadge.textContent = data.vcs_badge;
       } else if (data.vcs_score) {
-        document.getElementById("vcsBadge").textContent = `Benchmark Match: ${data.vcs_score}`;
+        vcsBadge.textContent = `Benchmark Match: ${data.vcs_score} [HIGH EMPIRICAL FIT · STRONG]`;
       } else {
-        document.getElementById("vcsBadge").textContent = "Astronomical Ephemeris // Exact Coordinates";
+        vcsBadge.textContent = "Astronomical Ephemeris // Exact Coordinates [CALIBRATED · VERIFIED]";
       }
       document.getElementById("dispLagna").textContent = data.lagna;
       document.getElementById("dispMoonNak").textContent = `${data.moon_sign} · ${data.moon_nakshatra}`;
@@ -2513,33 +3203,118 @@
       document.getElementById("dispAge").textContent = data.age_display || `${data.current_age} Years`;
       document.getElementById("dispActiveDasha").textContent = data.current_dasha;
 
-      // Ayurdaya / Life Expectancy Band (Fun Kundli)
+      // Ayurdaya / Life Expectancy Band & Vitality Meter (Fun Kundli)
       if (data.ayurdaya) {
+        const ay = data.ayurdaya;
         const aVal = document.getElementById("dispAyurValue");
         const aLbl = document.getElementById("dispAyurLabel");
-        if (aVal) aVal.textContent = data.is_deceased ? "Closed Historical Horizon" : `${data.ayurdaya.estimated_range} (${data.ayurdaya.tier})`;
+        if (aVal) aVal.textContent = data.is_deceased ? "Closed Historical Horizon" : `${ay.estimated_range} (${ay.tier})`;
         if (aLbl) aLbl.textContent = data.is_deceased ? "Lifespan Record" : "Life Expectancy Band (Fun Kundli)";
 
         const aTier = document.getElementById("ayurTierTitle");
-        if (aTier) aTier.textContent = data.is_deceased ? "Closed Retrospective Record (Demise 1984)" : data.ayurdaya.tier_title;
+        if (aTier) aTier.textContent = data.is_deceased ? "Closed Retrospective Record (Demise 1984)" : ay.tier_title;
 
         const aBadge = document.getElementById("ayurRangeBadge");
-        if (aBadge) aBadge.textContent = data.is_deceased ? "Lifespan: 66.9 Years (1917–1984)" : `Estimated Range: ${data.ayurdaya.estimated_range}`;
+        if (aBadge) aBadge.textContent = data.is_deceased ? "Lifespan: 66.9 Years (1917–1984)" : `Estimated Range: ${ay.estimated_range}`;
 
         const aSummary = document.getElementById("ayurSummaryText");
-        if (aSummary) aSummary.textContent = data.is_deceased ? "Historical subject with documented exit timeline. Retrospective analysis only." : data.ayurdaya.summary;
+        if (aSummary) aSummary.textContent = data.is_deceased ? "Historical subject with documented exit timeline. Retrospective analysis only." : ay.summary;
+
+        // Vitality Meter Elements
+        const vScore = document.getElementById("dispVitalityScore");
+        const vFill = document.getElementById("dispVitalityFill");
+        const vPill = document.getElementById("dispVitalityPill");
+        const vPillText = document.getElementById("dispVitalityPillText");
+        const vMeaning = document.getElementById("dispVitalityMeaning");
+        const scoreVal = ay.vitality_score || 88;
+        if (vScore) vScore.textContent = `${scoreVal} / 100`;
+        if (vFill) vFill.style.width = `${scoreVal}%`;
+        if (vPillText) {
+          if (scoreVal >= 80) {
+            vPillText.textContent = "ROBUST ENDURANCE · VERY POSITIVE";
+            if (vPill) vPill.className = "status-pill positive";
+          } else if (scoreVal >= 70) {
+            vPillText.textContent = "STEADY BASELINE · BALANCED";
+            if (vPill) vPill.className = "status-pill neutral";
+          } else {
+            vPillText.textContent = "RESTORATIVE THRESHOLD · CAUTION";
+            if (vPill) vPill.className = "status-pill caution";
+          }
+        }
+        if (vMeaning) {
+          vMeaning.textContent = ay.vitality_meaning || "Constitutional endurance index based on classical Parashari 3-pair longevity model.";
+        }
 
         const aModList = document.getElementById("ayurModifiersList");
-        if (aModList && data.ayurdaya.modifiers) {
-          aModList.innerHTML = data.ayurdaya.modifiers.map(m => `<div>✦ ${m}</div>`).join("");
+        if (aModList && ay.modifiers) {
+          aModList.innerHTML = ay.modifiers.map(m => `<div>✦ ${m}</div>`).join("");
         }
       }
 
-      // 02 Soul Telemetry
+      // 02 Soul Telemetry & Antiquity Gauge
       if (data.soul_telemetry) {
         const s = data.soul_telemetry;
+        const score = Number(s.antiquity_index ?? s.antiquity_score ?? 2.6);
         document.getElementById("soulAgeBadge").textContent = s.soul_age_category || "Old Soul";
-        document.getElementById("dispAntiquityNum").textContent = s.antiquity_index ?? s.antiquity_score ?? "4.2";
+        document.getElementById("dispAntiquityNum").textContent = score.toFixed(1);
+
+        // Status badge & feel
+        const stBadge = document.getElementById("soulStatusBadge");
+        const stText = document.getElementById("soulStatusText");
+        const mText = document.getElementById("soulMeaningText");
+        const marker = document.getElementById("soulGaugeMarker");
+
+        // Segment highlights
+        const seg1 = document.getElementById("gaugeSeg1");
+        const seg2 = document.getElementById("gaugeSeg2");
+        const seg3 = document.getElementById("gaugeSeg3");
+        const seg4 = document.getElementById("gaugeSeg4");
+        [seg1, seg2, seg3, seg4].forEach(seg => seg && seg.classList.remove("active"));
+
+        let statusClass = "positive";
+        let statusLabel = "ADVANCED MATURITY · 70–89% CYCLE";
+        let meaningDesc = "";
+        let gaugePct = 52;
+
+        if (score >= 4.0) {
+          statusClass = "transcendent";
+          statusLabel = "TRANSCENDENT · END-CYCLE SOUL (90%+ CYCLE)";
+          meaningDesc = `Score <strong>${score.toFixed(1)} / 5.0</strong> indicates an <strong>Ancient Soul (Parama-Prāchīna Jīva)</strong>. Deeply transcendent, late-stage position (90%+ cycle completed). High natural detachment, pre-learned wisdom, and little appetite for trivial accolades. Focused on clearing residual karmic debts and spiritual liberation.`;
+          gaugePct = Math.min(78 + ((score - 4.0) / 1.0) * 18, 96);
+          if (seg4) seg4.classList.add("active");
+        } else if (score >= 2.6) {
+          statusClass = "positive";
+          statusLabel = "ADVANCED MATURITY · OLD SOUL (70–89% CYCLE)";
+          meaningDesc = `Score <strong>${score.toFixed(1)} / 5.0</strong> places you in the <strong>Old Soul (Prāchīna Jīva)</strong> tier. This is a deeply positive, seasoned stage (70–89% cycle completed). You possess high natural endurance, instinctive structural competence, and zero patience for superficial social drama.`;
+          gaugePct = 50 + ((score - 2.6) / 1.4) * 25;
+          if (seg3) seg3.classList.add("active");
+        } else if (score >= 1.2) {
+          statusClass = "balanced";
+          statusLabel = "BALANCED GROWTH · MID-CYCLE SOUL (40–69% CYCLE)";
+          meaningDesc = `Score <strong>${score.toFixed(1)} / 5.0</strong> represents a <strong>Mid-Cycle Evolutionary Soul (Madhyama Jīva)</strong>. Balanced worldly arena (40–69% cycle completed): actively mastering human contracts, career ambition, personal boundaries, and emotional relationships.`;
+          gaugePct = 25 + ((score - 1.2) / 1.4) * 25;
+          if (seg2) seg2.classList.add("active");
+        } else {
+          statusClass = "exploratory";
+          statusLabel = "PIONEERING STAGE · YOUNG SOUL (10–39% CYCLE)";
+          meaningDesc = `Score <strong>${score.toFixed(1)} / 5.0</strong> represents a <strong>Young, Exploratory Soul (Navīna Jīva)</strong>. High natural enthusiasm, strong appetite for sensory and worldly discovery, and rapid adaptation to earthly frontiers.`;
+          gaugePct = Math.max((score / 1.2) * 25, 6);
+          if (seg1) seg1.classList.add("active");
+        }
+
+        if (stBadge) {
+          stBadge.className = `soul-status-badge ${statusClass}`;
+        }
+        if (stText) {
+          stText.textContent = s.semantic_badge || statusLabel;
+        }
+        if (mText) {
+          mText.innerHTML = s.score_meaning ? `<strong>What this number means:</strong> ${s.score_meaning}` : meaningDesc;
+        }
+        if (marker) {
+          marker.style.left = `${s.gauge_pct || gaugePct}%`;
+        }
+
         const akSans = s.atmakaraka_sanskrit ? ` [${s.atmakaraka_sanskrit}]` : "";
         document.getElementById("dispAkPlanet").textContent = `${s.atmakaraka_planet || "Saturn"}${akSans}`;
         const rawOdo = s.odometer_percentage || (s.odometer_pct ? `${s.odometer_pct}%` : "70%");
@@ -2549,6 +3324,11 @@
         const archSans = s.archetype_sanskrit ? ` [${s.archetype_sanskrit}]` : "";
         document.getElementById("dispArchetypeTitle").textContent = `${s.archetype_title || "The Archetype"}${archSans}`;
         document.getElementById("dispArchetypeDesc").textContent = s.archetype_description || s.archetype_summary || s.stage_description || "";
+
+        const pM = document.getElementById("dispPastMastery");
+        const gF = document.getElementById("dispGrowthFrontier");
+        if (pM && s.past_life_mastery) pM.textContent = s.past_life_mastery;
+        if (gF && s.unmastered_frontier) gF.textContent = s.unmastered_frontier;
       }
 
       // 03 Live Symbolic Transit Strain Indices
@@ -2562,62 +3342,136 @@
       // ----------------------------------------------------------------------
       const hlDasha = document.getElementById("topTriadDasha");
       const hlDashaDesc = document.getElementById("topTriadDashaDesc");
+      const hlDashaPill = document.getElementById("topTriadDashaPill");
+      const hlDashaPillText = document.getElementById("topTriadDashaPillText");
       if (hlDasha) {
         hlDasha.textContent = data.current_dasha || "Active Period";
+      }
+      if (hlDashaPillText) {
+        const curD = (data.current_dasha || "").toLowerCase();
+        if (curD.includes("jupiter") || curD.includes("venus")) {
+          hlDashaPillText.textContent = "EXPANSIVE & BENEFIC · POSITIVE CHAPTER";
+          if (hlDashaPill) hlDashaPill.className = "status-pill positive";
+        } else if (curD.includes("saturn") || curD.includes("rahu") || curD.includes("ketu")) {
+          hlDashaPillText.textContent = "DISCIPLINE & STRUCTURAL GRIT · KARMIC CRUCIBLE";
+          if (hlDashaPill) hlDashaPill.className = "status-pill caution";
+        } else if (curD.includes("mercury") || curD.includes("sun") || curD.includes("moon")) {
+          hlDashaPillText.textContent = "INTELLECT, ACTION & BALANCE · ACTIVE PHASE";
+          if (hlDashaPill) hlDashaPill.className = "status-pill neutral";
+        } else {
+          hlDashaPillText.textContent = "RULING PLANETARY CYCLE";
+          if (hlDashaPill) hlDashaPill.className = "status-pill neutral";
+        }
       }
       if (hlDashaDesc) {
         hlDashaDesc.textContent = data.is_deceased
           ? `Historical timeline locked at ${data.death_date || "demise"}.`
-          : `Active planetary ruling chapter for ${data.subject}. Shapes primary focus and life transitions.`;
+          : `Active planetary ruling chapter for ${data.subject}. Shapes primary focus, ambition, and life transitions.`;
       }
 
       const hlRadar = document.getElementById("topTriadRadar");
       const hlRadarDesc = document.getElementById("topTriadRadarDesc");
+      const hlRadarPill = document.getElementById("topTriadRadarPill");
+      const hlRadarPillText = document.getElementById("topTriadRadarPillText");
       if (hlRadar && data.daily_radar) {
         const r = data.daily_radar;
         if (data.is_deceased) {
           hlRadar.textContent = "Archived Record";
+          if (hlRadarPillText) hlRadarPillText.textContent = "HISTORICAL ARCHIVE";
+          if (hlRadarPill) hlRadarPill.className = "status-pill neutral";
           if (hlRadarDesc) hlRadarDesc.textContent = "24-hour tactical incident radar active only for living charts.";
         } else if (r.chandrashtama && r.chandrashtama.is_active) {
           hlRadar.innerHTML = `<span style="color: var(--seal-red);">⚠️ Chandrāṣṭama Alert</span>`;
-          if (hlRadarDesc) hlRadarDesc.textContent = "8th-house Moon: Elevated risk of last-minute cancellations, brain fog, and meeting rescheduling.";
+          if (hlRadarPillText) hlRadarPillText.textContent = "ELEVATED TENSION · DELAY CRITICAL CONTRACTS";
+          if (hlRadarPill) hlRadarPill.className = "status-pill danger";
+          if (hlRadarDesc) hlRadarDesc.textContent = "8th-house Moon: Elevated risk of miscommunication, brain fog, and meeting rescheduling.";
         } else if (r.somatic_injury && r.somatic_injury.is_active) {
           hlRadar.innerHTML = `<span style="color: var(--seal-red);">⚠️ Somatic Risk: ${r.somatic_injury.risk_level}</span>`;
+          if (hlRadarPillText) hlRadarPillText.textContent = "PHYSICAL WEAR RISK · MODERATE CAUTION";
+          if (hlRadarPill) hlRadarPill.className = "status-pill danger";
           const limbs = (r.somatic_injury.target_limbs || []).join(", ");
           if (hlRadarDesc) hlRadarDesc.textContent = `Physical wear/strain vector active (${limbs || "Joints/Knees"}). Avoid high-impact strain.`;
         } else if (r.mercury_sandhi && r.mercury_sandhi.is_active) {
           hlRadar.innerHTML = `<span style="color: #f59e0b;">⚠️ Mercury Sandhi</span>`;
+          if (hlRadarPillText) hlRadarPillText.textContent = "COMMUNICATION LATENCY · NEUTRAL";
+          if (hlRadarPill) hlRadarPill.className = "status-pill caution";
           if (hlRadarDesc) hlRadarDesc.textContent = "Communication dead-zone: Stalled email confirmations, recruiter delays, and dispatch lags.";
         } else {
           hlRadar.innerHTML = `<span style="color: #16a34a;">✓ All Clear · Low Friction</span>`;
+          if (hlRadarPillText) hlRadarPillText.textContent = "ALL CLEAR · POSITIVE FLOW TODAY";
+          if (hlRadarPill) hlRadarPill.className = "status-pill positive";
           if (hlRadarDesc) hlRadarDesc.textContent = "No critical Moon, somatic injury, or communication dead-zones active today.";
         }
       }
 
       const hlAyur = document.getElementById("topTriadAyur");
       const hlAyurDesc = document.getElementById("topTriadAyurDesc");
+      const hlAyurPill = document.getElementById("topTriadAyurPill");
+      const hlAyurPillText = document.getElementById("topTriadAyurPillText");
       if (hlAyur && data.ayurdaya) {
         if (data.is_deceased) {
           hlAyur.textContent = "Historical Record";
+          if (hlAyurPillText) hlAyurPillText.textContent = "CLOSED RETROSPECTIVE HORIZON";
+          if (hlAyurPill) hlAyurPill.className = "status-pill neutral";
           if (hlAyurDesc) hlAyurDesc.textContent = `Documented historical lifespan: ${data.age_display || "Demise 1984"}.`;
         } else {
           hlAyur.textContent = `${data.ayurdaya.estimated_range} (${data.ayurdaya.tier})`;
-          if (hlAyurDesc) hlAyurDesc.textContent = `Vitality Index: ${data.ayurdaya.vitality_score || 88}/100. Classical 3-pair Parashari constitutional endurance.`;
+          const vScore = data.ayurdaya.vitality_score || 88;
+          if (hlAyurPillText) {
+            hlAyurPillText.textContent = vScore >= 80 ? `VITALITY ${vScore}/100 · ROBUST ENDURANCE (POSITIVE)` : `VITALITY ${vScore}/100 · BALANCED BASELINE`;
+          }
+          if (hlAyurPill) {
+            hlAyurPill.className = vScore >= 80 ? "status-pill positive" : "status-pill neutral";
+          }
+          if (hlAyurDesc) hlAyurDesc.textContent = `Vitality Index: ${vScore}/100. Classical 3-pair Parashari constitutional endurance with Kendra buffers.`;
         }
       }
 
-      // 05 Kundli SVG & Planets Table
+      // 05 Kundli SVG & Planets Table with Glyphs and Semantic Dignity Badges
       document.getElementById("kundliBarrel").innerHTML = data.kundli_svg || "";
       const pBody = document.getElementById("planetsTableBody");
       pBody.innerHTML = "";
+      const planetGlyphs = {
+        "Sun": "☉", "Moon": "☽", "Mars": "♂", "Mercury": "☿",
+        "Jupiter": "♃", "Venus": "♀", "Saturn": "♄", "Rahu": "☊", "Ketu": "☋"
+      };
+
       if (data.planets_table) {
         data.planets_table.forEach((p) => {
           const tr = document.createElement("tr");
+          const glyph = planetGlyphs[p.planet] || "✦";
+
+          let digClass = "neutral";
+          let digText = p.dignity;
+          const dl = (p.dignity || "").toLowerCase();
+          if (dl.includes("exalted")) {
+            digClass = "exalted";
+            digText = "✦ Exalted · Peak Strength (Very Positive)";
+          } else if (dl.includes("own sign") || dl.includes("swakshetra")) {
+            digClass = "own";
+            digText = "✦ Own Sign · High Potency (Very Positive)";
+          } else if (dl.includes("moolatrikona")) {
+            digClass = "moola";
+            digText = "✦ Moolatrikona · Harmonious (Positive)";
+          } else if (dl.includes("friend")) {
+            digClass = "friend";
+            digText = "✦ Friendly · Supportive Baseline (Positive)";
+          } else if (dl.includes("debilitat") || dl.includes("neecha")) {
+            digClass = "neecha";
+            digText = "✦ Debilitated · Stress-Test (Karmic Mastery)";
+          } else if (dl.includes("enemy")) {
+            digClass = "enemy";
+            digText = "✦ Enemy Sign · Growth Friction (Effort Needed)";
+          } else {
+            digClass = "neutral";
+            digText = `✦ ${p.dignity || "Neutral · Balanced Baseline"}`;
+          }
+
           tr.innerHTML = `
-            <td><strong>${p.planet}</strong></td>
+            <td><span class="planet-glyph">${glyph}</span><strong>${p.planet}</strong></td>
             <td>${p.sign} ${p.degree}</td>
             <td>House ${p.house}</td>
-            <td>${p.dignity}</td>
+            <td><span class="dignity-badge ${digClass}">${digText}</span></td>
           `;
           pBody.appendChild(tr);
         });

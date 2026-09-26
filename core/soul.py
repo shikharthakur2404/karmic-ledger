@@ -123,27 +123,72 @@ def evaluate_soul_telemetry(natal: dict[str, Any]) -> dict[str, Any]:
     elif moon_nak in GENESIS_NAKSHATRAS:
         score -= 0.3
 
-    # 3. Categorize Soul Age
+    # 3. Categorize Soul Age & Evolutionary Cycle
     if score >= 4.0:
         age_category = "Ancient / End-Cycle Soul"
         sanskrit_cat = "परम-प्राचीन जीव (Parama-Prāchīna Jīva)"
         maturity_level = "Late Stage (90%+ Cycle Completion)"
-        description = "This soul has traversed numerous incarnations across eons. It enters this life with innate detachment, unlearned mastery, and little desire for trivial worldly accolades. The focus of this incarnation is burning final residual debts (Nirjara) and preparing for liberation."
+        semantic_feel = "TRANSCENDENT"
+        semantic_badge = "Transcendent · End-Cycle Soul (90%+ Cycle)"
+        score_meaning = (
+            "Score "
+            f"{round(score, 1)} / 5.0 indicates an Ancient, End-Cycle Soul (90%+ cycle completed). "
+            "Innate detachment, unlearned mastery, and little desire for trivial accolades. "
+            "Focus is burning residual debts (Nirjara) and preparing for liberation."
+        )
+        description = (
+            "This soul has traversed numerous incarnations across eons. It enters this life with innate "
+            "detachment, unlearned mastery, and little desire for trivial worldly accolades. The focus "
+            "of this incarnation is burning final residual debts (Nirjara) and preparing for liberation."
+        )
     elif score >= 2.6:
         age_category = "Old Soul"
         sanskrit_cat = "प्राचीन जीव (Prāchīna Jīva)"
         maturity_level = "Advanced Maturity (70–89% Cycle Completion)"
-        description = "A seasoned, duty-bound soul that has built systems and held heavy responsibilities in prior cycles. It possesses high natural endurance, low patience for superficial social games, and an innate instinct for structural order."
+        semantic_feel = "POSITIVE"
+        semantic_badge = "Advanced Maturity · Old Soul (70–89% Cycle)"
+        score_meaning = (
+            "Score "
+            f"{round(score, 1)} / 5.0 places you in the Old Soul tier (70–89% cycle completed). "
+            "This is a deeply positive, grounded position. You possess high natural endurance, "
+            "instinct for structural order, and zero patience for superficial social drama."
+        )
+        description = (
+            "A seasoned, duty-bound soul that has built systems and held heavy responsibilities in prior cycles. "
+            "It possesses high natural endurance, low patience for superficial social games, and an innate "
+            "instinct for structural order."
+        )
     elif score >= 1.2:
         age_category = "Mid-Cycle Evolutionary Soul"
         sanskrit_cat = "मध्यम जीव (Madhyama Jīva)"
         maturity_level = "Intermediate Evolution (40–69% Cycle Completion)"
-        description = "This soul is actively navigating the complex human arena of desire, power, boundary-setting, and emotional relationships. It is neither a detached ascetic nor an earthly novice; it is mastering foundational relational and social contracts."
+        semantic_feel = "BALANCED"
+        semantic_badge = "Balanced Growth · Mid-Cycle Soul (40–69% Cycle)"
+        score_meaning = (
+            "Score "
+            f"{round(score, 1)} / 5.0 represents a Mid-Cycle Evolutionary Soul (40–69% cycle completed). "
+            "Active worldly balance: navigating desires, career ambition, boundary-setting, and human relationships."
+        )
+        description = (
+            "This soul is actively navigating the complex human arena of desire, power, boundary-setting, "
+            "and emotional relationships. It is neither a detached ascetic nor an earthly novice; it is "
+            "mastering foundational relational and social contracts."
+        )
     else:
         age_category = "Young / Exploratory Soul"
         sanskrit_cat = "नवीन जीव (Navīna Jīva)"
         maturity_level = "Pioneering Stage (10–39% Cycle Completion)"
-        description = "A fresh, enthusiastic soul eager for worldly experience, material conquest, sensory delights, and new emotional frontiers. High vitality, curiosity, and rapid adaptation to physical plane realities."
+        semantic_feel = "EXPLORATORY"
+        semantic_badge = "Pioneering Stage · Young Soul (10–39% Cycle)"
+        score_meaning = (
+            "Score "
+            f"{round(score, 1)} / 5.0 represents a Young, Exploratory Soul (10–39% cycle completed). "
+            "High vitality, enthusiasm for worldly experiences, rapid adaptation, and fresh material curiosity."
+        )
+        description = (
+            "A fresh, enthusiastic soul eager for worldly experience, material conquest, sensory delights, "
+            "and new emotional frontiers. High vitality, curiosity, and rapid adaptation to physical plane realities."
+        )
 
     # 4. Refine Archetype for Special Conditions (e.g. Debilitated AK)
     base_arch = ARCHETYPE_MAP.get(ak_planet, ARCHETYPE_MAP["Saturn"])
@@ -166,14 +211,19 @@ def evaluate_soul_telemetry(natal: dict[str, Any]) -> dict[str, Any]:
 
     # Calculate percentage into 30-degree cycle
     odometer_pct = round((ak_deg / 30.0) * 100, 1)
+    gauge_pct = min(max(round((score / 5.0) * 100, 1), 4.0), 98.0)
 
     return {
         "soul_age_category": age_category,
         "sanskrit_category": sanskrit_cat,
         "maturity_level": maturity_level,
+        "semantic_feel": semantic_feel,
+        "semantic_badge": semantic_badge,
+        "score_meaning": score_meaning,
         "stage_description": description,
         "antiquity_score": round(score, 1),
         "antiquity_index": round(score, 1),
+        "gauge_pct": gauge_pct,
         "atmakaraka_planet": ak_planet,
         "atmakaraka_sanskrit": PLANET_SANSKRIT.get(ak_planet, ak_planet),
         "atmakaraka_degree": f"{ak_deg:.2f}°",
@@ -186,6 +236,6 @@ def evaluate_soul_telemetry(natal: dict[str, Any]) -> dict[str, Any]:
         "archetype_summary": archetype_summary,
         "archetype_description": archetype_summary,
         "core_lesson": archetype_lesson,
-        "past_life_mastery": f"House {ketu_house} ({ketu_sign}) • Instinctual mastery, detachment, and pre-learned wisdom.",
-        "unmastered_frontier": f"House {rahu_house} ({rahu_sign}) • Active growth edge and unspent earthly appetite.",
+        "past_life_mastery": f"House {ketu_house} ({ketu_sign}) • Instinctual mastery, emotional detachment, and pre-learned wisdom.",
+        "unmastered_frontier": f"House {rahu_house} ({rahu_sign}) • Active growth edge, worldly impact, and unspent appetite.",
     }

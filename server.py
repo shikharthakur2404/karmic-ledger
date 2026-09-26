@@ -13,6 +13,7 @@ from pydantic import BaseModel, field_validator
 from core.ayurdaya import compute_ayurdaya_telemetry
 from core.confluence import evaluate_event_confluence
 from core.consent import is_historical_benchmark_subject
+from core.daily import compute_daily_incident_radar
 from core.dasha import compute_vimshottari_timeline, get_active_dasha_at_date
 from core.ephemeris import compute_natal_chart
 from core.frictions import audit_live_frictions
@@ -454,6 +455,14 @@ def run_chart_pipeline(data: ChartRequest) -> dict[str, Any]:
         frictions["active_strain_indices"] = []
         frictions["threat_vectors"] = []
 
+    # 11. Daily Somatic & Micro-Incident Telemetry Radar
+    daily_radar = compute_daily_incident_radar(natal, datetime.utcnow())
+
+    if is_deceased:
+        daily_radar["overall_status"] = "HISTORICAL_ARCHIVE_LOCKED"
+        daily_radar["overall_status_label"] = "Historical Subject — Radar Archived"
+        daily_radar["active_vector_count"] = 0
+
     remedies_list = (
         remedies.get("items", remedies) if isinstance(remedies, dict) else remedies
     )
@@ -490,6 +499,7 @@ def run_chart_pipeline(data: ChartRequest) -> dict[str, Any]:
         "domain_mantras": DOMAIN_MANTRAS,
         "soul_telemetry": soul_telemetry,
         "frictions": frictions,
+        "daily_radar": daily_radar,
         "ayurdaya": compute_ayurdaya_telemetry(natal),
     }
 
@@ -628,6 +638,7 @@ async def websocket_telemetry(websocket: WebSocket, name: str):
                 age_years = (current_dt - birth_dt).days / 365.25
                 transits = get_planet_transit_positions(current_dt)
                 frictions = audit_live_frictions(natal, timeline, current_dt)
+                daily_radar = compute_daily_incident_radar(natal, current_dt)
 
                 payload = {
                     "timestamp": current_dt.strftime("%Y-%m-%d %H:%M:%S UTC"),
@@ -635,6 +646,7 @@ async def websocket_telemetry(websocket: WebSocket, name: str):
                     "current_dasha": f"{current_dasha.get('mahadasha')} - {current_dasha.get('antardasha')}",
                     "transits": {p: transits[p]["formatted"] for p in transits},
                     "frictions": frictions,
+                    "daily_radar": daily_radar,
                 }
                 await websocket.send_json(payload)
                 await asyncio.sleep(60.0)

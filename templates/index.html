@@ -642,6 +642,125 @@
     }
 
     /* --------------------------------------------------------------------------
+       SECTOR 02B: DAILY TACTICAL INCIDENT & SOMATIC RADAR
+       -------------------------------------------------------------------------- */
+    .daily-radar-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .radar-vector-card {
+      padding: 16px 18px;
+      border: var(--ink-border);
+      background: var(--zen-card);
+      border-left: 3px solid var(--ink-faint);
+      position: relative;
+    }
+
+    .radar-vector-card.active {
+      border-left-color: #d4880f;
+      background: linear-gradient(135deg, var(--zen-card) 0%, rgba(212, 136, 15, 0.04) 100%);
+    }
+
+    .radar-vector-card.clear {
+      border-left-color: #2e7d32;
+    }
+
+    .radar-vector-card.elevated {
+      border-left-color: var(--seal-red);
+      background: linear-gradient(135deg, var(--zen-card) 0%, rgba(185, 43, 39, 0.04) 100%);
+    }
+
+    @keyframes radar-pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.55; }
+    }
+
+    .radar-pulse-amber {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #d4880f;
+      animation: radar-pulse 1.6s ease-in-out infinite;
+      margin-right: 6px;
+      vertical-align: middle;
+    }
+
+    .radar-pulse-green {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #2e7d32;
+      margin-right: 6px;
+      vertical-align: middle;
+    }
+
+    .radar-pulse-red {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--seal-red);
+      animation: radar-pulse 1.1s ease-in-out infinite;
+      margin-right: 6px;
+      vertical-align: middle;
+    }
+
+    .radar-label {
+      font-family: var(--font-sans);
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--ink-muted);
+      margin-bottom: 6px;
+    }
+
+    .radar-status-text {
+      font-family: var(--font-title);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink-black);
+      margin-bottom: 4px;
+    }
+
+    .radar-detail {
+      font-family: var(--font-body);
+      font-size: 12.5px;
+      color: var(--ink-muted);
+      line-height: 1.55;
+    }
+
+    .radar-tactical-box {
+      margin-top: 18px;
+      padding: 14px 18px;
+      border: var(--ink-border);
+      border-left: 3px solid #d4880f;
+      background: var(--zen-paper-subtle);
+    }
+
+    .radar-tactical-title {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #d4880f;
+      margin-bottom: 8px;
+    }
+
+    .radar-tactical-text {
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: var(--ink-charcoal);
+      line-height: 1.6;
+    }
+
+    /* --------------------------------------------------------------------------
        SECTOR 04: ADVERSARIAL SENSITIVITY BATTERY
        -------------------------------------------------------------------------- */
     .zen-table-wrap {
@@ -1555,6 +1674,50 @@
       </div>
     </section>
 
+    <!-- SECTOR 02B: DAILY TACTICAL INCIDENT & SOMATIC RADAR -->
+    <section class="zen-sector" id="dailyRadarSection" style="display: none;">
+      <div class="zen-sector-header">
+        <div class="zen-sector-title-row">
+          <span class="zen-sector-num">02b</span>
+          <h2 class="zen-sector-name">Today's Tactical Incident & Somatic Radar</h2>
+        </div>
+        <div class="zen-badge" id="dailyRadarStatusBadge">Scanning...</div>
+      </div>
+
+      <div style="font-size: 12.5px; color: var(--ink-muted); margin-bottom: 16px; line-height: 1.55; padding: 10px 14px; border-left: 2px solid var(--ink-faint); background: var(--zen-paper-subtle);">
+        <strong>Epistemic Notice:</strong> This radar computes real-time planetary tension indices as symbolic archetypal patterns — not medical diagnoses, event predictions, or bureaucratic assertions. Treat as reflective timing intelligence.
+      </div>
+
+      <div class="daily-radar-grid" id="radarGrid">
+        <!-- Chandrāṣṭama Card -->
+        <div class="radar-vector-card" id="radarChandrashtama">
+          <div class="radar-label">Chandrāṣṭama (8th-House Disruption Index)</div>
+          <div class="radar-status-text" id="radarChandraStatus">Scanning...</div>
+          <div class="radar-detail" id="radarChandraDetail"></div>
+        </div>
+
+        <!-- Somatic Injury Card -->
+        <div class="radar-vector-card" id="radarSomatic">
+          <div class="radar-label">Somatic Impact Index</div>
+          <div class="radar-status-text" id="radarSomaticStatus">Scanning...</div>
+          <div class="radar-detail" id="radarSomaticDetail"></div>
+        </div>
+
+        <!-- Mercury Sandhi Card -->
+        <div class="radar-vector-card" id="radarMercury">
+          <div class="radar-label">Communication Fluidity (Mercury)</div>
+          <div class="radar-status-text" id="radarMercuryStatus">Scanning...</div>
+          <div class="radar-detail" id="radarMercuryDetail"></div>
+        </div>
+      </div>
+
+      <!-- Tactical Advice Box -->
+      <div class="radar-tactical-box" id="radarTacticalBox" style="display: none;">
+        <div class="radar-tactical-title">Next 24–48 Hour Tactical Guidance</div>
+        <div class="radar-tactical-text" id="radarTacticalText"></div>
+      </div>
+    </section>
+
     <!-- SECTOR 03: CURRENT PRESSURES & TIMING -->
     <section class="zen-sector" id="stoppageConsole">
       <div class="zen-sector-header">
@@ -1951,6 +2114,87 @@
       }
     }
 
+    function renderDailyRadar(radar) {
+      const section = document.getElementById("dailyRadarSection");
+      const statusBadge = document.getElementById("dailyRadarStatusBadge");
+      if (!section || !radar) return;
+
+      section.style.display = "block";
+
+      const overallMap = {
+        "HIGH_VAR": { text: "HIGH VARIANCE — Multiple Vectors", cls: "zen-badge accent" },
+        "ELEVATED": { text: "ELEVATED — Dual Vector", cls: "zen-badge accent" },
+        "SINGLE_ACTIVE": { text: "SINGLE VECTOR ACTIVE", cls: "zen-badge" },
+        "CLEAR": { text: "ALL CLEAR", cls: "zen-badge" },
+        "HISTORICAL_ARCHIVE_LOCKED": { text: "ARCHIVED", cls: "zen-badge" },
+      };
+      const ov = overallMap[radar.overall_status] || overallMap["CLEAR"];
+      statusBadge.textContent = ov.text;
+      statusBadge.className = ov.cls;
+
+      // Chandrāṣṭama
+      const chCard = document.getElementById("radarChandrashtama");
+      const chStatus = document.getElementById("radarChandraStatus");
+      const chDetail = document.getElementById("radarChandraDetail");
+      if (chCard && radar.chandrashtama) {
+        const ch = radar.chandrashtama;
+        chCard.className = ch.is_active ? "radar-vector-card active" : "radar-vector-card clear";
+        chStatus.innerHTML = ch.is_active
+          ? `<span class="radar-pulse-amber"></span>CHANDRĀṢṬAMA ACTIVE`
+          : `<span class="radar-pulse-green"></span>CHANDRĀṢṬAMA CLEAR`;
+        chDetail.textContent = ch.is_active
+          ? ch.alert
+          : `Transit Moon in ${ch.transit_moon_sign} (House ${ch.house_from_moon} from natal Moon). Nakshatra: ${ch.transit_moon_nakshatra}. No 8th-house disruption active.`;
+      }
+
+      // Somatic Injury
+      const sCard = document.getElementById("radarSomatic");
+      const sStatus = document.getElementById("radarSomaticStatus");
+      const sDetail = document.getElementById("radarSomaticDetail");
+      if (sCard && radar.somatic_injury) {
+        const si = radar.somatic_injury;
+        const levelCls = si.risk_level === "Elevated" ? "elevated" : (si.is_active ? "active" : "clear");
+        sCard.className = `radar-vector-card ${levelCls}`;
+        const pulseCls = si.risk_level === "Elevated" ? "radar-pulse-red" : (si.is_active ? "radar-pulse-amber" : "radar-pulse-green");
+        sStatus.innerHTML = si.is_active
+          ? `<span class="${pulseCls}"></span>SOMATIC IMPACT: ${si.risk_level.toUpperCase()}`
+          : `<span class="radar-pulse-green"></span>SOMATIC IMPACT: LOW`;
+        const limbStr = si.target_limbs && si.target_limbs.length > 0 ? ` — Target vectors: ${si.target_limbs.join(", ")}` : "";
+        sDetail.textContent = si.is_active
+          ? `Lagnesha ${si.lagnesha} in House ${si.lagnesha_transit_house} (${si.lagnesha_transit}). Risk: ${si.risk_level}${limbStr}.`
+          : `Lagnesha ${si.lagnesha} transiting House ${si.lagnesha_transit_house} (${si.lagnesha_transit}). No somatic tension active.`;
+      }
+
+      // Mercury Sandhi
+      const mCard = document.getElementById("radarMercury");
+      const mStatus = document.getElementById("radarMercuryStatus");
+      const mDetail = document.getElementById("radarMercuryDetail");
+      if (mCard && radar.mercury_sandhi) {
+        const ms = radar.mercury_sandhi;
+        mCard.className = ms.is_active ? "radar-vector-card active" : "radar-vector-card clear";
+        mStatus.innerHTML = ms.is_active
+          ? `<span class="radar-pulse-amber"></span>COMMUNICATION: SANDHI STALLED`
+          : `<span class="radar-pulse-green"></span>COMMUNICATION: FLUID`;
+        mDetail.textContent = ms.is_active
+          ? ms.alert
+          : `Mercury at ${ms.mercury_formatted} — Communication channels open. ${ms.mercury_degree_in_sign.toFixed(2)}° into ${ms.mercury_sign}.`;
+      }
+
+      // Tactical Advice
+      const tacBox = document.getElementById("radarTacticalBox");
+      const tacText = document.getElementById("radarTacticalText");
+      if (tacBox && tacText) {
+        const advice = radar.tactical_advice || [];
+        if (advice.length > 0) {
+          tacBox.style.display = "block";
+          tacText.innerHTML = advice.map(a => `<div style="margin-bottom: 8px;">✦ ${a}</div>`).join("");
+        } else {
+          tacBox.style.display = "block";
+          tacText.textContent = "No elevated tactical guidance required for the current 24–48 hour window. Standard timing awareness applies.";
+        }
+      }
+    }
+
     function initLiveTelemetry(name) {
       if (liveSocket) liveSocket.close();
       if (cosmeticTickerInterval) clearInterval(cosmeticTickerInterval);
@@ -1999,6 +2243,7 @@
         if (dispActiveDasha) dispActiveDasha.textContent = payload.current_dasha;
 
         renderStoppageConsole(payload.frictions);
+        renderDailyRadar(payload.daily_radar);
 
         const ticker = document.getElementById("liveEphemerisTicker");
         if (ticker && payload.transits) {
@@ -2080,6 +2325,9 @@
 
       // 03 Live Symbolic Transit Strain Indices
       renderStoppageConsole(data.frictions);
+
+      // 02b Daily Tactical Incident & Somatic Radar
+      renderDailyRadar(data.daily_radar);
 
       // 05 Kundli SVG & Planets Table
       document.getElementById("kundliBarrel").innerHTML = data.kundli_svg || "";

@@ -1405,6 +1405,52 @@
       margin-top: 6px;
       cursor: pointer;
     }
+
+    .city-autocomplete-wrapper {
+      position: relative;
+      width: 100%;
+    }
+
+    .city-dropdown-menu {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      right: 0;
+      background: var(--zen-bg);
+      border: var(--ink-border);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+      z-index: 10005;
+      max-height: 220px;
+      overflow-y: auto;
+      border-radius: 2px;
+    }
+
+    .city-dropdown-item {
+      padding: 10px 14px;
+      font-size: 13px;
+      color: var(--zen-charcoal);
+      cursor: pointer;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.15s ease;
+    }
+
+    .city-dropdown-item:last-child {
+      border-bottom: none;
+    }
+
+    .city-dropdown-item:hover, .city-dropdown-item.active {
+      background: var(--zen-paper-subtle);
+      color: var(--seal-red);
+    }
+
+    .city-dropdown-coords {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--ink-muted);
+    }
   </style>
 </head>
 <body>
@@ -2602,16 +2648,17 @@
     /* --------------------------------------------------------------------------
        USER INTAKE & EPHEMERAL CHART CALCULATION
        -------------------------------------------------------------------------- */
-    const CITY_COORDS = {
-      delhi: { lat: 28.6139, lon: 77.2090, city: "New Delhi", country: "India" },
-      mumbai: { lat: 19.0760, lon: 72.8777, city: "Mumbai", country: "India" },
-      bengaluru: { lat: 12.9716, lon: 77.5946, city: "Bengaluru", country: "India" },
-      newyork: { lat: 40.7128, lon: -74.0060, city: "New York", country: "USA" },
-      london: { lat: 51.5074, lon: -0.1278, city: "London", country: "UK" },
-      berlin: { lat: 52.5200, lon: 13.4050, city: "Berlin", country: "Germany" },
-      tokyo: { lat: 35.6762, lon: 139.6503, city: "Tokyo", country: "Japan" },
-      sydney: { lat: -33.8688, lon: 151.2093, city: "Sydney", country: "Australia" }
+    /* --------------------------------------------------------------------------
+       INTELLIGENT GEOCODING & CITY AUTOCOMPLETE
+       -------------------------------------------------------------------------- */
+    let selectedGeo = {
+      city: "New Delhi",
+      country: "India",
+      lat: 28.6139,
+      lon: 77.2090,
+      name: "New Delhi, India"
     };
+    let citySearchTimer = null;
 
     function openIntakeModal() {
       const overlay = document.getElementById("intakeModalOverlay");
@@ -2623,14 +2670,101 @@
       if (overlay) overlay.classList.remove("open");
     }
 
-    function handleCityPreset(val) {
-      const customRow = document.getElementById("customCoordRow");
-      if (val === "custom") {
-        if (customRow) customRow.style.display = "grid";
-      } else {
-        if (customRow) customRow.style.display = "none";
+    function handleCitySearchInput(val) {
+      clearTimeout(citySearchTimer);
+      const dropdown = document.getElementById("cityDropdown");
+      if (!val || val.trim().length < 2) {
+        if (dropdown) dropdown.style.display = "none";
+        return;
+      }
+
+      citySearchTimer = setTimeout(async () => {
+        try {
+          const res = await fetch(`/api/geocode?q=${encodeURIComponent(val.trim())}`);
+          const items = await res.json();
+          renderCityDropdown(items);
+        } catch (err) {
+          console.warn("Geocoding fetch failed:", err);
+        }
+      }, 200);
+    }
+
+    function renderCityDropdown(items) {
+      const dropdown = document.getElementById("cityDropdown");
+      if (!dropdown) return;
+      dropdown.innerHTML = "";
+
+      if (!items || items.length === 0) {
+        dropdown.innerHTML = `<div class="city-dropdown-item" style="color: var(--ink-muted); font-style: italic;">No locations found. Use manual override below.</div>`;
+        dropdown.style.display = "block";
+        return;
+      }
+
+      items.forEach(item => {
+        const div = document.createElement("div");
+        div.className = "city-dropdown-item";
+        div.innerHTML = `
+          <span><strong>${item.city || item.name}</strong> <span style="font-size: 11px; color: var(--ink-muted);">${item.state ? item.state + ', ' : ''}${item.country}</span></span>
+          <span class="city-dropdown-coords">${item.latitude.toFixed(2)}°, ${item.longitude.toFixed(2)}°</span>
+        `;
+        div.onclick = () => selectCityLocation(item);
+        dropdown.appendChild(div);
+      });
+
+      dropdown.style.display = "block";
+    }
+
+    function selectCityLocation(item) {
+      selectedGeo = {
+        city: item.city || item.name,
+        country: item.country || "",
+        lat: item.latitude,
+        lon: item.longitude,
+        name: item.name
+      };
+
+      const searchInput = document.getElementById("inputCitySearch");
+      if (searchInput) searchInput.value = item.name;
+
+      const latInput = document.getElementById("inputCustomLat");
+      const lonInput = document.getElementById("inputCustomLon");
+      if (latInput) latInput.value = item.latitude;
+      if (lonInput) lonInput.value = item.longitude;
+
+      const detectedText = document.getElementById("geoDetectedText");
+      if (detectedText) {
+        detectedText.textContent = `${item.city || item.name} (${item.latitude.toFixed(2)}° N, ${item.longitude.toFixed(2)}° E)`;
+      }
+
+      const dropdown = document.getElementById("cityDropdown");
+      if (dropdown) dropdown.style.display = "none";
+    }
+
+    function toggleManualCoords() {
+      const row = document.getElementById("customCoordRow");
+      if (row) {
+        row.style.display = (row.style.display === "none" || !row.style.display) ? "grid" : "none";
       }
     }
+
+    function updateManualCoords() {
+      const lat = parseFloat(document.getElementById("inputCustomLat")?.value) || 28.6139;
+      const lon = parseFloat(document.getElementById("inputCustomLon")?.value) || 77.2090;
+      selectedGeo.lat = lat;
+      selectedGeo.lon = lon;
+      const detectedText = document.getElementById("geoDetectedText");
+      if (detectedText) {
+        detectedText.textContent = `Manual Coordinates (${lat.toFixed(2)}° N, ${lon.toFixed(2)}° E)`;
+      }
+    }
+
+    document.addEventListener("click", (e) => {
+      const wrapper = document.querySelector(".city-autocomplete-wrapper");
+      const dropdown = document.getElementById("cityDropdown");
+      if (dropdown && wrapper && !wrapper.contains(e.target)) {
+        dropdown.style.display = "none";
+      }
+    });
 
     function toggleTimeUnknown(cb) {
       const timeInput = document.getElementById("inputBirthTime");
@@ -2666,33 +2800,14 @@
       const isUnknown = document.getElementById("inputTimeUnknown")?.checked;
       const timeVal = isUnknown ? "" : (document.getElementById("inputBirthTime")?.value || "12:00");
       
-      const cityKey = document.getElementById("inputCitySelect")?.value || "delhi";
-      let lat = 28.6139;
-      let lon = 77.2090;
-      let cityName = "New Delhi";
-      let countryName = "India";
-
-      if (cityKey === "custom") {
-        lat = parseFloat(document.getElementById("inputCustomLat")?.value) || 28.6139;
-        lon = parseFloat(document.getElementById("inputCustomLon")?.value) || 77.2090;
-        cityName = document.getElementById("inputCustomCity")?.value || "Custom Location";
-        countryName = "";
-      } else if (CITY_COORDS[cityKey]) {
-        const c = CITY_COORDS[cityKey];
-        lat = c.lat;
-        lon = c.lon;
-        cityName = c.city;
-        countryName = c.country;
-      }
-
       const payload = {
         name: nameVal,
         date: dateEl.value,
         time: timeVal,
-        latitude: lat,
-        longitude: lon,
-        city: cityName,
-        country: countryName,
+        latitude: selectedGeo.lat,
+        longitude: selectedGeo.lon,
+        city: selectedGeo.city,
+        country: selectedGeo.country,
         consent: consentEl ? consentEl.checked : false,
         milestones: []
       };
@@ -2789,23 +2904,31 @@
       </div>
 
       <div class="form-grid">
-        <!-- 3. BIRTH CITY (OPTIONAL) -->
+        <!-- 3. BIRTH CITY (INTELLIGENT AUTO-GEOCODING) -->
         <div class="form-field">
           <label class="form-label">
-            Birth City
-            <span class="badge-optional">optional</span>
+            Birth City or Village
+            <span class="badge-optional">auto-geocoded</span>
           </label>
-          <select id="inputCitySelect" class="zen-select" onchange="handleCityPreset(this.value)">
-            <option value="delhi">New Delhi, India (28.61° N, 77.20° E)</option>
-            <option value="mumbai">Mumbai, India (19.07° N, 72.87° E)</option>
-            <option value="bengaluru">Bengaluru, India (12.97° N, 77.59° E)</option>
-            <option value="newyork">New York, USA (40.71° N, -74.00° E)</option>
-            <option value="london">London, UK (51.50° N, -0.12° E)</option>
-            <option value="berlin">Berlin, Germany (52.52° N, 13.40° E)</option>
-            <option value="tokyo">Tokyo, Japan (35.67° N, 139.65° E)</option>
-            <option value="sydney">Sydney, Australia (-33.86° N, 151.20° E)</option>
-            <option value="custom">Custom Coordinates...</option>
-          </select>
+          <div class="city-autocomplete-wrapper">
+            <input 
+              type="text" 
+              id="inputCitySearch" 
+              class="zen-input" 
+              placeholder="Type city or village (e.g., Khatav, Kanpur, Berlin)..." 
+              value="New Delhi, India"
+              autocomplete="off"
+              oninput="handleCitySearchInput(this.value)"
+              onfocus="if(!this.value || this.value==='New Delhi, India') handleCitySearchInput('Delhi')"
+            />
+            <div id="cityDropdown" class="city-dropdown-menu" style="display: none;"></div>
+          </div>
+          <div id="geoDetectionStatus" style="margin-top: 6px; font-size: 11.5px; font-family: var(--font-mono); color: var(--zen-charcoal); display: flex; align-items: center; justify-content: space-between;">
+            <div>
+              <span style="color: #16a34a; font-weight: 700;">✓</span> <span id="geoDetectedText">New Delhi, India (28.61° N, 77.21° E)</span>
+            </div>
+            <a href="javascript:void(0)" onclick="toggleManualCoords()" style="color: var(--ink-muted); font-size: 10.5px; text-decoration: underline;">(Edit manual coordinates)</a>
+          </div>
         </div>
 
         <!-- 4. NAME (OPTIONAL) -->
@@ -2818,15 +2941,15 @@
         </div>
       </div>
 
-      <!-- CUSTOM COORDINATES ROW (HIDDEN BY DEFAULT) -->
+      <!-- CUSTOM COORDINATES ROW (HIDDEN BY DEFAULT, MANUAL OVERRIDE) -->
       <div id="customCoordRow" class="form-grid" style="display: none; margin-bottom: 12px; background: var(--zen-paper-subtle); padding: 12px; border: var(--ink-border);">
         <div class="form-field" style="margin-bottom: 0;">
           <label class="form-label">Latitude (-90 to +90)</label>
-          <input type="number" step="0.0001" id="inputCustomLat" class="zen-input" placeholder="28.6139" />
+          <input type="number" step="0.0001" id="inputCustomLat" class="zen-input" value="28.6139" oninput="updateManualCoords()" />
         </div>
         <div class="form-field" style="margin-bottom: 0;">
           <label class="form-label">Longitude (-180 to +180)</label>
-          <input type="number" step="0.0001" id="inputCustomLon" class="zen-input" placeholder="77.2090" />
+          <input type="number" step="0.0001" id="inputCustomLon" class="zen-input" value="77.2090" oninput="updateManualCoords()" />
         </div>
       </div>
 

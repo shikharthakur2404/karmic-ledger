@@ -17,6 +17,7 @@ from core.daily import compute_daily_incident_radar
 from core.dasha import compute_vimshottari_timeline, get_active_dasha_at_date
 from core.ephemeris import compute_natal_chart
 from core.frictions import audit_live_frictions
+from core.geocoding import geocode_location
 from core.mantras import DOMAIN_MANTRAS, recommend_remedies_for_chart
 from core.primer import explain_planet_placement
 from core.shastra import search_shastra
@@ -678,6 +679,11 @@ def get_adversarial_test(name: str):
     return JSONResponse(
         status_code=404, content={"error": "Benchmark profile not found"}
     )
+
+
+@app.get("/api/geocode")
+def geocode_api(q: str = ""):
+    return geocode_location(q)
 
 
 if __name__ == "__main__":

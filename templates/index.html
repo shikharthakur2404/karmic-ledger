@@ -95,7 +95,7 @@
       color: var(--ink-charcoal);
       font-family: var(--font-body);
       line-height: 1.7;
-      font-size: 15px;
+      font-size: 16px;
       overflow-x: hidden;
       min-height: 100vh;
       position: relative;
@@ -384,8 +384,8 @@
 
     .target-btn {
       font-family: var(--font-body);
-      font-size: 14px;
-      padding: 8px 18px;
+      font-size: 15px;
+      padding: 9px 20px;
       background: transparent;
       color: var(--ink-deep);
       border: var(--ink-border);
@@ -471,17 +471,17 @@
 
     .zen-sector-name {
       font-family: var(--font-title);
-      font-size: 19px;
-      font-weight: 500;
+      font-size: 21px;
+      font-weight: 600;
       color: var(--ink-black);
       letter-spacing: -0.01em;
     }
 
     .zen-badge {
       font-family: var(--font-sans);
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 500;
-      padding: 3px 10px;
+      padding: 4px 12px;
       border: var(--ink-border);
       color: var(--ink-muted);
       letter-spacing: 0.04em;
@@ -494,11 +494,147 @@
     }
 
     /* --------------------------------------------------------------------------
+       TOP 3 ESSENTIAL HIGHLIGHTS HERO TRIAD
+       -------------------------------------------------------------------------- */
+    .top-triad-section {
+      margin-bottom: clamp(32px, 5vw, 56px);
+      padding: clamp(20px, 3vw, 30px);
+      background: var(--zen-card);
+      border: var(--ink-border);
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.04);
+      position: relative;
+    }
+
+    .top-triad-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 14px;
+      border-bottom: var(--ink-border);
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .top-triad-title {
+      font-family: var(--font-title);
+      font-size: 21px;
+      font-weight: 600;
+      color: var(--ink-black);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .top-triad-badge {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--seal-red);
+      background: var(--seal-red-soft);
+      padding: 3px 9px;
+      border: 1px solid var(--seal-red-border);
+      font-weight: 600;
+    }
+
+    .top-triad-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 900px) {
+      .top-triad-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .top-triad-card {
+      background: var(--zen-paper);
+      border: var(--ink-border);
+      padding: 22px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.25s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .top-triad-card:hover {
+      border-color: var(--ink-black);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+    }
+
+    .top-triad-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--ink-border);
+      transition: background 0.2s ease;
+    }
+
+    .top-triad-card:hover::before {
+      background: var(--seal-red);
+    }
+
+    .top-triad-tag {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--ink-muted);
+      margin-bottom: 8px;
+    }
+
+    .top-triad-label {
+      font-family: var(--font-sans);
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--ink-deep);
+      margin-bottom: 6px;
+    }
+
+    .top-triad-metric {
+      font-family: var(--font-title);
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--ink-black);
+      margin-bottom: 10px;
+      line-height: 1.25;
+    }
+
+    .top-triad-desc {
+      font-family: var(--font-body);
+      font-size: 14.5px;
+      color: var(--ink-muted);
+      line-height: 1.6;
+      margin-bottom: 16px;
+      flex-grow: 1;
+    }
+
+    .top-triad-link {
+      font-family: var(--font-sans);
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--seal-red);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* --------------------------------------------------------------------------
        SECTOR 01: COORDINATES GRID
        -------------------------------------------------------------------------- */
     .zen-metrics-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
       gap: 24px;
     }
 
@@ -509,18 +645,18 @@
 
     .zen-metric-label {
       font-family: var(--font-sans);
-      font-size: 11px;
-      font-weight: 500;
+      font-size: 12.5px;
+      font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.08em;
       color: var(--ink-muted);
       margin-bottom: 6px;
     }
 
     .zen-metric-value {
       font-family: var(--font-title);
-      font-size: 18px;
-      font-weight: 500;
+      font-size: 20px;
+      font-weight: 600;
       color: var(--ink-black);
       line-height: 1.35;
     }
@@ -1634,6 +1770,52 @@
       </div>
     </section>
 
+    <!-- TOP 3 ESSENTIAL HIGHLIGHTS HERO TRIAD -->
+    <section class="top-triad-section">
+      <div class="top-triad-header">
+        <div class="top-triad-title">
+          <span class="card-kanji-seal sm">要</span>
+          <span>Essential Life Signals // Top 3 Telemetry Pillars</span>
+        </div>
+        <div class="top-triad-badge">Real-Time Core Synthesis</div>
+      </div>
+
+      <div class="top-triad-grid">
+        <!-- 1. ACTIVE LIFE CHAPTER -->
+        <div class="top-triad-card" onclick="scrollToElement('dashaBarWrapper')">
+          <div>
+            <div class="top-triad-tag">01 // LIFE SEASON & TIMING</div>
+            <div class="top-triad-label">Current Life Chapter (Active Dasha)</div>
+            <div class="top-triad-metric" id="topTriadDasha">Loading...</div>
+            <div class="top-triad-desc" id="topTriadDashaDesc">Active planetary period governing your current focus, career, and personal transitions.</div>
+          </div>
+          <div class="top-triad-link">View 120-Year Timeline →</div>
+        </div>
+
+        <!-- 2. TODAY'S INCIDENT RADAR -->
+        <div class="top-triad-card" onclick="scrollToElement('dailyRadarSection')">
+          <div>
+            <div class="top-triad-tag">02 // 24-HOUR RADAR</div>
+            <div class="top-triad-label">Today's Tactical Incident Status</div>
+            <div class="top-triad-metric" id="topTriadRadar" style="font-size: 20px;">Analyzing...</div>
+            <div class="top-triad-desc" id="topTriadRadarDesc">Real-time daily alerts for meeting disruptions (Chandrāṣṭama), physical joint strain, and email delays.</div>
+          </div>
+          <div class="top-triad-link">View Daily Incident Forecast →</div>
+        </div>
+
+        <!-- 3. LONGEVITY & VITALITY HORIZON -->
+        <div class="top-triad-card" onclick="scrollToElement('ayurdayaDetailsCard')">
+          <div>
+            <div class="top-triad-tag">03 // FUN KUNDLI HORIZON</div>
+            <div class="top-triad-label">Classical Longevity & Vitality</div>
+            <div class="top-triad-metric" id="topTriadAyur" style="font-size: 20px;">Loading...</div>
+            <div class="top-triad-desc" id="topTriadAyurDesc">Classical three-pair Parashari vitality tier, structural endurance, and lifespan band.</div>
+          </div>
+          <div class="top-triad-link">View Longevity Details →</div>
+        </div>
+      </div>
+    </section>
+
     <!-- SECTOR 01: CORE BLUEPRINT -->
     <section class="zen-sector">
       <div class="zen-sector-header">
@@ -2375,6 +2557,55 @@
       // 02b Daily Tactical Incident & Somatic Radar
       renderDailyRadar(data.daily_radar);
 
+      // ----------------------------------------------------------------------
+      // TOP 3 ESSENTIAL TELEMETRY HERO TRIAD
+      // ----------------------------------------------------------------------
+      const hlDasha = document.getElementById("topTriadDasha");
+      const hlDashaDesc = document.getElementById("topTriadDashaDesc");
+      if (hlDasha) {
+        hlDasha.textContent = data.current_dasha || "Active Period";
+      }
+      if (hlDashaDesc) {
+        hlDashaDesc.textContent = data.is_deceased
+          ? `Historical timeline locked at ${data.death_date || "demise"}.`
+          : `Active planetary ruling chapter for ${data.subject}. Shapes primary focus and life transitions.`;
+      }
+
+      const hlRadar = document.getElementById("topTriadRadar");
+      const hlRadarDesc = document.getElementById("topTriadRadarDesc");
+      if (hlRadar && data.daily_radar) {
+        const r = data.daily_radar;
+        if (data.is_deceased) {
+          hlRadar.textContent = "Archived Record";
+          if (hlRadarDesc) hlRadarDesc.textContent = "24-hour tactical incident radar active only for living charts.";
+        } else if (r.chandrashtama && r.chandrashtama.is_active) {
+          hlRadar.innerHTML = `<span style="color: var(--seal-red);">⚠️ Chandrāṣṭama Alert</span>`;
+          if (hlRadarDesc) hlRadarDesc.textContent = "8th-house Moon: Elevated risk of last-minute cancellations, brain fog, and meeting rescheduling.";
+        } else if (r.somatic_injury && r.somatic_injury.is_active) {
+          hlRadar.innerHTML = `<span style="color: var(--seal-red);">⚠️ Somatic Risk: ${r.somatic_injury.risk_level}</span>`;
+          const limbs = (r.somatic_injury.target_limbs || []).join(", ");
+          if (hlRadarDesc) hlRadarDesc.textContent = `Physical wear/strain vector active (${limbs || "Joints/Knees"}). Avoid high-impact strain.`;
+        } else if (r.mercury_sandhi && r.mercury_sandhi.is_active) {
+          hlRadar.innerHTML = `<span style="color: #f59e0b;">⚠️ Mercury Sandhi</span>`;
+          if (hlRadarDesc) hlRadarDesc.textContent = "Communication dead-zone: Stalled email confirmations, recruiter delays, and dispatch lags.";
+        } else {
+          hlRadar.innerHTML = `<span style="color: #16a34a;">✓ All Clear · Low Friction</span>`;
+          if (hlRadarDesc) hlRadarDesc.textContent = "No critical Moon, somatic injury, or communication dead-zones active today.";
+        }
+      }
+
+      const hlAyur = document.getElementById("topTriadAyur");
+      const hlAyurDesc = document.getElementById("topTriadAyurDesc");
+      if (hlAyur && data.ayurdaya) {
+        if (data.is_deceased) {
+          hlAyur.textContent = "Historical Record";
+          if (hlAyurDesc) hlAyurDesc.textContent = `Documented historical lifespan: ${data.age_display || "Demise 1984"}.`;
+        } else {
+          hlAyur.textContent = `${data.ayurdaya.estimated_range} (${data.ayurdaya.tier})`;
+          if (hlAyurDesc) hlAyurDesc.textContent = `Vitality Index: ${data.ayurdaya.vitality_score || 88}/100. Classical 3-pair Parashari constitutional endurance.`;
+        }
+      }
+
       // 05 Kundli SVG & Planets Table
       document.getElementById("kundliBarrel").innerHTML = data.kundli_svg || "";
       const pBody = document.getElementById("planetsTableBody");
@@ -2486,6 +2717,13 @@
       loadAdversarialTelemetry("indira");
       const el = document.getElementById("adversarialHub");
       if (el) el.scrollIntoView({ behavior: "smooth" });
+    }
+
+    function scrollToElement(id) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
     }
 
     function switchProofView(mode) {

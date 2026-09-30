@@ -7,7 +7,7 @@ and tracking generational Before-vs-After upgrades.
 
 from typing import Any
 
-SYSTEM_VERSION = "2.0.0"
+SYSTEM_VERSION = "2.1.0"
 
 ENGINE_REGISTRY: dict[str, dict[str, Any]] = {
     "engine_01_ephemeris": {
@@ -99,6 +99,16 @@ ENGINE_REGISTRY: dict[str, dict[str, Any]] = {
         "description": "Zodiacal Releasing (Aphesis from Spirit), Hermetic Lots (Fortune/Spirit), Planetary Sect physics, and Annual Profections.",
         "before_state": "Single-tradition system reliant strictly on Vedic Nakshatra Dasha clocks without cross-civilizational validation.",
         "after_state": "Dual-civilization chronometry engine combining Indian Vimshottari karmic execution with Alexandrian career peak & narrative pivot detectors.",
+    },
+    "engine_10_medini": {
+        "engine_id": "10",
+        "name": "Medini Geopolitical & Mundane Chronometry Engine",
+        "version": "1.0.0",
+        "status": "STABLE",
+        "files": ["core/medini.py"],
+        "description": "Macroeconomic, territorial conflict, and geopolitical stress indices using national foundation charts, Gochar angularity, and Vimshottari national timelines.",
+        "before_state": "System was strictly micro-natal (individual querents only), with zero capacity to model macro geopolitical cycles, sovereign boundaries, or historical nation crises.",
+        "after_state": "Sovereign nation inception database (India 1947, USA 1776), Geopolitical Stress Index (GSI 0-100), automated historical backtesting (1962, 1971, 1999, 2008, 2020), and 2024-2035 forward projection.",
     },
 }
 

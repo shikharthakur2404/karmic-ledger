@@ -581,7 +581,9 @@ def get_engine_registry_manifest():
 
 @app.get("/", response_class=HTMLResponse)
 def serve_home(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request, "manifest": get_system_manifest()})
+    return templates.TemplateResponse(
+        "index.html", {"request": request, "manifest": get_system_manifest()}
+    )
 
 
 @app.post("/api/analyze")
@@ -758,6 +760,69 @@ def get_adversarial_test(name: str):
 @app.get("/api/geocode")
 def geocode_api(q: str = ""):
     return geocode_location(q)
+
+
+# --------------------------------------------------------------------------
+# ENGINE 10: MEDINI GEOPOLITICAL & MUNDANE CHRONOMETRY ENDPOINTS
+# --------------------------------------------------------------------------
+@app.get("/api/medini/nations")
+def get_medini_nations():
+    from core.medini import NATION_REGISTRY
+
+    return JSONResponse(
+        {
+            k: {
+                "nation_id": v["nation_id"],
+                "name": v["name"],
+                "date": v["date"],
+                "capital": v["capital"],
+                "milestone_count": len(v["historical_milestones"]),
+            }
+            for k, v in NATION_REGISTRY.items()
+        }
+    )
+
+
+@app.get("/api/medini/analyze/{nation_key}")
+def get_medini_analysis(nation_key: str):
+    from core.medini import compute_national_chart, evaluate_geopolitical_incident_index
+
+    try:
+        chart = compute_national_chart(nation_key.lower())
+        telemetry = evaluate_geopolitical_incident_index(chart, datetime.utcnow())
+        return JSONResponse(
+            {
+                "nation_id": nation_key.lower(),
+                "name": chart["metadata"]["name"],
+                "telemetry": telemetry,
+            }
+        )
+    except Exception as e:
+        raise HTTPException(status_code=404, detail=str(e))
+
+
+@app.get("/api/medini/backtest/{nation_key}")
+def get_medini_backtest(nation_key: str):
+    from core.medini import backtest_national_history
+
+    try:
+        results = backtest_national_history(nation_key.lower())
+        return JSONResponse(
+            {"nation_id": nation_key.lower(), "backtest_results": results}
+        )
+    except Exception as e:
+        raise HTTPException(status_code=404, detail=str(e))
+
+
+@app.get("/api/medini/horizon/{nation_key}")
+def get_medini_horizon(nation_key: str, start_year: int = 2024, end_year: int = 2035):
+    from core.medini import project_national_horizon
+
+    try:
+        horizon = project_national_horizon(nation_key.lower(), start_year, end_year)
+        return JSONResponse({"nation_id": nation_key.lower(), "horizon": horizon})
+    except Exception as e:
+        raise HTTPException(status_code=404, detail=str(e))
 
 
 if __name__ == "__main__":

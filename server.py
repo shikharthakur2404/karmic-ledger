@@ -825,6 +825,38 @@ def get_medini_horizon(nation_key: str, start_year: int = 2024, end_year: int = 
         raise HTTPException(status_code=404, detail=str(e))
 
 
+@app.get("/api/medini/stats/{nation_key}")
+def get_medini_statistical_validation(
+    nation_key: str,
+    control_samples: int = 100,
+    stress_threshold: float = 50.0,
+    seed: int = 42,
+):
+    from core.medini_stats import run_chi_square_validation
+
+    try:
+        stats = run_chi_square_validation(
+            nation_key.lower(),
+            control_samples=control_samples,
+            stress_threshold=stress_threshold,
+            seed=seed,
+        )
+        return JSONResponse(stats)
+    except Exception as e:
+        raise HTTPException(status_code=404, detail=str(e))
+
+
+@app.get("/api/medini/briefing/{nation_key}")
+def get_medini_intelligence_briefing(nation_key: str, date: str | None = None):
+    from core.briefing import generate_national_briefing
+
+    try:
+        brief = generate_national_briefing(nation_key.lower(), date)
+        return JSONResponse(brief)
+    except Exception as e:
+        raise HTTPException(status_code=404, detail=str(e))
+
+
 if __name__ == "__main__":
     import uvicorn
 

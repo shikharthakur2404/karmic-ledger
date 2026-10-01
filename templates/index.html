@@ -3212,6 +3212,76 @@
       </div>
     </section>
 
+    <!-- SECTOR 09: SAṂSKĀRA & KARMIC TRACE DOSSIER (ENGINE 11) -->
+    <section class="zen-sector" id="samskaraSection" style="display: none;">
+      <div class="zen-sector-header">
+        <div class="zen-sector-title-row">
+          <span class="zen-sector-num">09</span>
+          <h2 class="zen-sector-name">Saṃskāra & Karmic Trace Dossier // 宿業痕跡</h2>
+        </div>
+        <div class="zen-badge accent" id="samskaraLokaBadge">Devaloka (देवलोक)</div>
+      </div>
+
+      <div style="font-size: 13px; color: var(--ink-muted); margin-bottom: 20px; line-height: 1.6; padding: 12px 16px; border-left: 2px solid var(--seal-red); background: var(--zen-paper-subtle);">
+        <strong>Epistemic Research Boundary:</strong> This dossier computes traditional Sanskrit scriptural classifications (Yoga Sūtra 3.18, BPHS Ch. 84 Drekkāṇa decanate, and Pūrva Puṇya houses) alongside University of Virginia (UVA DOPS) academic case matching. It reflects traditional archetypes and cognitive inclinations — strictly non-assertive; zero literal historical identity claimed.
+      </div>
+
+      <div class="zen-card" style="padding: 24px; margin-bottom: 24px; border: 1px solid var(--ink-hairline); background: var(--zen-card);">
+        <div class="zen-metrics-grid" style="margin-bottom: 20px;">
+          <div class="zen-metric-cell">
+            <div class="zen-metric-label">Pūrva Janma Loka (Realm of Origin)</div>
+            <div class="zen-metric-value" id="dispSamskaraLoka" style="color: var(--seal-red);">Devaloka [देवलोक]</div>
+            <div class="zen-metric-subtext" id="dispSamskaraLokaDesc">BPHS Ch. 84: Lord of Drekkāṇa indicates celestial realm of wisdom</div>
+          </div>
+          <div class="zen-metric-cell">
+            <div class="zen-metric-label">Stronger Luminary & Decanate</div>
+            <div class="zen-metric-value" id="dispSamskaraLuminary">Moon (Decanate 3)</div>
+            <div class="zen-metric-subtext" id="dispSamskaraDrekkanaLord">Drekkāṇa Lord: Jupiter</div>
+          </div>
+          <div class="zen-metric-cell">
+            <div class="zen-metric-label">Dominant Saṃskāra Archetype</div>
+            <div class="zen-metric-value" id="dispSamskaraArchetype">Jnāna-Mārga</div>
+            <div class="zen-metric-subtext">Yoga Sūtra 3.18 Latent Impression Vector</div>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+          <div class="controller-label" style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-muted); margin-bottom: 6px;">// SAṂSKĀRA LATENT IMPRESSION PROFILE (YS 3.18)</div>
+          <div style="font-size: 14.5px; color: var(--ink-charcoal); line-height: 1.6; margin-bottom: 12px;" id="dispSamskaraArchetypeDesc">
+            Loading archetypal synthesis...
+          </div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;" id="samskaraTagsContainer">
+            <!-- Injected tags -->
+          </div>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+          <div class="controller-label" style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-muted); margin-bottom: 6px;">// PŪRVA PUṆYA HOUSES (HOUSES 5, 9, 12 HERITAGE)</div>
+          <div class="daily-radar-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+            <div class="radar-vector-card clear" style="padding: 14px;">
+              <div style="font-weight: 600; font-size: 13.5px; margin-bottom: 4px;">House 9: Pūrva Puṇya (Past Merit)</div>
+              <div style="font-size: 12.5px; color: var(--ink-muted);" id="dispHouse9Theme">Loading...</div>
+            </div>
+            <div class="radar-vector-card clear" style="padding: 14px;">
+              <div style="font-weight: 600; font-size: 13.5px; margin-bottom: 4px;">House 5: Creative Saṃskāras</div>
+              <div style="font-size: 12.5px; color: var(--ink-muted);" id="dispHouse5Theme">Loading...</div>
+            </div>
+            <div class="radar-vector-card clear" style="padding: 14px;">
+              <div style="font-weight: 600; font-size: 13.5px; margin-bottom: 4px;">House 12: Karmic Dissolution (Nirjara)</div>
+              <div style="font-size: 12.5px; color: var(--ink-muted);" id="dispHouse12Theme">Loading...</div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="controller-label" style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-muted); margin-bottom: 6px;">// SANSKRIT SOURCE PROVENANCE (SHASTRA REPOSITORY)</div>
+          <div id="samskaraVersesContainer" style="display: flex; flex-direction: column; gap: 12px;">
+            <!-- Injected via JavaScript -->
+          </div>
+        </div>
+      </div>
+    </section>
+
   </div>
 
   <!-- JAVASCRIPT: LOGIC & THEME CONTROLLER -->
@@ -3878,6 +3948,92 @@
         });
       } else {
         remCont.innerHTML = `<div style="grid-column: 1 / -1; padding: 18px 0; color: var(--ink-muted); font-size: 13.5px;">Mind-body and focus directives are customized to your active planetary chapter.</div>`;
+      }
+
+      // 09 Saṃskāra & Karmic Trace Dossier (Engine 11)
+      if (data.samskara_telemetry) {
+        renderSamskaraDossier(data.samskara_telemetry);
+      }
+    }
+
+    function renderSamskaraDossier(s) {
+      const section = document.getElementById("samskaraSection");
+      if (!section || !s) return;
+      section.style.display = "block";
+
+      const jyo = s.path_a_jyotisha || {};
+      const loka = jyo.drekkana_loka || {};
+      const purva = jyo.purva_punya_houses || {};
+      const prof = s.path_b_samskara || {};
+      const citations = s.shastric_citations || [];
+
+      // Loka badge & values
+      const lokaBadge = document.getElementById("samskaraLokaBadge");
+      if (lokaBadge) lokaBadge.textContent = `${loka.purva_janma_loka || "Devaloka"} (${loka.loka_sanskrit || "देवलोक"})`;
+
+      const dispLoka = document.getElementById("dispSamskaraLoka");
+      if (dispLoka) dispLoka.textContent = `${loka.purva_janma_loka || "Devaloka"} [${loka.loka_sanskrit || "देवलोक"}]`;
+
+      const dispLokaDesc = document.getElementById("dispSamskaraLokaDesc");
+      if (dispLokaDesc) dispLokaDesc.textContent = loka.loka_description || "BPHS Ch. 84: Drekkāṇa realm classification";
+
+      const dispLuminary = document.getElementById("dispSamskaraLuminary");
+      if (dispLuminary) dispLuminary.textContent = `${loka.stronger_luminary || "Moon"} in ${loka.luminary_sign || "Cancer"} (${loka.luminary_degree || 0}° / Decanate ${loka.decanate || 1})`;
+
+      const dispLord = document.getElementById("dispSamskaraDrekkanaLord");
+      if (dispLord) dispLord.textContent = `Drekkāṇa Lord: ${loka.drekkana_lord || "Jupiter"} (${loka.drekkana_sign || "Pisces"})`;
+
+      // Archetype
+      const dispArch = document.getElementById("dispSamskaraArchetype");
+      if (dispArch) dispArch.textContent = prof.dominant_samskara_archetype || "Jnāna-Mārga";
+
+      const dispArchDesc = document.getElementById("dispSamskaraArchetypeDesc");
+      if (dispArchDesc) dispArchDesc.textContent = prof.archetype_description || "";
+
+      // Tags
+      const tagsCont = document.getElementById("samskaraTagsContainer");
+      if (tagsCont) {
+        tagsCont.innerHTML = "";
+        const affs = prof.declared_affinities || [];
+        affs.forEach(a => {
+          const span = document.createElement("span");
+          span.className = "status-pill positive";
+          span.style.fontSize = "12px";
+          span.textContent = `✦ ${a}`;
+          tagsCont.appendChild(span);
+        });
+      }
+
+      // Houses 5, 9, 12
+      const h9El = document.getElementById("dispHouse9Theme");
+      if (h9El && purva.house_9) h9El.textContent = purva.house_9.theme;
+
+      const h5El = document.getElementById("dispHouse5Theme");
+      if (h5El && purva.house_5) h5El.textContent = purva.house_5.theme;
+
+      const h12El = document.getElementById("dispHouse12Theme");
+      if (h12El && purva.house_12) h12El.textContent = purva.house_12.theme;
+
+      // Sanskrit Citations
+      const verseCont = document.getElementById("samskaraVersesContainer");
+      if (verseCont) {
+        verseCont.innerHTML = "";
+        citations.forEach(c => {
+          const cDiv = document.createElement("div");
+          cDiv.style.padding = "12px 16px";
+          cDiv.style.border = "1px solid var(--ink-hairline)";
+          cDiv.style.borderRadius = "4px";
+          cDiv.style.background = "var(--zen-paper-subtle)";
+          cDiv.innerHTML = `
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <span style="font-family: var(--font-mono); font-size: 12px; font-weight: 600; color: var(--seal-red);">${c.id} · ${c.text} (${c.chapter}:${c.verse})</span>
+              <span style="font-size: 11px; text-transform: uppercase; color: var(--ink-muted);">${c.epistemic_layer}</span>
+            </div>
+            <div style="font-family: var(--font-deva); font-size: 15px; font-weight: 600; color: var(--ink-black); margin-bottom: 4px;">${c.sanskrit}</div>
+            <div style="font-size: 13.5px; color: var(--ink-charcoal); line-height: 1.5;">${c.translation}</div>
+          `;
+          verseCont.appendChild(cDiv);
+        });
       }
     }
 

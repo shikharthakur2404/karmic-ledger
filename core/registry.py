@@ -7,7 +7,7 @@ and tracking generational Before-vs-After upgrades.
 
 from typing import Any
 
-SYSTEM_VERSION = "2.1.0"
+SYSTEM_VERSION = "2.2.0"
 
 ENGINE_REGISTRY: dict[str, dict[str, Any]] = {
     "engine_01_ephemeris": {
@@ -109,6 +109,16 @@ ENGINE_REGISTRY: dict[str, dict[str, Any]] = {
         "description": "Macroeconomic, territorial conflict, and geopolitical stress indices using national foundation charts, Gochar angularity, and Vimshottari national timelines.",
         "before_state": "System was strictly micro-natal (individual querents only), with zero capacity to model macro geopolitical cycles, sovereign boundaries, or historical nation crises.",
         "after_state": "Sovereign nation inception database (India 1947, USA 1776), Geopolitical Stress Index (GSI 0-100), automated historical backtesting (1962, 1971, 1999, 2008, 2020), and 2024-2035 forward projection.",
+    },
+    "engine_11_samskara": {
+        "engine_id": "11",
+        "name": "Saṃskāra & Karmic Trace Engine (Karma-Trace)",
+        "version": "1.0.0",
+        "status": "STABLE",
+        "files": ["core/samskara.py"],
+        "description": "Text-grounded Sanskrit karmic continuity engine based on Yoga Sūtra 3.18, BPHS Pūrva Janma Loka (D3/D60), and UVA DOPS academic case comparison.",
+        "before_state": "System had only continuous soul antiquity scores without scriptural verse provenance, Pūrva Janma Loka decanate classification, or Saṃskāra behavioral feature extraction.",
+        "after_state": "Auditable 3-layer epistemic karmic trace engine combining deterministic Jyotiṣa (D3 Drekkāṇa Loka, D60, 9th/5th Pūrva Puṇya), Yoga Sūtra 3.18 latent impression profiling, and verifiable scriptural citations.",
     },
 }
 

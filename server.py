@@ -22,6 +22,7 @@ from core.geocoding import geocode_location
 from core.mantras import DOMAIN_MANTRAS, recommend_remedies_for_chart
 from core.primer import explain_planet_placement
 from core.registry import get_system_manifest
+from core.samskara import generate_samskara_report
 from core.shastra import search_shastra
 from core.soul import evaluate_soul_telemetry
 from core.transits import get_planet_transit_positions
@@ -569,6 +570,7 @@ def run_chart_pipeline(data: ChartRequest) -> dict[str, Any]:
         "frictions": frictions,
         "daily_radar": daily_radar,
         "ayurdaya": compute_ayurdaya_telemetry(natal),
+        "samskara_telemetry": generate_samskara_report(natal),
         "system_manifest": get_system_manifest(),
     }
 
@@ -855,6 +857,86 @@ def get_medini_intelligence_briefing(nation_key: str, date: Optional[str] = None
         return JSONResponse(brief)
     except Exception as e:
         raise HTTPException(status_code=404, detail=str(e))
+
+
+class SamskaraAnalysisRequest(BaseModel):
+    name: str = "Subject"
+    date: str = "1999-04-24"
+    time: str = "07:00:00"
+    latitude: float = 26.4652
+    longitude: float = 80.3498
+    city: str = "Kanpur"
+    country: str = "India"
+    affinities: list[str] = []
+    fears_or_sensitivities: list[str] = []
+    spontaneous_talents: list[str] = []
+
+
+@app.post("/api/samskara/analyze")
+def analyze_samskara_trace(request: SamskaraAnalysisRequest):
+    """
+    Engine 11: Saṃskāra & Karmic Trace Analysis Endpoint.
+    Ingests birth data + optional self-reported affinities/fears, computes
+    Drekkāṇa (D3) Pūrva Janma Loka, Pūrva Puṇya houses, and Yoga Sūtra 3.18
+    latent impression vectors.
+    """
+    try:
+        date_parts = [int(p) for p in request.date.split("-")]
+        t_parts = request.time.split(":")
+        hour = int(t_parts[0])
+        minute = int(t_parts[1]) if len(t_parts) > 1 else 0
+        second = int(t_parts[2]) if len(t_parts) > 2 else 0
+        natal = compute_natal_chart(
+            year=date_parts[0],
+            month=date_parts[1],
+            day=date_parts[2],
+            hour=hour,
+            minute=minute,
+            second=second,
+            lat=request.latitude,
+            lon=request.longitude,
+            tz_offset_hours=5.5,
+        )
+        user_features = {
+            "affinities": request.affinities,
+            "fears_or_sensitivities": request.fears_or_sensitivities,
+            "spontaneous_talents": request.spontaneous_talents,
+        }
+        report = generate_samskara_report(natal, user_features=user_features)
+        report["subject"] = request.name
+        return JSONResponse(report)
+    except Exception as e:
+        raise HTTPException(status_code=422, detail=str(e))
+
+
+@app.get("/api/samskara/profile/{target_name}")
+def get_samskara_profile(target_name: str):
+    """
+    Returns the Engine 11 Saṃskāra Dossier for registered sample targets (shikhar, indira, etc.).
+    """
+    target = target_name.lower()
+    if target not in DEMO_PROFILES:
+        raise HTTPException(
+            status_code=404,
+            detail=f"Target '{target_name}' not found. Available: {list(DEMO_PROFILES.keys())}",
+        )
+    p = DEMO_PROFILES[target]
+    date_parts = [int(x) for x in p["date"].split("-")]
+    t_parts = p["time"].split(":")
+    natal = compute_natal_chart(
+        year=date_parts[0],
+        month=date_parts[1],
+        day=date_parts[2],
+        hour=int(t_parts[0]),
+        minute=int(t_parts[1]),
+        second=int(t_parts[2]) if len(t_parts) > 2 else 0,
+        lat=p["latitude"],
+        lon=p["longitude"],
+        tz_offset_hours=5.5,
+    )
+    report = generate_samskara_report(natal)
+    report["subject"] = p["name"]
+    return JSONResponse(report)
 
 
 if __name__ == "__main__":

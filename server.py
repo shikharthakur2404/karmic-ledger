@@ -847,7 +847,7 @@ def get_medini_statistical_validation(
 
 
 @app.get("/api/medini/briefing/{nation_key}")
-def get_medini_intelligence_briefing(nation_key: str, date: str | None = None):
+def get_medini_intelligence_briefing(nation_key: str, date: Optional[str] = None):
     from core.briefing import generate_national_briefing
 
     try:

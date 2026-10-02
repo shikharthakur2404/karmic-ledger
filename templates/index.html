@@ -2600,6 +2600,23 @@
         </button>
       </div>
 
+      <!-- HIDDEN INNER CIRCLE & FRIENDS VAULT -->
+      <div style="margin-top: 14px;">
+        <button class="target-btn" id="btnToggleFriendsVault" onclick="toggleFriendsVault()" style="font-size: 12.5px; border-style: dashed; padding: 7px 14px;">
+          <span>🔒</span> Inner Circle Vault (Friends & Calibrated Profiles) <span id="friendsVaultArrow">▾</span>
+        </button>
+        <div id="friendsVaultPanel" style="display: none; margin-top: 10px; padding: 14px 18px; border: 1px solid var(--ink-border); background: var(--zen-paper-subtle); border-radius: 4px;">
+          <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--seal-red); margin-bottom: 8px; font-weight: 600;">
+            CONFIDENTIAL COHORT ARCHIVE // INNER CIRCLE
+          </div>
+          <div class="target-btn-cluster" style="margin-bottom: 0;">
+            <button class="target-btn" id="btnPushkar" onclick="acquireTarget('pushkar')">
+              <span style="color: var(--seal-red); font-weight: 700;">✦</span> Pushkar Sharma (Capricorn Lagna · Grief/Overwork Dynamic)
+            </button>
+          </div>
+        </div>
+      </div>
+
       <div class="zen-protocol-note">
         <strong>Sensitivity Standard:</strong> Unlike generic horoscope apps that return identical flattering statements to everyone, this engine computes exact celestial coordinates. On our historical reference benchmark, corrupting birth data across adversarial vectors drops average timing consistency from 74.0% down to 48.3% (a +25.7% sensitivity separation; shifting birth date by +3 years drops overall score to 50.2%)—demonstrating direct mathematical sensitivity to exact birth coordinates.
       </div>
@@ -3343,6 +3360,19 @@
       }
     }
 
+    function toggleFriendsVault() {
+      const panel = document.getElementById("friendsVaultPanel");
+      const arrow = document.getElementById("friendsVaultArrow");
+      if (!panel) return;
+      if (panel.style.display === "none" || !panel.style.display) {
+        panel.style.display = "block";
+        if (arrow) arrow.textContent = "▴";
+      } else {
+        panel.style.display = "none";
+        if (arrow) arrow.textContent = "▾";
+      }
+    }
+
     /* --------------------------------------------------------------------------
        DATA INGESTION & CONTROLLER
        -------------------------------------------------------------------------- */
@@ -3353,11 +3383,13 @@
       const btnAnon = document.getElementById("btnAnonymous");
       const btnSoham = document.getElementById("btnSoham");
       const btnShikhar = document.getElementById("btnShikhar");
+      const btnPushkar = document.getElementById("btnPushkar");
       const btnCustom = document.getElementById("btnCustom");
       if (btnIndira) btnIndira.className = (name === "indira" ? "target-btn active" : "target-btn");
       if (btnAnon) btnAnon.className = (name === "anonymous" ? "target-btn active" : "target-btn");
       if (btnSoham) btnSoham.className = (name === "soham" ? "target-btn active" : "target-btn");
       if (btnShikhar) btnShikhar.className = (name === "shikhar" ? "target-btn active" : "target-btn");
+      if (btnPushkar) btnPushkar.className = (name === "pushkar" ? "target-btn active" : "target-btn");
       if (btnCustom) btnCustom.classList.remove("active");
 
       try {

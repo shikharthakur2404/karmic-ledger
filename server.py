@@ -124,6 +124,26 @@ DEMO_PROFILES = {
             },
         ],
     },
+    "pushkar": {
+        "name": "Pushkar Sharma (Inner Circle)",
+        "date": "1997-01-16",
+        "time": "07:01:00",
+        "latitude": 26.0687,
+        "longitude": 83.1837,
+        "city": "Gopalpur, Azamgarh",
+        "country": "India",
+        "consent": True,
+        "milestones": [
+            {
+                "event": "Mother's Demise",
+                "date": "2025-07-15",
+            },
+            {
+                "event": "Breakup & Academic Disruption",
+                "date": "2020-04-15",
+            },
+        ],
+    },
 }
 
 

@@ -34,6 +34,7 @@
 2. Freeze Vimshottari year length to **365.25 days** (section 4). Current `core/dasha.py` uses civil 365/366 via day-of-year. Add a golden-master test against Jagannatha Hora reference boundaries (section 4).
 3. Pre-scoring **discrimination audit** (section 5): confirm the primary score has non-trivial spread on random dates under classical-only rules; abort freeze if nearly flat.
 4. Scoring entrypoint `studies/kl_n30_001/score_heldout.py` must exist and pin all section-4 settings.
+5. Sampling + null generators live in `studies/kl_n30_001/sampling.py` and `nulls.py` (tests: `tests/test_kl_n30_001_sampling_nulls.py`). Registered seeds/K/offsets have no silent defaults — pass them from this file.
 
 ## 1. Hypotheses
 
@@ -54,7 +55,7 @@ Prior note: the published literature (e.g. Carlson, *Nature* 1985) makes a null 
 | Source | Astro-Databank, Rodden rating **AA** only |
 | Terms-of-use gate | **Must be ticked before extraction:** [ ] terms read, [ ] permission obtained or use confirmed allowed, [ ] storage and redistribution rules recorded here: `TODO` (paste Astro-Databank license URL + allowed uses; if redistribution of birth data is forbidden, publish only hashed IDs + aggregate stats) |
 | Sampling frame | All Astro-Databank AA entries with: (a) birthplace coordinates resolvable, (b) birth time present to the minute, (c) ≥ 4 dated public events of eligible types (section 3), (d) birth year in **1800–1975** inclusive (enough adult lifespan for career/marriage/bereavement events; avoids minors-heavy contemporary entries), (e) not in the exclusion list below |
-| Selection | Random draw without replacement from the frame, seed `0x4B4C4E30` (`KLN0`), performed by script `studies/kl_n30_001/select_cohort.py`, output list hash `TODO` (SHA-256 of sorted subject IDs file) |
+| Selection | Hash-rank draw from the frame via `studies/kl_n30_001/sampling.py` (`draw_cohort`), seed `0x4B4C4E30` (`KLN0`); replacements via `effective_cohort`. Output list hash `TODO` (SHA-256 of sorted subject IDs file) |
 | N | 30 |
 | Excluded | Any subject used in rule design, tuning, or earlier benchmarks — including all of `benchmarks/cohort/` (`01_indira_gandhi` … `15_synthetic_beta`), `benchmarks/historical_indira_gandhi.json`, and any profile under `profiles/` used for UI demos; subjects with missing or ambiguous birthplace; duplicates; Rodden A/B/C/DD/X |
 | Time-zone / DST handling | Single documented rule: IANA tzdata version `TODO` (record `tzdata` package / OS zoneinfo version on freeze machine); convert civil local birth time → UT via zone history for that place. Historical LMT (pre-zone adoption) and wartime DST handled by Astro-Databank’s stated zone when present; if missing, use `timezonefinder` + IANA for the coordinates at the birth date. Manual overrides allowed only with a source citation, logged in section 12 |

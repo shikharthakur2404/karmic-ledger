@@ -2916,6 +2916,20 @@
           <div class="radar-feel-tag clear" id="mercuryFeelTag">✓ FLUID VELOCITY · POSITIVE</div>
           <div class="radar-detail" id="radarMercuryDetail"></div>
         </div>
+
+        <!-- Recreation, Nightlife & Mobility Card -->
+        <div class="radar-vector-card" id="radarSocial">
+          <div class="top-triad-card-top" style="margin-bottom: 4px;">
+            <div class="radar-label">Recreation, Nightlife & Mobility</div>
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="color: var(--ink-muted);">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polygon points="10 8 16 12 10 16 10 8"></polygon>
+            </svg>
+          </div>
+          <div class="radar-status-text" id="radarSocialStatus">Scanning...</div>
+          <div class="radar-feel-tag clear" id="socialFeelTag">✓ BALANCED SOCIAL FLOW</div>
+          <div class="radar-detail" id="radarSocialDetail"></div>
+        </div>
       </div>
 
       <!-- Tactical Advice Box -->
@@ -3497,29 +3511,56 @@
           : `Transit Moon in ${ch.transit_moon_sign} (House ${ch.house_from_moon} from natal Moon). Nakshatra: ${ch.transit_moon_nakshatra}. Emotional and mental focus are clear and steady.`;
       }
 
-      // Somatic Injury
+      // Somatic & Kinetic Vitality
       const sCard = document.getElementById("radarSomatic");
       const sStatus = document.getElementById("radarSomaticStatus");
       const sDetail = document.getElementById("radarSomaticDetail");
       const sFeel = document.getElementById("somaticFeelTag");
       if (sCard && radar.somatic_injury) {
         const si = radar.somatic_injury;
-        const levelCls = si.risk_level === "Elevated" ? "elevated" : (si.is_active ? "active" : "clear");
+        const isSurging = si.stamina_level === "Surging High";
+        const levelCls = isSurging ? "elevated" : (si.is_active ? "active" : "clear");
         sCard.className = `radar-vector-card ${levelCls}`;
-        const pulseCls = si.risk_level === "Elevated" ? "radar-pulse-red" : (si.is_active ? "radar-pulse-amber" : "radar-pulse-green");
-        sStatus.innerHTML = si.is_active
-          ? `<span class="${pulseCls}"></span>SOMATIC IMPACT: ${si.risk_level.toUpperCase()}`
-          : `<span class="radar-pulse-green"></span>SOMATIC IMPACT: LOW`;
+        const pulseCls = isSurging ? "radar-pulse-green" : (si.is_active ? "radar-pulse-amber" : "radar-pulse-green");
+        sStatus.innerHTML = isSurging
+          ? `<span class="radar-pulse-green"></span>KINETIC OUTPUT: SURGING HIGH`
+          : (si.is_active
+            ? `<span class="${pulseCls}"></span>KINETIC OUTPUT: ${si.stamina_level || 'STEADY'}`
+            : `<span class="radar-pulse-green"></span>KINETIC OUTPUT: STEADY`);
         if (sFeel) {
-          sFeel.className = si.is_active ? "radar-feel-tag danger" : "radar-feel-tag clear";
-          sFeel.innerHTML = si.is_active
-            ? `⚠️ PHYSICAL WEAR RISK · MODERATE CAUTION`
+          sFeel.className = isSurging ? "radar-feel-tag clear" : (si.is_active ? "radar-feel-tag active" : "radar-feel-tag clear");
+          sFeel.innerHTML = isSurging
+            ? `⚡ HIGH KINETIC STAMINA · TRAIL & STEP CAPACITY ACTIVE`
             : `✓ VITALITY STEADY · POSITIVE BASELINE`;
         }
-        const limbStr = si.target_limbs && si.target_limbs.length > 0 ? ` — Target vectors: ${si.target_limbs.join(", ")}` : "";
-        sDetail.textContent = si.is_active
-          ? `Lagnesha ${si.lagnesha} in House ${si.lagnesha_transit_house} (${si.lagnesha_transit}). Risk: ${si.risk_level}${limbStr}. Avoid heavy physical joint impact.`
-          : `Lagnesha ${si.lagnesha} transiting House ${si.lagnesha_transit_house} (${si.lagnesha_transit}). No physical transit strains active today.`;
+        sDetail.textContent = si.alert || si.tactical_advice || (si.is_active
+          ? `Lagnesha ${si.lagnesha} in House ${si.lagnesha_transit_house} (${si.lagnesha_transit}). High stamina active.`
+          : `Lagnesha ${si.lagnesha} transiting House ${si.lagnesha_transit_house} (${si.lagnesha_transit}). No physical transit strains active today.`);
+      }
+
+      // Recreation, Nightlife & Mobility
+      const socCard = document.getElementById("radarSocial");
+      const socStatus = document.getElementById("radarSocialStatus");
+      const socDetail = document.getElementById("radarSocialDetail");
+      const socFeel = document.getElementById("socialFeelTag");
+      if (socCard && radar.recreation_social) {
+        const soc = radar.recreation_social;
+        const isSocActive = soc.is_active || soc.nightlife_active || soc.mobility_active;
+        socCard.className = isSocActive ? "radar-vector-card active" : "radar-vector-card clear";
+        socStatus.innerHTML = soc.nightlife_active
+          ? `<span class="radar-pulse-amber"></span>NIGHTLIFE & SOCIAL: ACTIVE PULSE`
+          : (soc.mobility_active
+            ? `<span class="radar-pulse-amber"></span>REGIONAL MOBILITY ACTIVE`
+            : `<span class="radar-pulse-green"></span>SOCIAL: BALANCED BASELINE`);
+        if (socFeel) {
+          socFeel.className = isSocActive ? "radar-feel-tag caution" : "radar-feel-tag clear";
+          socFeel.innerHTML = soc.nightlife_active
+            ? `✦ RAHU/VENUS NOCTURNAL STIMULATION`
+            : (soc.mobility_active
+              ? `✦ 3RD-HOUSE REGIONAL & TRAIL ROUTE`
+              : `✓ BALANCED SOCIAL FLOW`);
+        }
+        socDetail.textContent = soc.tactical_advice || "Standard interpersonal flow.";
       }
 
       // Mercury Sandhi
@@ -3832,7 +3873,17 @@
           if (hlRadarPillText) hlRadarPillText.textContent = "ELEVATED TENSION · DELAY CRITICAL CONTRACTS";
           if (hlRadarPill) hlRadarPill.className = "status-pill danger";
           if (hlRadarDesc) hlRadarDesc.textContent = "8th-house Moon: Elevated risk of miscommunication, brain fog, and meeting rescheduling.";
-        } else if (r.somatic_injury && r.somatic_injury.is_active) {
+        } else if (r.somatic_injury && r.somatic_injury.stamina_level === "Surging High") {
+          hlRadar.innerHTML = `<span style="color: #2563eb;">⚡ Kinetic Output: Surging High</span>`;
+          if (hlRadarPillText) hlRadarPillText.textContent = "HIGH ENDURANCE · TRAIL & HIKE CAPACITY ACTIVE";
+          if (hlRadarPill) hlRadarPill.className = "status-pill positive";
+          if (hlRadarDesc) hlRadarDesc.textContent = "High kinetic drive and stamina active. Optimal for long walks (30k+ steps), excursions, and high-output movement.";
+        } else if (r.recreation_social && r.recreation_social.nightlife_active) {
+          hlRadar.innerHTML = `<span style="color: #8b5cf6;">✦ Social & Nightlife Pulse</span>`;
+          if (hlRadarPillText) hlRadarPillText.textContent = "RECREATION & URBAN EXPLORATION";
+          if (hlRadarPill) hlRadarPill.className = "status-pill positive";
+          if (hlRadarDesc) hlRadarDesc.textContent = "Nocturnal social excitation active. Evening gatherings, venue discovery, and sensory dining favored.";
+        } else if (r.somatic_injury && r.somatic_injury.is_active && r.somatic_injury.risk_level === "Elevated") {
           hlRadar.innerHTML = `<span style="color: var(--seal-red);">⚠️ Somatic Risk: ${r.somatic_injury.risk_level}</span>`;
           if (hlRadarPillText) hlRadarPillText.textContent = "PHYSICAL WEAR RISK · MODERATE CAUTION";
           if (hlRadarPill) hlRadarPill.className = "status-pill danger";

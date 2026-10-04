@@ -1,12 +1,23 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "populated": false,
-  "instructions": "Export 4–5 charts from Jagannatha Hora yourself (Lahiri, true node, 365.25-day year). Do NOT fill expected dates from karmic-ledger output. Set populated=true only after hand entry.",
+  "tolerance_days": 1,
+  "min_charts_required": 4,
+  "instructions": [
+    "Export 4–5 charts from Jagannatha Hora yourself. Do NOT copy dates from karmic-ledger.",
+    "In JH: set dasha year length explicitly to 365.25 (do not trust the default).",
+    "Ayanamsha: Lahiri. Node: true. Enter each birth with an explicit UTC offset.",
+    "Prefer modern births with unambiguous IANA time zones.",
+    "Per chart record boundaries at three depths: first Mahadasha end; one near age ~40; one near age ~80.",
+    "Include ≥1 long-lord birth Moon nakshatra (Venus or Saturn) and ≥1 short-lord (Sun or Ketu).",
+    "Set populated=true only after hand entry of ≥4 charts."
+  ],
   "settings": {
     "ayanamsha": "Lahiri",
     "node": "true",
     "dasha_year_days": 365.25,
-    "house_system": "whole_sign"
+    "house_system": "whole_sign",
+    "jh_dasha_year_setting": "365.25 (explicitly selected in JH UI)"
   },
   "charts": []
 }

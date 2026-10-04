@@ -90,14 +90,14 @@ All computation uses one tagged commit. Fill registry paste at freeze from `pyth
 | Setting | Value |
 |---|---|
 | Git tag | `TODO` (`study/KL-N30-001-engine-freeze`) |
-| Engine versions | **Snapshot at draft time (re-paste at freeze):** system `2.2.0`; 01 ephemeris `1.2.0`; 02 chronology `1.1.0`; 03 ayurdaya `1.2.0`; 04 soul `1.2.0`; 05 daily `1.0.0` (**excluded from primary score**); 06 confluence `1.1.0` (**primary**); 07 adversarial `1.1.0` (**not used as null**); 08 visuals `2.0.0` (N/A); 09 hellenistic `1.0.0-planned` (**excluded**); 10 medini `1.0.0` (**excluded**); 11 samskara `1.0.0` (**excluded**) |
+| Engine versions | **Snapshot at patch time (re-paste at freeze):** system `2.2.0`; 01 ephemeris `1.2.0` (+ Moon `speed_deg_per_hour`); 02 chronology `1.3.0` (**365.25 + birth-Moon-speed windows**); 03 ayurdaya `1.2.0`; 04 soul `1.2.0`; 05 daily `1.0.0` (**excluded**); 06 confluence `1.2.0` (**primary via vcs_profile=kl_n30_001**); 07 adversarial `1.1.1` (**smoke only**); 08 visuals `2.0.0` (N/A); 09 hellenistic `1.0.0-planned` (**excluded**); 10 medini `1.0.0` (**excluded**); 11 samskara `1.0.0` (**excluded**) |
 | Ayanamsha | Lahiri (`swe.SIDM_LAHIRI`) |
 | Node | **true** (`swe.TRUE_NODE`; Ketu = Rahu + 180°) |
 | House system | **Whole Sign** (house = sign count from Lagna; `swe.houses_ex(..., b"W", …)` for Asc only) |
 | Dasha year length | **365.25 days** (must be implemented before freeze; replaces current civil 365/366 approximation in `core/dasha.py`) |
 | Chara Karaka scheme | **7** (Sun–Saturn only; Rahu excluded). Note: Soul Antiquity weights are **not** in the primary score |
 | Ephemeris files | Swiss Ephemeris via `pyswisseph` binding version **2.10.03** at draft; confirm SE file path and reject Moshier fallback (`FLG_SWIEPH` required; abort if ephemeris file missing). Freeze value: `TODO` (re-check `swe.version` + installed `*.se1` path on freeze machine) |
-| Dasha golden-master | After the 365.25 patch: compare Mahadasha/Antardasha boundary dates for **4–5 reference charts** against **Jagannatha Hora** exports you produce yourself (same Lahiri, true node, 365.25-year setting). Store expected boundaries in `tests/fixtures/jh_vimshottari_golden.json`. **Do not** fill expected dates from this engine’s own output (circular). Until `populated: true` and ≥4 charts are present, the JH test skips and the engine-freeze tag must not be cut. |
+| Dasha golden-master | Hand-export **4–5** charts from **Jagannatha Hora** into `tests/fixtures/jh_vimshottari_golden.json`. JH settings: dasha year **365.25 explicitly selected**, Lahiri, true node, birth times entered with **explicit UTC offset**, prefer modern unambiguous zones. Per chart record ≥3 depths: first Mahadasha end, ~age 40, ~age 80. Include ≥1 long-lord birth Moon (Venus/Saturn) and ≥1 short-lord (Sun/Ketu). Tolerance **≤ 1 day** at every depth. **Do not** fill from this engine. Ordinary `pytest` **skips** if empty; `KL_N30_FREEZE_RUN=1 pytest tests/test_dasha.py` **fails** if empty. Freeze tag only after freeze-run is green. |
 
 Any bug fix after the freeze is a deviation (section 12). The study is re-run from scratch on the fixed tag.
 
@@ -129,13 +129,21 @@ Any bug fix after the freeze is a deviation (section 12). The study is re-run fr
     - Numerology / Mulank / Bhagyank
     - Daily Radar, Medini, Saṃskāra, Ayurdaya vitality
 - **Discrimination audit (pre-scoring, before freeze tag):** **This audit runs only on the excluded tuning cohort and/or synthetic charts. It must never be run on, tuned against, or informed by the held-out AA cohort.** Score ≥ 500 random dates per chart under the primary formula. Record SD and IQR of VCS. **Abort freeze** if SD < 5.0 points or if ≥ 80% of mass sits in a single 5-point bin — a near-flat classical score makes the study underpowered by design. Audit output hash: `TODO`.
-- **Window (per subject, formula — not a free parameter):** For subject \(i\) with birth-nakshatra lord \(L\) and Mahadasha span \(Y_L\) years,
+- **Window (per subject, formula — not a free parameter):** For subject \(i\), let \(L\) be the **Moon’s nakshatra lord at birth** (not the dasha lord at the event), \(Y_L\) its Mahadasha span in years, and \(\dot\lambda_i\) the Moon’s sidereal speed in °/h from the ephemeris at birth:
   \[
-  w_i = \left\lceil\, t_{\mathrm{AA}} \cdot Y_L \cdot 365.25 \cdot \frac{0.55/60}{360/27}\,\right\rceil
+  w_i = \left\lceil\, t_{\mathrm{AA}} \cdot Y_L \cdot 365.25 \cdot \frac{\dot\lambda_i/60}{360/27}\,\right\rceil
   \]
-  days, where \(t_{\mathrm{AA}} = 2\) (section 7). An event on civil date \(D\) (birth timezone) is scored if any calendar day in \([D - w_i,\ D + w_i]\) is evaluated; the study uses the **max VCS inside that window** (same rule for all subjects). Implemented by `core.dasha.event_window_half_width_days`.
-  - **Computed consequence of the AA assumption (locked before any held-out score):** Moon ≈ 0.55°/h ⇒ ≈ 0.00917°/min. One minute of birth-time error shifts the Vimshottari balance by \(Y_L \times 365.25 \times (0.00917 / 13.\overline{3})\) days ≈ **1.5–5 days/min** by lord. With \(t_{\mathrm{AA}}=2\), \(w_i\) is therefore about **±3 to ±10 days** (Ketu/Mars/Sun at the low end; Venus/Saturn/Rahu/Mercury at the high end). A flat ±3 would under-cover long-lord charts; the formula removes that free parameter. Half/double of \(w_i\) are sensitivity only (section 9) and must not replace \(w_i\) after seeing scores.
-  - Approximate table at \(t_{\mathrm{AA}}=2\) (ceil): Ketu/Mars 4; Sun 3; Moon 5; Rahu 9; Jupiter 8; Saturn 9; Mercury 8; Venus 10.
+  with \(t_{\mathrm{AA}} = \texttt{AA\_UNCERTAINTY\_MINUTES} = 2\) (single module constant; function defaults are `None` and read that constant). Rounding rule: **`math.ceil`** (registered; values just above an integer advance a full day — e.g. mean-Moon Sun ≈ 3.01 → 4). Implemented by `event_window_half_width_from_natal` / `event_window_half_width_days`. An event on civil date \(D\) is scored as the **max VCS** over \([D-w_i,\ D+w_i]\).
+  - **Lord identity:** every Vimshottari boundary shifts by the same amount fixed by the **birth-balance** lord \(L\). Never substitute the Mahadasha/Antardasha lord active on the event date.
+  - **Mean-Moon reference table** (\(t_{\mathrm{AA}}=2\), \(\dot\lambda=0.55\)°/h, ceil) — pinned unit test; live study uses ephemeris \(\dot\lambda_i\) (≈0.49–0.64°/h), so Venus-lord windows can reach 12–13 days:
+
+    | Birth-nakshatra lord | \(w_i\) (mean Moon) |
+    |---|---|
+    | Sun, Mars, Ketu | 4 |
+    | Moon | 6 |
+    | Jupiter, Mercury | 9 |
+    | Rahu, Saturn | 10 |
+    | Venus | 11 |
 - **Primary statistic (subject level):** For subject \(i\) with \(n_i\) events,
   \[
   \Delta_i = \overline{\mathrm{VCS}}_{i,\mathrm{events}} - \overline{\mathrm{VCS}}_{i,\mathrm{random\ dates}}
@@ -212,8 +220,9 @@ Everything else is exploratory.
 - [ ] Terms gate (section 2) ticked
 - [ ] VCS weights sum to 100; dual-bonus / void / floor-15 **off** on study path
 - [ ] Dasha year length frozen to 365.25 in code
-- [ ] Jagannatha Hora golden-master test green
-- [ ] Discrimination audit passed (SD ≥ 5.0; hash recorded)
+- [ ] Jagannatha Hora golden-master populated (≥4 charts, hand-exported, ≤1 day tolerance)
+- [ ] `KL_N30_FREEZE_RUN=1 pytest tests/test_dasha.py` green (empty fixture must **fail**, not skip)
+- [ ] Discrimination audit passed (SD ≥ 5.0; hash recorded; tuning/synthetic only)
 - [ ] Power simulation recorded; MDE registered as a finding
 - [ ] All `TODO` cleared (except those that require post-score hashes)
 - [ ] Event file extracted blind and hashed

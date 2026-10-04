@@ -31,10 +31,16 @@ DASHA_MAP: dict[str, float] = dict(DASHA_ORDER)
 # Fixed Vimshottari year (days). Alternative 360.0 reserved for sensitivity analyses.
 DASHA_YEAR_DAYS: float = 365.25
 
-# Mean lunar motion used only for birth-time → boundary uncertainty propagation.
-MOON_DEG_PER_HOUR: float = 0.55
+# Mean lunar motion — fallback only when natal Moon speed is unavailable.
+# Prefer natal["planets"]["Moon"]["speed_deg_per_hour"] (ephemeris at birth).
+MEAN_MOON_DEG_PER_HOUR: float = 0.55
 NAKSHATRA_SPAN_DEG: float = 360.0 / 27.0
+
+# Registered AA birth-time uncertainty (minutes). Single source of truth.
 AA_UNCERTAINTY_MINUTES: float = 2.0
+
+# Window half-width uses math.ceil on the continuous day estimate (registered rounding).
+WINDOW_ROUNDING: str = "ceil"
 
 _DECIMAL_ANCHOR = datetime(1, 1, 1)
 
@@ -64,30 +70,69 @@ def decimal_year_to_date(decimal_year: float) -> str:
 
 
 def dasha_boundary_shift_days_per_minute(
-    nakshatra_lord: str, year_days: float = DASHA_YEAR_DAYS
+    birth_moon_nakshatra_lord: str,
+    year_days: float = DASHA_YEAR_DAYS,
+    moon_deg_per_hour: float | None = None,
 ) -> float:
     """
-    Days of Vimshottari boundary shift per minute of birth-time error for lord L:
-    Y_L * year_days * (moon_deg_per_min / nakshatra_span).
+    Days of Vimshottari boundary shift per minute of birth-time error.
+
+    Uses the lord of the Moon's nakshatra **at birth** (the balance lord that
+    starts the Vimshottari sequence). Every later Mahadasha/Antardasha boundary
+    shifts by the same amount; do **not** pass the dasha lord active at an event.
+
+    moon_deg_per_hour: natal Moon speed from the ephemeris when available;
+    defaults to MEAN_MOON_DEG_PER_HOUR (0.55) for documentation/tests only.
     """
-    lord_key = nakshatra_lord.strip().title()
+    lord_key = birth_moon_nakshatra_lord.strip().title()
     if lord_key not in DASHA_MAP:
-        raise ValueError(f"Unknown Nakshatra Lord: {nakshatra_lord}")
-    moon_deg_per_min = MOON_DEG_PER_HOUR / 60.0
+        raise ValueError(f"Unknown Nakshatra Lord: {birth_moon_nakshatra_lord}")
+    speed = (
+        MEAN_MOON_DEG_PER_HOUR
+        if moon_deg_per_hour is None
+        else abs(float(moon_deg_per_hour))
+    )
+    moon_deg_per_min = speed / 60.0
     return DASHA_MAP[lord_key] * year_days * (moon_deg_per_min / NAKSHATRA_SPAN_DEG)
 
 
 def event_window_half_width_days(
-    nakshatra_lord: str,
-    aa_uncertainty_min: float = AA_UNCERTAINTY_MINUTES,
+    birth_moon_nakshatra_lord: str,
+    aa_uncertainty_min: float | None = None,
     year_days: float = DASHA_YEAR_DAYS,
+    moon_deg_per_hour: float | None = None,
 ) -> int:
     """
     Per-subject event window half-width (days) for KL-N30-001.
-    Computed consequence of AA birth-time uncertainty — not a free parameter.
+
+    Continuous estimate is rounded with math.ceil (WINDOW_ROUNDING='ceil'):
+    values just above an integer (e.g. Sun 3.01) advance a full day. That is a
+    registered artifact of the constant/speed, not a free parameter.
+
+    birth_moon_nakshatra_lord: Moon nakshatra lord at birth only.
     """
-    shift = dasha_boundary_shift_days_per_minute(nakshatra_lord, year_days=year_days)
+    if aa_uncertainty_min is None:
+        aa_uncertainty_min = AA_UNCERTAINTY_MINUTES
+    shift = dasha_boundary_shift_days_per_minute(
+        birth_moon_nakshatra_lord,
+        year_days=year_days,
+        moon_deg_per_hour=moon_deg_per_hour,
+    )
     return max(1, int(math.ceil(aa_uncertainty_min * shift)))
+
+
+def event_window_half_width_from_natal(natal: dict[str, Any]) -> int:
+    """
+    Study window from natal chart only (no event dates).
+
+    Propagates AA uncertainty using the birth Moon nakshatra lord and the
+    ephemeris Moon speed at birth.
+    """
+    moon = natal["planets"]["Moon"]
+    return event_window_half_width_days(
+        birth_moon_nakshatra_lord=moon["nakshatra"]["lord"],
+        moon_deg_per_hour=float(moon["speed_deg_per_hour"]),
+    )
 
 
 def compute_vimshottari_timeline(

@@ -205,8 +205,11 @@ def compute_natal_chart(
     planets_data: dict[str, Any] = {}
 
     for p_name, p_id in PLANET_IDS.items():
-        res, _ = swe.calc_ut(jd, p_id, swe.FLG_SIDEREAL | swe.FLG_SWIEPH)
+        res, _ = swe.calc_ut(
+            jd, p_id, swe.FLG_SIDEREAL | swe.FLG_SWIEPH | swe.FLG_SPEED
+        )
         deg = res[0]
+        speed_deg_per_day = float(res[3])
         sign_idx = int(deg // 30)
         sign_name = ZODIAC_SIGNS[sign_idx]
         deg_in_sign = deg % 30.0
@@ -218,6 +221,8 @@ def compute_natal_chart(
 
         planets_data[p_name] = {
             "longitude": deg,
+            "speed_deg_per_day": speed_deg_per_day,
+            "speed_deg_per_hour": speed_deg_per_day / 24.0,
             "sign": sign_name,
             "degree_in_sign": deg_in_sign,
             "formatted": f"{sign_name} {int(deg_in_sign):02d}°{int((deg_in_sign % 1) * 60):02d}'",

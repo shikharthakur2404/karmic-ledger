@@ -97,7 +97,7 @@ All computation uses one tagged commit. Fill registry paste at freeze from `pyth
 | Dasha year length | **365.25 days** (must be implemented before freeze; replaces current civil 365/366 approximation in `core/dasha.py`) |
 | Chara Karaka scheme | **7** (Sun–Saturn only; Rahu excluded). Note: Soul Antiquity weights are **not** in the primary score |
 | Ephemeris files | Swiss Ephemeris via `pyswisseph` binding version **2.10.03** at draft; confirm SE file path and reject Moshier fallback (`FLG_SWIEPH` required; abort if ephemeris file missing). Freeze value: `TODO` (re-check `swe.version` + installed `*.se1` path on freeze machine) |
-| Dasha golden-master | After the 365.25 patch: compare Mahadasha/Antardasha boundary dates for a fixed fixture chart against **Jagannatha Hora** (same Lahiri, true node, 365.25-year setting). Store expected boundaries in `tests/fixtures/jh_vimshottari_golden.json`. Test must pass on the engine-freeze tag. |
+| Dasha golden-master | After the 365.25 patch: compare Mahadasha/Antardasha boundary dates for **4–5 reference charts** against **Jagannatha Hora** exports you produce yourself (same Lahiri, true node, 365.25-year setting). Store expected boundaries in `tests/fixtures/jh_vimshottari_golden.json`. **Do not** fill expected dates from this engine’s own output (circular). Until `populated: true` and ≥4 charts are present, the JH test skips and the engine-freeze tag must not be cut. |
 
 Any bug fix after the freeze is a deviation (section 12). The study is re-run from scratch on the fixed tag.
 
@@ -128,9 +128,14 @@ Any bug fix after the freeze is a deviation (section 12). The study is re-run fr
     - Any `1.65×` Hellenistic confluence multiplier (not implemented; remains excluded)
     - Numerology / Mulank / Bhagyank
     - Daily Radar, Medini, Saṃskāra, Ayurdaya vitality
-- **Discrimination audit (pre-scoring, before freeze tag):** On the excluded tuning cohort or synthetic charts only (never held-out AA), score ≥ 500 random dates per chart under the primary formula. Record SD and IQR of VCS. **Abort freeze** if SD < 5.0 points or if ≥ 80% of mass sits in a single 5-point bin — a near-flat classical score makes the study underpowered by design. Audit output hash: `TODO`.
-- **Window:** event day **± 3 days** (civil calendar in the subject’s birth timezone; same for all events/subjects/types).
-  - **Pre-data rationale (recorded before any held-out score):** Moon moves ~0.55°/h, so ~1 min of birth-time error shifts Vimshottari boundaries by roughly **1.5–5 days** depending on the birth-nakshatra lord. With AA uncertainty ±2 min (section 7), Antardasha edges carry about ±3–10 days of ambiguity. A ±3-day event window is the lower end of that band: wide enough to absorb boundary jitter at AD-level scoring, narrow enough not to swallow unrelated months. This rationale is locked here and must not be revised after seeing scores (half/double windows are sensitivity only, section 9).
+- **Discrimination audit (pre-scoring, before freeze tag):** **This audit runs only on the excluded tuning cohort and/or synthetic charts. It must never be run on, tuned against, or informed by the held-out AA cohort.** Score ≥ 500 random dates per chart under the primary formula. Record SD and IQR of VCS. **Abort freeze** if SD < 5.0 points or if ≥ 80% of mass sits in a single 5-point bin — a near-flat classical score makes the study underpowered by design. Audit output hash: `TODO`.
+- **Window (per subject, formula — not a free parameter):** For subject \(i\) with birth-nakshatra lord \(L\) and Mahadasha span \(Y_L\) years,
+  \[
+  w_i = \left\lceil\, t_{\mathrm{AA}} \cdot Y_L \cdot 365.25 \cdot \frac{0.55/60}{360/27}\,\right\rceil
+  \]
+  days, where \(t_{\mathrm{AA}} = 2\) (section 7). An event on civil date \(D\) (birth timezone) is scored if any calendar day in \([D - w_i,\ D + w_i]\) is evaluated; the study uses the **max VCS inside that window** (same rule for all subjects). Implemented by `core.dasha.event_window_half_width_days`.
+  - **Computed consequence of the AA assumption (locked before any held-out score):** Moon ≈ 0.55°/h ⇒ ≈ 0.00917°/min. One minute of birth-time error shifts the Vimshottari balance by \(Y_L \times 365.25 \times (0.00917 / 13.\overline{3})\) days ≈ **1.5–5 days/min** by lord. With \(t_{\mathrm{AA}}=2\), \(w_i\) is therefore about **±3 to ±10 days** (Ketu/Mars/Sun at the low end; Venus/Saturn/Rahu/Mercury at the high end). A flat ±3 would under-cover long-lord charts; the formula removes that free parameter. Half/double of \(w_i\) are sensitivity only (section 9) and must not replace \(w_i\) after seeing scores.
+  - Approximate table at \(t_{\mathrm{AA}}=2\) (ceil): Ketu/Mars 4; Sun 3; Moon 5; Rahu 9; Jupiter 8; Saturn 9; Mercury 8; Venus 10.
 - **Primary statistic (subject level):** For subject \(i\) with \(n_i\) events,
   \[
   \Delta_i = \overline{\mathrm{VCS}}_{i,\mathrm{events}} - \overline{\mathrm{VCS}}_{i,\mathrm{random\ dates}}
@@ -178,7 +183,7 @@ Everything else is exploratory.
 
 - Drop flagged subjects (`LAGNA_UNSTABLE`, section 7)
 - Re-enable `VCS.MOD.DUAL_DASHA_BONUS` (+10) and/or `VCS.MOD.PRIMARY_VOID` (×0.55) with hard cap 100 — exploratory only; tagged `ORIGINAL_HEURISTIC`
-- Window ± 1 day and ± 6 days (half / double of ±3)
+- Window \(\pm \lceil w_i/2\rceil\) and \(\pm 2w_i\) (half / double of the per-subject formula width)
 - Leave-one-subject-out
 - Alternative dasha year length: **360-day** Savana year (recompute timelines only; same weights)
 

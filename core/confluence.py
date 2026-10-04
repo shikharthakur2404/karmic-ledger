@@ -303,12 +303,22 @@ def evaluate_event_confluence(
     event_name: str,
     category_hint: str = None,
     is_historical_benchmark: bool = False,
+    vcs_profile: str = "production",
 ) -> dict[str, Any]:
     """
     Computes Heuristic Consistency Score (HCS) for a single milestone.
     Evaluates active Dasha lords, exact degree-level transit orbs (Gochar),
     and Sarvashtakavarga (SAV) bindu vitality.
+
+    vcs_profile:
+      - "production": legacy path (40+40+25, dual bonus, void, floor/ceil clip,
+        Pada-orb + SAV transit weighting).
+      - "kl_n30_001": registered study path (40+40+20 hard-capped at 100; no dual
+        bonus / void / floor-15; whole-sign transit hits only).
     """
+    if vcs_profile not in {"production", "kl_n30_001"}:
+        raise ValueError(f"Unknown vcs_profile: {vcs_profile}")
+    study_mode = vcs_profile == "kl_n30_001"
     lagna_sign = natal["lagna"]["sign"]
     lagna_deg = float(natal["lagna"]["longitude"])
     lagna_idx = ZODIAC_SIGNS.index(lagna_sign)
@@ -585,13 +595,17 @@ def evaluate_event_confluence(
     ad_score = min(ad_score, 40.0)
 
     # -------------------------------------------------------------------------
-    # 3. TRANSIT CONFLUENCE WITH NAVAMSHA PADA ORB LOCK & ASHTAKAVARGA WEIGHTING
+    # 3. TRANSIT CONFLUENCE
+    # production: Navamsha Pada orb lock + Ashtakavarga weighting (cap 25)
+    # kl_n30_001: whole-sign house hit only (cap 20); no Pada/SAV
     # -------------------------------------------------------------------------
     transit_score = 0.0
+    transit_cap = 20.0 if study_mode else 25.0
 
-    # Compute Sarvashtakavarga bindu matrix
-    sav_data = compute_sarvashtakavarga(natal)
-    sav_by_house = sav_data["sav_by_house"]
+    sav_by_house: dict[int, int] = {}
+    if not study_mode:
+        sav_data = compute_sarvashtakavarga(natal)
+        sav_by_house = sav_data["sav_by_house"]
 
     # Target sensitive ecliptic longitudes for the primary domain
     target_longitudes: list[float] = [lagna_deg]
@@ -614,75 +628,91 @@ def evaluate_event_confluence(
         t_jup_h = house_for_sign(t_jup["sign"])
         t_jup_aspects = houses_aspected_by("Jupiter", t_jup_h)
 
-        # 3.1 SATURN TRANSIT IMPACT (Max 13 points scaled by orb & bindus)
+        # 3.1 SATURN TRANSIT IMPACT (Max 13 points; study: whole-sign only)
         sat_hits_primary = (t_sat_h in target_primary) or any(
             h in target_primary for h in t_sat_aspects
         )
         if sat_hits_primary:
-            # Measure exact minimum aspect orb against target longitudes
-            sat_min_orb = min(
-                get_min_aspect_orb(t_sat_lon, "Saturn", t_lon)
-                for t_lon in target_longitudes
-            )
-
-            # Navamsha Pada Orb Scaling (3°20' = 3.333°)
-            if sat_min_orb <= 3.3333:
-                sat_orb_weight = 1.0  # Exact Pada Lock
+            if study_mode:
+                sat_orb_weight = 1.0
+                sat_bindu_mult = 1.0
                 confluence_factors.append(
-                    f"Transit Saturn tight Pada Orb Lock ({sat_min_orb:.1f}° deviation)"
+                    f"Transit Saturn whole-sign primary contact H{t_sat_h}"
                 )
-            elif sat_min_orb <= 7.0:
-                sat_orb_weight = 0.5 + 0.5 * (1.0 - (sat_min_orb - 3.3333) / 3.6667)
-            elif sat_min_orb <= 12.0:
-                sat_orb_weight = 0.25  # Broad sign background
             else:
-                sat_orb_weight = 0.10  # Out-of-orb whole-sign artifact
+                sat_min_orb = min(
+                    get_min_aspect_orb(t_sat_lon, "Saturn", t_lon)
+                    for t_lon in target_longitudes
+                )
 
-            # Ashtakavarga multiplier for transit sign
-            sat_bindus = sav_by_house.get(t_sat_h, 28)
-            sat_bindu_mult = get_ashtakavarga_house_multiplier(sat_bindus)
+                # Navamsha Pada Orb Scaling (3°20' = 3.333°)
+                if sat_min_orb <= 3.3333:
+                    sat_orb_weight = 1.0  # Exact Pada Lock
+                    confluence_factors.append(
+                        f"Transit Saturn tight Pada Orb Lock ({sat_min_orb:.1f}° deviation)"
+                    )
+                elif sat_min_orb <= 7.0:
+                    sat_orb_weight = 0.5 + 0.5 * (
+                        1.0 - (sat_min_orb - 3.3333) / 3.6667
+                    )
+                elif sat_min_orb <= 12.0:
+                    sat_orb_weight = 0.25  # Broad sign background
+                else:
+                    sat_orb_weight = 0.10  # Out-of-orb whole-sign artifact
+
+                sat_bindus = sav_by_house.get(t_sat_h, 28)
+                sat_bindu_mult = get_ashtakavarga_house_multiplier(sat_bindus)
+                confluence_factors.append(
+                    f"Transit Saturn H{t_sat_h} SAV Bindus: {sat_bindus} (mult: {sat_bindu_mult:.2f}x)"
+                )
 
             base_sat_points = 13.0 if t_sat_h in target_primary else 9.0
             transit_score += base_sat_points * sat_orb_weight * sat_bindu_mult
-            confluence_factors.append(
-                f"Transit Saturn H{t_sat_h} SAV Bindus: {sat_bindus} (mult: {sat_bindu_mult:.2f}x)"
-            )
 
-        # 3.2 JUPITER TRANSIT IMPACT (Max 12 points scaled by orb & bindus)
+        # 3.2 JUPITER TRANSIT IMPACT (Max 12 points; study: whole-sign only)
         jup_hits_primary = (t_jup_h in target_primary) or any(
             h in target_primary for h in t_jup_aspects
         )
         if jup_hits_primary:
-            jup_min_orb = min(
-                get_min_aspect_orb(t_jup_lon, "Jupiter", t_lon)
-                for t_lon in target_longitudes
-            )
-
-            if jup_min_orb <= 3.3333:
+            if study_mode:
                 jup_orb_weight = 1.0
+                jup_bindu_mult = 1.0
                 confluence_factors.append(
-                    f"Transit Jupiter tight Pada Orb Lock ({jup_min_orb:.1f}° deviation)"
+                    f"Transit Jupiter whole-sign primary contact H{t_jup_h}"
                 )
-            elif jup_min_orb <= 7.0:
-                jup_orb_weight = 0.5 + 0.5 * (1.0 - (jup_min_orb - 3.3333) / 3.6667)
-            elif jup_min_orb <= 12.0:
-                jup_orb_weight = 0.25
             else:
-                jup_orb_weight = 0.10
+                jup_min_orb = min(
+                    get_min_aspect_orb(t_jup_lon, "Jupiter", t_lon)
+                    for t_lon in target_longitudes
+                )
 
-            jup_bindus = sav_by_house.get(t_jup_h, 28)
-            jup_bindu_mult = get_ashtakavarga_house_multiplier(jup_bindus)
+                if jup_min_orb <= 3.3333:
+                    jup_orb_weight = 1.0
+                    confluence_factors.append(
+                        f"Transit Jupiter tight Pada Orb Lock ({jup_min_orb:.1f}° deviation)"
+                    )
+                elif jup_min_orb <= 7.0:
+                    jup_orb_weight = 0.5 + 0.5 * (
+                        1.0 - (jup_min_orb - 3.3333) / 3.6667
+                    )
+                elif jup_min_orb <= 12.0:
+                    jup_orb_weight = 0.25
+                else:
+                    jup_orb_weight = 0.10
+
+                jup_bindus = sav_by_house.get(t_jup_h, 28)
+                jup_bindu_mult = get_ashtakavarga_house_multiplier(jup_bindus)
+                confluence_factors.append(
+                    f"Transit Jupiter H{t_jup_h} SAV Bindus: {jup_bindus} (mult: {jup_bindu_mult:.2f}x)"
+                )
 
             base_jup_points = 12.0 if t_jup_h in target_primary else 8.0
             transit_score += base_jup_points * jup_orb_weight * jup_bindu_mult
-            confluence_factors.append(
-                f"Transit Jupiter H{t_jup_h} SAV Bindus: {jup_bindus} (mult: {jup_bindu_mult:.2f}x)"
-            )
 
-    transit_score = min(transit_score, 25.0)
+    transit_score = min(transit_score, transit_cap)
 
     # -------------------------------------------------------------------------
-    # 4. CONFLUENCE SYNTHESIS & ADVERSARIAL DISCRIMINATION
+    # 4. CONFLUENCE SYNTHESIS
     # -------------------------------------------------------------------------
     raw_confluence = md_score + ad_score + transit_score
 
@@ -698,23 +728,28 @@ def evaluate_event_confluence(
         or any(h in target_primary for h in ad_aspected_h)
     )
 
-    if has_primary_md and has_primary_ad:
-        raw_confluence += 12.0
-        confluence_factors.append(
-            "Dual Dasha Confluence: Both Mahadasha & Antardasha hold jurisdictional mandate"
-        )
-    elif not has_primary_md and not has_primary_ad:
-        # Severe penalty if neither dasha lord governs or aspects primary event houses
-        raw_confluence = min(raw_confluence * 0.55, 38.0)
-        confluence_factors.append(
-            "Primary House Void: Neither Dasha lord rules, occupies, or aspects primary event houses"
-        )
+    if not study_mode:
+        # ORIGINAL_HEURISTIC modifiers — production only; excluded from KL-N30-001
+        if has_primary_md and has_primary_ad:
+            raw_confluence += 12.0
+            confluence_factors.append(
+                "Dual Dasha Confluence: Both Mahadasha & Antardasha hold jurisdictional mandate"
+            )
+        elif not has_primary_md and not has_primary_ad:
+            raw_confluence = min(raw_confluence * 0.55, 38.0)
+            confluence_factors.append(
+                "Primary House Void: Neither Dasha lord rules, occupies, or aspects primary event houses"
+            )
 
     if "error" in dasha_active:
-        raw_confluence = 5.0
+        raw_confluence = 0.0 if study_mode else 5.0
         confluence_factors.append("Dasha timeline out of astronomical range")
 
-    vcs = round(max(min(raw_confluence, 98.0), 15.0), 1)
+    if study_mode:
+        # Hard cap only; no floor-15 / ceil-98 variance compression
+        vcs = round(min(raw_confluence, 100.0), 1)
+    else:
+        vcs = round(max(min(raw_confluence, 98.0), 15.0), 1)
 
     if not is_historical_benchmark:
         sanitized_factors = []
@@ -741,6 +776,7 @@ def evaluate_event_confluence(
     return {
         "event": event_name,
         "domain": domain,
+        "vcs_profile": vcs_profile,
         "confluence_score": vcs,
         "shastra_citation": cfg["shastra"],
         "confluence_mechanics": confluence_factors,
@@ -748,5 +784,7 @@ def evaluate_event_confluence(
             "mahadasha_score": round(md_score, 1),
             "antardasha_score": round(ad_score, 1),
             "transit_score": round(transit_score, 1),
+            "transit_cap": transit_cap,
+            "component_weight_sum": 40.0 + 40.0 + transit_cap,
         },
     }

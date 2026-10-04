@@ -1,8 +1,14 @@
 """
 karmic-ledger: Vimshottari Dasha Engine
 Computes 120-year planetary dasha cycles and granular sub-periods down to exact calendar days.
+
+Year length is fixed at 365.25 days (study KL-N30-001 / engine freeze). Civil 365/366
+day-of-year scaling is intentionally not used.
 """
 
+from __future__ import annotations
+
+import math
 from datetime import datetime, timedelta
 from typing import Any
 
@@ -22,26 +28,78 @@ DASHA_ORDER: list[tuple[str, float]] = [
 TOTAL_DASHA_CYCLE: float = 120.0
 DASHA_MAP: dict[str, float] = dict(DASHA_ORDER)
 
+# Fixed Vimshottari year (days). Alternative 360.0 reserved for sensitivity analyses.
+DASHA_YEAR_DAYS: float = 365.25
+
+# Mean lunar motion used only for birth-time → boundary uncertainty propagation.
+MOON_DEG_PER_HOUR: float = 0.55
+NAKSHATRA_SPAN_DEG: float = 360.0 / 27.0
+AA_UNCERTAINTY_MINUTES: float = 2.0
+
+_DECIMAL_ANCHOR = datetime(1, 1, 1)
+
+
+def years_to_timedelta(years: float, year_days: float = DASHA_YEAR_DAYS) -> timedelta:
+    """Convert Vimshottari years to a timedelta using a fixed-length year."""
+    return timedelta(days=years * year_days)
+
+
+def datetime_to_fixed_year_decimal(
+    dt: datetime, year_days: float = DASHA_YEAR_DAYS
+) -> float:
+    """
+    Map a datetime onto a continuous year measure with fixed-length years.
+    Used for interval comparisons inside timelines (not civil calendar years).
+    """
+    return (dt - _DECIMAL_ANCHOR).total_seconds() / (86400.0 * year_days)
+
 
 def decimal_year_to_date(decimal_year: float) -> str:
-    """Converts a decimal year (e.g. 2022.99) into ISO YYYY-MM-DD string."""
-    year = int(decimal_year)
-    remainder = decimal_year - year
-    start_of_year = datetime(year, 1, 1)
-    days_in_year = (
-        366 if (year % 4 == 0 and (year % 100 != 0 or year % 400 == 0)) else 365
-    )
-    target_date = start_of_year + timedelta(days=remainder * days_in_year)
-    return target_date.strftime("%Y-%m-%d")
+    """
+    Backward-compatible helper: interpret decimal_year under fixed 365.25-day years
+    from the same anchor used by datetime_to_fixed_year_decimal.
+    """
+    dt = _DECIMAL_ANCHOR + years_to_timedelta(decimal_year)
+    return dt.strftime("%Y-%m-%d")
+
+
+def dasha_boundary_shift_days_per_minute(
+    nakshatra_lord: str, year_days: float = DASHA_YEAR_DAYS
+) -> float:
+    """
+    Days of Vimshottari boundary shift per minute of birth-time error for lord L:
+    Y_L * year_days * (moon_deg_per_min / nakshatra_span).
+    """
+    lord_key = nakshatra_lord.strip().title()
+    if lord_key not in DASHA_MAP:
+        raise ValueError(f"Unknown Nakshatra Lord: {nakshatra_lord}")
+    moon_deg_per_min = MOON_DEG_PER_HOUR / 60.0
+    return DASHA_MAP[lord_key] * year_days * (moon_deg_per_min / NAKSHATRA_SPAN_DEG)
+
+
+def event_window_half_width_days(
+    nakshatra_lord: str,
+    aa_uncertainty_min: float = AA_UNCERTAINTY_MINUTES,
+    year_days: float = DASHA_YEAR_DAYS,
+) -> int:
+    """
+    Per-subject event window half-width (days) for KL-N30-001.
+    Computed consequence of AA birth-time uncertainty — not a free parameter.
+    """
+    shift = dasha_boundary_shift_days_per_minute(nakshatra_lord, year_days=year_days)
+    return max(1, int(math.ceil(aa_uncertainty_min * shift)))
 
 
 def compute_vimshottari_timeline(
-    birth_dt: datetime, moon_nakshatra_lord: str, fraction_elapsed: float
+    birth_dt: datetime,
+    moon_nakshatra_lord: str,
+    fraction_elapsed: float,
+    year_days: float = DASHA_YEAR_DAYS,
 ) -> list[dict[str, Any]]:
     """
-    Computes complete lifetime Vimshottari Mahadasha and Antardasha timeline.
+    Computes complete lifetime Vimshottari Mahadasha and Antardasha timeline
+    using fixed-length Vimshottari years (default 365.25 days).
     """
-    # Find starting lord index
     start_idx = -1
     for i, (lord, span) in enumerate(DASHA_ORDER):
         if lord.lower() == moon_nakshatra_lord.lower():
@@ -51,79 +109,81 @@ def compute_vimshottari_timeline(
     if start_idx == -1:
         raise ValueError(f"Unknown Nakshatra Lord: {moon_nakshatra_lord}")
 
-    birth_year_decimal = birth_dt.year + (birth_dt.timetuple().tm_yday - 1) / (
-        366.0 if birth_dt.year % 4 == 0 else 365.0
-    )
-
     first_lord, first_span = DASHA_ORDER[start_idx]
     remaining_balance_years = first_span * (1.0 - fraction_elapsed)
 
     timeline: list[dict[str, Any]] = []
-    current_year_dec = birth_year_decimal
+    current_dt = birth_dt
 
     for cycle_step in range(9):
         idx = (start_idx + cycle_step) % 9
         lord, span = DASHA_ORDER[idx]
 
-        # First Mahadasha uses remaining balance
         mahadasha_duration = remaining_balance_years if cycle_step == 0 else span
-        maha_start_dec = current_year_dec
-        maha_end_dec = maha_start_dec + mahadasha_duration
+        maha_start_dt = current_dt
+        maha_end_dt = maha_start_dt + years_to_timedelta(
+            mahadasha_duration, year_days=year_days
+        )
 
-        # Compute Antardashas within this Mahadasha
         antardashas: list[dict[str, Any]] = []
-        sub_start_dec = maha_start_dec
-
-        # In the first dasha, we scale sub-periods proportionally to the remaining balance
+        sub_start_dt = maha_start_dt
         sub_ratio = (remaining_balance_years / span) if cycle_step == 0 else 1.0
 
         for sub_step in range(9):
             sub_idx = (idx + sub_step) % 9
             sub_lord, sub_base_years = DASHA_ORDER[sub_idx]
 
-            # Sub-period formula: (Mahadasha Years * Sub Lord Years / 120) * sub_ratio
             sub_duration = (span * sub_base_years / TOTAL_DASHA_CYCLE) * sub_ratio
-            sub_end_dec = sub_start_dec + sub_duration
+            sub_end_dt = sub_start_dt + years_to_timedelta(
+                sub_duration, year_days=year_days
+            )
 
             antardashas.append(
                 {
                     "mahadasha": lord,
                     "antardasha": sub_lord,
-                    "start_decimal": round(sub_start_dec, 4),
-                    "end_decimal": round(sub_end_dec, 4),
-                    "start_date": decimal_year_to_date(sub_start_dec),
-                    "end_date": decimal_year_to_date(sub_end_dec),
+                    # Full precision — rounding here drops the birth instant outside [start, end].
+                    "start_decimal": datetime_to_fixed_year_decimal(
+                        sub_start_dt, year_days
+                    ),
+                    "end_decimal": datetime_to_fixed_year_decimal(
+                        sub_end_dt, year_days
+                    ),
+                    "start_date": sub_start_dt.strftime("%Y-%m-%d"),
+                    "end_date": sub_end_dt.strftime("%Y-%m-%d"),
                     "duration_years": round(sub_duration, 3),
                 }
             )
-            sub_start_dec = sub_end_dec
+            sub_start_dt = sub_end_dt
 
         timeline.append(
             {
                 "mahadasha": lord,
-                "start_decimal": round(maha_start_dec, 4),
-                "end_decimal": round(maha_end_dec, 4),
-                "start_date": decimal_year_to_date(maha_start_dec),
-                "end_date": decimal_year_to_date(maha_end_dec),
+                "start_decimal": datetime_to_fixed_year_decimal(
+                    maha_start_dt, year_days
+                ),
+                "end_decimal": datetime_to_fixed_year_decimal(maha_end_dt, year_days),
+                "start_date": maha_start_dt.strftime("%Y-%m-%d"),
+                "end_date": maha_end_dt.strftime("%Y-%m-%d"),
                 "duration_years": round(mahadasha_duration, 3),
                 "antardashas": antardashas,
             }
         )
 
-        current_year_dec = maha_end_dec
+        current_dt = maha_end_dt
 
     return timeline
 
 
 def get_active_dasha_at_date(
-    timeline: list[dict[str, Any]], target_dt: datetime
+    timeline: list[dict[str, Any]],
+    target_dt: datetime,
+    year_days: float = DASHA_YEAR_DAYS,
 ) -> dict[str, Any]:
     """
     Returns the exact Mahadasha and Antardasha active at a given target date.
     """
-    target_dec = target_dt.year + (target_dt.timetuple().tm_yday - 1) / (
-        366.0 if target_dt.year % 4 == 0 else 365.0
-    )
+    target_dec = datetime_to_fixed_year_decimal(target_dt, year_days=year_days)
 
     for maha in timeline:
         if maha["start_decimal"] <= target_dec <= maha["end_decimal"]:
@@ -131,7 +191,7 @@ def get_active_dasha_at_date(
                 if antar["start_decimal"] <= target_dec <= antar["end_decimal"]:
                     return {
                         "target_date": target_dt.strftime("%Y-%m-%d"),
-                        "target_decimal": round(target_dec, 4),
+                        "target_decimal": target_dec,
                         "mahadasha": maha["mahadasha"],
                         "antardasha": antar["antardasha"],
                         "period_start": antar["start_date"],

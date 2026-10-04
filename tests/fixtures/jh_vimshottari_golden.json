@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "populated": false,
+  "instructions": "Export 4–5 charts from Jagannatha Hora yourself (Lahiri, true node, 365.25-day year). Do NOT fill expected dates from karmic-ledger output. Set populated=true only after hand entry.",
+  "settings": {
+    "ayanamsha": "Lahiri",
+    "node": "true",
+    "dasha_year_days": 365.25,
+    "house_system": "whole_sign"
+  },
+  "charts": []
+}

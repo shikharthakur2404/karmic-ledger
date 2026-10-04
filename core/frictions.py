@@ -347,9 +347,9 @@ def audit_live_frictions(
         )
 
     # Dynamic Upcoming Vimshottari Timeline Transitions
-    target_dec = current_dt.year + (current_dt.timetuple().tm_yday - 1) / (
-        366.0 if current_dt.year % 4 == 0 else 365.0
-    )
+    from core.dasha import datetime_to_fixed_year_decimal
+
+    target_dec = datetime_to_fixed_year_decimal(current_dt)
     upcoming_shifts = []
     for maha in timeline:
         if maha.get("end_decimal", 0) > target_dec:

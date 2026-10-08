@@ -66,7 +66,7 @@ Prior note: the published literature (e.g. Carlson, *Nature* 1985) makes a null 
 - Unit of analysis: subject (N=30). Paired excess-VCS vs random-date null.
 - Two-sided α = 0.05. Report power at \(d_z \in \{0.2, 0.3, 0.5, 0.8\}\) under the empirical null variance from section 6 (pilot on excluded tuning cohort or synthetic charts — **not** held-out AA subjects).
 - **Analytic detection floor (not an effect-size claim):** a paired test at N=30, α=0.05, 80% power detects about \(d_z \approx 0.53\). That number describes what the design can see, not what astrology should produce. Do not treat it as the registered MDE.
-- **Registered MDE:** `TODO` (output of `power_sim.py`). If only large effects are detectable, say so explicitly in the report: N=30 is underpowered for small/medium effects; a null is unsurprising.
+- **Registered MDE:** ≈ **0.55** \(d_z\) at 80% power (synthetic paired-t, `power_sim.py` seed `0x4B4C4E35`, 2000 sims; see `studies/kl_n30_001/outputs/power_sim.json`). Analytic floor ≈ 0.51. N=30 is underpowered for small/medium effects; a null is unsurprising.
 
 ## 3. Events
 
@@ -218,13 +218,16 @@ Everything else is exploratory.
 
 ## 13. Sign-Off Checklist
 
+**Code scaffolding (landed on main — still requires human JH / terms / tags):**
+`domain_map.py`, `score_heldout.py --dry-run`, `power_sim.py`, `discrimination_audit.py`, `freeze_status.py`; VCS `kl_n30_001` path; dasha `365.25`. Status: `python3 studies/kl_n30_001/freeze_status.py`.
+
 - [ ] Terms gate (section 2) ticked
-- [ ] VCS weights sum to 100; dual-bonus / void / floor-15 **off** on study path
-- [ ] Dasha year length frozen to 365.25 in code
+- [x] VCS weights sum to 100; dual-bonus / void / floor-15 **off** on study path *(code)*
+- [x] Dasha year length frozen to 365.25 in code
 - [ ] Jagannatha Hora golden-master populated (≥4 charts, hand-exported, ≤1 day tolerance)
 - [ ] `KL_N30_FREEZE_RUN=1 pytest tests/test_dasha.py` green (empty fixture must **fail**, not skip)
-- [ ] Discrimination audit passed (SD ≥ 5.0; hash recorded; tuning/synthetic only)
-- [ ] Power simulation recorded; MDE registered as a finding
+- [ ] Discrimination audit passed (SD ≥ 5.0; hash recorded; tuning/synthetic only) — run `python3 studies/kl_n30_001/discrimination_audit.py`
+- [x] Power simulation recorded; MDE registered as a finding *(≈0.55 d_z; see §2 + outputs/power_sim.json)*
 - [ ] All `TODO` cleared (except those that require post-score hashes)
 - [ ] Event file extracted blind and hashed
 - [ ] Engine freeze tag created, registry output pasted

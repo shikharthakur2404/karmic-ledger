@@ -29,3 +29,7 @@ reports/
 *.log
 scratch/
 tmp/
+
+# Built corpus artifacts (rebuild: python3 scripts/build_corpus.py)
+corpus/db/*.sqlite
+corpus/db/*.npz

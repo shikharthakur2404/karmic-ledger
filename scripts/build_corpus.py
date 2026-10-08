@@ -227,6 +227,15 @@ def main() -> None:
     finally:
         conn.close()
 
+    # Lane B: offline TF–IDF vector index (hybrid retrieval)
+    from core.vector_index import build_vector_index
+
+    stats = build_vector_index(DB_PATH)
+    print(
+        f"vector index: {stats['path']} "
+        f"({stats['n_docs']} docs × {stats['dim']} dims, {stats['bytes']} bytes)"
+    )
+
 
 if __name__ == "__main__":
     main()

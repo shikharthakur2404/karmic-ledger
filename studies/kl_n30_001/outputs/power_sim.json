@@ -1,0 +1,16 @@
+{
+  "study_id": "KL-N30-001",
+  "n": 30,
+  "alpha": 0.05,
+  "n_sims": 2000,
+  "seed": 1263291957,
+  "power_at_dz": {
+    "0.2": 0.1885,
+    "0.3": 0.353,
+    "0.5": 0.7595,
+    "0.8": 0.987
+  },
+  "registered_mde_dz_approx": 0.5499999999999999,
+  "analytic_detection_floor_dz": 0.511,
+  "note": "MDE is a design finding, not an astrology effect-size claim. Synthetic paired-t simulation only \u2014 never run on held-out AA."
+}

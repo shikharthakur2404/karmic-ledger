@@ -22,7 +22,7 @@ from core.geocoding import geocode_location
 from core.intimacy import evaluate_intimacy_telemetry
 from core.mantras import DOMAIN_MANTRAS, recommend_remedies_for_chart
 from core.primer import explain_planet_placement
-from core.rag import generate_shastra_rag_card
+from core.rag import generate_shastra_rag_card, shastra_query_from_chart
 from core.registry import get_system_manifest
 from core.samskara import generate_samskara_report
 from core.shastra import search_shastra
@@ -537,6 +537,28 @@ def run_chart_pipeline(data: ChartRequest) -> dict[str, Any]:
         birth_time_unknown=birth_time_unknown,
     )
 
+    # 9c. Grounded śāstra card tied to this chart (offline hybrid retrieve)
+    shastra_query = shastra_query_from_chart(
+        natal,
+        active_dasha=current_dasha,
+        soul_telemetry=soul_telemetry,
+        intimacy_telemetry=intimacy_telemetry,
+    )
+    shastra_grounding = (
+        generate_shastra_rag_card(shastra_query, limit=5, allow_llm=False)
+        if shastra_query
+        else {
+            "query": "",
+            "hit_count": 0,
+            "hits": [],
+            "card": "No chart-derived śāstra query available.",
+            "engine_source": "offline_retrieval_card",
+            "api_key_status": "NOT_USED",
+            "grounding": "retrieval_only",
+            "retrieval_mode": "none",
+        }
+    )
+
     # 10. Live Karmic Friction & Crisis Diagnostic
     frictions = audit_live_frictions(natal, timeline, effective_dt)
 
@@ -581,7 +603,9 @@ def run_chart_pipeline(data: ChartRequest) -> dict[str, Any]:
         "lagna_sign": "Unknown" if birth_time_unknown else natal["lagna"]["sign"],
         "moon_sign": natal["planets"]["Moon"]["sign"],
         "moon_nakshatra": f"{moon_nak['name']} (Pada {moon_nak['pada']}, Lord: {moon_nak['lord']})",
+        "moon_nakshatra_lord": moon_nak["lord"],
         "current_dasha": f"{current_dasha.get('mahadasha')} - {current_dasha.get('antardasha')}",
+        "shastra_grounding": shastra_grounding,
         "current_dasha_end": current_dasha.get("period_end"),
         "current_age": round(age_years, 1),
         "vcs_badge": vcs_badge_text,

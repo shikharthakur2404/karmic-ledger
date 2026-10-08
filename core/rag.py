@@ -1,7 +1,7 @@
 """
 Retrieval-Augmented Generation for śāstra cards.
 
-Pipeline: FTS retrieve → grounded plain-language card.
+Pipeline: hybrid retrieve (FTS + TF–IDF vectors) → grounded plain-language card.
 The generator may only paraphrase retrieved rows. It never invents verses,
 citations, or Sanskrit. If retrieval is empty, the card says so explicitly.
 """
@@ -10,19 +10,117 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import urllib.error
 import urllib.request
 from typing import Any
 
-from core.corpus_store import search_corpus
+from core.corpus_store import search_corpus, semantic_search
+from core.vector_index import retrieval_mode
+
+
+def _rrf_merge(
+    fts_hits: list[dict[str, Any]],
+    vec_hits: list[dict[str, Any]],
+    *,
+    limit: int,
+    k: int = 60,
+) -> list[dict[str, Any]]:
+    """Reciprocal rank fusion over FTS and vector result lists."""
+    scores: dict[str, float] = {}
+    by_id: dict[str, dict[str, Any]] = {}
+    for rank, hit in enumerate(fts_hits):
+        rid = hit.get("rule_id")
+        if not rid:
+            continue
+        scores[rid] = scores.get(rid, 0.0) + 1.0 / (k + rank + 1)
+        by_id[rid] = hit
+    for rank, hit in enumerate(vec_hits):
+        rid = hit.get("rule_id")
+        if not rid:
+            continue
+        scores[rid] = scores.get(rid, 0.0) + 1.0 / (k + rank + 1)
+        by_id.setdefault(rid, hit)
+    ordered = sorted(scores.items(), key=lambda kv: -kv[1])
+    out: list[dict[str, Any]] = []
+    for rid, score in ordered[:limit]:
+        row = dict(by_id[rid])
+        row["hybrid_score"] = score
+        out.append(row)
+    return out
 
 
 def retrieve_rules(query: str, *, limit: int = 5) -> list[dict[str, Any]]:
-    """Retrieve ranked rules from the local FTS corpus."""
-    try:
-        return search_corpus(query, limit=limit)
-    except FileNotFoundError:
+    """Retrieve ranked rules (FTS, vector, or hybrid — see CORPUS_RETRIEVAL)."""
+    q = (query or "").strip()
+    if not q:
         return []
+    mode = retrieval_mode()
+    fetch_n = max(limit * 3, 12)
+    fts_hits: list[dict[str, Any]] = []
+    vec_hits: list[dict[str, Any]] = []
+    try:
+        if mode in {"fts", "hybrid"}:
+            fts_hits = search_corpus(q, limit=fetch_n)
+    except FileNotFoundError:
+        fts_hits = []
+    try:
+        if mode in {"vector", "hybrid"}:
+            vec_hits = semantic_search(q, limit=fetch_n)
+    except FileNotFoundError:
+        vec_hits = []
+
+    if mode == "fts":
+        return fts_hits[:limit]
+    if mode == "vector":
+        return vec_hits[:limit] if vec_hits else fts_hits[:limit]
+    if not vec_hits:
+        return fts_hits[:limit]
+    if not fts_hits:
+        return vec_hits[:limit]
+    return _rrf_merge(fts_hits, vec_hits, limit=limit)
+
+
+def shastra_query_from_chart(
+    natal: dict[str, Any],
+    active_dasha: dict[str, Any] | None = None,
+    soul_telemetry: dict[str, Any] | None = None,
+    intimacy_telemetry: dict[str, Any] | None = None,
+) -> str:
+    """Build a grounded FTS/hybrid query from chart context (server + UI seed)."""
+    parts: list[str] = []
+    if active_dasha:
+        for key in ("mahadasha", "antardasha"):
+            lord = str(active_dasha.get(key) or "").strip()
+            if lord and lord.lower() not in {"none", "n/a"}:
+                parts.append(lord.split()[0])
+    moon = (natal or {}).get("planets", {}).get("Moon", {})
+    moon_lord = (moon.get("nakshatra") or {}).get("lord")
+    if moon_lord:
+        parts.append(str(moon_lord))
+    if soul_telemetry:
+        ak = soul_telemetry.get("atmakaraka_planet") or soul_telemetry.get(
+            "atmakaraka"
+        )
+        if ak:
+            parts.append(str(ak))
+    if intimacy_telemetry and intimacy_telemetry.get("status") == "OK":
+        seed = intimacy_telemetry.get("rag_seed") or ""
+        for tok in re.split(r"\s+OR\s+|[,\s]+", seed, flags=re.I):
+            tok = tok.strip()
+            if tok:
+                parts.append(tok)
+    uniq: list[str] = []
+    seen: set[str] = set()
+    for p in parts:
+        key = p.lower()
+        if key in seen or len(key) < 2:
+            continue
+        seen.add(key)
+        uniq.append(p)
+        if len(uniq) >= 5:
+            break
+    return " OR ".join(uniq)
 
 
 def synthesize_offline_card(query: str, hits: list[dict[str, Any]]) -> str:
@@ -161,4 +259,5 @@ def generate_shastra_rag_card(
         "engine_source": engine,
         "api_key_status": api_status,
         "grounding": "retrieval_only",
+        "retrieval_mode": retrieval_mode(),
     }

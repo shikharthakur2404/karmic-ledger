@@ -5,6 +5,8 @@ Sarvashtakavarga (SAV) house bindus, and classical Parashari Bhava signatures.
 Treats all outputs as symbolic heuristics with input-sensitivity metrics, never physical causation.
 """
 
+from __future__ import annotations
+
 from typing import Any
 
 from core.ashtakavarga import (
@@ -304,6 +306,7 @@ def evaluate_event_confluence(
     category_hint: str = None,
     is_historical_benchmark: bool = False,
     vcs_profile: str = "production",
+    domain_override: str | None = None,
 ) -> dict[str, Any]:
     """
     Computes Heuristic Consistency Score (HCS) for a single milestone.
@@ -315,6 +318,10 @@ def evaluate_event_confluence(
         Pada-orb + SAV transit weighting).
       - "kl_n30_001": registered study path (40+40+20 hard-capped at 100; no dual
         bonus / void / floor-15; whole-sign transit hits only).
+
+    domain_override:
+      When set (required for KL-N30-001 primary scoring), skip keyword
+      classify_event_domain and use this domain key directly.
     """
     if vcs_profile not in {"production", "kl_n30_001"}:
         raise ValueError(f"Unknown vcs_profile: {vcs_profile}")
@@ -353,14 +360,18 @@ def evaluate_event_confluence(
         offsets = PLANET_ASPECT_OFFSETS.get(planet, [1, 7])
         return [((from_house + off - 2) % 12) + 1 for off in offsets]
 
-    domain = classify_event_domain(
-        event_name=event_name,
-        category_hint=category_hint,
-        is_historical_benchmark=is_historical_benchmark,
-    )
+    if domain_override:
+        domain = domain_override
+    else:
+        domain = classify_event_domain(
+            event_name=event_name,
+            category_hint=category_hint,
+            is_historical_benchmark=is_historical_benchmark,
+        )
 
     # Safety Interceptor: Enforce hard restriction even if category_hint forced a restricted domain
-    if not is_historical_benchmark:
+    # Study path with domain_override is exempt (fixed mapping from domain_map.py).
+    if not is_historical_benchmark and not domain_override:
         if domain in ["RELATIONAL_CRISIS_OR_VIVIDHA", "MARRIAGE_OR_RELATIONSHIP"]:
             domain = "RELATIONAL_COMMUNICATION_AND_BOUNDARIES"
         elif domain == "INCARCERATION_OR_BANDHANA":

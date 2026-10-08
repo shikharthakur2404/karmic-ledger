@@ -18,13 +18,17 @@ Also: engine citation rows from `core/shastra.py` (tagged `MODERN_PRACTITIONER` 
 python3 scripts/build_corpus.py
 ```
 
+Builds FTS5 (`shastra.fts.sqlite`) and the lane-B TF–IDF index (`shastra.vectors.npz`).
+
 ## Query / RAG
 
 ```bash
 python3 -c "from core.rag import generate_shastra_rag_card; print(generate_shastra_rag_card('maitreya', allow_llm=False)['card'][:400])"
 ```
 
-UI: Sector 08 on the main page · API: `POST /api/shastra/rag`
+Retrieval mode (env): `CORPUS_RETRIEVAL=hybrid` (default when vectors exist), `fts`, or `vector`.
+
+UI: Sector 08 · API: `POST /api/shastra/rag` · also embedded on `/api/analyze` as `shastra_grounding`.
 
 ## What we do not bulk-commit
 

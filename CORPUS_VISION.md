@@ -30,5 +30,8 @@ Demo profiles (Shikhar, friends, historical benchmarks) are for **calibration UI
   - **~3,900** BPHS verses (ch. ~1–97 ITX packs) + 10 engine citations.
   - Rebuild: `python3 scripts/build_corpus.py`
 - RAG: `core/rag.py` + `POST /api/shastra/rag` + **UI Sector 08** grounded search card.
+- Chart-tied grounding: `/api/analyze` returns `shastra_grounding` (offline hybrid retrieve).
+- Lane B vector index: offline TF–IDF (`core/vector_index.py` → `corpus/db/shastra.vectors.npz`); hybrid RRF with FTS (`CORPUS_RETRIEVAL=fts|hybrid|vector`).
 - Ephemeris LRU cache (lane D) on `compute_natal_chart`.
-- Next: vector semantic index (lane B), Jaimini pack, friendlier global UI copy.
+- Plain-language UI pass on Sector titles / notices (templates/index.html).
+- Next: Jaimini pack; optional neural embeddings if TF–IDF recall plateaus.

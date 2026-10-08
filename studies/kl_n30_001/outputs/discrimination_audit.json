@@ -1,0 +1,16 @@
+{
+  "study_id": "KL-N30-001",
+  "chart": "gandhi_tuning_excluded",
+  "n_dates": 80,
+  "seed": 1263291958,
+  "mean": 43.2625,
+  "sd": 18.159451108361235,
+  "iqr": 28.0,
+  "max_5pt_bin_mass": 0.15,
+  "abort_freeze": false,
+  "threshold": {
+    "min_sd": 5.0,
+    "max_bin_mass": 0.8
+  },
+  "sha256": "1ca08845bc69a9c1af0c119c3e6bd26b092c4b49c27fcaad4d8dc9f519d79f21"
+}

@@ -3,7 +3,11 @@ karmic-ledger: Core Ephemeris Engine
 High-precision astronomical compute layer using Swiss Ephemeris (Lahiri Sidereal).
 """
 
+from __future__ import annotations
+
+from copy import deepcopy
 from datetime import datetime
+from functools import lru_cache
 from typing import Any
 
 import swisseph as swe
@@ -170,6 +174,49 @@ def evaluate_dignity(planet: str, sign: str, deg_in_sign: float) -> str:
     return "Neutral"
 
 
+def _cache_key(
+    year: int,
+    month: int,
+    day: int,
+    hour: int,
+    minute: int,
+    second: int,
+    lat: float,
+    lon: float,
+    tz_offset_hours: float,
+) -> tuple:
+    """Quantize floats so nearby coordinate noise shares a cache entry."""
+    return (
+        year,
+        month,
+        day,
+        hour,
+        minute,
+        second,
+        round(float(lat), 5),
+        round(float(lon), 5),
+        round(float(tz_offset_hours), 4),
+    )
+
+
+@lru_cache(maxsize=2048)
+def _compute_natal_chart_cached(key: tuple) -> dict[str, Any]:
+    (
+        year,
+        month,
+        day,
+        hour,
+        minute,
+        second,
+        lat,
+        lon,
+        tz_offset_hours,
+    ) = key
+    return _compute_natal_chart_uncached(
+        year, month, day, hour, minute, second, lat, lon, tz_offset_hours
+    )
+
+
 def compute_natal_chart(
     year: int,
     month: int,
@@ -183,7 +230,31 @@ def compute_natal_chart(
 ) -> dict[str, Any]:
     """
     Computes complete Vedic Natal Chart with Lahiri Sidereal Ayanamsha.
+    Results are memoized by quantized birth coordinates (lane D cache).
     """
+    key = _cache_key(
+        year, month, day, hour, minute, second, lat, lon, tz_offset_hours
+    )
+    # Deep copy so callers cannot mutate the cached object graph.
+    return deepcopy(_compute_natal_chart_cached(key))
+
+
+def clear_ephemeris_cache() -> None:
+    """Test / admin hook to drop the natal chart LRU cache."""
+    _compute_natal_chart_cached.cache_clear()
+
+
+def _compute_natal_chart_uncached(
+    year: int,
+    month: int,
+    day: int,
+    hour: int,
+    minute: int,
+    second: int,
+    lat: float,
+    lon: float,
+    tz_offset_hours: float = 5.5,
+) -> dict[str, Any]:
     swe.set_sid_mode(swe.SIDM_LAHIRI)
 
     from datetime import timedelta

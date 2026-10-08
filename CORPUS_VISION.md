@@ -26,8 +26,9 @@ Demo profiles (Shikhar, friends, historical benchmarks) are for **calibration UI
 ## Status
 
 - Bias fix for Engine 11 personal defaults: done (`core/samskara.py` v1.1.0).
-- Local FTS corpus started: `corpus/` + `core/corpus_store.py` (SQLite FTS5).
-  - 10 engine citations + **324** BPHS ch.1–10 Sanskrit verses from sanskritdocuments.org ITX.
+- Local FTS corpus: `corpus/` + `core/corpus_store.py` (SQLite FTS5).
+  - **~3,900** BPHS verses (ch. ~1–97 ITX packs) + 10 engine citations.
   - Rebuild: `python3 scripts/build_corpus.py`
-- RAG slice v1: `core/rag.py` + `POST /api/shastra/rag` (FTS retrieve → grounded card; optional Gemini paraphrase, never invents verses).
-- Full remaining chapters / Jaimini / UI plain-language pass: next.
+- RAG: `core/rag.py` + `POST /api/shastra/rag` + **UI Sector 08** grounded search card.
+- Ephemeris LRU cache (lane D) on `compute_natal_chart`.
+- Next: vector semantic index (lane B), Jaimini pack, friendlier global UI copy.

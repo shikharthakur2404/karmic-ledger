@@ -2,20 +2,15 @@
 
 Runtime store is **SQLite FTS5** (`corpus/db/shastra.fts.sqlite`), not PDFs.
 
-## What we ingested so far
+## Sources (Sanskrit Documents — study / research terms)
 
-| Source | Path | Notes |
-|---|---|---|
-| Existing engine citations | `core/shastra.py` | Tagged `MODERN_PRACTITIONER` until verses are pinned to a named edition |
-| BPHS ch. 1–10 (Sanskrit, ITRANS) | `sources/bphs_01_10.itx` | From [sanskritdocuments.org](https://sanskritdocuments.org/) — **personal study / research only**; not for commercial repost without their permission |
+ITRANS packs under `sources/par*.itx` covering BPHS chapter ranges roughly **1–97**:
 
-## What we deliberately did **not** bulk-download
+`par0110`, `par1120`, `par2130`, `par3140`, `par4145`, `par4650`, `par5160`, `par6170`, `par7180`, `par8190`, `par9197`
 
-Modern English / Hindi print editions of BPHS (Ranjan, etc.) on Archive.org are often still under publisher copyright even when a scan is free to browse. We do **not** dump those into the repo. Prefer:
+From [sanskritdocuments.org](https://sanskritdocuments.org/) — **personal study / research only**; not for commercial repost without their permission.
 
-1. Volunteer Sanskrit encodings with explicit study terms  
-2. Editions you personally own / license  
-3. Rule rows you pin yourself (`edition`, `provenance`)
+Also: engine citation rows from `core/shastra.py` (tagged `MODERN_PRACTITIONER` until pinned).
 
 ## Build
 
@@ -23,8 +18,14 @@ Modern English / Hindi print editions of BPHS (Ranjan, etc.) on Archive.org are 
 python3 scripts/build_corpus.py
 ```
 
-## Query
+## Query / RAG
 
 ```bash
-python3 -c "from core.corpus_store import search_corpus; print(search_corpus('dashA', limit=5))"
+python3 -c "from core.rag import generate_shastra_rag_card; print(generate_shastra_rag_card('maitreya', allow_llm=False)['card'][:400])"
 ```
+
+UI: Sector 08 on the main page · API: `POST /api/shastra/rag`
+
+## What we do not bulk-commit
+
+Modern copyrighted English/Hindi print editions (even if scanned on Archive.org).

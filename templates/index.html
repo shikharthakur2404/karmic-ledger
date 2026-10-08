@@ -3228,11 +3228,41 @@
       </div>
     </section>
 
-    <!-- SECTOR 08: REMEDIAL DIRECTIVES -->
-    <section class="zen-sector">
+    <!-- SECTOR 08: SACRED TEXT RAG -->
+    <section class="zen-sector" id="shastraRagSection">
       <div class="zen-sector-header">
         <div class="zen-sector-title-row">
           <span class="zen-sector-num">08</span>
+          <h2 class="zen-sector-name">Sacred Text Lookup // Grounded Śāstra Card</h2>
+        </div>
+        <div class="zen-badge">RAG · FTS Corpus</div>
+      </div>
+
+      <div style="font-size: 13px; color: var(--ink-muted); margin-bottom: 16px; line-height: 1.6; padding: 12px 16px; border-left: 2px solid var(--seal-red); background: var(--zen-paper-subtle);">
+        Ask in plain words (e.g. <em>marriage</em>, <em>maitreya</em>, <em>foreign</em>). The engine retrieves pinned verses first, then writes a short card. If nothing matches, it will not invent a shloka.
+      </div>
+
+      <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; align-items: center;">
+        <input type="text" id="inputShastraQuery" class="zen-input" style="flex: 1; min-width: 220px;" placeholder="Search śāstra (e.g. marriage, dasha, maitreya)" />
+        <button type="button" class="target-btn" id="btnShastraRag" onclick="runShastraRag()" style="white-space: nowrap;">
+          Look up verse
+        </button>
+      </div>
+
+      <div class="zen-card" style="padding: 20px; border: 1px solid var(--ink-hairline); background: var(--zen-card);">
+        <div class="controller-label" style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-muted); margin-bottom: 8px;">
+          // GROUNDED CARD <span id="shastraRagMeta"></span>
+        </div>
+        <pre id="shastraRagCard" style="white-space: pre-wrap; font-family: 'Shippori Mincho', 'Noto Serif JP', serif; font-size: 14px; line-height: 1.65; color: var(--ink-charcoal); margin: 0;">Try a search above — results come from the local BPHS corpus, not invented text.</pre>
+        <div id="shastraRagHits" style="margin-top: 16px; display: flex; flex-direction: column; gap: 10px;"></div>
+      </div>
+    </section>
+
+    <!-- SECTOR 09: REMEDIAL DIRECTIVES -->
+    <section class="zen-sector">
+      <div class="zen-sector-header">
+        <div class="zen-sector-title-row">
+          <span class="zen-sector-num">09</span>
           <h2 class="zen-sector-name">Daily Self-Care & Restorative Recommendations</h2>
         </div>
         <div class="zen-badge">Mind-Body Practices</div>
@@ -3243,11 +3273,11 @@
       </div>
     </section>
 
-    <!-- SECTOR 09: SAṂSKĀRA & KARMIC TRACE DOSSIER (ENGINE 11) -->
+    <!-- SECTOR 10: SAṂSKĀRA & KARMIC TRACE DOSSIER (ENGINE 11) -->
     <section class="zen-sector" id="samskaraSection" style="display: none;">
       <div class="zen-sector-header">
         <div class="zen-sector-title-row">
-          <span class="zen-sector-num">09</span>
+          <span class="zen-sector-num">10</span>
           <h2 class="zen-sector-name">Saṃskāra & Karmic Trace Dossier // 宿業痕跡</h2>
         </div>
         <div class="zen-badge accent" id="samskaraLokaBadge">Devaloka (देवलोक)</div>
@@ -3386,6 +3416,75 @@
         if (arrow) arrow.textContent = "▾";
       }
     }
+
+    /* --------------------------------------------------------------------------
+       SACRED TEXT RAG (FTS → grounded card)
+       -------------------------------------------------------------------------- */
+    async function runShastraRag() {
+      const input = document.getElementById("inputShastraQuery");
+      const cardEl = document.getElementById("shastraRagCard");
+      const metaEl = document.getElementById("shastraRagMeta");
+      const hitsEl = document.getElementById("shastraRagHits");
+      const q = (input && input.value || "").trim();
+      if (!q) {
+        if (cardEl) cardEl.textContent = "Enter a search word first.";
+        return;
+      }
+      if (cardEl) cardEl.textContent = "Retrieving pinned verses…";
+      if (hitsEl) hitsEl.innerHTML = "";
+      if (metaEl) metaEl.textContent = "";
+      try {
+        const res = await fetch("/api/shastra/rag", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ query: q, limit: 5, allow_llm: true }),
+        });
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          throw new Error(err.detail || res.statusText);
+        }
+        const data = await res.json();
+        if (cardEl) cardEl.textContent = data.card || "(empty card)";
+        if (metaEl) {
+          metaEl.textContent = `· ${data.hit_count || 0} hit(s) · ${data.engine_source || ""}`;
+        }
+        if (hitsEl) {
+          hitsEl.innerHTML = (data.hits || []).map((h) => {
+            const sk = h.sanskrit ? `<div style="font-size:13px;margin-top:4px;">${escapeHtml(h.sanskrit)}</div>` : "";
+            const tr = h.translation
+              ? `<div style="font-size:12.5px;color:var(--ink-muted);margin-top:4px;">${escapeHtml(h.translation)}</div>`
+              : `<div style="font-size:12px;color:var(--ink-muted);margin-top:4px;">(Sanskrit only — no English pinned)</div>`;
+            return `<div style="padding:10px 12px;border:1px solid var(--ink-hairline);background:var(--zen-paper-subtle);">
+              <strong style="font-size:12.5px;">${escapeHtml(h.citation || h.rule_id || "")}</strong>
+              <span style="font-size:11px;color:var(--ink-muted);margin-left:8px;">${escapeHtml(h.provenance || "")}</span>
+              ${sk}${tr}
+            </div>`;
+          }).join("");
+        }
+      } catch (e) {
+        if (cardEl) cardEl.textContent = "Lookup failed: " + (e && e.message ? e.message : e);
+      }
+    }
+
+    function escapeHtml(s) {
+      return String(s || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const q = document.getElementById("inputShastraQuery");
+      if (q) {
+        q.addEventListener("keydown", (ev) => {
+          if (ev.key === "Enter") {
+            ev.preventDefault();
+            runShastraRag();
+          }
+        });
+      }
+    });
 
     /* --------------------------------------------------------------------------
        DATA INGESTION & CONTROLLER

@@ -26,4 +26,7 @@ Demo profiles (Shikhar, friends, historical benchmarks) are for **calibration UI
 ## Status
 
 - Bias fix for Engine 11 personal defaults: done (`core/samskara.py` v1.1.0).
-- Full śāstra ingest pipeline + UI plain-language pass: not started.
+- Local FTS corpus started: `corpus/` + `core/corpus_store.py` (SQLite FTS5).
+  - 10 engine citations + **324** BPHS ch.1–10 Sanskrit verses from sanskritdocuments.org ITX.
+  - Rebuild: `python3 scripts/build_corpus.py`
+- Full remaining chapters / Jaimini / UI plain-language pass: next.

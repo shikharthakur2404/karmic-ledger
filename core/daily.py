@@ -591,8 +591,12 @@ def compute_daily_incident_radar(
         ]
     )
 
+    now_utc = datetime.utcnow()
+    same_calendar_day = target_dt.date() == now_utc.date()
     return {
         "generated_at": target_dt.strftime("%Y-%m-%d %H:%M:%S UTC"),
+        "as_of_date": target_dt.strftime("%Y-%m-%d"),
+        "as_of_label": "today" if same_calendar_day else "other_day",
         "overall_status": overall_status,
         "overall_status_label": status_label,
         "archetype_flavor": archetype_flavor,
@@ -605,4 +609,5 @@ def compute_daily_incident_radar(
         # Consolidated Synthesis
         "tactical_advice": all_advice,
         "ephemeris_timestamp": target_dt.isoformat(),
+        "freshness_hint": "latest",
     }

@@ -2902,14 +2902,23 @@
       <div style="margin-top: 14px; font-size: 12px; color: var(--ink-muted);" id="dispIntimacyEpistemic"></div>
     </section>
 
-    <!-- SECTOR 02B: DAILY TACTICAL INCIDENT & SOMATIC RADAR -->
+    <!-- SECTOR 02B: DAILY MOOD & STRESS RADAR -->
     <section class="zen-sector" id="dailyRadarSection" style="display: none;">
       <div class="zen-sector-header">
         <div class="zen-sector-title-row">
           <span class="zen-sector-num">02b</span>
           <h2 class="zen-sector-name">Today's mood & stress radar</h2>
         </div>
-        <div class="zen-badge" id="dailyRadarStatusBadge">Scanning...</div>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
+          <span class="zen-badge" id="dailyRadarFreshTag">Latest</span>
+          <span class="zen-badge" id="dailyRadarStatusBadge">Scanning...</span>
+        </div>
+      </div>
+
+      <div id="dailyRadarAsOfRow" style="display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: baseline; margin-bottom: 12px; font-size: 12.5px; color: var(--ink-muted);">
+        <span id="dailyRadarAsOfLocal">As of —</span>
+        <span id="dailyRadarAsOfUtc" style="opacity: 0.75;"></span>
+        <span id="dailyRadarDateTag" class="zen-badge" style="font-size: 10px;">Today</span>
       </div>
 
       <div style="font-size: 12.5px; color: var(--ink-muted); margin-bottom: 16px; line-height: 1.55; padding: 10px 14px; border-left: 2px solid var(--ink-faint); background: var(--zen-paper-subtle);">
@@ -3611,19 +3620,115 @@
       }
     }
 
-    function renderDailyRadar(radar) {
+    function parseRadarMoment(radar) {
+      const raw = radar.ephemeris_timestamp || radar.generated_at || null;
+      if (!raw) return null;
+      // "YYYY-MM-DD HH:MM:SS UTC" or ISO
+      const iso = /UTC$/i.test(raw)
+        ? raw.replace(" ", "T").replace(/\s*UTC$/i, "Z")
+        : raw;
+      const d = new Date(iso);
+      return Number.isNaN(d.getTime()) ? null : d;
+    }
+
+    function formatRadarAsOf(dt) {
+      try {
+        const local = new Intl.DateTimeFormat(undefined, {
+          weekday: "short",
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        }).format(dt);
+        const utc = new Intl.DateTimeFormat("en-GB", {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false,
+          timeZone: "UTC",
+        }).format(dt);
+        return { local, utc: utc + " UTC" };
+      } catch (_) {
+        return { local: dt.toLocaleString(), utc: dt.toISOString() };
+      }
+    }
+
+    function radarDateTag(dt) {
+      const now = new Date();
+      const startToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      const startRadar = new Date(dt.getFullYear(), dt.getMonth(), dt.getDate());
+      const dayDiff = Math.round((startRadar - startToday) / 86400000);
+      if (dayDiff === 0) return { text: "Today", cls: "zen-badge accent" };
+      if (dayDiff === -1) return { text: "Yesterday", cls: "zen-badge" };
+      if (dayDiff === 1) return { text: "Tomorrow", cls: "zen-badge" };
+      if (dayDiff > 1) return { text: "Future date", cls: "zen-badge" };
+      return { text: "Past date", cls: "zen-badge" };
+    }
+
+    function radarFreshTag(dt, opts) {
+      const fromLive = !!(opts && opts.fromLive);
+      const ageMs = Date.now() - dt.getTime();
+      const ageMin = ageMs / 60000;
+      if (fromLive && ageMin < 2) {
+        return { text: "Live", cls: "zen-badge accent" };
+      }
+      if (ageMin < 5) {
+        return { text: "Latest", cls: "zen-badge accent" };
+      }
+      if (ageMin < 60) {
+        return { text: `Updated ${Math.round(ageMin)}m ago`, cls: "zen-badge" };
+      }
+      if (ageMin < 1440) {
+        return { text: `Updated ${Math.round(ageMin / 60)}h ago`, cls: "zen-badge" };
+      }
+      return { text: "Stale", cls: "zen-badge" };
+    }
+
+    function renderDailyRadar(radar, opts) {
       const section = document.getElementById("dailyRadarSection");
       const statusBadge = document.getElementById("dailyRadarStatusBadge");
       if (!section || !radar) return;
 
       section.style.display = "block";
+      window._lastDailyRadarOpts = opts || {};
+
+      const moment = parseRadarMoment(radar);
+      const asOfLocal = document.getElementById("dailyRadarAsOfLocal");
+      const asOfUtc = document.getElementById("dailyRadarAsOfUtc");
+      const dateTagEl = document.getElementById("dailyRadarDateTag");
+      const freshEl = document.getElementById("dailyRadarFreshTag");
+      if (moment) {
+        const fmt = formatRadarAsOf(moment);
+        if (asOfLocal) asOfLocal.textContent = `As of ${fmt.local}`;
+        if (asOfUtc) asOfUtc.textContent = `· ${fmt.utc}`;
+        const dTag = radarDateTag(moment);
+        if (dateTagEl) {
+          dateTagEl.textContent = dTag.text;
+          dateTagEl.className = dTag.cls;
+        }
+        const fTag = radarFreshTag(moment, opts);
+        if (freshEl) {
+          freshEl.textContent = fTag.text;
+          freshEl.className = fTag.cls;
+        }
+      } else {
+        if (asOfLocal) asOfLocal.textContent = "As of — (time not returned)";
+        if (asOfUtc) asOfUtc.textContent = "";
+        if (freshEl) {
+          freshEl.textContent = "Latest";
+          freshEl.className = "zen-badge";
+        }
+      }
 
       const overallMap = {
         "HIGH_VAR": { text: "Several alerts today", cls: "zen-badge accent" },
         "ELEVATED": { text: "Two alerts active", cls: "zen-badge accent" },
         "SINGLE_ACTIVE": { text: "One alert active", cls: "zen-badge" },
         "CLEAR": { text: "Quiet day", cls: "zen-badge" },
-        "HISTORICAL_ARCHIVE_LOCKED": { text: "ARCHIVED", cls: "zen-badge" },
+        "HISTORICAL_ARCHIVE_LOCKED": { text: "Archived", cls: "zen-badge" },
       };
       const ov = overallMap[radar.overall_status] || overallMap["CLEAR"];
       statusBadge.textContent = ov.text;
@@ -3738,6 +3843,19 @@
           tacText.textContent = "No elevated tactical guidance required for the current 24–48 hour window. Standard timing awareness applies.";
         }
       }
+
+      window._lastDailyRadar = radar;
+      if (!window._radarFreshTimer) {
+        window._radarFreshTimer = setInterval(() => {
+          const last = window._lastDailyRadar;
+          const moment = last && parseRadarMoment(last);
+          const freshEl = document.getElementById("dailyRadarFreshTag");
+          if (!moment || !freshEl) return;
+          const fTag = radarFreshTag(moment, window._lastDailyRadarOpts || {});
+          freshEl.textContent = fTag.text;
+          freshEl.className = fTag.cls;
+        }, 30000);
+      }
     }
 
     function initLiveTelemetry(name) {
@@ -3788,7 +3906,7 @@
         if (dispActiveDasha) dispActiveDasha.textContent = payload.current_dasha;
 
         renderStoppageConsole(payload.frictions);
-        renderDailyRadar(payload.daily_radar);
+        renderDailyRadar(payload.daily_radar, { fromLive: true });
 
         const ticker = document.getElementById("liveEphemerisTicker");
         if (ticker && payload.transits) {

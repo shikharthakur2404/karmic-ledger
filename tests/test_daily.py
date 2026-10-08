@@ -34,6 +34,9 @@ class TestDailyRadarEngine(unittest.TestCase):
         self.assertIn("mercury_sandhi", radar)
         self.assertIn("recreation_social", radar)
         self.assertIn("tactical_advice", radar)
+        self.assertIn("generated_at", radar)
+        self.assertIn("as_of_date", radar)
+        self.assertEqual(radar["freshness_hint"], "latest")
 
         # Kinetic Stamina
         somatic = radar["somatic_injury"]

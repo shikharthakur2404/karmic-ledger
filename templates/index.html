@@ -4132,10 +4132,41 @@
         remCont.innerHTML = `<div style="grid-column: 1 / -1; padding: 18px 0; color: var(--ink-muted); font-size: 13.5px;">Mind-body and focus directives are customized to your active planetary chapter.</div>`;
       }
 
-      // 09 Saṃskāra & Karmic Trace Dossier (Engine 11)
+      // 10 Saṃskāra & Karmic Trace Dossier (Engine 11)
       if (data.samskara_telemetry) {
         renderSamskaraDossier(data.samskara_telemetry);
       }
+
+      // Seed Sector 08 RAG from this chart's active chapter (not a personal biography default)
+      suggestShastraFromChart(data);
+    }
+
+    function suggestShastraFromChart(data) {
+      const input = document.getElementById("inputShastraQuery");
+      if (!input) return;
+      const parts = [];
+      const dasha = (data.current_dasha || "").replace(/[^A-Za-z\s-]/g, " ").trim();
+      if (dasha) {
+        // Prefer planet names from "Venus - Saturn" style labels
+        dasha.split(/[-–]/).forEach((p) => {
+          const t = p.trim().split(/\s+/)[0];
+          if (t && t.length > 2) parts.push(t);
+        });
+      }
+      const ak = data.soul_telemetry && (data.soul_telemetry.atmakaraka_planet || data.soul_telemetry.atmakaraka);
+      if (ak) parts.push(String(ak));
+      const moonLord = data.moon_nakshatra_lord || "";
+      if (moonLord) parts.push(String(moonLord));
+      // FTS OR query from unique tokens
+      const uniq = [...new Set(parts.map((p) => p.toLowerCase()))].slice(0, 4);
+      if (!uniq.length) return;
+      const q = uniq.join(" OR ");
+      // Only auto-fill if the user hasn't typed something custom
+      if (!input.dataset.userEdited) {
+        input.value = q;
+        runShastraRag();
+      }
+      input.oninput = () => { input.dataset.userEdited = "1"; };
     }
 
     function renderSamskaraDossier(s) {

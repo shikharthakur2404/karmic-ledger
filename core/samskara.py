@@ -397,38 +397,51 @@ def evaluate_purva_punya_houses(natal: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _normalize_feature_lists(
+    user_features: Optional[dict[str, Any]],
+) -> tuple[list[str], list[str], list[str]]:
+    if not user_features:
+        return [], [], []
+    affinities = [str(x).strip() for x in (user_features.get("affinities") or []) if str(x).strip()]
+    fears = [
+        str(x).strip()
+        for x in (user_features.get("fears_or_sensitivities") or [])
+        if str(x).strip()
+    ]
+    talents = [
+        str(x).strip()
+        for x in (user_features.get("spontaneous_talents") or [])
+        if str(x).strip()
+    ]
+    return affinities, fears, talents
+
+
 def profile_samskara_latent_impressions(
     user_features: Optional[dict[str, Any]] = None,
 ) -> dict[str, Any]:
     """
     Yoga Sūtra 3.18 Saṃskāra Profiler.
-    Ingests self-reported latent affinities (talents, fears, recurring motifs)
-    and maps them to classical Sanskrit archetypes.
+    Ingests the querent's own self-reported affinities / fears / talents.
+    Never invents a personal default profile (no operator / demo-identity fallback).
     """
-    if not user_features:
-        # Default archetype baseline for Shikhar / system architect profile
-        user_features = {
-            "affinities": [
-                "System Architecture & Engineering",
-                "Classical Metaphysics & Shastra",
-                "Germanic / European Geography (DACH)",
-                "Relational Sincerity & Clear Boundaries",
-            ],
-            "fears_or_sensitivities": [
-                "Cold Ambient Temperature",
-                "Entrapment / Loss of Autonomy",
-            ],
-            "spontaneous_talents": [
-                "Rapid Complex System Synthesis",
-                "High Psychological Endurance",
-            ],
-        }
+    affinities, fears, talents = _normalize_feature_lists(user_features)
+    awaiting = {
+        "status": "AWAITING_USER_FEATURES",
+        "declared_affinities": affinities,
+        "declared_fears_and_sensitivities": fears,
+        "declared_spontaneous_talents": talents,
+        "dominant_samskara_archetype": None,
+        "archetype_description": (
+            "Saṃskāra impression profiling needs this person's own affinities, "
+            "fears, and talents. No personal defaults are applied, so the result "
+            "cannot be biased toward any demo profile."
+        ),
+        "vector_scores": {},
+        "sutra_reference": "YS 3.18 (saṃskāra-sākṣātkaraṇāt pūrva-jāti-jñānam)",
+    }
+    if not (affinities or fears or talents):
+        return awaiting
 
-    affinities = user_features.get("affinities", [])
-    fears = user_features.get("fears_or_sensitivities", [])
-    talents = user_features.get("spontaneous_talents", [])
-
-    # Evaluate Archetype Resonance
     intellectual_score = 0.0
     strategic_score = 0.0
     ascetic_score = 0.0
@@ -457,13 +470,27 @@ def profile_samskara_latent_impressions(
     ):
         relational_score += 0.65
 
-    # Determine dominant archetype
     scores = {
         "Jnāna-Mārga (The Scholar-Architect)": intellectual_score,
         "Kṣatriya-Rakṣaka (The Sovereign Strategist)": strategic_score,
         "Tapasvī-Yogi (The Detached Contemplative)": ascetic_score,
         "Rasajña-Bandhu (The Sincere Harmonizer)": relational_score,
     }
+    peak = max(scores.values())
+    if peak <= 0.0:
+        return {
+            **awaiting,
+            "status": "NO_ARCHETYPE_KEYWORD_MATCH",
+            "declared_affinities": affinities,
+            "declared_fears_and_sensitivities": fears,
+            "declared_spontaneous_talents": talents,
+            "archetype_description": (
+                "Features were provided, but none matched the registered archetype "
+                "keyword table. No dominant archetype is assigned by default."
+            ),
+            "vector_scores": {k: round(v, 2) for k, v in scores.items()},
+        }
+
     dominant_archetype = max(scores, key=scores.get)
 
     archetype_descriptions = {
@@ -485,6 +512,7 @@ def profile_samskara_latent_impressions(
     }
 
     return {
+        "status": "PROFILED_FROM_USER_FEATURES",
         "declared_affinities": affinities,
         "declared_fears_and_sensitivities": fears,
         "declared_spontaneous_talents": talents,
@@ -500,23 +528,40 @@ def match_historical_case_benchmark(
 ) -> list[dict[str, Any]]:
     """
     Mode 3: Empirical Case Matching against UVA DOPS Research Literature.
-    Ranks benchmark case patterns by conceptual similarity without asserting literal identity.
+    Ranks benchmark case patterns by keyword overlap with the querent's features.
+    Without features, returns no matches (never a hardcoded High Fit for any case).
     """
-    # Baseline comparison against our 4 academic case archetypes
-    matches = []
+    affinities, fears, talents = _normalize_feature_lists(features)
+    if not (affinities or fears or talents):
+        return []
+
+    all_text = " ".join(affinities + fears + talents).lower()
+    # Lightweight token overlap against each case's salient_features labels
+    matches: list[dict[str, Any]] = []
     for case in UVA_DOPS_CASE_ARCHETYPES:
+        tokens = [
+            t.replace("_", " ")
+            for t in case.get("salient_features", [])
+        ]
+        hits = sum(1 for t in tokens if any(part in all_text for part in t.split()))
+        if hits <= 0:
+            similarity = "Low / No Keyword Overlap"
+        elif hits == 1:
+            similarity = "Moderate Baseline"
+        else:
+            similarity = "High Fit (Qualitative Congruence)"
         matches.append(
             {
                 "case_id": case["case_id"],
                 "archetype": case["archetype"],
                 "domain": case["domain"],
-                "conceptual_similarity": "High Fit (Qualitative Congruence)"
-                if case["case_id"] in ("UVA-ARCH-01", "UVA-ARCH-04")
-                else "Moderate Baseline",
+                "keyword_hits": hits,
+                "conceptual_similarity": similarity,
                 "literature_reference": case["literature_precedent"],
                 "epistemic_safety_note": case["epistemic_note"],
             }
         )
+    matches.sort(key=lambda m: m["keyword_hits"], reverse=True)
     return matches
 
 
@@ -528,26 +573,32 @@ def generate_samskara_report(
     Master Coordinator for Engine 11: Saṃskāra & Karmic Trace Engine.
     Combines:
     1. Deterministic Jyotiṣa Drekkāṇa (D3) Loka & Pūrva Puṇya analysis
-    2. Yoga Sūtra 3.18 Saṃskāra latent impression profiling
-    3. UVA DOPS academic literature benchmark matching
+    2. Yoga Sūtra 3.18 Saṃskāra latent impression profiling (user features only)
+    3. UVA DOPS academic literature benchmark matching (user features only)
     4. Exact Sanskrit source citations with 3-layer epistemic boundaries.
     """
     drekkana_loka = compute_drekkana_loka(natal)
     purva_punya = evaluate_purva_punya_houses(natal)
     samskara_profile = profile_samskara_latent_impressions(user_features)
     case_benchmarks = match_historical_case_benchmark(user_features)
+    features_ready = samskara_profile.get("status") == "PROFILED_FROM_USER_FEATURES"
 
     return {
         "engine_id": "11",
         "engine_name": "Saṃskāra & Karmic Trace Engine (Karma-Trace)",
-        "version": "1.0.0",
+        "version": "1.1.0",
         "status": "OPERATIONAL",
+        "features_status": samskara_profile.get("status", "AWAITING_USER_FEATURES"),
         "epistemic_status": {
             "traditional_interpretation": True,
             "empirical_confirmation": False,
             "literal_identity_claimed": False,
             "scientific_classification": "RESEARCH_PHENOMENOLOGY_ONLY",
+            "personal_defaults_forbidden": True,
             "epistemic_notice": (
+                "Path A (Drekkāṇa / Pūrva Puṇya) is chart-derived. "
+                "Paths B/C only run on the querent's own declared features — "
+                "never on a developer or demo identity. "
                 "Classical Sanskrit rules and qualitative case matching provide reflective archetypal models. "
                 "Neither software nor scripture asserts verifiable historical identity."
             ),
@@ -560,6 +611,7 @@ def generate_samskara_report(
         "path_c_research_benchmark": {
             "benchmark_corpus": "University of Virginia Division of Perceptual Studies (UVA DOPS)",
             "case_matches": case_benchmarks,
+            "status": "MATCHED" if features_ready else "AWAITING_USER_FEATURES",
         },
         "shastric_citations": SAMSKARA_SHASTRA_CITATIONS,
     }

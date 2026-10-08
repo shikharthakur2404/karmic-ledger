@@ -113,12 +113,12 @@ ENGINE_REGISTRY: dict[str, dict[str, Any]] = {
     "engine_11_samskara": {
         "engine_id": "11",
         "name": "Saṃskāra & Karmic Trace Engine (Karma-Trace)",
-        "version": "1.0.0",
+        "version": "1.1.0",
         "status": "STABLE",
         "files": ["core/samskara.py"],
-        "description": "Text-grounded Sanskrit karmic continuity engine based on Yoga Sūtra 3.18, BPHS Pūrva Janma Loka (D3/D60), and UVA DOPS academic case comparison.",
-        "before_state": "System had only continuous soul antiquity scores without scriptural verse provenance, Pūrva Janma Loka decanate classification, or Saṃskāra behavioral feature extraction.",
-        "after_state": "Auditable 3-layer epistemic karmic trace engine combining deterministic Jyotiṣa (D3 Drekkāṇa Loka, D60, 9th/5th Pūrva Puṇya), Yoga Sūtra 3.18 latent impression profiling, and verifiable scriptural citations.",
+        "description": "Chart-derived Drekkāṇa/Pūrva Puṇya plus optional querent-feature Saṃskāra profiling (no personal defaults).",
+        "before_state": "Missing user features silently fell back to a developer identity (system-architect / DACH affinities) and hardcoded High Fit case matches.",
+        "after_state": "Paths B/C require the querent's own features; otherwise AWAITING_USER_FEATURES. Path A stays chart-only. Personal defaults forbidden.",
     },
 }
 

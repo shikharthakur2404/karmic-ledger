@@ -62,6 +62,7 @@ class TestSamskaraEngine(unittest.TestCase):
         }
         profile = profile_samskara_latent_impressions(features)
 
+        self.assertEqual(profile["status"], "PROFILED_FROM_USER_FEATURES")
         self.assertIn("dominant_samskara_archetype", profile)
         self.assertIn("vector_scores", profile)
         self.assertIn("YS 3.18", profile["sutra_reference"])
@@ -70,8 +71,28 @@ class TestSamskaraEngine(unittest.TestCase):
             "Jnāna-Mārga (The Scholar-Architect)",
         )
 
+    def test_no_personal_default_without_features(self):
+        empty = profile_samskara_latent_impressions(None)
+        self.assertEqual(empty["status"], "AWAITING_USER_FEATURES")
+        self.assertIsNone(empty["dominant_samskara_archetype"])
+        self.assertEqual(empty["vector_scores"], {})
+
+        report = generate_samskara_report(self.natal, user_features=None)
+        self.assertEqual(report["features_status"], "AWAITING_USER_FEATURES")
+        self.assertTrue(report["epistemic_status"]["personal_defaults_forbidden"])
+        self.assertEqual(report["path_c_research_benchmark"]["case_matches"], [])
+        # Must not collapse to the old Scholar-Architect / High-Fit defaults
+        self.assertIsNone(report["path_b_samskara"]["dominant_samskara_archetype"])
+
     def test_epistemic_safety_boundaries(self):
-        report = generate_samskara_report(self.natal)
+        report = generate_samskara_report(
+            self.natal,
+            user_features={
+                "affinities": ["Classical Metaphysics"],
+                "fears_or_sensitivities": [],
+                "spontaneous_talents": [],
+            },
+        )
         epistemic = report["epistemic_status"]
 
         self.assertTrue(epistemic["traditional_interpretation"])

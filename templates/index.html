@@ -2861,6 +2861,47 @@
       </div>
     </section>
 
+    <!-- SECTOR 02A: INTIMACY & DESIRE -->
+    <section class="zen-sector" id="intimacySection">
+      <div class="zen-sector-header">
+        <div class="zen-sector-title-row">
+          <span class="zen-sector-num">02a</span>
+          <h2 class="zen-sector-name">Intimacy &amp; Desire Profile</h2>
+        </div>
+        <div class="zen-badge" id="intimacyBadge">Symbolic · Consent-first</div>
+      </div>
+
+      <div style="font-size: 12.5px; color: var(--ink-muted); margin-bottom: 16px; line-height: 1.55; padding: 10px 14px; border-left: 2px solid var(--seal-red); background: var(--zen-paper-subtle);">
+        <strong>Private by design:</strong> Venus, Mars, and houses 5 / 7 / 8 describe <em>your</em> attraction and bonding style — not a partner’s body, fidelity, or fate. Consent always outranks the chart.
+      </div>
+
+      <div class="zen-metrics-grid" style="margin-bottom: 18px;">
+        <div class="zen-metric-cell">
+          <div class="zen-metric-label">Desire index (symbolic)</div>
+          <div class="zen-metric-value" id="dispDesireIndex">—</div>
+          <div class="zen-metric-subtext" id="dispDesireFeel">Load a chart to compute</div>
+        </div>
+        <div class="zen-metric-cell">
+          <div class="zen-metric-label">Venus style</div>
+          <div class="zen-metric-value" id="dispVenusStyle" style="font-size: 1.1rem;">—</div>
+          <div class="zen-metric-subtext">Attraction &amp; pleasure tone</div>
+        </div>
+        <div class="zen-metric-cell">
+          <div class="zen-metric-label">Mars style</div>
+          <div class="zen-metric-value" id="dispMarsStyle" style="font-size: 1.1rem;">—</div>
+          <div class="zen-metric-subtext">Drive &amp; pursuit tone</div>
+        </div>
+      </div>
+
+      <p id="dispIntimacySummary" style="font-size: 14.5px; line-height: 1.65; color: var(--ink-charcoal); margin-bottom: 18px;">
+        Waiting for chart data…
+      </p>
+
+      <div id="intimacyFactors" class="daily-radar-grid" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));"></div>
+
+      <div style="margin-top: 14px; font-size: 12px; color: var(--ink-muted);" id="dispIntimacyEpistemic"></div>
+    </section>
+
     <!-- SECTOR 02B: DAILY TACTICAL INCIDENT & SOMATIC RADAR -->
     <section class="zen-sector" id="dailyRadarSection" style="display: none;">
       <div class="zen-sector-header">
@@ -4132,6 +4173,11 @@
         remCont.innerHTML = `<div style="grid-column: 1 / -1; padding: 18px 0; color: var(--ink-muted); font-size: 13.5px;">Mind-body and focus directives are customized to your active planetary chapter.</div>`;
       }
 
+      // 02a Intimacy & desire
+      if (data.intimacy_telemetry) {
+        renderIntimacyProfile(data.intimacy_telemetry);
+      }
+
       // 10 Saṃskāra & Karmic Trace Dossier (Engine 11)
       if (data.samskara_telemetry) {
         renderSamskaraDossier(data.samskara_telemetry);
@@ -4139,6 +4185,40 @@
 
       // Seed Sector 08 RAG from this chart's active chapter (not a personal biography default)
       suggestShastraFromChart(data);
+    }
+
+    function renderIntimacyProfile(t) {
+      const badge = document.getElementById("intimacyBadge");
+      const idx = document.getElementById("dispDesireIndex");
+      const feel = document.getElementById("dispDesireFeel");
+      const vStyle = document.getElementById("dispVenusStyle");
+      const mStyle = document.getElementById("dispMarsStyle");
+      const summary = document.getElementById("dispIntimacySummary");
+      const factorsEl = document.getElementById("intimacyFactors");
+      const epi = document.getElementById("dispIntimacyEpistemic");
+      if (!t) return;
+
+      if (badge) badge.textContent = t.badge || "Symbolic";
+      if (idx) {
+        idx.textContent = t.desire_index != null ? `${t.desire_index} / 100` : "—";
+      }
+      if (feel) feel.textContent = t.semantic_feel || "";
+      if (vStyle) vStyle.textContent = t.venus_style || "—";
+      if (mStyle) mStyle.textContent = t.mars_style || "—";
+      if (summary) summary.textContent = t.summary || "";
+      if (epi) epi.textContent = t.epistemic_notice || "";
+
+      if (factorsEl) {
+        const factors = t.factors || [];
+        factorsEl.innerHTML = factors.map((f) => `
+          <div class="radar-vector-card clear" style="padding: 14px;">
+            <div style="font-weight: 600; font-size: 13px; margin-bottom: 4px;">${escapeHtml(f.label || "")}</div>
+            <div style="font-size: 12px; color: var(--seal-red); margin-bottom: 6px;">${escapeHtml(f.style || "")}</div>
+            <div style="font-size: 12.5px; color: var(--ink-charcoal); margin-bottom: 6px;">${escapeHtml(f.value || "")}</div>
+            <div style="font-size: 12.5px; color: var(--ink-muted); line-height: 1.5;">${escapeHtml(f.note || "")}</div>
+          </div>
+        `).join("");
+      }
     }
 
     function suggestShastraFromChart(data) {

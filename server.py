@@ -19,11 +19,12 @@ from core.dasha import compute_vimshottari_timeline, get_active_dasha_at_date
 from core.ephemeris import compute_natal_chart
 from core.frictions import audit_live_frictions
 from core.geocoding import geocode_location
+from core.intimacy import evaluate_intimacy_telemetry
 from core.mantras import DOMAIN_MANTRAS, recommend_remedies_for_chart
 from core.primer import explain_planet_placement
+from core.rag import generate_shastra_rag_card
 from core.registry import get_system_manifest
 from core.samskara import generate_samskara_report
-from core.rag import generate_shastra_rag_card
 from core.shastra import search_shastra
 from core.soul import evaluate_soul_telemetry
 from core.transits import get_planet_transit_positions
@@ -529,6 +530,13 @@ def run_chart_pipeline(data: ChartRequest) -> dict[str, Any]:
     # 9. Soul Age & Archetype Telemetry
     soul_telemetry = evaluate_soul_telemetry(natal)
 
+    # 9b. Intimacy & desire profile (Venus / Mars / H5–H7–H8)
+    intimacy_telemetry = evaluate_intimacy_telemetry(
+        natal,
+        active_dasha=current_dasha,
+        birth_time_unknown=birth_time_unknown,
+    )
+
     # 10. Live Karmic Friction & Crisis Diagnostic
     frictions = audit_live_frictions(natal, timeline, effective_dt)
 
@@ -588,6 +596,7 @@ def run_chart_pipeline(data: ChartRequest) -> dict[str, Any]:
         "raw_remedies": remedies,
         "domain_mantras": DOMAIN_MANTRAS,
         "soul_telemetry": soul_telemetry,
+        "intimacy_telemetry": intimacy_telemetry,
         "frictions": frictions,
         "daily_radar": daily_radar,
         "ayurdaya": compute_ayurdaya_telemetry(natal),

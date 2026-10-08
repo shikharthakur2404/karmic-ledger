@@ -60,6 +60,16 @@ ENGINE_REGISTRY: dict[str, dict[str, Any]] = {
         "before_state": "Zero short-term tactical telemetry. The engine only answered 120-year macro questions, leaving daily sudden disruptions unexplained.",
         "after_state": "Real-time 24-48h turbulence radar flagging Moon 8th-house mental fatigue, H6 joint strain (knees), and Mercury Sandhi communication dead-zones, with multi-profession roadmap.",
     },
+    "engine_05b_intimacy": {
+        "engine_id": "05B",
+        "name": "Intimacy & Desire Profile",
+        "version": "1.0.0",
+        "status": "ACTIVE_BETA",
+        "files": ["core/intimacy.py"],
+        "description": "Symbolic Venus/Mars and houses 5–7–8 intimacy profile with consent-first epistemic framing.",
+        "before_state": "No dedicated sex-life / intimacy sector; users only saw generic relationship milestone text.",
+        "after_state": "Plain-language desire index from Venus/Mars styles plus H5/H7/H8 factors; suppressed when birth time unknown; never claims partner specifics.",
+    },
     "engine_06_confluence": {
         "engine_id": "06",
         "name": "Confluence & Live Friction Audit Engine",

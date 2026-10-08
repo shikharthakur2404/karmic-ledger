@@ -29,4 +29,5 @@ Demo profiles (Shikhar, friends, historical benchmarks) are for **calibration UI
 - Local FTS corpus started: `corpus/` + `core/corpus_store.py` (SQLite FTS5).
   - 10 engine citations + **324** BPHS ch.1–10 Sanskrit verses from sanskritdocuments.org ITX.
   - Rebuild: `python3 scripts/build_corpus.py`
+- RAG slice v1: `core/rag.py` + `POST /api/shastra/rag` (FTS retrieve → grounded card; optional Gemini paraphrase, never invents verses).
 - Full remaining chapters / Jaimini / UI plain-language pass: next.

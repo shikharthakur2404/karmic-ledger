@@ -23,6 +23,7 @@ from core.mantras import DOMAIN_MANTRAS, recommend_remedies_for_chart
 from core.primer import explain_planet_placement
 from core.registry import get_system_manifest
 from core.samskara import generate_samskara_report
+from core.rag import generate_shastra_rag_card
 from core.shastra import search_shastra
 from core.soul import evaluate_soul_telemetry
 from core.transits import get_planet_transit_positions
@@ -877,6 +878,27 @@ def get_medini_intelligence_briefing(nation_key: str, date: Optional[str] = None
         return JSONResponse(brief)
     except Exception as e:
         raise HTTPException(status_code=404, detail=str(e))
+
+
+class ShastraRagRequest(BaseModel):
+    query: str
+    limit: int = 5
+    allow_llm: bool = True
+
+
+@app.post("/api/shastra/rag")
+def shastra_rag_card(request: ShastraRagRequest):
+    """
+    RAG slice: FTS retrieve pinned śāstra rows, then grounded plain-language card.
+    Never invents verses. LLM paraphrase is optional and citation-bound.
+    """
+    q = (request.query or "").strip()
+    if not q:
+        raise HTTPException(status_code=422, detail="query is required")
+    limit = max(1, min(int(request.limit or 5), 20))
+    return JSONResponse(
+        generate_shastra_rag_card(q, limit=limit, allow_llm=bool(request.allow_llm))
+    )
 
 
 class SamskaraAnalysisRequest(BaseModel):

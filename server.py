@@ -638,7 +638,25 @@ def get_engine_registry_manifest():
 @app.get("/", response_class=HTMLResponse)
 def serve_home(request: Request):
     return templates.TemplateResponse(
-        "index.html", {"request": request, "manifest": get_system_manifest()}
+        "index.html",
+        {
+            "request": request,
+            "manifest": get_system_manifest(),
+            "page_mode": "reader",
+        },
+    )
+
+
+@app.get("/lab", response_class=HTMLResponse)
+def serve_lab(request: Request):
+    """Sample profiles + sensitivity benchmarks — kept off the main reading page."""
+    return templates.TemplateResponse(
+        "index.html",
+        {
+            "request": request,
+            "manifest": get_system_manifest(),
+            "page_mode": "lab",
+        },
     )
 
 

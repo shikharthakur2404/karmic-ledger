@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Karmic Ledger — Birth Chart Reader</title>
+  <title>{% if page_mode == 'lab' %}Lab · Sample Profiles &amp; Benchmarks{% else %}Karmic Ledger — Birth Chart Reader{% endif %}</title>
   
   <!-- Japanese Mincho & High-Signal Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -2382,10 +2382,16 @@
       <strong>KARMIC_LEDGER:</strong>
       <span id="sysVersionBadge" style="letter-spacing: 0.08em; font-family: var(--font-mono); font-size: 11px; color: var(--ink-deep);">SYSTEM v2.0.0 · 8 SUB-ENGINES ACTIVE</span>
     </div>
+
+    <div class="status-node" style="gap: 10px;">
+      <a href="/" style="color: {% if page_mode == 'reader' %}var(--seal-red){% else %}var(--ink-muted){% endif %}; text-decoration: none; font-weight: 600; font-size: 12px; letter-spacing: 0.04em;">Your chart</a>
+      <span style="color: var(--ink-faint);">·</span>
+      <a href="/lab" style="color: {% if page_mode == 'lab' %}var(--seal-red){% else %}var(--ink-muted){% endif %}; text-decoration: none; font-weight: 600; font-size: 12px; letter-spacing: 0.04em;">Lab &amp; benchmarks</a>
+    </div>
     
     <div class="status-node">
       <span class="zen-pulse-dot" id="liveIndicatorDot"></span>
-      <span id="liveSocketStatus" style="font-weight: 600;">CONNECTING...</span>
+      <span id="liveSocketStatus" style="font-weight: 600;">{% if page_mode == 'lab' %}LAB{% else %}READY{% endif %}</span>
     </div>
 
     <div class="status-node" id="liveEphemerisTicker">
@@ -2410,11 +2416,15 @@
         </div>
 
         <div class="zen-hero-title-row">
-          <h1 class="zen-hero-title">Karmic Ledger</h1>
+          <h1 class="zen-hero-title">{% if page_mode == 'lab' %}Lab &amp; benchmarks{% else %}Karmic Ledger{% endif %}</h1>
         </div>
 
         <p class="zen-hero-subtitle">
-          A clear, transparent platform that maps astronomical planetary ephemeris into symbolic life themes—explaining timing cycles, career momentum, life expectancy, and personal archetypes in plain English without confusing jargon.
+          {% if page_mode == 'lab' %}
+          Sample profiles and scramble tests for researchers. This page is separate from a personal reading so everyday users are not mixed in with Indira Gandhi demos and sensitivity batteries.
+          {% else %}
+          A clear, transparent platform that maps planetary positions into symbolic life themes—timing cycles, career momentum, vitality, and personal archetypes in plain English.
+          {% endif %}
         </p>
       </div>
 
@@ -2575,9 +2585,14 @@
       </div>
     </section>
 
-    <!-- CONTROLLER (TARGET SELECTION) -->
+    {% if page_mode == 'lab' %}
+    <!-- LAB: SAMPLE PROFILES & ACCURACY TESTING -->
     <section class="zen-controller">
-      <div class="controller-label">Sample profiles & accuracy testing</div>
+      <div class="controller-label">Sample profiles &amp; accuracy testing</div>
+      <p style="font-size: 13px; color: var(--ink-muted); margin: 0 0 14px; line-height: 1.5;">
+        Historical and demo charts for calibration. Personal readings live on
+        <a href="/" style="color: var(--seal-red);">Your chart</a>.
+      </p>
       
       <div class="target-btn-cluster">
         <button class="target-btn active" id="btnIndira" onclick="acquireTarget('indira')">
@@ -2593,14 +2608,13 @@
           <span style="color: var(--seal-red); font-weight: 700;">04</span> Shikhar Thakur (System Architect)
         </button>
         <button class="target-btn" id="btnCustom" onclick="openIntakeModal()">
-          <span style="color: var(--seal-red); font-weight: 700;">+</span> Enter Your Birth Details (100% Private)
+          <span style="color: var(--seal-red); font-weight: 700;">+</span> Enter birth details (private)
         </button>
         <button class="action-btn" onclick="triggerAdversarialBattery()">
-          View Reference Benchmark Test
+          Run reference benchmark test
         </button>
       </div>
 
-      <!-- HIDDEN INNER CIRCLE & FRIENDS VAULT -->
       <div style="margin-top: 14px;">
         <button class="target-btn" id="btnToggleFriendsVault" onclick="toggleFriendsVault()" style="font-size: 12.5px; border-style: dashed; padding: 7px 14px;">
           <span>🔒</span> Inner Circle Vault (Friends & Calibrated Profiles) <span id="friendsVaultArrow">▾</span>
@@ -2621,6 +2635,24 @@
         <strong>Sensitivity Standard:</strong> Unlike generic horoscope apps that return identical flattering statements to everyone, this engine computes exact celestial coordinates. On our historical reference benchmark, scrambling birth data on purpose drops average timing consistency from 74.0% down to 48.3% (a +25.7% sensitivity separation; shifting birth date by +3 years drops overall score to 50.2%)—demonstrating direct mathematical sensitivity to exact birth coordinates.
       </div>
     </section>
+    {% else %}
+    <!-- READER: PERSONAL CHART ENTRY ONLY -->
+    <section class="zen-controller">
+      <div class="controller-label">Your birth chart</div>
+      <p style="font-size: 13.5px; color: var(--ink-muted); margin: 0 0 16px; line-height: 1.55; max-width: 52rem;">
+        Enter your details for a private reading. Sample profiles (Indira Gandhi, demos) and scramble benchmarks live on a separate
+        <a href="/lab" style="color: var(--seal-red); font-weight: 600;">Lab &amp; benchmarks</a> page so they do not mix with your chart.
+      </p>
+      <div class="target-btn-cluster">
+        <button class="target-btn active" id="btnCustom" onclick="openIntakeModal()">
+          <span style="color: var(--seal-red); font-weight: 700;">+</span> Enter your birth details (100% private)
+        </button>
+        <a class="target-btn" href="/lab" style="text-decoration: none; display: inline-flex; align-items: center;">
+          Lab · samples &amp; tests →
+        </a>
+      </div>
+    </section>
+    {% endif %}
 
     <!-- TOP 3 ESSENTIAL HIGHLIGHTS HERO TRIAD -->
     <section class="top-triad-section">
@@ -3011,7 +3043,8 @@
       </div>
     </section>
 
-    <!-- SECTOR 04: REFERENCE BENCHMARK CONSISTENCY BATTERY -->
+    {% if page_mode == 'lab' %}
+    <!-- SECTOR 04: REFERENCE BENCHMARK CONSISTENCY BATTERY (LAB ONLY) -->
     <section class="zen-sector" id="adversarialHub">
       <div class="zen-sector-header">
         <div class="zen-sector-title-row">
@@ -3159,6 +3192,7 @@
         </div>
       </div>
     </section>
+    {% endif %}
 
     <!-- SECTOR 05: D-1 KUNDLI -->
     <section class="zen-sector">
@@ -4478,6 +4512,7 @@
 
     async function loadAdversarialTelemetry(name) {
       const tbody = document.getElementById("advTableBody");
+      if (!tbody) return; // reader page — benchmarks live on /lab
       try {
         const res = await fetch(`/api/adversarial/${name}`);
         if (!res.ok) {
@@ -4492,6 +4527,8 @@
     }
 
     function renderAdversarialHUD(data) {
+      const gt = document.getElementById("advGtVcs");
+      if (!gt) return;
       document.getElementById("advGtVcs").textContent = data.baseline_vcs;
       document.getElementById("advCorruptedVcs").textContent = data.average_corrupted_vcs;
       document.getElementById("advDeltaMargin").textContent = `${data.discrimination_margin} (Δ)`;
@@ -4520,6 +4557,10 @@
     }
 
     function triggerAdversarialBattery() {
+      if (PAGE_MODE !== "lab") {
+        window.location.href = "/lab#adversarialHub";
+        return;
+      }
       loadAdversarialTelemetry("indira");
       const el = document.getElementById("adversarialHub");
       if (el) el.scrollIntoView({ behavior: "smooth" });
@@ -4560,9 +4601,18 @@
       }
     }
 
+    const PAGE_MODE = "{{ page_mode }}";
+
     window.addEventListener("DOMContentLoaded", () => {
       initTheme();
-      acquireTarget("indira");
+      if (PAGE_MODE === "lab") {
+        acquireTarget("indira");
+      } else {
+        const status = document.getElementById("liveSocketStatus");
+        if (status) status.textContent = "READY";
+        const subj = document.getElementById("dispSubject");
+        if (subj) subj.textContent = "Enter your birth details to begin";
+      }
     });
 
     /* --------------------------------------------------------------------------
@@ -4617,7 +4667,7 @@
         engine: "Focuses on your resilience sector (House 8) and Saturn's disciplining cycles. It shows how you instinctively handle crisis, let go of what no longer serves you, and emerge wiser and more grounded from unexpected life events.",
         formula: "Resilience Score = Inner Vitality + Emotional Endurance - Transition Stress Factors",
         validation: "Reference benchmark testing: Shifting historical birth records by 3 years collapses timing alignment from 98% to 24%, confirming the engine computes exact coordinates rather than returning generic horoscopes.",
-        targetSector: "falsifiabilitySuite"
+        targetSector: "stoppageConsole"
       },
       luck: {
         kanji: "役",
@@ -4627,7 +4677,7 @@
         engine: "Examines your 10th house (career, authority, and public reputation) along with your creative strengths (House 5) and core values. It models your natural leadership style and reveals whether you thrive in large institutions, creative entrepreneurship, or specialized craft.",
         formula: "Career Strength = Career Sector (House 10) + Life Purpose (House 9) + Natural Talents",
         validation: "Verified on historical benchmark records where executive appointments and major career appointments matched career planetary activations.",
-        targetSector: "adversarialHub"
+        targetSector: "dashaBarWrapper"
       }
     };
 

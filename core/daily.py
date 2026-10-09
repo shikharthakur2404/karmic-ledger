@@ -519,6 +519,8 @@ def _detect_mercury_flow(transits: dict[str, Any]) -> dict[str, Any]:
 def compute_daily_incident_radar(
     natal: dict[str, Any],
     target_dt: Optional[datetime] = None,
+    *,
+    reference_now: Optional[datetime] = None,
 ) -> dict[str, Any]:
     """
     Computes the Full-Spectrum 24-Hour Daily Transit & Incident Radar.
@@ -531,9 +533,14 @@ def compute_daily_incident_radar(
 
     Maintains 100% backwards-compatibility with existing HUD UI contracts while
     providing realistic, empowering full-spectrum life intelligence.
+
+    reference_now: clock used for as_of_label "today" vs "other_day"
+    (defaults to target_dt, so live radars labeled today stay consistent in local TZ).
     """
     if target_dt is None:
         target_dt = datetime.utcnow()
+    if reference_now is None:
+        reference_now = target_dt
 
     swe.set_sid_mode(swe.SIDM_LAHIRI)
     transits = _get_transits(target_dt)
@@ -591,8 +598,7 @@ def compute_daily_incident_radar(
         ]
     )
 
-    now_utc = datetime.utcnow()
-    same_calendar_day = target_dt.date() == now_utc.date()
+    same_calendar_day = target_dt.date() == reference_now.date()
     return {
         "generated_at": target_dt.strftime("%Y-%m-%d %H:%M:%S UTC"),
         "as_of_date": target_dt.strftime("%Y-%m-%d"),

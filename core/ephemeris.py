@@ -43,6 +43,50 @@ NAKSHATRAS: list[tuple[str, str]] = [
     ("Revati", "Mercury"),
 ]
 
+LAGNA_BOUNDARY_DEG = 1.0  # warn if Asc within this many degrees of a sign cusp
+
+
+def lagna_boundary_warning(
+    natal: dict[str, Any],
+    *,
+    birth_time_unknown: bool = False,
+    cusp_deg: float = LAGNA_BOUNDARY_DEG,
+) -> dict[str, Any] | None:
+    """
+    Flag charts where Lagna is near a sign boundary (or birth time unknown).
+    Whole-sign houses flip when Lagna crosses 0°, so ±1° is a soft caution.
+    """
+    if birth_time_unknown:
+        return {
+            "level": "unknown_time",
+            "message": (
+                "Birth time unknown — Lagna defaulted to noon and house-based "
+                "readings (including 7th-house marriage themes) are suppressed or unreliable."
+            ),
+            "degree_in_sign": None,
+            "sign": None,
+        }
+    lagna = natal.get("lagna") or {}
+    deg = float(lagna.get("degree_in_sign", 0.0))
+    sign = lagna.get("sign")
+    near_start = deg <= cusp_deg
+    near_end = deg >= (30.0 - cusp_deg)
+    if not (near_start or near_end):
+        return None
+    edge = "start" if near_start else "end"
+    return {
+        "level": "cusp_edge",
+        "edge": edge,
+        "sign": sign,
+        "degree_in_sign": round(deg, 2),
+        "message": (
+            f"Lagna is near a sign boundary ({sign} {deg:.2f}°). "
+            "A small birth-time error can flip the rising sign and all whole-sign houses. "
+            "Confirm exact birth time before relying on house-based readings."
+        ),
+    }
+
+
 ZODIAC_SIGNS: list[str] = [
     "Aries",
     "Taurus",

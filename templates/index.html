@@ -2747,30 +2747,32 @@
         <div class="zen-badge" id="vcsBadge">Reference Benchmark: 74.0% Historical Match (N=6)</div>
       </div>
 
+      <div id="lagnaBoundaryBanner" style="display: none; font-size: 12.5px; color: var(--ink-charcoal); margin-bottom: 14px; line-height: 1.55; padding: 10px 14px; border-left: 2px solid var(--seal-red); background: var(--zen-paper-subtle);"></div>
+
       <div class="zen-metrics-grid">
         <div class="zen-metric-cell">
           <div class="zen-metric-label">Subject & Location</div>
-          <div class="zen-metric-value" id="dispSubject">Indira Gandhi (Allahabad)</div>
+          <div class="zen-metric-value" id="dispSubject">Enter birth details to begin</div>
         </div>
         <div class="zen-metric-cell">
           <div class="zen-metric-label">Rising Sign / Ascendant (Lagna)</div>
-          <div class="zen-metric-value" id="dispLagna">Cancer 27°21'</div>
+          <div class="zen-metric-value" id="dispLagna">—</div>
         </div>
         <div class="zen-metric-cell">
           <div class="zen-metric-label">Moon Star Constellation (Nakshatra)</div>
-          <div class="zen-metric-value" id="dispMoonNak">Uttara Ashadha</div>
+          <div class="zen-metric-value" id="dispMoonNak">—</div>
         </div>
         <div class="zen-metric-cell">
-          <div class="zen-metric-label" id="dispAgeLabel">Lifespan (Historical Record)</div>
-          <div class="zen-metric-value" id="dispAge">66.9 Years (1917–1984)</div>
+          <div class="zen-metric-label" id="dispAgeLabel">Current age</div>
+          <div class="zen-metric-value" id="dispAge">—</div>
         </div>
         <div class="zen-metric-cell">
-          <div class="zen-metric-label" id="dispDashaLabel">Terminal Life Chapter (At Demise, 1984)</div>
-          <div class="zen-metric-value" id="dispActiveDasha">Saturn - Rahu</div>
+          <div class="zen-metric-label" id="dispDashaLabel">Current life chapter</div>
+          <div class="zen-metric-value" id="dispActiveDasha">—</div>
         </div>
         <div class="zen-metric-cell">
-          <div class="zen-metric-label" id="dispAyurLabel">Life Expectancy Band (Fun Kundli)</div>
-          <div class="zen-metric-value" id="dispAyurValue">78 – 88+ Yrs (Pūrṇāyu)</div>
+          <div class="zen-metric-label" id="dispAyurLabel">Life expectancy band</div>
+          <div class="zen-metric-value" id="dispAyurValue">—</div>
         </div>
       </div>
     </section>
@@ -3971,6 +3973,18 @@
       document.getElementById("dispLagna").textContent = data.lagna;
       document.getElementById("dispMoonNak").textContent = `${data.moon_sign} · ${data.moon_nakshatra}`;
 
+      const lagnaBanner = document.getElementById("lagnaBoundaryBanner");
+      if (lagnaBanner) {
+        const warn = data.lagna_boundary_warning;
+        if (warn && warn.message) {
+          lagnaBanner.style.display = "block";
+          lagnaBanner.innerHTML = `<strong>Birth-time caution:</strong> ${escapeHtml(warn.message)}`;
+        } else {
+          lagnaBanner.style.display = "none";
+          lagnaBanner.textContent = "";
+        }
+      }
+
       const dispAgeLabel = document.getElementById("dispAgeLabel");
       if (dispAgeLabel) {
         dispAgeLabel.textContent = data.age_label || "Current Age";
@@ -4903,7 +4917,8 @@
         city: selectedGeo.city,
         country: selectedGeo.country,
         consent: consentEl ? consentEl.checked : false,
-        milestones: []
+        milestones: [],
+        client_utc_offset_minutes: new Date().getTimezoneOffset(),
       };
 
       const submitBtn = document.getElementById("btnSubmitIntake");

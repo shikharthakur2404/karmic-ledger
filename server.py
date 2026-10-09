@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import asyncio
 import os
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 from typing import Any, Optional
 
 from fastapi import FastAPI, HTTPException, Request, WebSocket, WebSocketDisconnect
@@ -16,7 +16,7 @@ from core.confluence import evaluate_event_confluence
 from core.consent import is_historical_benchmark_subject
 from core.daily import compute_daily_incident_radar
 from core.dasha import compute_vimshottari_timeline, get_active_dasha_at_date
-from core.ephemeris import compute_natal_chart
+from core.ephemeris import compute_natal_chart, lagna_boundary_warning
 from core.frictions import audit_live_frictions
 from core.geocoding import geocode_location
 from core.intimacy import evaluate_intimacy_telemetry
@@ -175,6 +175,8 @@ class ChartRequest(BaseModel):
     is_deceased: bool = False
     death_date: Optional[str] = None
     milestones: list[MilestoneInput] = []
+    # JS Date#getTimezoneOffset() — minutes to add to local to get UTC (e.g. CET ≈ -60)
+    client_utc_offset_minutes: Optional[int] = None
 
     @field_validator("latitude")
     @classmethod
@@ -575,13 +577,34 @@ def run_chart_pipeline(data: ChartRequest) -> dict[str, Any]:
         frictions["active_strain_indices"] = []
         frictions["threat_vectors"] = []
 
-    # 11. Daily Somatic & Micro-Incident Telemetry Radar
-    daily_radar = compute_daily_incident_radar(natal, datetime.utcnow())
+    # 11. Daily radar — prefer client local wall-clock when offset provided
+    utc_now = datetime.now(timezone.utc).replace(tzinfo=None)
+    client_off = data.client_utc_offset_minutes
+    if client_off is not None:
+        radar_dt = utc_now - timedelta(minutes=int(client_off))
+        radar_tz_mode = "client_local"
+    else:
+        radar_dt = utc_now
+        radar_tz_mode = "utc"
+    daily_radar = compute_daily_incident_radar(
+        natal, radar_dt, reference_now=radar_dt
+    )
+    daily_radar["generated_at_utc"] = utc_now.strftime("%Y-%m-%d %H:%M:%S UTC")
+    daily_radar["timezone_mode"] = radar_tz_mode
+    if radar_tz_mode == "client_local":
+        daily_radar["generated_at"] = radar_dt.strftime("%Y-%m-%d %H:%M:%S local")
+        daily_radar["ephemeris_timestamp"] = (
+            utc_now.replace(tzinfo=timezone.utc).isoformat()
+        )
 
     if is_deceased:
         daily_radar["overall_status"] = "HISTORICAL_ARCHIVE_LOCKED"
         daily_radar["overall_status_label"] = "Historical Subject — Radar Archived"
         daily_radar["active_vector_count"] = 0
+
+    lagna_warn = lagna_boundary_warning(
+        natal, birth_time_unknown=birth_time_unknown
+    )
 
     remedies_list = (
         remedies.get("items", remedies) if isinstance(remedies, dict) else remedies
@@ -595,7 +618,8 @@ def run_chart_pipeline(data: ChartRequest) -> dict[str, Any]:
         "dasha_label": dasha_label,
         "birth_time_confidence": "unknown_defaulted"
         if birth_time_unknown
-        else "confirmed",
+        else ("cusp_caution" if lagna_warn else "confirmed"),
+        "lagna_boundary_warning": lagna_warn,
         "city": f"{data.city}, {data.country}",
         "lagna": "Unknown (Requires exact birth time)"
         if birth_time_unknown
@@ -722,9 +746,22 @@ def rectify_birth_time(data: RectificationRequest):
         raise HTTPException(status_code=500, detail=str(e))
 
 
+def _resolve_demo_profile(name: str) -> dict[str, Any]:
+    key = (name or "").strip().lower()
+    if key not in DEMO_PROFILES:
+        raise HTTPException(
+            status_code=404,
+            detail=(
+                f"Demo profile '{name}' not found. "
+                f"Available: {sorted(DEMO_PROFILES.keys())}"
+            ),
+        )
+    return DEMO_PROFILES[key]
+
+
 @app.get("/api/demo/{name}")
 def get_demo_profile(name: str):
-    profile_data = DEMO_PROFILES.get(name.lower(), DEMO_PROFILES["indira"])
+    profile_data = _resolve_demo_profile(name)
     req = ChartRequest(**profile_data)
     return run_chart_pipeline(req)
 
@@ -733,7 +770,19 @@ def get_demo_profile(name: str):
 async def websocket_telemetry(websocket: WebSocket, name: str):
     await websocket.accept()
 
-    profile_data = DEMO_PROFILES.get(name.lower(), DEMO_PROFILES["indira"])
+    key = (name or "").strip().lower()
+    if key not in DEMO_PROFILES:
+        await websocket.send_json(
+            {
+                "error": "unknown_profile",
+                "detail": f"Demo profile '{name}' not found",
+                "available": sorted(DEMO_PROFILES.keys()),
+            }
+        )
+        await websocket.close(code=1008)
+        return
+
+    profile_data = DEMO_PROFILES[key]
     req = ChartRequest(**profile_data)
 
     date_parts = [int(p) for p in req.date.split("-")]

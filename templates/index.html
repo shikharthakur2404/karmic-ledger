@@ -2484,6 +2484,57 @@
       </div>
     </section>
 
+    <!-- HOW THIS WORKS — TRUST & METHOD -->
+    <section class="zen-sector" id="howItWorksSection">
+      <div class="zen-sector-header">
+        <div class="zen-sector-title-row">
+          <span class="zen-sector-num">00</span>
+          <h2 class="zen-sector-name">How this works — and why it is transparent</h2>
+        </div>
+        <div class="zen-badge">Method · Not mystique</div>
+      </div>
+
+      <p style="font-size: 14.5px; line-height: 1.65; color: var(--ink-charcoal); max-width: 46rem; margin-bottom: 18px;">
+        Karmic Ledger is software: it computes your chart from astronomy, classical timing rules, and pinned text sources.
+        It is built to be <strong>checkable</strong> — not to replace every wise human reader, and not to sell fear.
+      </p>
+
+      <div class="zen-metrics-grid" style="margin-bottom: 18px;">
+        <div class="zen-metric-cell">
+          <div class="zen-metric-label">1 · Exact sky math</div>
+          <div class="zen-metric-subtext" style="font-size: 13.5px; line-height: 1.55; color: var(--ink-charcoal);">
+            Swiss Ephemeris + Lahiri sidereal positions. Same birth data → same planets. No “feeling” the Ascendant.
+          </div>
+        </div>
+        <div class="zen-metric-cell">
+          <div class="zen-metric-label">2 · Sourced claims</div>
+          <div class="zen-metric-subtext" style="font-size: 13.5px; line-height: 1.55; color: var(--ink-charcoal);">
+            Śāstra lookup retrieves pinned verses first. If nothing matches, it will not invent a shloka.
+          </div>
+        </div>
+        <div class="zen-metric-cell">
+          <div class="zen-metric-label">3 · Sensitivity tested</div>
+          <div class="zen-metric-subtext" style="font-size: 13.5px; line-height: 1.55; color: var(--ink-charcoal);">
+            On a historical benchmark, scrambling birth data drops timing consistency (~74% → ~48%). Generic apps often sound the same for everyone.
+          </div>
+        </div>
+        <div class="zen-metric-cell">
+          <div class="zen-metric-label">4 · Honest limits</div>
+          <div class="zen-metric-subtext" style="font-size: 13.5px; line-height: 1.55; color: var(--ink-charcoal);">
+            Symbolic timing for reflection — not medical, legal, or fate guarantees. Consent and real life outrank any chart.
+          </div>
+        </div>
+      </div>
+
+      <div style="font-size: 13.5px; line-height: 1.65; color: var(--ink-charcoal); padding: 14px 16px; border-left: 2px solid var(--ink-black); background: var(--zen-paper-subtle); max-width: 52rem;">
+        <strong>Compared with a typical pandit sitting:</strong>
+        a good human reader can bring empathy, context, and ritual care that software cannot.
+        Where this tool is stronger is <em>transparency</em>: you can see the rising sign, dasha chapter, and source citations yourself;
+        the rules do not change with mood or pressure to please; and wrong birth times are flagged (including Lagna near a sign edge).
+        Use both wisely — software for clarity, people for counsel — and never pay anyone who demands money for “removing a curse.”
+      </div>
+    </section>
+
     <!-- LIFE INQUIRY HORIZONS // CAROUSEL -->
     <section class="inquiry-carousel-section">
       <div class="carousel-header-row">
@@ -2650,6 +2701,13 @@
         <a class="target-btn" href="/lab" style="text-decoration: none; display: inline-flex; align-items: center;">
           Lab · samples &amp; tests →
         </a>
+      </div>
+      <div id="privateProfilesPanel" style="margin-top: 16px; display: none;">
+        <div class="controller-label" style="margin-bottom: 8px;">Saved on this device only</div>
+        <p style="font-size: 12.5px; color: var(--ink-muted); margin: 0 0 10px; line-height: 1.5;">
+          Charts stay in your browser storage — never uploaded to our git repo. Clearing site data deletes them.
+        </p>
+        <div class="target-btn-cluster" id="privateProfilesList"></div>
       </div>
     </section>
     {% endif %}
@@ -2936,6 +2994,35 @@
       <div style="margin-top: 14px; font-size: 12px; color: var(--ink-muted);" id="dispIntimacyEpistemic"></div>
     </section>
 
+    <!-- SECTOR 02A2: PARTNERSHIP / SHAADI TIMING -->
+    <section class="zen-sector" id="shaadiTimingSection" style="display: none;">
+      <div class="zen-sector-header">
+        <div class="zen-sector-title-row">
+          <span class="zen-sector-num">02a+</span>
+          <h2 class="zen-sector-name">Partnership timing windows</h2>
+        </div>
+        <div class="zen-badge" id="shaadiTimingBadge">Symbolic</div>
+      </div>
+
+      <div style="font-size: 12.5px; color: var(--ink-muted); margin-bottom: 14px; line-height: 1.55; padding: 10px 14px; border-left: 2px solid var(--ink-faint); background: var(--zen-paper-subtle);">
+        <strong>Not a wedding date:</strong> These are Vimshottari chapters classically linked to Venus, the 7th-house lord, and Jupiter — for reflection only.
+      </div>
+
+      <div class="zen-metrics-grid" style="margin-bottom: 16px;">
+        <div class="zen-metric-cell">
+          <div class="zen-metric-label">Current chapter</div>
+          <div class="zen-metric-value" id="dispShaadiCurrent" style="font-size: 1.15rem;">—</div>
+        </div>
+        <div class="zen-metric-cell">
+          <div class="zen-metric-label">7th-house lord</div>
+          <div class="zen-metric-value" id="dispShaadi7Lord" style="font-size: 1.15rem;">—</div>
+        </div>
+      </div>
+
+      <div id="shaadiWindowsList" class="daily-radar-grid" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));"></div>
+      <div style="margin-top: 14px; font-size: 12px; color: var(--ink-muted);" id="dispShaadiEpistemic"></div>
+    </section>
+
     <!-- SECTOR 02B: DAILY MOOD & STRESS RADAR -->
     <section class="zen-sector" id="dailyRadarSection" style="display: none;">
       <div class="zen-sector-header">
@@ -2963,7 +3050,7 @@
         <!-- Chandrāṣṭama Card -->
         <div class="radar-vector-card" id="radarChandrashtama">
           <div class="top-triad-card-top" style="margin-bottom: 4px;">
-            <div class="radar-label">Chandrāṣṭama (8th-House Disruption)</div>
+            <div class="radar-label">Emotional pressure day (Moon in 8th from Moon)</div>
             <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="color: var(--ink-muted);">
               <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
             </svg>
@@ -2989,7 +3076,7 @@
         <!-- Mercury Sandhi Card -->
         <div class="radar-vector-card" id="radarMercury">
           <div class="top-triad-card-top" style="margin-bottom: 4px;">
-            <div class="radar-label">Communication Fluidity (Mercury)</div>
+            <div class="radar-label">Communication flow (Mercury)</div>
             <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="color: var(--ink-muted);">
               <path d="M4 11a9 9 0 0 1 9 9"></path>
               <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -3004,7 +3091,7 @@
         <!-- Recreation, Nightlife & Mobility Card -->
         <div class="radar-vector-card" id="radarSocial">
           <div class="top-triad-card-top" style="margin-bottom: 4px;">
-            <div class="radar-label">Recreation, Nightlife & Mobility</div>
+            <div class="radar-label">Social energy & going out</div>
             <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="color: var(--ink-muted);">
               <circle cx="12" cy="12" r="10"></circle>
               <polygon points="10 8 16 12 10 16 10 8"></polygon>
@@ -3770,7 +3857,7 @@
       statusBadge.textContent = ov.text;
       statusBadge.className = ov.cls;
 
-      // Chandrāṣṭama
+      // Emotional pressure (Chandrāṣṭama)
       const chCard = document.getElementById("radarChandrashtama");
       const chStatus = document.getElementById("radarChandraStatus");
       const chDetail = document.getElementById("radarChandraDetail");
@@ -3779,20 +3866,20 @@
         const ch = radar.chandrashtama;
         chCard.className = ch.is_active ? "radar-vector-card active" : "radar-vector-card clear";
         chStatus.innerHTML = ch.is_active
-          ? `<span class="radar-pulse-amber"></span>CHANDRĀṢṬAMA ACTIVE`
-          : `<span class="radar-pulse-green"></span>CHANDRĀṢṬAMA CLEAR`;
+          ? `<span class="radar-pulse-amber"></span>Extra emotional pressure today`
+          : `<span class="radar-pulse-green"></span>Emotions steadier today`;
         if (chFeel) {
           chFeel.className = ch.is_active ? "radar-feel-tag danger" : "radar-feel-tag clear";
           chFeel.innerHTML = ch.is_active
-            ? `⚠️ HIGH DISRUPTION RISK · ADVERSE TIMING`
-            : `✓ ALL CLEAR · POSITIVE FLOW`;
+            ? `Go slow on big decisions`
+            : `✓ Clearer headspace`;
         }
         chDetail.textContent = ch.is_active
-          ? `${ch.alert} — Avoid signing major irreversible contracts or making impulsive decisions today.`
-          : `Transit Moon in ${ch.transit_moon_sign} (House ${ch.house_from_moon} from natal Moon). Nakshatra: ${ch.transit_moon_nakshatra}. Emotional and mental focus are clear and steady.`;
+          ? `${ch.alert || "Moon pressure pattern active"} — Pause before signing or reacting in anger.`
+          : `Transit Moon in ${ch.transit_moon_sign} (house ${ch.house_from_moon} from natal Moon), ${ch.transit_moon_nakshatra}. Mood looks workable.`;
       }
 
-      // Somatic & Kinetic Vitality
+      // Body & joint comfort
       const sCard = document.getElementById("radarSomatic");
       const sStatus = document.getElementById("radarSomaticStatus");
       const sDetail = document.getElementById("radarSomaticDetail");
@@ -3804,22 +3891,22 @@
         sCard.className = `radar-vector-card ${levelCls}`;
         const pulseCls = isSurging ? "radar-pulse-green" : (si.is_active ? "radar-pulse-amber" : "radar-pulse-green");
         sStatus.innerHTML = isSurging
-          ? `<span class="radar-pulse-green"></span>KINETIC OUTPUT: SURGING HIGH`
+          ? `<span class="radar-pulse-green"></span>High physical energy`
           : (si.is_active
-            ? `<span class="${pulseCls}"></span>KINETIC OUTPUT: ${si.stamina_level || 'STEADY'}`
-            : `<span class="radar-pulse-green"></span>KINETIC OUTPUT: STEADY`);
+            ? `<span class="${pulseCls}"></span>Body stress elevated`
+            : `<span class="radar-pulse-green"></span>Body energy steady`);
         if (sFeel) {
           sFeel.className = isSurging ? "radar-feel-tag clear" : (si.is_active ? "radar-feel-tag active" : "radar-feel-tag clear");
           sFeel.innerHTML = isSurging
-            ? `⚡ HIGH KINETIC STAMINA · TRAIL & STEP CAPACITY ACTIVE`
-            : `✓ VITALITY STEADY · POSITIVE BASELINE`;
+            ? `Good day for movement`
+            : (si.is_active ? `Be kind to joints` : `✓ Comfortable baseline`);
         }
         sDetail.textContent = si.alert || si.tactical_advice || (si.is_active
-          ? `Lagnesha ${si.lagnesha} in House ${si.lagnesha_transit_house} (${si.lagnesha_transit}). High stamina active.`
-          : `Lagnesha ${si.lagnesha} transiting House ${si.lagnesha_transit_house} (${si.lagnesha_transit}). No physical transit strains active today.`);
+          ? `Chart ruler ${si.lagnesha} in house ${si.lagnesha_transit_house} (${si.lagnesha_transit}). Ease high-impact strain.`
+          : `Chart ruler ${si.lagnesha} in house ${si.lagnesha_transit_house} (${si.lagnesha_transit}). No strong body-stress flag.`);
       }
 
-      // Recreation, Nightlife & Mobility
+      // Social energy
       const socCard = document.getElementById("radarSocial");
       const socStatus = document.getElementById("radarSocialStatus");
       const socDetail = document.getElementById("radarSocialDetail");
@@ -3829,22 +3916,22 @@
         const isSocActive = soc.is_active || soc.nightlife_active || soc.mobility_active;
         socCard.className = isSocActive ? "radar-vector-card active" : "radar-vector-card clear";
         socStatus.innerHTML = soc.nightlife_active
-          ? `<span class="radar-pulse-amber"></span>NIGHTLIFE & SOCIAL: ACTIVE PULSE`
+          ? `<span class="radar-pulse-amber"></span>Evening / social pull is stronger`
           : (soc.mobility_active
-            ? `<span class="radar-pulse-amber"></span>REGIONAL MOBILITY ACTIVE`
-            : `<span class="radar-pulse-green"></span>SOCIAL: BALANCED BASELINE`);
+            ? `<span class="radar-pulse-amber"></span>Travel / short trips favored`
+            : `<span class="radar-pulse-green"></span>Social pace is normal`);
         if (socFeel) {
           socFeel.className = isSocActive ? "radar-feel-tag caution" : "radar-feel-tag clear";
           socFeel.innerHTML = soc.nightlife_active
-            ? `✦ RAHU/VENUS NOCTURNAL STIMULATION`
+            ? `Nightlife / hangouts louder`
             : (soc.mobility_active
-              ? `✦ 3RD-HOUSE REGIONAL & TRAIL ROUTE`
-              : `✓ BALANCED SOCIAL FLOW`);
+              ? `Local mobility active`
+              : `✓ Balanced social flow`);
         }
-        socDetail.textContent = soc.tactical_advice || "Standard interpersonal flow.";
+        socDetail.textContent = soc.tactical_advice || "Ordinary social rhythm — no special push.";
       }
 
-      // Mercury Sandhi
+      // Mercury
       const mCard = document.getElementById("radarMercury");
       const mStatus = document.getElementById("radarMercuryStatus");
       const mDetail = document.getElementById("radarMercuryDetail");
@@ -3853,20 +3940,20 @@
         const ms = radar.mercury_sandhi;
         mCard.className = ms.is_active ? "radar-vector-card active" : "radar-vector-card clear";
         mStatus.innerHTML = ms.is_active
-          ? `<span class="radar-pulse-amber"></span>COMMUNICATION: SANDHI STALLED`
-          : `<span class="radar-pulse-green"></span>COMMUNICATION: FLUID`;
+          ? `<span class="radar-pulse-amber"></span>Messages may be slow or unclear`
+          : `<span class="radar-pulse-green"></span>Communication flows`;
         if (mFeel) {
           mFeel.className = ms.is_active ? "radar-feel-tag caution" : "radar-feel-tag clear";
           mFeel.innerHTML = ms.is_active
-            ? `⚠️ LATENCY BOTTLENECK · NEUTRAL FRICTION`
-            : `✓ FLUID VELOCITY · POSITIVE`;
+            ? `Double-check emails & chats`
+            : `✓ Clear messaging`;
         }
         mDetail.textContent = ms.is_active
-          ? `${ms.alert} — Expect delayed email responses, API latency, or misread messages.`
-          : `Mercury at ${ms.mercury_formatted} — Communication channels clear and transactional logistics flow smoothly.`;
+          ? `${ms.alert || "Mercury friction"} — Expect delayed replies or easy misunderstandings.`
+          : `Mercury at ${ms.mercury_formatted} — good for calls, forms, and clear writing.`;
       }
 
-      // Tactical Advice
+      // Advice
       const tacBox = document.getElementById("radarTacticalBox");
       const tacText = document.getElementById("radarTacticalText");
       if (tacBox && tacText) {
@@ -3876,7 +3963,7 @@
           tacText.innerHTML = advice.map(a => `<div style="margin-bottom: 8px;">✦ ${a}</div>`).join("");
         } else {
           tacBox.style.display = "block";
-          tacText.textContent = "No elevated tactical guidance required for the current 24–48 hour window. Standard timing awareness applies.";
+          tacText.textContent = "No special alerts for the next day or two — ordinary pacing is fine.";
         }
       }
 
@@ -4197,14 +4284,14 @@
           if (hlRadarDesc) hlRadarDesc.textContent = `Body-stress signal active (${limbs || "Joints/Knees"}). Avoid high-impact strain.`;
         } else if (r.mercury_sandhi && r.mercury_sandhi.is_active) {
           hlRadar.innerHTML = `<span style="color: #f59e0b;">⚠️ Mercury Sandhi</span>`;
-          if (hlRadarPillText) hlRadarPillText.textContent = "COMMUNICATION LATENCY · NEUTRAL";
+          if (hlRadarPillText) hlRadarPillText.textContent = "Messages may be slow";
           if (hlRadarPill) hlRadarPill.className = "status-pill caution";
-          if (hlRadarDesc) hlRadarDesc.textContent = "Communication dead-zone: Stalled email confirmations, recruiter delays, and dispatch lags.";
+          if (hlRadarDesc) hlRadarDesc.textContent = "Communication friction: expect delayed replies or easy misunderstandings.";
         } else {
-          hlRadar.innerHTML = `<span style="color: #16a34a;">✓ All Clear · Low Friction</span>`;
-          if (hlRadarPillText) hlRadarPillText.textContent = "ALL CLEAR · POSITIVE FLOW TODAY";
+          hlRadar.innerHTML = `<span style="color: #16a34a;">✓ Quiet day</span>`;
+          if (hlRadarPillText) hlRadarPillText.textContent = "Quiet day";
           if (hlRadarPill) hlRadarPill.className = "status-pill positive";
-          if (hlRadarDesc) hlRadarDesc.textContent = "No critical Moon, somatic injury, or communication dead-zones active today.";
+          if (hlRadarDesc) hlRadarDesc.textContent = "No strong mood, body-stress, or message-friction flags today.";
         }
       }
 
@@ -4343,6 +4430,9 @@
       if (data.intimacy_telemetry) {
         renderIntimacyProfile(data.intimacy_telemetry);
       }
+      if (data.shaadi_timing) {
+        renderShaadiTiming(data.shaadi_timing);
+      }
 
       // 10 Saṃskāra & Karmic Trace Dossier (Engine 11)
       if (data.samskara_telemetry) {
@@ -4351,6 +4441,105 @@
 
       // Seed Sector 08 RAG from this chart's active chapter (not a personal biography default)
       suggestShastraFromChart(data);
+    }
+
+    function renderShaadiTiming(t) {
+      const section = document.getElementById("shaadiTimingSection");
+      if (!section || !t) return;
+      section.style.display = "block";
+      const badge = document.getElementById("shaadiTimingBadge");
+      const cur = document.getElementById("dispShaadiCurrent");
+      const lord = document.getElementById("dispShaadi7Lord");
+      const list = document.getElementById("shaadiWindowsList");
+      const epi = document.getElementById("dispShaadiEpistemic");
+      if (badge) badge.textContent = t.status === "OK" ? "Symbolic windows" : (t.status || "Symbolic");
+      if (cur) cur.textContent = t.current_chapter || "—";
+      if (lord) lord.textContent = t.seventh_lord || "—";
+      if (epi) epi.textContent = t.epistemic_notice || "";
+      if (list) {
+        const windows = t.windows || [];
+        if (!windows.length) {
+          list.innerHTML = `<div class="radar-vector-card clear" style="padding:14px;font-size:13px;color:var(--ink-muted);">No upcoming Venus / 7th-lord / Jupiter windows in range (or birth time needed).</div>`;
+        } else {
+          list.innerHTML = windows.map((w) => `
+            <div class="radar-vector-card clear" style="padding:14px;">
+              <div style="font-weight:600;font-size:13px;margin-bottom:4px;">${escapeHtml(w.label || "")}</div>
+              <div style="font-size:12px;color:var(--seal-red);margin-bottom:6px;">${escapeHtml(w.strength || "")}</div>
+              <div style="font-size:12.5px;color:var(--ink-charcoal);margin-bottom:6px;">${escapeHtml(w.start || "")} → ${escapeHtml(w.end || "")}</div>
+              <div style="font-size:12px;color:var(--ink-muted);line-height:1.45;">${escapeHtml((w.reasons || []).join(" · "))}</div>
+            </div>
+          `).join("");
+        }
+      }
+    }
+
+    /* ---- Private profiles: browser localStorage only (never server/git) ---- */
+    const PRIVATE_PROFILES_KEY = "kl_private_profiles_v1";
+
+    function loadPrivateProfiles() {
+      try {
+        return JSON.parse(localStorage.getItem(PRIVATE_PROFILES_KEY) || "[]");
+      } catch (_) {
+        return [];
+      }
+    }
+
+    function savePrivateProfileRecord(rec) {
+      const list = loadPrivateProfiles().filter((p) => p.id !== rec.id);
+      list.unshift(rec);
+      localStorage.setItem(PRIVATE_PROFILES_KEY, JSON.stringify(list.slice(0, 12)));
+      renderPrivateProfilesUI();
+    }
+
+    function deletePrivateProfile(id) {
+      const list = loadPrivateProfiles().filter((p) => p.id !== id);
+      localStorage.setItem(PRIVATE_PROFILES_KEY, JSON.stringify(list));
+      renderPrivateProfilesUI();
+    }
+
+    function renderPrivateProfilesUI() {
+      const panel = document.getElementById("privateProfilesPanel");
+      const listEl = document.getElementById("privateProfilesList");
+      if (!panel || !listEl) return;
+      const list = loadPrivateProfiles();
+      if (!list.length) {
+        panel.style.display = "none";
+        listEl.innerHTML = "";
+        return;
+      }
+      panel.style.display = "block";
+      listEl.innerHTML = list.map((p) => `
+        <button type="button" class="target-btn" onclick="loadPrivateProfile('${escapeHtml(p.id)}')">
+          ${escapeHtml(p.name)} · ${escapeHtml(p.date)}
+        </button>
+        <button type="button" class="target-btn" style="border-style:dashed;opacity:0.8;" onclick="deletePrivateProfile('${escapeHtml(p.id)}')" title="Remove from this device">✕</button>
+      `).join("");
+    }
+
+    async function loadPrivateProfile(id) {
+      const rec = loadPrivateProfiles().find((p) => p.id === id);
+      if (!rec || !rec.payload) return;
+      try {
+        const res = await fetch("/api/analyze", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ...rec.payload,
+            consent: true,
+            client_utc_offset_minutes: new Date().getTimezoneOffset(),
+          }),
+        });
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          throw new Error(err.detail || "Failed to reload saved chart");
+        }
+        const data = await res.json();
+        renderObservatoryTelemetry(data);
+        const sector1 = document.getElementById("dispSubject");
+        if (sector1) sector1.scrollIntoView({ behavior: "smooth", block: "center" });
+      } catch (e) {
+        alert(e.message || String(e));
+      }
     }
 
     function renderIntimacyProfile(t) {
@@ -4626,6 +4815,7 @@
         if (status) status.textContent = "READY";
         const subj = document.getElementById("dispSubject");
         if (subj) subj.textContent = "Enter your birth details to begin";
+        renderPrivateProfilesUI();
       }
     });
 
@@ -4945,6 +5135,18 @@
         document.getElementById("btnShikhar")?.classList.remove("active");
         document.getElementById("btnCustom")?.classList.add("active");
 
+        const saveLocal = document.getElementById("inputSaveLocalProfile")?.checked;
+        if (saveLocal) {
+          const id = `${nameVal}|${dateEl.value}|${selectedGeo.lat}|${selectedGeo.lon}`.toLowerCase();
+          savePrivateProfileRecord({
+            id,
+            name: nameVal,
+            date: dateEl.value,
+            payload: { ...payload, consent: true },
+            saved_at: new Date().toISOString(),
+          });
+        }
+
         // Render Telemetry
         renderObservatoryTelemetry(data);
 
@@ -4973,8 +5175,8 @@
       <div class="modal-header-row">
         <span class="card-kanji-seal">命</span>
         <div>
-          <div class="card-domain-num">BIRTH DETAILS // 100% PRIVATE & ZERO SAVED DATA</div>
-          <h2 class="modal-title">Calculate Your Personal Astrological Blueprint</h2>
+          <div class="card-domain-num">Birth details · private by default</div>
+          <h2 class="modal-title">Calculate your personal chart</h2>
         </div>
       </div>
 
@@ -4982,9 +5184,9 @@
       <div class="privacy-banner">
         <div class="privacy-banner-title">
           <span class="hanko-seal sm">滅</span>
-          Zero Data Retention Guarantee
+          Privacy by default
         </div>
-        <strong>100% Private & Ephemeral:</strong> We store 0 bytes of your data. Your birth date and time are processed in volatile computer memory for less than 1/10th of a second and immediately wiped. No database records, no cookies, no tracking.
+        <strong>Server stores nothing:</strong> birth data is computed in memory and not written to our database or git. Optional “save on this device” uses your browser only (you can delete anytime).
       </div>
 
       <div id="intakeErrorMsg" style="display: none; color: var(--seal-red); font-size: 13px; margin-bottom: 14px; font-weight: 600;"></div>
@@ -5009,6 +5211,10 @@
           <label class="checkbox-row">
             <input type="checkbox" id="inputTimeUnknown" onchange="toggleTimeUnknown(this)" />
             Exact birth time unknown (calculates Moon sign & life chapters)
+          </label>
+          <label class="checkbox-row">
+            <input type="checkbox" id="inputSaveLocalProfile" />
+            Save on this device only (browser storage — not our servers)
           </label>
         </div>
       </div>

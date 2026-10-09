@@ -70,6 +70,16 @@ ENGINE_REGISTRY: dict[str, dict[str, Any]] = {
         "before_state": "No dedicated sex-life / intimacy sector; users only saw generic relationship milestone text.",
         "after_state": "Plain-language desire index from Venus/Mars styles plus H5/H7/H8 factors; suppressed when birth time unknown; never claims partner specifics.",
     },
+    "engine_05c_shaadi_timing": {
+        "engine_id": "05C",
+        "name": "Partnership Timing Windows",
+        "version": "1.0.0",
+        "status": "ACTIVE_BETA",
+        "files": ["core/timing_windows.py"],
+        "description": "Symbolic Vimshottari windows for Venus, 7th-lord, and Jupiter — not a fixed wedding date.",
+        "before_state": "Marriage timing only discussed ad-hoc in chat.",
+        "after_state": "shaadi_timing on /api/analyze + UI sector with ranked upcoming chapters.",
+    },
     "engine_06_confluence": {
         "engine_id": "06",
         "name": "Confluence & Live Friction Audit Engine",

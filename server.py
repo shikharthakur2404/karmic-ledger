@@ -20,6 +20,7 @@ from core.ephemeris import compute_natal_chart, lagna_boundary_warning
 from core.frictions import audit_live_frictions
 from core.geocoding import geocode_location
 from core.intimacy import evaluate_intimacy_telemetry
+from core.timing_windows import evaluate_shaadi_timing_windows
 from core.mantras import DOMAIN_MANTRAS, recommend_remedies_for_chart
 from core.primer import explain_planet_placement
 from core.rag import generate_shastra_rag_card, shastra_query_from_chart
@@ -539,6 +540,21 @@ def run_chart_pipeline(data: ChartRequest) -> dict[str, Any]:
         birth_time_unknown=birth_time_unknown,
     )
 
+    # 9b2. Partnership / shaadi symbolic timing windows
+    shaadi_timing = evaluate_shaadi_timing_windows(
+        natal, timeline, as_of=effective_dt
+    )
+    if birth_time_unknown:
+        shaadi_timing = {
+            **shaadi_timing,
+            "status": "LAGNA_SUPPRESSED",
+            "windows": [],
+            "epistemic_notice": (
+                "Partnership timing needs a reliable Lagna (exact birth time). "
+                + shaadi_timing.get("epistemic_notice", "")
+            ),
+        }
+
     # 9c. Grounded śāstra card tied to this chart (offline hybrid retrieve)
     shastra_query = shastra_query_from_chart(
         natal,
@@ -645,6 +661,7 @@ def run_chart_pipeline(data: ChartRequest) -> dict[str, Any]:
         "domain_mantras": DOMAIN_MANTRAS,
         "soul_telemetry": soul_telemetry,
         "intimacy_telemetry": intimacy_telemetry,
+        "shaadi_timing": shaadi_timing,
         "frictions": frictions,
         "daily_radar": daily_radar,
         "ayurdaya": compute_ayurdaya_telemetry(natal),

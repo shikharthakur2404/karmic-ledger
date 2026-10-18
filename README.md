@@ -43,3 +43,9 @@ karmic-ledger/
 4. **Swiss Grid Minimal Aesthetic:** Zero decorative clutter, 1px architectural gridlines, pure white background, and a single Swiss Red accent (`#eb0028`).
 5. **Zero-PII Local Architecture:** All private subject profiles remain local and quarantined from version control.
 
+
+---
+
+Copyright © 2026 Shikhar Thakur.
+
+Released under the MIT License — see [LICENSE](LICENSE).
